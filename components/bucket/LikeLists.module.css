@@ -1,0 +1,257 @@
+
+
+
+  
+  .postItem {
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+    width: 100%;
+    height: 600px;
+  }
+  .profile{
+    display: flex;
+  }
+  
+  .profileImage{
+    background: lightgray 50% / cover no-repeat;
+  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+  border-radius: 50%;
+  margin-left: 20%;
+  margin-top: 25px;
+  }
+  
+  .nickName {
+    width: 171px;
+  height: 19px;
+  flex-shrink: 0;
+  color: var(--gray-800, #737A8D);
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 13px;
+  margin-top: 40px;
+  }
+
+  .postItem h3 {
+    width: 235px;
+  height: 25px;
+  flex-shrink: 0;
+  overflow: hidden;
+  color: var(--black, #191A1C);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Pretendard Variable";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 9px;
+  margin-left: 20%;
+  }
+  
+  .postItem h1 {
+    color: var(--gray-400, #BEC0C6);
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 21%;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  padding: 0%;
+  }
+  
+  .postItem h4 {
+    color: var(--primary-primary, #496AF3);
+  font-family: "Pretendard Variable";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 0px;
+  margin-left: 21%;
+  margin-bottom: 10px;
+  }
+  
+  .productImg{
+    margin-top: 8px;
+    margin-left: 23%;
+    width: 60%;
+    height: 320px;
+  }
+  
+  .like {
+    border-radius: 10px;
+  background: var(--gray-200, #F4F5F9);
+  width: 113px;
+  height: 40px;
+  color: var(--gray-400, #BEC0C6);
+  font-family: "Pretendard Variable";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 0;
+  cursor: pointer;
+  }
+  .liked{
+    border-radius: 10px;
+    opacity: 0.7;
+    background: var(--primary-primary, #496af375);
+    width: 113px;
+    height: 40px;
+    color: var(--primary-primary, #1139d8);
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 0;
+    cursor: pointer;
+  }
+  .likeImg{
+    padding-top: 5px;
+  }
+
+
+  .buttons{
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  
+
+  @media screen and (max-width: 786px){
+
+    
+
+    .parent {
+      position: relative;
+      height: 100vh; /* 화면 전체 높이 */
+    }
+    
+    .postItem {
+      border-radius: 10px;
+      background: #FFF;
+      box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+      width: 90%;
+      height: 650px;
+      margin-left: 5%;
+    }
+    
+    .profile{
+      display: flex;
+    }
+    
+    .profileImage{
+      background: lightgray 50% / cover no-repeat;
+    box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 50%;
+    margin-left: 15%;
+    margin-top: 21px;
+    }
+    
+    .nickName {
+      width: 171px;
+    height: 19px;
+    flex-shrink: 0;
+    color: var(--gray-800, #737A8D);
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 20px;
+    margin-top: 33px;
+    }
+    
+    .postItem h3 {
+      width: 235px;
+    height: 22px;
+    flex-shrink: 0;
+    overflow: hidden;
+    color: var(--black, #191A1C);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 10px;
+    margin-left: 25%;
+    margin-bottom: 10px;
+    }
+    
+    .postItem h1 {
+      color: var(--gray-400, #BEC0C6);
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 30%;
+    margin-top: 1%;
+    margin-bottom: 0px;
+    padding: 0%;
+    }
+    
+    .postItem h4 {
+      color: var(--primary-primary, #496AF3);
+    font-family: "Pretendard Variable";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 0px;
+    margin-left: 30%;
+    margin-bottom: 0px;
+    }
+    
+    .productImg{
+      margin-left: 20%;
+      width: 60%;
+    }
+    
+    .like {
+      border-radius: 10px;
+      opacity: 0.8;
+      background: var(--primary-primary, #496AF3);
+    width: 113px;
+    height: 40px;
+    color: var(--gray-400, #BEC0C6);
+    font-family: "Pretendard Variable";
+    font-size: 100%;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 0;
+    margin-left: 0;
+    margin-top: 5px;
+    cursor: pointer;
+    }
+    
+    .buy {
+      width: 113px;
+    height: 40px;
+    flex-shrink: 0;
+    background: #496AF3;
+    border-radius: 10px;
+    border: 0;
+    color: #FFFFFF;
+    font-family: "Pretendard Variable";
+    font-size: 100%;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 9px;
+    margin-top: 5px;
+    cursor: pointer;
+    }
+    
+  }

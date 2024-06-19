@@ -1,0 +1,33 @@
+.section2{
+    margin-top: 100px;
+    margin-left: 249px;
+    width: 80%;
+    margin-bottom: 5%;
+    height: 1800px;
+  }
+  
+  .postsGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    height: auto;
+    margin-left: 10%;
+  }
+  
+  @media screen and (max-width: 786px){
+
+    .section2{
+      margin-top: 0;
+      margin-left: 5%;
+      width: 95%;
+      height: 100%;
+    }
+
+    .postsGrid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 50px;
+        width: 95%;
+        margin-left: 0;
+      }
+}

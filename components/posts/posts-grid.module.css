@@ -1,0 +1,19 @@
+.postsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    height: auto;
+    margin-left: 10%;
+  }
+
+  @media screen and (max-width: 786px){
+
+    .postsGrid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: 50px;
+      width: 95%;
+      margin-left: 0;
+    }
+  
+  }
