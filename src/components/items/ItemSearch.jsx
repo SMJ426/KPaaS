@@ -25,7 +25,7 @@ const FindEventSection = ({ accessToken }) => {
         } else if (searchType === 'member') {
           endpoint = 'http://localhost:8888/member/search/word';
         }
-       // const response = await fetch('http://darakbang-apigateway-service-1:8888/product/search/word', {  
+       // const response = await fetch('http://KPaas-apigateway-service-1:8888/product/search/word', {  
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {

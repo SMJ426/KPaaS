@@ -17,16 +17,16 @@ const nextConfig = {
     })
     return config
   },
-  // 개발환경 설정
-  webpackDevMiddleware: config => {
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-    }
-    return config
-  },
-  output: 'standalone',
-  // 
+  // // 개발환경 설정
+  // webpackDevMiddleware: config => {
+  //   config.watchOptions = {
+  //     poll: 1000,
+  //     aggregateTimeout: 300,
+  //   }
+  //   return config
+  // },
+  // output: 'standalone',
+  // // 
 };
 
 export default nextConfig;

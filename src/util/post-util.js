@@ -1,7 +1,7 @@
 
 export async function sendProductData(formData, accessToken) {
   try {
-    //const response = await fetch('http://darakbang-apigateway-service-1:8888/product', {
+    //const response = await fetch('http://KPaas-apigateway-service-1:8888/product', {
     const response = await fetch('http://localhost:8888/product', {
       cache: 'no-store',
       method: 'POST',
@@ -24,7 +24,7 @@ export async function sendProductData(formData, accessToken) {
 }
 
 export async function getPostsFile() {
- const response = await fetch('http://darakbang-apigateway-service-1:8888/product/page', {
+ const response = await fetch('http://KPaas-apigateway-service-1:8888/product/page', {
  // const response = await fetch('http://localhost:8888/product/page', {
     cache: 'no-store',
     headers: {
@@ -41,7 +41,7 @@ export async function getPostsFile() {
 }
 
 export async function LogingetPostsFile(accessToken, nick_name) {
-  const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/page?nick_name=${nick_name}`, {
+  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/page?nick_name=${nick_name}`, {
   // const response = await fetch(`http://localhost:8888/product/page?nick_name=${nick_name}`, {
     cache: 'no-store',
     headers: {
@@ -59,7 +59,7 @@ export async function LogingetPostsFile(accessToken, nick_name) {
 }
 
 export async function getPostsFiles(page, accessToken) {
-  const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/page?page=${page}`, {
+  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/page?page=${page}`, {
   //  const response = await fetch(`http://localhost:8888/product/page?page=${page}`, {
       cache: 'no-store',
       headers: {
@@ -77,7 +77,7 @@ export async function getPostsFiles(page, accessToken) {
   }
   
   export async function getPostData(productid, accessToken) {
-    const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/detail/${productid}`, {
+    const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/detail/${productid}`, {
    // const response = await fetch(`http://localhost:8888/product/detail/${productid}`, {
       cache: 'no-store',
       headers: {
@@ -90,7 +90,7 @@ export async function getPostsFiles(page, accessToken) {
   }
 
   export async function PutPostData(productid, productData, accessToken) {
-    // const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/${productid}`, {
+    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/${productid}`, {
       const response = await fetch(`http://localhost:8888/product/${productid}`, {
       cache: 'no-store',
       method: 'PUT',
@@ -107,7 +107,7 @@ export async function getPostsFiles(page, accessToken) {
   }
 
   export async function DeletePost(productid, accessToken) {
-    // const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/${productid}`, {
+    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/${productid}`, {
     const response = await fetch(`http://localhost:8888/product/${productid}`, {
       cache: 'no-store',
       method: 'DELETE',
@@ -132,7 +132,7 @@ export async function getPostsFiles(page, accessToken) {
 
   export async function LikeProduct(accessToken, product_id) {
     try {
-    //  const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/like/${product_id}`, {
+    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/like/${product_id}`, {
        const response = await fetch(`http://localhost:8888/product/like/${product_id}`, {   
         method: 'POST',
         headers: {
@@ -156,7 +156,7 @@ export async function getPostsFiles(page, accessToken) {
   // 사용자 좋아요 목록
   export async function LikeList(nick_name) {
     try {
-    //  const response = await fetch('http://darakbang-apigateway-service-1:8888/product/like', {
+    //  const response = await fetch('http://KPaas-apigateway-service-1:8888/product/like', {
       const response = await fetch(`http://localhost:8888/product/profile/like/${nick_name}`, { 
         headers: {
           'Content-Type': 'application/json'
@@ -176,7 +176,7 @@ export async function getPostsFiles(page, accessToken) {
 
   export async function DeleteLike(accessToken, productid) {
     try {
-    //  const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/like/${productid}`, {
+    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/like/${productid}`, {
       const response = await fetch(`http://localhost:8888/product/like/${productid}`, { 
       method: 'DELETE',  
       headers: {

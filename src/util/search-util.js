@@ -1,7 +1,7 @@
 
 // 상품 검색 
 export async function fetchProductName(searchTerm) {
-  const response = await fetch('http://darakbang-apigateway-service-1:8888/product/search', {  
+  const response = await fetch('http://KPaas-apigateway-service-1:8888/product/search', {  
   //  const response = await fetch('http://localhost:8888/product/search', {
       cache: 'no-store',
       method: "POST",
@@ -24,7 +24,7 @@ export async function fetchProductName(searchTerm) {
   
   // 상품 검색 
 export async function fetchProductNamePaging(searchTerm, page) {
-  const response = await fetch(`http://darakbang-apigateway-service-1:8888/product/search?page=${page}`, {  
+  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/search?page=${page}`, {  
   //  const response = await fetch(`http://localhost:8888/product/search?page=${page}`, {
       cache: 'no-store',
       method: "POST",

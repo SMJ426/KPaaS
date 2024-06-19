@@ -4,7 +4,7 @@
 
 export async function Loginfetch(email, password) {
   try {
-    // const response = await fetch("http://darakbang-apigateway-service-1:8888/member/login", {
+    // const response = await fetch("http://KPaas-apigateway-service-1:8888/member/login", {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
       cache: 'no-store',
       method: "POST",
@@ -55,7 +55,7 @@ export async function Loginfetch(email, password) {
 
 // 회원가입 fetch
 export async function signup(formData) {
-  // const response = await fetch("http://darakbang-apigateway-service-1:8888/member/signup", {
+  // const response = await fetch("http://KPaas-apigateway-service-1:8888/member/signup", {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/signup`, {
     method: "POST",
     body: formData
@@ -71,7 +71,7 @@ export async function signup(formData) {
 
 // 닉네임 중복 체크
 export async function checkNickname(nickname) {
-  // const response = await fetch(`http://darakbang-member-service-1:8888/nick_name?nick_name=${nickname}`, {
+  // const response = await fetch(`http://KPaas-member-service-1:8888/nick_name?nick_name=${nickname}`, {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/nick_name?nick_name=${nickname}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export async function checkNickname(nickname) {
 
 // 이메일 중복 체크
 export async function checkEmail(email) {
-  // const response = await fetch(`http://darakbang-member-service-1:8888/nick_name?nick_name=${nickname}`, {
+  // const response = await fetch(`http://KPaas-member-service-1:8888/nick_name?nick_name=${nickname}`, {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/email?email=${email}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export async function checkEmail(email) {
 
 export async function fetchUserProfile(accessToken) {
   try {
-   // const response = await fetch("http://darakbang-apigateway-service-1:8888/member/profile", {  
+   // const response = await fetch("http://KPaas-apigateway-service-1:8888/member/profile", {  
    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
       cache: 'no-store',
       headers: {
