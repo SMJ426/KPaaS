@@ -110,7 +110,7 @@ export default function ProductForm({ accessToken }) {
         <form onSubmit={sendProductHandler} className={styles.minis}>
 
           <div className={styles.minis}>
-            <label className={styles.imglabel}>등록 이미지</label>
+            <label className={styles.imglabel}>강의 사진</label>
             <label htmlFor='images1' className={styles.label}>
               <Image src={showimages1} alt="상품 이미지" width="760" height="760" className={styles.selectImg} />
             </label>
@@ -123,7 +123,7 @@ export default function ProductForm({ accessToken }) {
               onChange={(e) => handleImageChange(e)}
             />
           </div>
-          <div className={styles.NotEditImg}>이미지는 상품 등록 시 수정 불가합니다.</div>
+          <div className={styles.NotEditImg}>이미지는 강의 등록 시 수정 불가합니다.</div>
           <div className={styles.margins}>
             <label className={styles.label}>카테고리</label>
             <select
@@ -141,7 +141,7 @@ export default function ProductForm({ accessToken }) {
             </select>
           </div>
           <div className={styles.margins}>
-            <label htmlFor='productname' className={styles.label}>상품명</label>
+            <label htmlFor='productname' className={styles.label}>제목</label>
             <input
               className={styles.inputField}
               type='text'
@@ -154,7 +154,16 @@ export default function ProductForm({ accessToken }) {
           <div className={styles.margins}>
             <label htmlFor='price' className={styles.label}>가격</label>
             <input
-              className={styles.inputField}
+              className={styles.inputFielded}
+              type='int'
+              id='price'
+              required
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+            />
+            <label htmlFor='price' className={styles.label}>인원</label>
+            <input
+              className={styles.inputFielded}
               type='int'
               id='price'
               required
@@ -163,7 +172,7 @@ export default function ProductForm({ accessToken }) {
             />
           </div>
           <div className={styles.margins}>
-            <label htmlFor='expire' className={styles.label}>만료 기간 (년-월-일)</label>
+            <label htmlFor='expire' className={styles.label}>수업 시작 날짜 (년-월-일)</label>
             <div className={styles.inputFieldRow}>
               <select
                 className={styles.inputFieldSmall}
@@ -205,7 +214,60 @@ export default function ProductForm({ accessToken }) {
             </div>
           </div>
           <div className={styles.margins}>
-            <label className={styles.label}>실제 이미지 (바코드)</label>
+            <label htmlFor='expire' className={styles.label}>수업 종료 날짜 (년-월-일)</label>
+            <div className={styles.inputFieldRow}>
+              <select
+                className={styles.inputFieldSmall}
+                type='text'
+                id='year'
+                required
+                value={year}
+                onChange={handleYearChange}>
+                {Array.from({ length: 10 }, (_, index) => (
+                  <option key={startYear + index} value={startYear + index}>{startYear + index}년</option>
+                ))}
+              </select>
+              -
+              <select
+                className={styles.inputFieldSmalls}
+                type='text'
+                id='month'
+                required
+                value={month}
+                onChange={handleMonthChange}
+              >
+                {Array.from({ length: 12 }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>{index + 1}월</option>
+                ))}
+              </select>
+              -
+              <select
+                className={styles.inputFieldSmalls}
+                type='text'
+                id='day'
+                required
+                value={day}
+                onChange={handleDayChange}
+              >
+                {daysInMonth.map((dayOption) => (
+                  <option key={dayOption} value={dayOption}>{dayOption}일</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className={styles.margins}>
+            <label htmlFor='productname' className={styles.label}>강의 소개</label>
+            <input
+              className={styles.inputField}
+              type='text'
+              id='productname'
+              required
+              value={productName}
+              onChange={(event) => setProductName(event.target.value)}
+            />
+          </div>
+          <div className={styles.margins}>
+            <label className={styles.label}>자격증 사진</label>
             <label htmlFor='images2' className={styles.label}>
               <Image src={showimages2} alt="프로필 이미지" width="350" height="55" className={styles.bkImg} />
             </label>
