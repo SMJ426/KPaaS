@@ -1,138 +1,139 @@
 .SearchForm {
-    position: relative;
-    width: 65%;
-    margin-left: 10%;
+  position: relative;
+  width: 65%;
+  margin-left: 10%;
+}
+
+.headerd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+.selects {
+  width: 10%;
+  height: 48px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: var(--gray-200, #f4f5f9);
+  padding-left: 10px;
+  margin-right: 10px;
+  font-family: 'Pretendard Variable';
+}
+
+.inputSch {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: var(--gray-200, #f4f5f9);
+  /* background-color: red; */
+  padding-left: 20px;
+}
+
+.SchBtn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  /* background-color: blue; */
+
+  .searchIcon {
+    width: 30px;
+    height: 30px;
   }
-  
-  .headerd {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 48px;
+}
+
+.autoCompleteDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: calc(100% - 2px); /* 1px은 border 때문에 감소 */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
+}
+
+.autoCompleteItem {
+  padding: 5px;
+  cursor: pointer;
+  margin-left: 3%;
+  margin-top: 5px;
+}
+
+.verticalLine {
+  border-top: 1px solid #e2e5ef;
+  width: 100%;
+  height: 1px;
+  margin-top: 10px;
+  padding: 0%;
+}
+
+@media screen and (max-width: 786px) {
+  .searchWrapper {
+    position: relative;
+    width: 80%;
   }
 
-  .selects{
-    width: 10%;
+  .SearchForm {
+    position: relative;
+    width: 65%;
+    margin-left: 5%;
+  }
+
+  .headerd {
+    position: relative;
     height: 48px;
+    width: 100%;
+  }
+
+  .selects {
+    width: 20%;
+    height: 28px;
     border: 3px solid #4a5ab9;
     border-radius: 10px;
     background: var(--gray-200, #f4f5f9);
-    padding-left: 10px;
+    padding-left: 2px;
+    margin-right: 0px;
+    margin-left: 25px;
     margin-right: 10px;
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
+    font-size: 10px;
   }
-  
+
   .inputSch {
-    width: 100%;
-    height: 48px;
+    width: 80%;
+    height: 28px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    background: var(--gray-200, #f4f5f9);
-    padding-left: 20px;
+    border-radius: 5px;
+    margin-top: 0px;
+    padding-left: 25px;
   }
-  
+
   .SchBtn {
-    width: 44px;
-    height: 44px;
+    width: 24px;
+    height: 20px;
     border: none;
     cursor: pointer;
-    background: var(--gray-200, #f4f5f9);
-    margin-left: -45px;
+    margin-left: -25px;
+    margin-top: 2px;
   }
-  
+
   .autoCompleteDropdown {
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
-    width: calc(100% - 2px); /* 1px은 border 때문에 감소 */
+    width: 100%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     z-index: 999;
   }
-  
+
   .autoCompleteItem {
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
-    margin-left: 3%;
-    margin-top: 5px;
   }
-
-  
-
-  .verticalLine {
-    border-top: 1px solid #E2E5EF;
-    width: 100%;
-    height: 1px;
-    margin-top: 10px;
-    padding: 0%;
-  }
-
-  @media screen and (max-width: 786px) {
-    .searchWrapper {
-      position: relative;
-      width: 80%;
-    }
-
-    .SearchForm {
-        position: relative;
-        width: 65%;
-        margin-left: 5%;
-      }
-  
-    .headerd {
-      position: relative;
-      height: 48px;
-      width: 100%;
-    }
-
-    .selects{
-      width: 20%;
-      height: 28px;
-      border: 3px solid #4a5ab9;
-      border-radius: 10px;
-      background: var(--gray-200, #f4f5f9);
-      padding-left: 2px;
-      margin-right: 0px;
-      margin-left: 25px;
-      margin-right: 10px;
-      font-family: "Pretendard Variable";
-      font-size: 10px;
-    }
-  
-    .inputSch {
-      width: 80%;
-      height: 28px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-top: 0px;
-      padding-left: 25px;
-    }
-  
-    .SchBtn {
-      width: 24px;
-      height: 20px;
-      border: none;
-      cursor: pointer;
-      background: var(--gray-200, #f4f5f9);
-      margin-left: -25px;
-      margin-top: 2px;
-    }
-  
-    .autoCompleteDropdown {
-      position: absolute;
-      top: calc(100% + 10px);
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      z-index: 999;
-    }
-  
-    .autoCompleteItem {
-      padding: 10px;
-      cursor: pointer;
-    }
-  }
-  
+}
