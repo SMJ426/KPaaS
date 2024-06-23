@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CommuPosts from '@compoents/components/posts/commu-post';
 
-export default function MainContainers({ postdata, accessToken, nick_name }) {
+export default function MainContainers({ postData, accessToken, nick_name }) {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,14 +67,14 @@ export default function MainContainers({ postdata, accessToken, nick_name }) {
             />
           </div>
           <CommuPosts
-            postsdata={postdata}
+            postData={postData}
             selectedCategory={selectedCategory}
             accessToken={accessToken}
             nick_name={nick_name}
           />
           <Pagination
             currentPage={currentPage}
-            posts={postdata}
+            postData={postData}
             PAGE_GROUP_SIZE={PAGE_GROUP_SIZE}
             handlePageChange={handlePageChange}
             goToPreviousPageGroup={goToPreviousPageGroup}

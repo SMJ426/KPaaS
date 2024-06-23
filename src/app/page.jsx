@@ -33,15 +33,16 @@ async function fetchUserData(authorizationValue) {
 
 export default async function Home() {
   const authorizationValue = await getAuthorizationToken();
-  // Test용 데이터 사용
-  const postdata = TestPostDataSet.content;
 
+  // Test용 데이터 사용
+  const postData = TestPostDataSet;
   // const postdata = await fetchPostData(authorizationValue);
+
   const userData = await fetchUserData(authorizationValue);
 
   return (
     <MainContainers
-      postdata={postdata}
+      postData={postData}
       accessToken={userData.accessToken}
       nick_name={userData.nick_name}
     />
