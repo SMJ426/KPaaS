@@ -1,6 +1,6 @@
-'use client'
+'use client';
 import React, { useState, useRef, useCallback } from 'react';
-import { IoSearch } from "react-icons/io5";
+import { IoSearch } from 'react-icons/io5';
 import styles from './ItemSearch.module.css';
 import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
@@ -16,8 +16,8 @@ const FindEventSection = ({ accessToken }) => {
     debounce(async (term) => {
       try {
         if (term.trim() === '') {
-          setAutoCompleteResults([]); 
-          return; 
+          setAutoCompleteResults([]);
+          return;
         }
         let endpoint = '';
         if (searchType === 'product') {
@@ -25,15 +25,15 @@ const FindEventSection = ({ accessToken }) => {
         } else if (searchType === 'member') {
           endpoint = 'http://localhost:8888/member/search/word';
         }
-       // const response = await fetch('http://KPaas-apigateway-service-1:8888/product/search/word', {  
+        // const response = await fetch('http://KPaas-apigateway-service-1:8888/product/search/word', {
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${accessToken}`
+            Authorization: `${accessToken}`,
           },
-          body: JSON.stringify({ 
-            word: term 
+          body: JSON.stringify({
+            word: term,
           }),
         });
         if (!response.ok) {
@@ -79,12 +79,15 @@ const FindEventSection = ({ accessToken }) => {
   const handleSearchTypeChange = (event) => {
     setSearchType(event.target.value);
   };
-  
 
   return (
     <form id="search-form" className={styles.SearchForm}>
       <header className={styles.headerd}>
-      <select onChange={handleSearchTypeChange} value={searchType} className={styles.selects}>
+        <select
+          onChange={handleSearchTypeChange}
+          value={searchType}
+          className={styles.selects}
+        >
           <option value="product">상품</option>
           <option value="member">회원</option>
         </select>
@@ -96,7 +99,11 @@ const FindEventSection = ({ accessToken }) => {
           onChange={handleInputChange}
         />
         <button type="submit" className={styles.SchBtn} onClick={handleSubmit}>
-          <IoSearch />
+          <img
+            src="/images/png/header-search.png"
+            alt="검색하기 버튼"
+            className={styles.SchBtn}
+          />
         </button>
       </header>
 
@@ -104,14 +111,14 @@ const FindEventSection = ({ accessToken }) => {
         <ul className={styles.autoCompleteDropdown}>
           {autoCompleteResults.slice(0, 9).map((item, index) => (
             <>
-            <li
-              key={index}
-              className={styles.autoCompleteItem}
-              onClick={() => handleItemSelect(item)}
-            >
-              {item}
-            </li>
-            <div className={styles.verticalLine}></div>
+              <li
+                key={index}
+                className={styles.autoCompleteItem}
+                onClick={() => handleItemSelect(item)}
+              >
+                {item}
+              </li>
+              <div className={styles.verticalLine}></div>
             </>
           ))}
         </ul>
@@ -121,4 +128,3 @@ const FindEventSection = ({ accessToken }) => {
 };
 
 export default FindEventSection;
-

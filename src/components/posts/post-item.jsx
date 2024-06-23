@@ -7,24 +7,33 @@ import { useRouter } from 'next/navigation';
 import styles from './post-item.module.css';
 import { LikeProduct, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
-import Payments from "@compoents/components/payment/payments";
+import Payments from '@compoents/components/payment/payments';
+import { TestPostDataSet } from '../../constants/TestPostDataSet';
 
 export default function PostItem(props) {
   const router = useRouter();
-  const { product_name, price, product_id, nick_name, image_product, userProfile, state, like } = props.post;
-  
+  const postData = TestPostDataSet.constent;
+  // const {
+  //   product_name,
+  //   price,
+  //   product_id,
+  //   nick_name,
+  //   image_product,
+  //   userProfile,
+  //   state,
+  //   like,
+  // } = props.post;
+
   const { pageNumber } = props.posts.pageable;
   const accessToken = props.accessToken;
   const [liked, setLiked] = useState(like);
- 
+
   const linkPath = `/${pageNumber}/${product_id}`;
   const linkProfile = `/profile/${nick_name}`;
 
-
-
   const handleLikeClick = async () => {
     if (!accessToken) {
-      router.push("/user/login");
+      router.push('/user/login');
     }
     try {
       if (liked) {
@@ -53,37 +62,74 @@ export default function PostItem(props) {
     return null;
   }
 
+  console.log('12313 postdata : ', postData);
+
   return (
     <div className={styles.postItem}>
-      <Link href={linkProfile} style={{ textDecoration: "none" }} className={styles.profile}>
-        <Image src={userProfile} alt="프로필 이미지" width={49} height={49} className={styles.profileImage} priority />
+      <Link
+        href={linkProfile}
+        style={{ textDecoration: 'none' }}
+        className={styles.profile}
+      >
+        <Image
+          src={postData.user_profile}
+          alt="프로필 이미지"
+          width={49}
+          height={49}
+          className={styles.profileImage}
+          priority
+        />
         <h2 className={styles.nickName}>{nick_name}</h2>
       </Link>
 
-      <Link href={linkPath} style={{ textDecoration: "none" }} className={styles.PostLinks}>
+      <Link
+        href={linkPath}
+        style={{ textDecoration: 'none' }}
+        className={styles.PostLinks}
+      >
         <h3>{product_name}</h3>
-        <Image src={image_product} width={240} height={260} alt="상품 이미지" className={styles.productImg} priority/>
+        <Image
+          src={image_product}
+          width={240}
+          height={260}
+          alt="상품 이미지"
+          className={styles.productImg}
+          priority
+        />
         <h1>가격</h1>
         <h4>{price}원</h4>
       </Link>
       <div className={styles.buttons}>
-      {liked ? (
+        {liked ? (
           <button className={styles.liked} onClick={handleLikeClick}>
-            좋아요 <Image src={'/svgs/Favorite_blue.svg'} width={22} height={20} alt='like_blue' className={styles.likeImg}/> 
+            좋아요{' '}
+            <Image
+              src={'/svgs/Favorite_blue.svg'}
+              width={22}
+              height={20}
+              alt="like_blue"
+              className={styles.likeImg}
+            />
           </button>
         ) : (
           <button className={styles.like} onClick={handleLikeClick}>
-            좋아요 <Image src={'/svgs/Favorite.svg'} width={22} height={20} alt='like' className={styles.likeImg}/> 
+            좋아요{' '}
+            <Image
+              src={'/svgs/Favorite.svg'}
+              width={22}
+              height={20}
+              alt="like"
+              className={styles.likeImg}
+            />
           </button>
         )}
         <Payments
-            accessToken={accessToken}
-            productId={product_id}
-            post={props.post}
-            nick_name={props.nick_name}
-          />
+          accessToken={accessToken}
+          productId={product_id}
+          post={props.post}
+          nick_name={props.nick_name}
+        />
       </div>
     </div>
   );
 }
-
