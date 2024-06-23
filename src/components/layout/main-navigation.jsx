@@ -7,7 +7,7 @@ export default function MainNavigation({ accessToken }) {
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
-        <a className="logo">장애인파이팅!</a>
+        <a className="logo">프로젝트명</a>
       </Link>
       <div className="search-bar">
         <FindEventSection accessToken={accessToken} />

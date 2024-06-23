@@ -67,7 +67,7 @@ export default function MainContainers({ postdata, accessToken, nick_name }) {
             />
           </div>
           <CommuPosts
-            posts={postdata}
+            postsdata={postdata}
             selectedCategory={selectedCategory}
             accessToken={accessToken}
             nick_name={nick_name}
