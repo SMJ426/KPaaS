@@ -2,25 +2,28 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+
 import styled from "styled-components";
 import { Loginfetchs } from '@compoents/util/http';
 
-export default function LoginForm() {
+export default function TeacherLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [requestError, setRequestError] = useState(false);
   const router = useRouter();
-  const NaverLogo = '/images/naver.jpg';
-  const KakaoLogo = '/images/kakaotalk_sharing_btn_medium.jpg';
-  const smile = '/svgs/ellipse-87.svg';
+  const NaverLogo = '/images/naver.jpg'
+  const KakaoLogo = '/images/kakaotalk_sharing_btn_medium.jpg'
+  const smile = '/svgs/ellipse-87.svg'
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      // await Loginfetch(email, password);
       await Loginfetchs(email, password);
       const redirectUrl = "http://localhost:3000"; // 리다이렉트할 URL을 원하는 경로로 수정해주세요.
       window.location.href = redirectUrl;
-    } catch (error) {
+      }
+    catch (error) {
       console.error(error.message);
       setRequestError(403);
     }
@@ -28,17 +31,18 @@ export default function LoginForm() {
   };
 
   useEffect(() => {
+    // requestError 상태가 변경될 때마다 입력 필드의 스타일을 업데이트
     if (requestError) {
       document.getElementById("email").style.borderColor = "#FF0000";
       document.getElementById("password").style.borderColor = "#FF0000";
     } else {
-      document.getElementById("email").style.borderColor = "#496AF3";
-      document.getElementById("password").style.borderColor = "#496AF3";
+      document.getElementById("email").style.borderColor = "#496AF3B";
+      document.getElementById("password").style.borderColor = "#496AF3B";
     }
   }, [requestError]);
 
-  const handleSignup = () => {
-    router.push("/user/signup"); // 회원가입 페이지로 이동
+  const handleTeacherSignup = () => {
+    router.push("/user/teachersignup"); // 회원가입 페이지로 이동
   };
 
   const handleKakaoLogin = () => {
@@ -47,11 +51,13 @@ export default function LoginForm() {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&scope=talk_message,profile_nickname,profile_image,account_email`;
   }
 
+
   const handleNaverLogin = () => {
     window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
-  };
 
+  };
   function handleFocus(e) {
+    // 입력 필드의 id를 기반으로 조건부 스타일 적용
     const field = e.target.id;
     if (field === "email") {
       document.getElementById("email").style.borderColor = "#496AF3";
@@ -65,6 +71,8 @@ export default function LoginForm() {
         document.getElementById("password").style.borderColor = "#FF0000";
       }
     }
+
+
   }
 
   return (
@@ -106,8 +114,8 @@ export default function LoginForm() {
           </AnyLogins>
         )}
         <Button1 type="submit">로그인</Button1>
-        <Button2 type="button" onClick={handleSignup}>
-          사용자 회원가입
+        <Button2 type="button" onClick={handleTeacherSignup}>
+            강사 회원가입
         </Button2>
         <EasyLogin>간편 로그인</EasyLogin>
         <AnyLogins>

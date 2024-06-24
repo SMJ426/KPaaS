@@ -133,8 +133,10 @@ export default function SignupForm() {
     let req = {
       "email": email,
       "password": password,
-      "name": name,
-      "nick_name": nick_name
+      "user_name": name,
+      "nick_name": nick_name,
+      "role": "ROLE_MEMBER",
+      "member_info": "장애인입니다."
     }
     formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
     formData.append('img', image);

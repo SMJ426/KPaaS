@@ -13,9 +13,16 @@ export default function MainNavigation({ accessToken }) {
         <FindEventSection accessToken={accessToken} />
       </div>
       {!accessToken && (
-        <div className="navItem3">
+        <div className="navItem5">
           <Link href="/user/login" passHref>
-            <button className="navLink">로그인</button>
+            <button className="navLink">회원 로그인</button>
+          </Link>
+        </div>
+      )}
+      {!accessToken && (
+        <div className="navItem3">
+          <Link href="/user/teacherlogin" passHref>
+            <button className="navLink">강사 로그인</button>
           </Link>
         </div>
       )}
@@ -65,6 +72,12 @@ const StyledWrapper = styled.header`
     font-size: 0.5rem;
     margin-top: 0px;
     margin-left: 90%;
+    position: absolute;
+  }
+    .navItem5 {
+    font-size: 0.5rem;
+    margin-top: 0px;
+    margin-left: 84%;
     position: absolute;
   }
 

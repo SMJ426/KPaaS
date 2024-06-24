@@ -108,25 +108,6 @@ export async function fetchUserProfile(accesstoken) {
   }
 };
 
-// 멤버 프로필 수정 api
-export async function PUTUserProfile(accesstoken, formData) {
-  try {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {  
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
-      cache: 'no-store',
-      method: 'PUT',
-      headers: {
-        'Authorization': `${accesstoken}`
-      },
-      body: formData,
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('사용자 프로필 정보 수정 중 오류가 발생했습니다.', error);
-    throw error;
-  }
-};
 
 // 상대방 프로필 api
 
