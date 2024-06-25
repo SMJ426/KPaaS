@@ -18,10 +18,8 @@ export default function TeacherLoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // await Loginfetch(email, password);
       await Loginfetchs(email, password);
-      const redirectUrl = "http://localhost:3000"; // 리다이렉트할 URL을 원하는 경로로 수정해주세요.
-      window.location.href = redirectUrl;
+      router.push('/');
       }
     catch (error) {
       console.error(error.message);
