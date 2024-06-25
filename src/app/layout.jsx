@@ -1,10 +1,9 @@
-
-import Providers from "./providers";
+import Providers from './providers';
 import './globals.css';
 
 export const metadata = {
-  title: "다락방",
-  description: "당신의 숨겨진 물건을 찾으세요!",
+  title: '다락방',
+  description: '당신의 숨겨진 물건을 찾으세요!',
 };
 
 export default function RootLayout({ children }) {
@@ -14,9 +13,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

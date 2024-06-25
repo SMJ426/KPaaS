@@ -48,17 +48,3 @@ export default async function Home() {
     />
   );
 }
-
-// 임시로 빈 데이터를 사용해서 UI를 확인할 수 있도록 합니다.
-// const postdata = [];
-// const accessToken = '';
-// const nick_name = '';
-
-//   return (
-//     <MainContainers
-//       postdata={postdata}
-//       accessToken={accessToken}
-//       nick_name={nick_name}
-//     />
-//   );
-// }
