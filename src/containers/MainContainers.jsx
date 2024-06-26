@@ -9,6 +9,7 @@ import Pagination from '@compoents/components/pagination/Paginations';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CommuPosts from '@compoents/components/posts/commu-post';
+import SearchSection from '../components/items/SearchSection';
 
 export default function MainContainers({ postData, accessToken, nick_name }) {
   const router = useRouter();
@@ -47,7 +48,13 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
   return (
     <StyledWrapper>
       <MainNavigation accessToken={accessToken} />
-      <div className="between-section"></div>
+
+      <div className="between-section">
+        <div className="search-bar">
+          <SearchSection accessToken={accessToken} />
+        </div>
+      </div>
+
       <div className="wrapper-body">
         <div className="wrapper-btn">
           <Link href="/newpost">
@@ -57,6 +64,7 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
             </button>
           </Link>
         </div>
+
         <div className="cateSticky">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
           <MiniCategoryComponents
@@ -65,12 +73,14 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
             onCategoryChange={handleCategoryChange}
           />
         </div>
+
         <CommuPosts
           postData={postData}
           selectedCategory={selectedCategory}
           accessToken={accessToken}
           nick_name={nick_name}
         />
+
         <Pagination
           currentPage={currentPage}
           postData={postData}
@@ -86,9 +96,14 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
 
 const StyledWrapper = styled.div`
   .between-section {
-    height: 246px;
-    background-color: #456ae2;
-    border: 0;
+    background-image: url('/images/png/main-page.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 740px;
+
+    .search-bar {
+    }
   }
 
   .wrapper-btn {

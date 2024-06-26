@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import FindEventSection from '../items/ItemSearch';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
 
@@ -9,9 +8,7 @@ export default function MainNavigation({ accessToken }) {
       <Link href="/" legacyBehavior passHref>
         <a className="logo">프로젝트명</a>
       </Link>
-      <div className="search-bar">
-        <FindEventSection accessToken={accessToken} />
-      </div>
+
       {!accessToken && (
         <div className="navItem3">
           <Link href="/user/login" passHref>
@@ -19,6 +16,7 @@ export default function MainNavigation({ accessToken }) {
           </Link>
         </div>
       )}
+
       {accessToken && (
         <div className="navItem3">
           <SmallProfile accessToken={accessToken} />
@@ -53,13 +51,6 @@ const StyledWrapper = styled.header`
     align-items: center;
     cursor: pointer;
   }
-  .search-bar {
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    width: 50%;
-    margin-left: 0px;
-  }
 
   .navItem3 {
     font-size: 0.5rem;
@@ -92,13 +83,6 @@ const StyledWrapper = styled.header`
     .logo {
       margin-left: 30px;
       font-size: 1rem;
-    }
-
-    .search-bar {
-      align-items: center;
-      justify-content: center;
-      margin-left: 0;
-      width: 100%;
     }
 
     .navItem3 {
