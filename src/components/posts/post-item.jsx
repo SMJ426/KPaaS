@@ -127,7 +127,6 @@ export default function PostItem(props) {
           accessToken={accessToken}
           productId={product_id}
           post={props.post}
-          nick_name={props.nick_name}
         />
       </div>
     </div>
