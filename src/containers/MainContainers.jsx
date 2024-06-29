@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CommuPosts from '@compoents/components/posts/commu-post';
 import SearchSection from '../components/items/SearchSection';
+import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
 
 export default function MainContainers({ postData, accessToken, nick_name }) {
   const router = useRouter();
@@ -47,70 +48,70 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
 
   return (
     <StyledWrapper>
+      {/* 메인 상단바 */}
       <MainNavigation accessToken={accessToken} />
 
-      <div className="between-section">
-        <div className="search-bar">
-          <SearchSection accessToken={accessToken} />
-        </div>
+      {/* 검색 바 */}
+      <SearchSection accessToken={accessToken} />
+
+      {/* 메인 배경 이미지 */}
+      <img
+        src="/images/png/main-page.png"
+        alt="메인 이미지"
+        className="main-img"
+      />
+
+      {/* 공지사항 및 신규정책 */}
+      <AnnouncementPolicy />
+
+      <div className="wrapper-btn">
+        <Link href="/newpost">
+          <button className="btn-newpost">
+            <FaPen className="pencli" />
+            <div className="Add">강사등록</div>
+          </button>
+        </Link>
       </div>
 
-      <div className="wrapper-body">
-        <div className="wrapper-btn">
-          <Link href="/newpost">
-            <button className="btn-newpost">
-              <FaPen className="pencli" />
-              <div className="Add">강사등록</div>
-            </button>
-          </Link>
-        </div>
-
-        <div className="cateSticky">
-          <CategoryComponents handleCategoryChange={handleCategoryChange} />
-          <MiniCategoryComponents
-            className="cateminibtn"
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          />
-        </div>
-
-        <CommuPosts
-          postData={postData}
+      <div className="cateSticky">
+        <CategoryComponents handleCategoryChange={handleCategoryChange} />
+        <MiniCategoryComponents
+          className="cateminibtn"
           selectedCategory={selectedCategory}
-          accessToken={accessToken}
-          nick_name={nick_name}
-        />
-
-        <Pagination
-          currentPage={currentPage}
-          postData={postData}
-          PAGE_GROUP_SIZE={PAGE_GROUP_SIZE}
-          handlePageChange={handlePageChange}
-          goToPreviousPageGroup={goToPreviousPageGroup}
-          goToNextPageGroup={goToNextPageGroup}
+          onCategoryChange={handleCategoryChange}
         />
       </div>
+
+      <CommuPosts
+        postData={postData}
+        selectedCategory={selectedCategory}
+        accessToken={accessToken}
+        nick_name={nick_name}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        postData={postData}
+        PAGE_GROUP_SIZE={PAGE_GROUP_SIZE}
+        handlePageChange={handlePageChange}
+        goToPreviousPageGroup={goToPreviousPageGroup}
+        goToNextPageGroup={goToNextPageGroup}
+      />
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-  .between-section {
-    background-image: url('/images/png/main-page.png');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 740px;
+  display: flex;
+  flex-direction: column;
 
-    .search-bar {
-    }
+  .main-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
   }
 
   .wrapper-btn {
-    position: absolute;
-    right: 1px;
-    margin-bottom: 20px;
-    margin-top: -100px;
   }
 
   .btn-newpost {
@@ -147,58 +148,5 @@ const StyledWrapper = styled.div`
   .cateSticky {
     position: sticky;
     top: 150px;
-  }
-
-  @media screen and (max-width: 786px) {
-    .cateminibtn {
-      display: flex;
-      text-align: center;
-    }
-
-    .pageContainer {
-      background: #f3f5fa;
-      height: 200%;
-    }
-
-    .flexSection1 {
-      height: 246px;
-      background: #456ae2;
-      border: 0;
-    }
-
-    .flexSection2 {
-      background: #f3f5fa;
-      position: relative;
-      margin-top: 0px;
-    }
-
-    .wrapper-btn {
-      position: absolute;
-      right: 0px;
-      margin-top: -50px;
-    }
-
-    .btn-newpost {
-      padding: 5px 10px;
-      font-size: 16px;
-      background-color: #9ebbc3;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      height: auto;
-    }
-
-    .btn-newpost:hover {
-      background-color: #45a049;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .cateSticky {
-      position: sticky;
-      top: 70px;
-      z-index: 1;
-    }
   }
 `;

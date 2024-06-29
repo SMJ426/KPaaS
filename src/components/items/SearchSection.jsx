@@ -75,36 +75,28 @@ const SearchSection = ({ accessToken }) => {
     }
   };
 
-  const handleSearchTypeChange = (event) => {
-    setSearchType(event.target.value);
-  };
-
   return (
     <StyledWrapper>
       <form id="search-form">
-        <div className="headerd">
-          <select
-            onChange={handleSearchTypeChange}
-            value={searchType}
-            className="selects"
-          >
-            <option value="product">상품</option>
-            <option value="member">회원</option>
-          </select>
-          <input
-            type="search"
-            ref={searchElement}
-            className="inputSch"
-            value={searchTerm}
-            onChange={handleInputChange}
-          />
-          <button type="submit" className="SchBtn" onClick={handleSubmit}>
-            <img
-              src="/images/png/header-search.png"
-              alt="검색하기 버튼"
-              className="SchBtn"
+        {/* 검색바 영역 */}
+        <div className="wrapper-search-section">
+          <div className="wrapper-search-bar">
+            <input
+              type="search"
+              ref={searchElement}
+              className="inputSch"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="검색어를 입력해주세요"
             />
-          </button>
+            <button type="submit" className="btn-search" onClick={handleSubmit}>
+              <img
+                src="/images/svg/search-bar.svg"
+                alt="검색하기 버튼"
+                className="btn-search"
+              />
+            </button>
+          </div>
         </div>
 
         {autoCompleteResults.length > 0 && (
@@ -134,44 +126,48 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 0 30px 0;
 
-  width: 65%;
-
-  .headerd {
+  .wrapper-search-section {
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    .selects {
-      width: 10%;
-      height: 48px;
-      border: none;
-      border-radius: 10px;
-      background: var(--gray-200, #f4f5f9);
-      padding-left: 10px;
-      margin-right: 10px;
-      font-family: 'Pretendard Variable';
-    }
-  }
+    .wrapper-search-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-  .inputSch {
-    width: 100%;
-    height: 48px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: var(--gray-200, #f4f5f9);
-    padding-left: 20px;
-  }
+      width: 600px;
+      height: 56px;
+      border-radius: 40px;
+      border: 4px solid #eeeeee;
 
-  .SchBtn {
-    width: 30px;
-    height: 30px;
-    border: none;
-    cursor: pointer;
+      .inputSch {
+        width: 550px;
+        height: 40px;
+        margin-left: 10px;
+        border: none;
+        outline: none;
+        background-color: #ffffff;
+        padding-left: 20px;
+        font-size: 16px;
+        color: #5a6a72;
+      }
+      .inputSch::placeholder {
+        display: flex;
+        align-items: center;
+        color: #5a6a72;
+        font-size: 16px;
+      }
 
-    .searchIcon {
-      width: 30px;
-      height: 30px;
+      .btn-search {
+        width: 32px;
+        height: 32px;
+        margin-right: 15px;
+        border: none;
+        cursor: pointer;
+        background-color: #ffffff;
+      }
     }
   }
 
@@ -199,72 +195,5 @@ const StyledWrapper = styled.div`
     height: 1px;
     margin-top: 10px;
     padding: 0%;
-  }
-
-  @media screen and (max-width: 786px) {
-    .searchWrapper {
-      position: relative;
-      width: 80%;
-    }
-
-    .SearchForm {
-      position: relative;
-      width: 65%;
-      margin-left: 5%;
-    }
-
-    .headerd {
-      position: relative;
-      height: 48px;
-      width: 100%;
-    }
-
-    .selects {
-      width: 20%;
-      height: 28px;
-      border: 3px solid #4a5ab9;
-      border-radius: 10px;
-      background: var(--gray-200, #f4f5f9);
-      padding-left: 2px;
-      margin-right: 0px;
-      margin-left: 25px;
-      margin-right: 10px;
-      font-family: 'Pretendard Variable';
-      font-size: 10px;
-    }
-
-    .inputSch {
-      width: 80%;
-      height: 28px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-top: 0px;
-      padding-left: 25px;
-    }
-
-    .SchBtn {
-      width: 24px;
-      height: 20px;
-      border: none;
-      cursor: pointer;
-      margin-left: -25px;
-      margin-top: 2px;
-    }
-
-    .autoCompleteDropdown {
-      position: absolute;
-      top: calc(100% + 10px);
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      z-index: 999;
-    }
-
-    .autoCompleteItem {
-      padding: 10px;
-      cursor: pointer;
-    }
   }
 `;
