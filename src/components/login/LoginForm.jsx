@@ -26,18 +26,13 @@ export default function LoginForm() {
     return;
   };
 
-  useEffect(() => {
-    if (requestError) {
-      document.getElementById("email").style.borderColor = "#FF0000";
-      document.getElementById("password").style.borderColor = "#FF0000";
-    } else {
-      document.getElementById("email").style.borderColor = "#496AF3";
-      document.getElementById("password").style.borderColor = "#496AF3";
-    }
-  }, [requestError]);
+
 
   const handleSignup = () => {
     router.push("/user/signup"); // 회원가입 페이지로 이동
+  };
+  const handleTeacherSignup = () => {
+    router.push("/user/teachersignup"); // 회원가입 페이지로 이동
   };
 
   const handleKakaoLogin = () => {
@@ -68,10 +63,7 @@ export default function LoginForm() {
 
   return (
     <PageContainer>
-      <FlexSection1>
         <Write1>로그인</Write1>
-        <Write2>다락방에 오신 것을 환영합니다!</Write2>
-      </FlexSection1>
       <FormContainer onSubmit={handleSubmit}>
         <LoginText>이메일</LoginText>
         <label htmlFor="email">
@@ -108,6 +100,9 @@ export default function LoginForm() {
         <Button2 type="button" onClick={handleSignup}>
           사용자 회원가입
         </Button2>
+        <Button2 type="button" onClick={handleTeacherSignup}>
+            강사 회원가입
+        </Button2>
         <EasyLogin>간편 로그인</EasyLogin>
         <AnyLogins>
           <NaverButton onClick={handleNaverLogin}>
@@ -134,50 +129,30 @@ const PageContainer = styled.div`
   height: 894px;
 `;
 
-const FlexSection1 = styled.section`
-  height: 347px;
-  background: #456AE2;
-  border: 0;
-`;
 
 const Write1 = styled.div`
-  color: #FFF;
+  color: #000000;
   font-family: "Pretendard Variable";
-  font-size: 60px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   text-align: center;
   height: 72px;
-`;
-
-const Write2 = styled.div`
-  color: #FFF;
-  font-family: "Pretendard Variable";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-align: center;
-  color: #FFFFFF;
-  height: 24px;
-  margin-top: 10px;
+  margin-top: 120px;
 `;
 
 const FormContainer = styled.form`
   position: absolute;
-  top: 15%;
+  top: 1%;
   left: 50%;
   transform: translateX(-50%);
   width: 684px;
   height: 753px;
-  border-radius: 10px;
-  background: #FFF;
-  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
 `;
 
 const LoginText = styled.h1`
-  color: var(--black, #191A1C);
+  color: #788991;
   font-family: "Pretendard Variable";
   font-size: 18px;
   font-style: normal;
@@ -191,7 +166,7 @@ const LoginText = styled.h1`
 `;
 
 const LoginText2 = styled.h1`
-  color: var(--black, #191A1C);
+  color: #788991;
   font-family: "Pretendard Variable";
   font-size: 18px;
   font-style: normal;
@@ -208,9 +183,12 @@ const Input = styled.input`
   width: 566px;
   height: 50px;
   flex-shrink: 0;
-  border-radius: 10px;
-  border: 1.5px solid var(--gray-400, #BEC0C6);
-  background: #FFF;
+  border-radius: 5px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: solid var(--gray-800, #737a8d);
+  background: #F4F5F5;
   margin-left: 59px;
   margin-top: 14px;
   color: var(--black, #191A1C);
@@ -236,9 +214,12 @@ const Input2 = styled.input`
   width: 566px;
   height: 50px;
   flex-shrink: 0;
-  border-radius: 10px;
-  border: 1.5px solid var(--gray-400, #BEC0C6);
-  background: #FFF;
+  border-radius: 5px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: solid var(--gray-800, #737a8d);
+  background: #F4F5F5;
   margin-left: 59px;
   margin-top: 14px;
   padding-left: 23px;

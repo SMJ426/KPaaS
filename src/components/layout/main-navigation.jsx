@@ -19,13 +19,6 @@ export default function MainNavigation({ accessToken }) {
           </Link>
         </div>
       )}
-      {!accessToken && (
-        <div className="teacher-btn">
-          <Link href="/user/teacherlogin" passHref>
-            <button className="navLink">강사 로그인</button>
-          </Link>
-        </div>
-      )}
       {accessToken && (
         <div className="teacher-btn">
           <SmallProfile accessToken={accessToken} />
@@ -67,17 +60,10 @@ const StyledWrapper = styled.header`
     width: 50%;
     margin-left: 0px;
   }
-
-  .teacher-btn {
-    font-size: 0.5rem;
-    margin-top: 0px;
-    margin-left: 90%;
-    position: absolute;
-  }
     .member-btn {
     font-size: 0.5rem;
     margin-top: 0px;
-    margin-left: 82%;
+    margin-left: 90%;
     position: absolute;
   }
 

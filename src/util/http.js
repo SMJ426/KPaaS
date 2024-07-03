@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 // ${process.env.NEXT_PUBLIC_SERVER_URL}
 export async function Loginfetchs(email, password) {
   try {
-   const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/login`, { 
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/login`, { 
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
       cache: 'no-store',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -93,8 +93,8 @@ export async function EditProfile(formData, accessToken) {
 
 export async function fetchUserProfile(accesstoken) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
       cache: 'no-store',
       headers: {
         'Authorization': `${accesstoken}`
