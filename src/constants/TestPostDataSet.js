@@ -2,7 +2,7 @@ export const TestPostDataSet = {
   content: [
     {
       post_id: 4,
-      post_name: 'test',
+      post_name: '장애인 선생님 1',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
@@ -15,18 +15,18 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '정지현',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 5,
-      post_name: 'test',
+      post_name: '장애인 선생님 2',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
-        'https://storage.googleapis.com/darakbang-img/9caee289-3130-47c7-ae7d-80aa12276a60icecream3.jpg',
+        'https://storage.googleapis.com/darakbang-img/5fe94197-eb09-4fae-a27c-c336278f945ficecream.jpg',
       post_info: 'Test용 게시물',
       total_number: 5,
       f: 0.2,
@@ -35,18 +35,18 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '신민재',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 6,
-      post_name: 'test',
+      post_name: '장애인 선생님 3',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
-        'https://storage.googleapis.com/darakbang-img/9caee289-3130-47c7-ae7d-80aa12276a60icecream3.jpg',
+        'https://storage.googleapis.com/darakbang-img/4aefb7e5-da05-41ae-9815-b46b6d6f99b5icecream3.jpg',
       post_info: 'Test용 게시물',
       total_number: 5,
       f: 0.2,
@@ -55,18 +55,18 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '김민우',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 7,
-      post_name: 'test',
+      post_name: '장애인 선생님 4',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
-        'https://storage.googleapis.com/darakbang-img/9caee289-3130-47c7-ae7d-80aa12276a60icecream3.jpg',
+        'https://storage.googleapis.com/darakbang-img/a5de84a9-23a8-4260-b488-61ae6b9d7c58icecream.jpg',
       post_info: 'Test용 게시물',
       total_number: 5,
       f: 0.2,
@@ -75,18 +75,18 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '우승민',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 8,
-      post_name: 'test',
+      post_name: '장애인 선생님 5',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
-        'https://storage.googleapis.com/darakbang-img/9caee289-3130-47c7-ae7d-80aa12276a60icecream3.jpg',
+        'https://storage.googleapis.com/darakbang-img/c0346878-fc72-4277-b312-0669898de20cicecream.jpg',
       post_info: 'Test용 게시물',
       total_number: 5,
       f: 0.2,
@@ -95,18 +95,18 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '임지혁',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 9,
-      post_name: 'test',
+      post_name: '장애인 선생님 6',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
-        'https://storage.googleapis.com/darakbang-img/9caee289-3130-47c7-ae7d-80aa12276a60icecream3.jpg',
+        'https://storage.googleapis.com/darakbang-img/d951a18c-9f07-48d1-ac4e-d09c5adfe61eicecream.jpg',
       post_info: 'Test용 게시물',
       total_number: 5,
       f: 0.2,
@@ -115,14 +115,14 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '왕병권',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 10,
-      post_name: 'test',
+      post_name: '장애인 선생님 7',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
@@ -135,14 +135,14 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '한성규',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 11,
-      post_name: 'test',
+      post_name: '장애인 선생님 8',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
@@ -155,14 +155,14 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '전광현',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 12,
-      post_name: 'test',
+      post_name: '장애인 선생님 9',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
@@ -175,14 +175,14 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '한성규',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',
     },
     {
       post_id: 13,
-      post_name: 'test',
+      post_name: '장애인 선생님 10',
       price: 3000,
       email: 'jj6778@naver.com',
       image_post:
@@ -195,7 +195,7 @@ export const TestPostDataSet = {
       start_at: '2024-06-30',
       end_at: '2024-08-31',
       like: false,
-      nick_name: 'jjh',
+      nick_name: '구나연',
       credit: null,
       user_profile:
         'https://storage.googleapis.com/darakbang-img/ac17ede4-ef40-4a2c-80b0-98eadf66c2cficecream.jpg',

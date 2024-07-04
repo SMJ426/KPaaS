@@ -1,14 +1,15 @@
 'use client';
 
-import React from "react";
-import {NextUIProvider} from "@nextui-org/react";
+import React from 'react';
+import { NextUIProvider } from '@nextui-org/react';
+import GlobalStyle from '@compoents/styles/GlobalStyle';
 
 function Providers({ children }) {
-
   return (
-    <NextUIProvider>
-        {children}
-    </NextUIProvider>
+    <>
+      <GlobalStyle />
+      <NextUIProvider>{children}</NextUIProvider>
+    </>
   );
 }
 

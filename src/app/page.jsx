@@ -33,31 +33,18 @@ async function fetchUserData(authorizationValue) {
 
 export default async function Home() {
   const authorizationValue = await getAuthorizationToken();
-  // Test용 데이터 사용
-  const postdata = TestPostDataSet.content;
 
+  // Test용 데이터 사용
+  const postData = TestPostDataSet;
   // const postdata = await fetchPostData(authorizationValue);
+
   const userData = await fetchUserData(authorizationValue);
 
   return (
     <MainContainers
-      postdata={postdata}
+      postData={postData}
       accessToken={userData.accessToken}
       nick_name={userData.nick_name}
     />
   );
 }
-
-// 임시로 빈 데이터를 사용해서 UI를 확인할 수 있도록 합니다.
-// const postdata = [];
-// const accessToken = '';
-// const nick_name = '';
-
-//   return (
-//     <MainContainers
-//       postdata={postdata}
-//       accessToken={accessToken}
-//       nick_name={nick_name}
-//     />
-//   );
-// }

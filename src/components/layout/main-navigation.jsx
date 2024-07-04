@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import FindEventSection from '../items/ItemSearch';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
 
@@ -7,20 +6,42 @@ export default function MainNavigation({ accessToken }) {
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
-        <a className="logo">프로젝트명</a>
+        <a className="logo">PT에프디</a>
       </Link>
-      <div className="search-bar">
-        <FindEventSection accessToken={accessToken} />
+
+      {/* 상단 바 중간 네비 게이터 */}
+      <div className="wrapper-navigate-menu">
+        <Link href="#">
+          <p className="navigate">About</p>
+        </Link>
+
+        <Link href="#">
+          <p>Character</p>
+        </Link>
+
+        <Link href="#">
+          <p>Curriculum</p>
+        </Link>
+
+        <Link href="#">
+          <p>Recruitment</p>
+        </Link>
+
+        <Link href="#">
+          <p>Store</p>
+        </Link>
       </div>
+
       {!accessToken && (
-        <div className="navItem3">
+        <div className="btn-login">
           <Link href="/user/login" passHref>
-            <button className="navLink">로그인</button>
+            <button className="btn-login">로그인</button>
           </Link>
         </div>
       )}
+
       {accessToken && (
-        <div className="navItem3">
+        <div className="navigate-bar">
           <SmallProfile accessToken={accessToken} />
         </div>
       )}
@@ -31,98 +52,45 @@ export default function MainNavigation({ accessToken }) {
 const StyledWrapper = styled.header`
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  height: 130px;
-  border: none;
+  justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 2;
+
+  background-color: #ffffff;
+  height: 80px;
 
   .logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
     color: var(--black, #191a1c);
     font-family: 'Gmarket Sans TTF';
     font-size: 38px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width: auto;
-    height: 64px;
-    margin-left: 10%;
-    border: none;
+  }
+
+  .wrapper-navigate-menu {
     display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  .search-bar {
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    width: 50%;
-    margin-left: 0px;
+    gap: 50px;
   }
 
-  .navItem3 {
-    font-size: 0.5rem;
-    margin-top: 0px;
-    margin-left: 90%;
-    position: absolute;
-  }
-
-  .navLink {
-    width: 111px;
-    height: 48px;
-    border-radius: 10px;
+  .btn-login {
+    width: 70px;
+    height: 31px;
+    border-radius: 20px;
+    font-size: 16px;
     border: 0;
-    background: rgba(73, 106, 243, 0.8);
-    margin-right: 50px;
-    color: #fff;
+
+    cursor: pointer;
+
+    background-color: #eeeeee;
+    color: #2e6ff2;
     font-family: 'Pretendard Variable';
-    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    cursor: pointer;
-  }
-
-  @media screen and (max-width: 786px) {
-    .headerContainer {
-      height: 70px;
-    }
-
-    .logo {
-      margin-left: 30px;
-      font-size: 1rem;
-    }
-
-    .search-bar {
-      align-items: center;
-      justify-content: center;
-      margin-left: 0;
-      width: 100%;
-    }
-
-    .navItem3 {
-      font-size: 0.5rem;
-      margin-top: 0px;
-      margin-left: 87%;
-      position: absolute;
-    }
-
-    .navLink {
-      width: 41px;
-      height: 28px;
-      border-radius: 10px;
-      border: 0;
-      background: rgba(73, 106, 243, 0.8);
-      margin-right: 13%;
-      margin-top: 0px;
-      color: #fff;
-      font-family: 'Pretendard Variable';
-      font-size: 8px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      cursor: pointer;
-    }
   }
 `;
