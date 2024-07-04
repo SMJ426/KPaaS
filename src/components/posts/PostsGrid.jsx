@@ -1,5 +1,5 @@
+import styled from 'styled-components';
 import PostItem from './post-item';
-import styles from './posts-grid.module.css';
 
 export default function PostsGrid({ postData, accessToken }) {
   // const { posts, selectedCategory, accessToken } = props;
@@ -20,7 +20,7 @@ export default function PostsGrid({ postData, accessToken }) {
   const postDataArr = postData.content;
 
   return (
-    <ul className={styles.postsGrid}>
+    <StyledWrapper>
       {postDataArr.map((post) => (
         <PostItem
           key={post.post_id}
@@ -29,6 +29,12 @@ export default function PostsGrid({ postData, accessToken }) {
           accessToken={accessToken}
         />
       ))}
-    </ul>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 50px;
+`;

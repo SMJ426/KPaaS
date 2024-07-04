@@ -1,14 +1,12 @@
 'use client';
 import styled from 'styled-components';
 import MainNavigation from '@compoents/components/layout/main-navigation';
-import { FaPen } from 'react-icons/fa6';
-import Link from 'next/link';
 import MiniCategoryComponents from '@compoents/components/minicategory/Minicategory';
-import CategoryComponents from '@compoents/components/minicategory/Category';
+import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
 import Pagination from '@compoents/components/pagination/Paginations';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CommuPosts from '@compoents/components/posts/commu-post';
+import CommuPosts from '@compoents/components/posts/CommuPost';
 import SearchSection from '../components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
 
@@ -64,14 +62,20 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
       {/* 공지사항 및 신규정책 */}
       <AnnouncementPolicy />
 
-      <div className="wrapper-btn">
-        <Link href="/newpost">
-          <button className="btn-newpost">
-            <FaPen className="pencli" />
-            <div className="Add">강사등록</div>
-          </button>
-        </Link>
-      </div>
+      {/* 강사 등록 btn 우선 비황성화 */}
+      {/* <Link href="/newpost">
+        <button className="btn-newpost">
+          <FaPen className="pencli" />
+          <div className="Add">강사등록</div>
+        </button>
+      </Link> */}
+
+      <CommuPosts
+        postData={postData}
+        selectedCategory={selectedCategory}
+        accessToken={accessToken}
+        nick_name={nick_name}
+      />
 
       <div className="cateSticky">
         <CategoryComponents handleCategoryChange={handleCategoryChange} />
@@ -81,13 +85,6 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
           onCategoryChange={handleCategoryChange}
         />
       </div>
-
-      <CommuPosts
-        postData={postData}
-        selectedCategory={selectedCategory}
-        accessToken={accessToken}
-        nick_name={nick_name}
-      />
 
       <Pagination
         currentPage={currentPage}
@@ -111,42 +108,13 @@ const StyledWrapper = styled.div`
     object-fit: cover;
   }
 
-  .wrapper-btn {
-  }
-
-  .btn-newpost {
-    display: flex;
-    margin-top: 10px;
-    height: 48px;
-    padding: 15px 18px;
-    font-size: 16px;
-    background-color: #9ebbc3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .pencli {
-    margin-top: 2px;
-  }
-  .Add {
-    margin-left: 15px;
-    font-family: 'Pretendard Variable';
-  }
-
-  .btn-newpost:hover {
-    background-color: #45a049;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  .cateSticky {
+    width: 180px;
+    position: sticky;
+    top: 10%;
   }
 
   .cateminibtn {
     display: none;
-  }
-
-  .cateSticky {
-    position: sticky;
-    top: 150px;
   }
 `;
