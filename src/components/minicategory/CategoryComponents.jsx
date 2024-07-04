@@ -93,8 +93,9 @@ export default function CategoryComponents({ handleCategoryChange }) {
 }
 
 const StyledWrapper = styled.div`
-  width: 100%;
-  padding-top: 150px;
+  width: 180px;
+  position: sticky;
+  top: 10%;
 
   .categoryTitle {
     height: 60px;

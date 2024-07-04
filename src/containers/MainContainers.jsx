@@ -70,19 +70,21 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
         </button>
       </Link> */}
 
-      <CommuPosts
-        postData={postData}
-        selectedCategory={selectedCategory}
-        accessToken={accessToken}
-        nick_name={nick_name}
-      />
+      <div className="wrapper-body-card">
+        <div>
+          <CategoryComponents handleCategoryChange={handleCategoryChange} />
+          <MiniCategoryComponents
+            className="cateminibtn"
+            selectedCategory={selectedCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+        </div>
 
-      <div className="cateSticky">
-        <CategoryComponents handleCategoryChange={handleCategoryChange} />
-        <MiniCategoryComponents
-          className="cateminibtn"
+        <CommuPosts
+          postData={postData}
           selectedCategory={selectedCategory}
-          onCategoryChange={handleCategoryChange}
+          accessToken={accessToken}
+          nick_name={nick_name}
         />
       </div>
 
@@ -108,10 +110,10 @@ const StyledWrapper = styled.div`
     object-fit: cover;
   }
 
-  .cateSticky {
-    width: 180px;
-    position: sticky;
-    top: 10%;
+  .wrapper-body-card {
+    display: flex;
+    height: 100%;
+    margin-top: 150px;
   }
 
   .cateminibtn {

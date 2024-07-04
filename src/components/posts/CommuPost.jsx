@@ -10,8 +10,5 @@ export default function CommuPosts({ postData }) {
 }
 
 const StyledWrapper = styled.div`
-  margin-top: 150px;
-  background-color: red;
-  margin-left: 349px;
-  /* width: 70%; */
+  margin-left: 50px;
 `;
