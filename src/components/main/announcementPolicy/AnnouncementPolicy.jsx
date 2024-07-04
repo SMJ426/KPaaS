@@ -67,6 +67,7 @@ const StyledWrapper = styled.div`
     border-bottom: 1px solid #eeeeee;
     font-family: 'Pretendard';
     padding-bottom: 10px;
+    font-weight: 500;
   }
 
   .wrapper-announcement {
@@ -83,24 +84,28 @@ const StyledWrapper = styled.div`
     align-items: space-between;
 
     .wrapper-btns {
-      background-color: yellowgreen;
       display: flex;
       justify-content: space-between;
-      align-items: center;
 
       > p {
         border: none;
       }
       .controls {
         display: flex;
+        align-items: center;
         justify-content: center;
-        margin-top: 20px;
       }
 
       .controls button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff;
+        border: none;
+
         font-size: 20px;
-        margin: 0 10px;
-        padding: 5px 10px;
       }
     }
   }
