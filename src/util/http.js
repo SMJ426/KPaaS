@@ -40,8 +40,8 @@ export async function RefreshAccessToken() { //refreshToken
   const cookieStore = cookies()
   const refreshToken = cookieStore.get('refreshToken')
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/refresh`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/refresh`, {
+  //const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/refresh`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/refresh`, {
       cache: 'no-store',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -113,8 +113,8 @@ export async function fetchUserProfile(accesstoken) {
 
 export async function fetchOtherUserProfile(nick_name, accessToken){
   try {
-   const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile/other/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile/other/${nick_name}`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile/other/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile/other/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -154,8 +154,8 @@ export async function followUser(accessToken, email) {
 // followList 가져오기
 export async function fetchFollowUser(nick_name) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/follower/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/follower/${nick_name}`, {
+  //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/follower/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/follower/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -171,8 +171,8 @@ export async function fetchFollowUser(nick_name) {
 // following List
 export async function fetchFollowingUser(nick_name) {
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/following/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/following/${nick_name}`, {
+ // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/following/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/following/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -189,8 +189,8 @@ export async function fetchFollowingUser(nick_name) {
 // mypage
 export async function getSelling(nick_name) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}`, {
-   // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}`, {
+   // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',

@@ -1,9 +1,9 @@
 
 .profileInfo {
   display: flex;
+  justify-content: center;
 }
 .profileImg{
-  margin-left: 326px;
   border-radius: 90%;
   cursor: pointer;
 }
@@ -11,7 +11,7 @@
   position: absolute;
   color: var(--black, #191A1C);
   font-family: "Pretendard Variable";
-  font-size: 32px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -21,10 +21,10 @@
 .EditBtn{
   position: absolute;
   cursor: pointer;
-  margin-left: 220px;
-  margin-top: -60px;
-  width: 113px;
-  height: 50px;
+  margin-left: 250px;
+  margin-top: -55px;
+  width: 110px;
+  height: 35px;
   flex-shrink: 0;
   border-radius: 10px;
   background: var(--gray-200, #F4F5F9);
@@ -48,33 +48,34 @@
 
 .followButton {
   background-color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: var(--gray-800, #737A8D);
-  font-family: "Pretendard Variable";
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 45px;
-  height: 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--gray-800, #000000);
+    font-family: "Pretendard Variable";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 50px;
+    height: 35px;
 }
 
 .followButton2{
   background-color: #FFFFFF;
-  border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-  color: var(--gray-800, #737A8D);
-  font-family: "Pretendard Variable";
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  height: 45px;
-  margin-left: 25px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--gray-800, #000000);
+    font-family: "Pretendard Variable";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 35px;
+    margin-left: 15px;
 }
+
 
 .followImg{
   margin-left: 5px;
@@ -85,9 +86,9 @@
 .profileName {
   margin-left: 50px;
   margin-top: 10px;
-  color: var(--gray-400, #BEC0C6);
+  color: var(--gray-400, #000000);
   font-family: "Pretendard Variable";
-  font-size: 20px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -97,9 +98,9 @@
   position: absolute;
   margin-left: 50px;  
   margin-top: 0px;
-  color: var(--gray-400, #BEC0C6);
+  color: var(--gray-400, #000000);
   font-family: "Pretendard Variable";
-  font-size: 20px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -119,67 +120,68 @@
 
 .Button1{
   position: absolute;
-  color: var(--primary-primary, #496AF3);
+  color: var(--primary-primary, #000000);
   font-family: "Pretendard Variable";
-  font-size: 35px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   background-color: #FFFFFF;
   border: 0;
-  margin-left: 205px;
-  margin-top: 169px;
+  margin-left: 35%;
+  margin-top: 70px;
 }
 
 .Button3{
   position: absolute;
-  color: var(--gray-400, #BEC0C6);
+  color: var(--gray-400, #9b9b9b);
   font-family: "Pretendard Variable";
-  font-size: 35px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   background-color: #FFFFFF;
   border: 0;
-  margin-left: 205px;
-  margin-top: 169px;
+  margin-left: 35%;
+  margin-top: 70px;
 }
 
 .Button2 {
   position: absolute;
-  color: var(--gray-400, #BEC0C6);
+  color: var(--gray-400, #000000);
   font-family: "Pretendard Variable";
-  font-size: 35px;
+  font-size: 25px; 
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   background-color: #FFFFFF;
   border: 0;
-  margin-left: 455px;
-  margin-top: 169px;
+  margin-left: 50%;
+  margin-top: 70px;
 }
 
 .Button4 {
   position: absolute;
-  color: var(--primary-primary, #496AF3);
+  color: var(--primary-primary, #9b9b9b);
   font-family: "Pretendard Variable";
-  font-size: 35px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   background-color: #FFFFFF;
   border: 0;
-  margin-left: 455px;
-  margin-top: 169px;
+  margin-left: 50%;
+  margin-top: 70px;
 }
+
 
 .verticalLine {
   position: absolute;
   border-top: 1px solid #E2E5EF;
-  width: 87%;
+  width: 50%;
   height: 1px;
-  margin-top: 247px;
-  margin-left: 144px;
+  margin-top: 120px;
+  margin-left: 30%;
   padding: 0%;
 }
 
@@ -188,10 +190,10 @@
   margin-top: 40%;
 }
 
-.profilePoint{
-  color: var(--gray-600, #808389);
+.profileMessage{
+  color: var(--gray-400, #000000);
 font-family: "Pretendard Variable";
-font-size: 26px;
+font-size: 15px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;

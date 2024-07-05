@@ -10,7 +10,7 @@ import { RefreshAccessToken } from '@compoents/util/http';
 import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
 
 export default function UserProfile({ userInfo, followerList, followingList, userproducts, accessToken }) {
-  const [currentView, setCurrentView] = useState('products');
+  const [currentView, setCurrentView] = useState('likes');
   const router = useRouter();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function UserProfile({ userInfo, followerList, followingList, use
         <div className={styles.profileInfo}>
           <div>
             <Image
-              src={userInfo.image || defaultImage}
+              src={userInfo.profile_image || defaultImage}
               alt="이미지"
               width={200}
               height={200}
@@ -71,20 +71,20 @@ export default function UserProfile({ userInfo, followerList, followingList, use
 
                 <PopoverContent className={styles.modal}>
                   <ul>
-                    {followingList.map((following) => (
+                    {/* {followingList.map((following) => (
                       <li key={following.member_id}>
                         <div className={styles.flex}>
                           <Image src={following.image} alt="프로필 사진" width={15} height={15} priority className={styles.followImg} />
                           <p className={styles.names}>{following.name}</p>
                         </div>
                       </li>
-                    ))}
+                    ))} */}
                   </ul>
                 </PopoverContent>
               </Popover>
-              <p className={styles.profileName}>{userInfo.name}</p>
+              <p className={styles.profileName}>{userInfo.user_name}</p>
               <p className={styles.profileEmail}>{userInfo.email}</p>
-              <p className={styles.profilePoint}>보유 포인트: {userInfo.point}원</p>
+              <p className={styles.profileMessage}>{userInfo.member_info}</p>
             </div>
             <Popover showArrow={true} placement="bottom">
               <PopoverTrigger className={styles.followButton2}>
@@ -93,7 +93,7 @@ export default function UserProfile({ userInfo, followerList, followingList, use
                 </Button>
               </PopoverTrigger>
               <PopoverContent className={styles.modal}>
-                <ul>
+                {/* <ul>
                   {followerList.map((follower) => (
                     <li key={follower.member_id}>
                       <div className={styles.flex}>
@@ -102,21 +102,26 @@ export default function UserProfile({ userInfo, followerList, followingList, use
                       </div>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
               </PopoverContent>
             </Popover>
             <button className={styles.EditBtn} onClick={handleEditProfileClick} >프로필 수정</button>
           </div>
         </div>
-        <button onClick={showProducts} className={currentView === 'products' ? styles.Button1 : styles.Button3}>판매 물품</button>
-        <button onClick={showLikes} className={currentView === 'likes' ? styles.Button4 : styles.Button2}>좋아요 목록</button>
+        <button onClick={showLikes} className={currentView === 'likes' ? styles.Button1 : styles.Button3}>좋아요한 PT</button>
+        <div>
+            {userInfo.role === 'ROLE_TEACHER' && (
+              <button onClick={showProducts} className={currentView === 'products' ? styles.Button2 : styles.Button4}>게시된 PT</button>
+            )}
+        </div>
+        
 
 
 
         <div className={styles.verticalLine}></div>
         <div className={styles.Lists}>
-          {currentView === 'products' && <ProductsComponent userproducts={userproducts} accessToken={accessToken} />}
           {currentView === 'likes' && <LikegridComponent nick_name={userInfo.nick_name} accessToken={accessToken} />}
+          {currentView === 'products' && <ProductsComponent userproducts={userproducts} accessToken={accessToken} />}
         </div>
       </>
     </div>

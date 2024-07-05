@@ -137,7 +137,7 @@ export default function TeacherSignupForm() {
             "user_name": name,
             "nick_name": nick_name,
             "role": "ROLE_TEACHER",
-            "member_info": `${info}년차 강사입니다.`
+            "member_info": info
         }
         formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
         formData.append('img', image);
@@ -309,7 +309,7 @@ export default function TeacherSignupForm() {
                     <h1 className="logintext">강사 정보</h1>
                     <div className="anyLogins">
                         <input
-                            className="Input4"
+                            className="Input"
                             type="string"
                             id="info"
                             value={info}
@@ -317,8 +317,8 @@ export default function TeacherSignupForm() {
                                 setInfo(e.target.value)
                                 handleFocus(e)
                             }}
+                            placeholder="소개글을 작성해보세요!"
                         />
-                        <h2 className="infoes">년차 강사입니다.</h2>
                     </div>
                     <h1 className="logintext2">프로필 이미지</h1>
                     <div className="outProfile">
@@ -671,10 +671,6 @@ line-height: normal;
     margin-left: 604px;
 }
 
-.infoes{
-    margin-top: 30px;
-    margin-left: 10px;
-}
 
 
 

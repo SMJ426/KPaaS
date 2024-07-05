@@ -26,8 +26,8 @@ export default async function ProfilePage() {
       );
   } else {
   
-  const userproducts = await getSelling(userInfo.nick_name);
-
+  const userproducts = [];
+//await getSelling(userInfo.nick_name);
   return (
     <>
       <UserProfile

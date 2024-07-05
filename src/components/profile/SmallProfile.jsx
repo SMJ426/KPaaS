@@ -46,6 +46,7 @@ export default function SmallProfile({ accessToken }) {
                 console.log(Newdata);
             } else {
                 setuserInfo(data);
+                console.log(data);
             }
             
           } catch (error) {
@@ -59,7 +60,7 @@ export default function SmallProfile({ accessToken }) {
         <Popover showArrow={true} placement="bottom">
             <PopoverTrigger>
                 <Image
-                    src={userInfo.image || defaultImage} // UserInfo.image || 
+                    src={userInfo.profile_image || defaultImage} // UserInfo.image || 
                     alt="이미지"
                     width={83}
                     height={83}

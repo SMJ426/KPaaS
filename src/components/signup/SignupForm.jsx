@@ -13,6 +13,7 @@ export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [nick_name, setNickname] = useState("");
+  const [info, setInfo] = useState("");
   const [isDuplicate, setIsDuplicate] = useState(null);
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(null);
   const [image, setImage] = useState(null);
@@ -136,7 +137,7 @@ export default function SignupForm() {
       "user_name": name,
       "nick_name": nick_name,
       "role": "ROLE_MEMBER",
-      "member_info": "장애인입니다."
+      "member_info": info
     }
     formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
     formData.append('img', image);
@@ -305,6 +306,20 @@ export default function SignupForm() {
             <Image src={smile} width={132} height={132} alt="스마일" className="smile" />
             <p className="errorMsg">{nicknameError}</p>
           </div>}
+          <h1 className="logintext">회원 정보</h1>
+                    <div className="anyLogins">
+                        <input
+                            className="Input"
+                            type="string"
+                            id="info"
+                            value={info}
+                            onChange={(e) => {
+                                setInfo(e.target.value)
+                                handleFocus(e)
+                            }}
+                            placeholder="소개글을 작성해보세요!"
+                        />
+                    </div>
           <h1 className="logintext2">프로필 이미지</h1>
           <div className="outProfile">
             <label htmlFor="input-file">

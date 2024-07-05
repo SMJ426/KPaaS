@@ -10,7 +10,7 @@ import { RefreshAccessToken } from "@compoents/util/http";
 import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
 
 export default function OtherProfileform({ userInfo, nick_name, accessToken, followerList, followingList, userproducts, isFollowing }) {
-  const [currentView, setCurrentView] = useState('products');
+  const [currentView, setCurrentView] = useState('likes');
   const [isfollow, setfollowing] = useState(isFollowing);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function OtherProfileform({ userInfo, nick_name, accessToken, fol
         <div className={styles.profileInfo}>
           <div >
             <Image
-              src={userInfo.image || '/defaultImg.jpg'}
+              src={userInfo.profile_image || '/defaultImg.jpg'}
               alt="이미지"
               width={200}
               height={200}
@@ -79,18 +79,19 @@ export default function OtherProfileform({ userInfo, nick_name, accessToken, fol
                   <Button className={styles.Followingbtn}>팔로잉 {userInfo.following}</Button>
                 </PopoverTrigger>
                 <PopoverContent className={styles.modal}>
-                  {followingList.map((following) => (
+                  {/* {followingList.map((following) => (
                     <ul key={following.member_id}>
                       <div className={styles.flex}>
                         <Image src={following.image} alt="프로필 사진" width={15} height={15} priority className={styles.followImg} />
                         <p className={styles.names}>{following.name}</p>
                       </div>
                     </ul>
-                  ))}
+                  ))} */}
                 </PopoverContent>
               </Popover>
-              <p className={styles.profileName}>{userInfo.name}</p>
+              <p className={styles.profileName}>{userInfo.user_name}</p>
               <p className={styles.profileEmail}>{userInfo.email}</p>
+              <p className={styles.profileMessage}>{userInfo.member_info}</p>
             </div>
             <Popover showArrow={true} placement="bottom">
               <PopoverTrigger className={styles.followButton2}>
@@ -99,14 +100,14 @@ export default function OtherProfileform({ userInfo, nick_name, accessToken, fol
                 </Button>
               </PopoverTrigger>
               <PopoverContent className={styles.modal}>
-                {followerList.map((follower) => (
+                {/* {followerList.map((follower) => (
                   <ul key={follower.member_id}>
                     <div className={styles.flex}>
                       <Image src={follower.image} alt="프로필 사진" width={15} height={15} priority className={styles.followImg} />
                       <p className={styles.names}>{follower.name}</p>
                     </div>
                   </ul>
-                ))}
+                ))} */}
               </PopoverContent>
             </Popover>
             {isfollow ? (
@@ -120,8 +121,12 @@ export default function OtherProfileform({ userInfo, nick_name, accessToken, fol
             )}
           </div>
         </div>
-        <button onClick={showProducts} className={currentView === 'products' ? styles.Button1 : styles.Button3}>판매 물품</button>
-        <button onClick={showLikes} className={currentView === 'likes' ? styles.Button4 : styles.Button2}>좋아요 목록</button>
+        <button onClick={showLikes} className={currentView === 'likes' ? styles.Button1 : styles.Button3}>좋아요한 PT</button>
+        <div>
+            {userInfo.role === 'ROLE_TEACHER' && (
+              <button onClick={showProducts} className={currentView === 'products' ? styles.Button2 : styles.Button4}>게시된 PT</button>
+            )}
+        </div>
         <div className={styles.verticalLine}></div>
         <div className={styles.Lists}>
           {currentView === 'products' && <ProductsComponent userproducts={userproducts} accessToken={accessToken} />}

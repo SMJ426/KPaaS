@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import FindEventSection from '../items/ItemSearch';
 import SmallProfile from '../profile/SmallProfile';
@@ -15,7 +16,7 @@ export default function MainNavigation({ accessToken }) {
       {!accessToken && (
         <div className="member-btn">
           <Link href="/user/login" passHref>
-            <button className="navLink">회원 로그인</button>
+            <button className="navLink">로그인</button>
           </Link>
         </div>
       )}

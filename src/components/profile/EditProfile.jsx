@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from './EditProfile.module.css';
 
-import { EditProfile, checkNickname } from "@compoents/util/http";
+import { EditProfile } from "@compoents/util/http";
+import { checkNickname } from "@compoents/util/Client";
 
 
 export default function MyEditComponents({ accessToken }) {
@@ -13,6 +14,7 @@ export default function MyEditComponents({ accessToken }) {
     const [showPassword, setShowPassword] = useState(false);
     const [name, setName] = useState("");
     const [nick_name, setNickname] = useState("");
+    const [info, setInfo] = useState("");
     const [isDuplicate, setIsDuplicate] = useState(null);
     const [image, setImage] = useState('');
     const [showimage, setShowimage] = useState('/images/defaultImg.jpg');
@@ -107,8 +109,10 @@ export default function MyEditComponents({ accessToken }) {
         let req = {
             "email": email,
             "password": password,
-            "name": name,
-            "nick_name": nick_name
+            "user_name": name,
+            "nick_name": nick_name,
+            "role": "ROLE_MEMBER",
+            "member_info": info
         }
         formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
         formData.append('img', image);
@@ -223,6 +227,20 @@ export default function MyEditComponents({ accessToken }) {
                         <Image src={smile} width={132} height={132} alt="스마일" className={styles.smile} />
                         <p className={styles.errorMsg}>{nicknameError}</p>
                     </div>}
+                    <h1 className={styles.logintext2}>소개 메시지 수정</h1>
+                    <div className="anyLogins">
+                        <input
+                            className={styles.Input}
+                            type="string"
+                            id="info"
+                            value={info}
+                            onChange={(e) => {
+                                setInfo(e.target.value)
+                                handleFocus(e)
+                            }}
+                            placeholder="소개글을 작성해보세요!"
+                        />
+                    </div>
 
                     <h1 className={styles.logintext2}>이메일</h1>
                     <label htmlFor="email">
