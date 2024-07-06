@@ -133,8 +133,8 @@ export async function fetchOtherUserProfile(nick_name, accessToken){
 
 export async function followUser(accessToken, email) {
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow`, {   // 본문에 이메일 넣어서?
+  //const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow`, {   // 본문에 이메일 넣어서?
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export async function fetchFollowUser(nick_name) {
       }
     });
     const data = await response.json();
-    return data;
+    return data.followers;
   } catch (error) {
     console.error('사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.', error);
     throw error;
@@ -179,7 +179,8 @@ export async function fetchFollowingUser(nick_name) {
       }
     });
     const data = await response.json();
-    return data;
+    console.log(data.followings)
+    return data.followings;
   } catch (error) {
     console.error('사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.', error);
     throw error;

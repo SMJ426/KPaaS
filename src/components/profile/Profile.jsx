@@ -7,10 +7,16 @@ import LikegridComponent from '../bucket/Likegrid';
 import ProductsComponent from './ProductsComponent';
 import { RefreshAccessToken } from '@compoents/util/http';
 
-import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
 
-export default function UserProfile({ userInfo, followerList, followingList, userproducts, accessToken }) {
+export default function UserProfile({
+  userInfo,
+  followerList,
+  followingList,
+  userproducts,
+  accessToken,
+}) {
   const [currentView, setCurrentView] = useState('likes');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +33,7 @@ export default function UserProfile({ userInfo, followerList, followingList, use
     }
   }, [userInfo]);
 
-  const defaultImage = "/images/kakaoImg.jpg";
+  const defaultImage = '/images/kakaoImg.jpg';
 
   function handleEditProfileClick() {
     router.push('/myedit');
@@ -40,104 +46,142 @@ export default function UserProfile({ userInfo, followerList, followingList, use
     setCurrentView('likes');
   };
 
-
   return (
     <StyledWrapper>
-        <div className="profileInfo">
-          <div>
-            <Image
-              src={userInfo.profile_image || defaultImage}
-              alt="이미지"
-              width={200}
-              height={200}
-              className="profileImg"
-              priority
-            />
-          </div>
-          <div className="userInfo">
-            <div className="profileNickName">
-              {userInfo.nick_name}
-            </div>
-          </div>
-          <div className="Followes">
-            <div>
-              <Popover showArrow={true} placement="bottom">
-                <PopoverTrigger className="followButton">
-                  <Button className="Followingbtn">팔로잉 {userInfo.following}</Button>
-                </PopoverTrigger>
-
-                <PopoverContent className="modal">
-                  <ul>
-                    {/* {followingList.map((following) => (
-                      <li key={following.member_id}>
-                        <div className="flex">
-                          <Image src={following.image} alt="프로필 사진" width={15} height={15} priority className="followImg" />
-                          <p className="names">{following.name}</p>
-                        </div>
-                      </li>
-                    ))} */}
-                  </ul>
-                </PopoverContent>
-              </Popover>
-              <p className="profileName">{userInfo.user_name}</p>
-              <p className="profileEmail">{userInfo.email}</p>
-              <p className="profileMessage">{userInfo.member_info}</p>
-            </div>
-            <Popover showArrow={true} placement="bottom">
-              <PopoverTrigger className="followButton2">
-                <Button className="Followingbtn">
-                  팔로워 {userInfo.follower}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="modal">
-                {/* <ul>
-                  {followerList.map((follower) => (
-                    <li key={follower.member_id}>
-                      <div className="flex">
-                        <Image src={follower.image} alt="프로필 사진" width={15} height={15} priority className="followImg" />
-                        <p className="names">{follower.name}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul> */}
-              </PopoverContent>
-            </Popover>
-            <button className="EditBtn" onClick={handleEditProfileClick} >프로필 수정</button>
-          </div>
-        </div>
-        <button onClick={showLikes} className={currentView === 'likes' ? "Button1" : "Button3"}>좋아요한 PT</button>
+      <div className="profileInfo">
         <div>
-            {userInfo.role === 'ROLE_TEACHER' && (
-              <button onClick={showProducts} className={currentView === 'products' ? "Button2" : "Button4"}>게시된 PT</button>
-            )}
+          <Image
+            src={userInfo.profile_image || defaultImage}
+            alt="이미지"
+            width={200}
+            height={200}
+            className="profileImg"
+            priority
+          />
         </div>
-        
-
-
-
-        <div className="verticalLine"></div>
-        <div className="Lists">
-          {currentView === 'likes' && <LikegridComponent nick_name={userInfo.nick_name} accessToken={accessToken} />}
-          {currentView === 'products' && <ProductsComponent userproducts={userproducts} accessToken={accessToken} />}
+        <div className="userInfo">
+          <div className="profileNickName">{userInfo.nick_name}</div>
         </div>
+        <div className="Followes">
+          <div>
+            <StyledButton
+              className="Followingbtn"
+              onClick={() => setIsModalOpen(true)}
+            >
+              팔로잉 {userInfo.following}
+            </StyledButton>
+            <ModalOverlay show={isModalOpen}>
+              <ModalContent>
+                <CloseButton onClick={() => setIsModalOpen(false)}>
+                  X
+                </CloseButton>
+                <StyledList>
+                  {followingList.map((following) => (
+                    <StyledListItem key={following.member_id}>
+                      <div className="flex">
+                        <StyledProfileImage
+                          src={following.image}
+                          alt="프로필 사진"
+                          width={15}
+                          height={15}
+                          priority
+                          className="followImg"
+                        />
+                        <StyledName className="names">
+                          {following.name}
+                        </StyledName>
+                      </div>
+                    </StyledListItem>
+                  ))}
+                </StyledList>
+              </ModalContent>
+            </ModalOverlay>
+            <p className="profileName">{userInfo.user_name}</p>
+            <p className="profileEmail">{userInfo.email}</p>
+            <p className="profileMessage">{userInfo.member_info}</p>
+          </div>
+          <StyledButton
+            className="Followingbtn"
+            onClick={() => setIsModalOpen(true)}
+          >
+            팔로워 {userInfo.follower}
+          </StyledButton>
+          <ModalOverlay show={isModalOpen}>
+            <ModalContent>
+              <CloseButton onClick={() => setIsModalOpen(false)}>X</CloseButton>
+              <StyledList>
+                {followerList.map((follower) => (
+                  <StyledListItem key={follower.member_id}>
+                    <div className="flex">
+                      <StyledProfileImage
+                        src={follower.image}
+                        alt="프로필 사진"
+                        width={15}
+                        height={15}
+                        priority
+                        className="followImg"
+                      />
+                      <StyledName className="names">{follower.name}</StyledName>
+                    </div>
+                  </StyledListItem>
+                ))}
+              </StyledList>
+            </ModalContent>
+          </ModalOverlay>
+          <button className="EditBtn" onClick={handleEditProfileClick}>
+            프로필 수정
+          </button>
+        </div>
+      </div>
+      <button
+        onClick={showLikes}
+        className={currentView === 'likes' ? 'Button1' : 'Button3'}
+      >
+        좋아요한 PT
+      </button>
+      <div>
+        {userInfo.role === 'ROLE_TEACHER' && (
+          <button
+            onClick={showProducts}
+            className={currentView === 'products' ? 'Button2' : 'Button4'}
+          >
+            게시된 PT
+          </button>
+        )}
+      </div>
+
+      <div className="verticalLine"></div>
+      <div className="Lists">
+        {currentView === 'likes' && (
+          <LikegridComponent
+            nick_name={userInfo.nick_name}
+            accessToken={accessToken}
+          />
+        )}
+        {currentView === 'products' && (
+          <ProductsComponent
+            userproducts={userproducts}
+            accessToken={accessToken}
+          />
+        )}
+      </div>
     </StyledWrapper>
   );
-};
+}
 
 const StyledWrapper = styled.header`
-
   .profileInfo {
     display: flex;
     justify-content: center;
   }
-  .profileImg{
+  .profileImg {
     border-radius: 90%;
     cursor: pointer;
   }
-  .profileNickName{
+  .profileNickName {
     position: absolute;
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
+    color: var(--black, #191a1c);
+    font-family: 'Pretendard Variable';
     font-size: 28px;
     font-style: normal;
     font-weight: 600;
@@ -145,7 +189,7 @@ const StyledWrapper = styled.header`
     margin-left: 50px;
   }
 
-  .EditBtn{
+  .EditBtn {
     position: absolute;
     cursor: pointer;
     margin-left: 250px;
@@ -156,30 +200,30 @@ const StyledWrapper = styled.header`
     border-radius: 10px;
     background: var(--gray-800, #e8e9ec);
     color: var(--gray-400, #7b8196);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     border: 0;
   }
-  
-  .Followes{
+
+  .Followes {
     display: flex;
     margin-top: 60px;
   }
 
-  .flex{
+  .flex {
     display: flex;
   }
 
   .followButton {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     color: var(--gray-800, #000000);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
@@ -188,13 +232,13 @@ const StyledWrapper = styled.header`
     height: 35px;
   }
 
-  .followButton2{
-    background-color: #FFFFFF;
+  .followButton2 {
+    background-color: #ffffff;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
     color: var(--gray-800, #000000);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
@@ -203,7 +247,7 @@ const StyledWrapper = styled.header`
     margin-left: 15px;
   }
 
-  .followImg{
+  .followImg {
     margin-left: 5px;
     margin-top: 3px;
     margin-right: 15px;
@@ -213,60 +257,60 @@ const StyledWrapper = styled.header`
     margin-left: 50px;
     margin-top: 10px;
     color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
-  
+
   .profileEmail {
     position: absolute;
-    margin-left: 50px;  
+    margin-left: 50px;
     margin-top: 0px;
     color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
-  
+
   .modal {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     z-index: 1000;
     flex-shrink: 0;
     padding: 10px;
     border-radius: 8px;
-    filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.20));
+    filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.2));
     text-align: center;
     color: var(--gray-600, #808389);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
   }
 
-  .Button1{
+  .Button1 {
     position: absolute;
     color: var(--primary-primary, #000000);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border: 0;
     margin-left: 35%;
     margin-top: 70px;
   }
 
-  .Button3{
+  .Button3 {
     position: absolute;
     color: var(--gray-400, #9b9b9b);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border: 0;
     margin-left: 35%;
     margin-top: 70px;
@@ -275,12 +319,12 @@ const StyledWrapper = styled.header`
   .Button2 {
     position: absolute;
     color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 25px; 
+    font-family: 'Pretendard Variable';
+    font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border: 0;
     margin-left: 50%;
     margin-top: 70px;
@@ -289,21 +333,20 @@ const StyledWrapper = styled.header`
   .Button4 {
     position: absolute;
     color: var(--primary-primary, #9b9b9b);
-    font-family: "Pretendard Variable";
+    font-family: 'Pretendard Variable';
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border: 0;
     margin-left: 50%;
     margin-top: 70px;
   }
 
-
   .verticalLine {
     position: absolute;
-    border-top: 1px solid #E2E5EF;
+    border-top: 1px solid #e2e5ef;
     width: 50%;
     height: 1px;
     margin-top: 120px;
@@ -311,234 +354,324 @@ const StyledWrapper = styled.header`
     padding: 0%;
   }
 
-  .Loading{
+  .Loading {
     margin-left: 40%;
     margin-top: 40%;
   }
-  
-  .profileMessage{
+
+  .profileMessage {
     color: var(--gray-400, #000000);
-font-family: "Pretendard Variable";
-font-size: 15px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-left: 50px;
-margin-top: 40px;
+    font-family: 'Pretendard Variable';
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 50px;
+    margin-top: 40px;
   }
 
-  .Lists{
+  .Lists {
     margin-left: -200px;
     margin-top: 300px;
     height: 2000px;
   }
 
-
-
-
-
   @media screen and (max-width: 786px) {
-  .profileInfo {
-    display: flex;
-    margin-top: 20px;
-  }
-  
-  .profileImg{
-    border-radius: 90%;
-    cursor: pointer;
-    width: 90px;
-    height: 90px;
-  }
-  .profileNickName{
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    margin-left: 20px;
-  }
+    .profileInfo {
+      display: flex;
+      margin-top: 20px;
+    }
 
-  .EditBtn{
-    margin-left: 100px;
-    margin-top: -20px;
-    width: 70px;
-    height: 20px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--gray-200, #F4F5F9);
-    color: var(--gray-400, #BEC0C6);
-    font-family: "Pretendard Variable";
-    font-size: 8px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    border: 0;
-  }
-  
-  .Followes{
-    display: flex;
-    margin-top: 20px;
-  }
+    .profileImg {
+      border-radius: 90%;
+      cursor: pointer;
+      width: 90px;
+      height: 90px;
+    }
+    .profileNickName {
+      color: var(--black, #191a1c);
+      font-family: 'Pretendard Variable';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      margin-left: 20px;
+    }
 
-  .followButton {
-    font-size: 10px;
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #737A8D);
-    font-family: "Pretendard Variable";
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-left: 20px;
-height: 30px;
-  }
-  
-  .followButton2{
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #737A8D);
-    font-family: "Pretendard Variable";
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    height: 30px;
-  }
+    .EditBtn {
+      margin-left: 100px;
+      margin-top: -20px;
+      width: 70px;
+      height: 20px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: var(--gray-200, #f4f5f9);
+      color: var(--gray-400, #bec0c6);
+      font-family: 'Pretendard Variable';
+      font-size: 8px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      border: 0;
+    }
 
-  .profileName {
-    margin-top: 0px;
-    margin-left: 20px;
-    color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    width: 50px;
-    height: 14px;
-  }
-  
-  .profileEmail {
-    position: absolute;
-    margin-top: 0px;
-    margin-left: 20px;
-    color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  .profileMessage{
-    color: var(--gray-600, #000000);
-font-family: "Pretendard Variable";
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-top: 15px;
-margin-left: 20px;
-  }
-  
-  .modal {
-    background-color: #FFFFFF;
-    z-index: 1000;
-    flex-shrink: 0;
-    padding: 10px;
-    border-radius: 8px;
-    filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.20));
-    text-align: center;
-    color: var(--gray-600, #808389);
-    font-family: "Pretendard Variable";
-  }
+    .Followes {
+      display: flex;
+      margin-top: 20px;
+    }
 
-  .Button1{
-    color: var(--primary-primary, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    background-color: #FFFFFF;
-    border: 0;
-    margin-top: 45px;
-    margin-left: 90px;
-  }
+    .followButton {
+      font-size: 10px;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: var(--gray-800, #737a8d);
+      font-family: 'Pretendard Variable';
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-left: 20px;
+      height: 30px;
+    }
 
-  .Button3{
-    color: var(--gray-400, #9b9b9b);
-    font-family: "Pretendard Variable";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    background-color: #FFFFFF;
-    border: 0;
-    margin-top: 45px;
-    margin-left: 90px;
-  }
+    .followButton2 {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: var(--gray-800, #737a8d);
+      font-family: 'Pretendard Variable';
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      height: 30px;
+    }
 
-  .Button2 {
-    color: var(--gray-400, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    background-color: #FFFFFF;
-    border: 0;
-    margin-top: 45px;
-    margin-left: 280px;
-  }
+    .profileName {
+      margin-top: 0px;
+      margin-left: 20px;
+      color: var(--gray-400, #000000);
+      font-family: 'Pretendard Variable';
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      width: 50px;
+      height: 14px;
+    }
 
-  .Button4 {
-    color: var(--primary-primary, #9b9b9b);
-    font-family: "Pretendard Variable";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    background-color: #FFFFFF;
-    border: 0;
-    margin-top: 45px;
-    margin-left: 280px;
-  }
+    .profileEmail {
+      position: absolute;
+      margin-top: 0px;
+      margin-left: 20px;
+      color: var(--gray-400, #000000);
+      font-family: 'Pretendard Variable';
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .profileMessage {
+      color: var(--gray-600, #000000);
+      font-family: 'Pretendard Variable';
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-top: 15px;
+      margin-left: 20px;
+    }
 
+    .modal {
+      background-color: #ffffff;
+      z-index: 1000;
+      flex-shrink: 0;
+      padding: 10px;
+      border-radius: 8px;
+      filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.2));
+      text-align: center;
+      color: var(--gray-600, #808389);
+      font-family: 'Pretendard Variable';
+    }
 
-  .followImg{
-    margin-left: 5px;
-    margin-top: 0px;
-    margin-right: 5px;
-  }
-  .names{
-    width: 50px;
-    font-size: 10px;
-  }
+    .Button1 {
+      color: var(--primary-primary, #000000);
+      font-family: 'Pretendard Variable';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      background-color: #ffffff;
+      border: 0;
+      margin-top: 45px;
+      margin-left: 90px;
+    }
 
-  .verticalLine {
-    position: absolute;
-    border-top: 1px solid #E2E5EF;
-    width: 85%;
-    height: 2px;
-    margin-top: 80px;
-    margin-left: 10%;
-    padding: 0%;
-  }
+    .Button3 {
+      color: var(--gray-400, #9b9b9b);
+      font-family: 'Pretendard Variable';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      background-color: #ffffff;
+      border: 0;
+      margin-top: 45px;
+      margin-left: 90px;
+    }
 
-  .Loading{
-    margin-left: 40%;
-    margin-top: 40%;
-  }
-  .Lists{
-    margin-left: 0;
-    margin-top: 20%;
-  }
+    .Button2 {
+      color: var(--gray-400, #000000);
+      font-family: 'Pretendard Variable';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      background-color: #ffffff;
+      border: 0;
+      margin-top: 45px;
+      margin-left: 280px;
+    }
 
+    .Button4 {
+      color: var(--primary-primary, #9b9b9b);
+      font-family: 'Pretendard Variable';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      background-color: #ffffff;
+      border: 0;
+      margin-top: 45px;
+      margin-left: 280px;
+    }
 
+    .followImg {
+      margin-left: 5px;
+      margin-top: 0px;
+      margin-right: 5px;
+    }
+    .names {
+      width: 50px;
+      font-size: 10px;
+    }
+
+    .verticalLine {
+      position: absolute;
+      border-top: 1px solid #e2e5ef;
+      width: 85%;
+      height: 2px;
+      margin-top: 80px;
+      margin-left: 10%;
+      padding: 0%;
+    }
+
+    .Loading {
+      margin-left: 40%;
+      margin-top: 40%;
+    }
+    .Lists {
+      margin-left: 0;
+      margin-top: 20%;
+    }
   }
+`;
+
+const StyledButton = styled.button`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  font-weight: normal;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  padding-left: var(--unit-4);
+  padding-right: var(--unit-4);
+  min-width: var(--unit-20);
+  height: var(--unit-10);
+  font-size: var(--text-small);
+  gap: var(--unit-2);
+  border-radius: var(--rounded-medium);
+  background-color: var(--bg-default);
+  color: var(--text-default-foreground);
+  z-index: 10;
+  transition:
+    transform 0.2s,
+    colors 0.2s,
+    opacity 0.2s;
+  &:hover {
+    opacity: var(--opacity-hover);
+  }
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--gray-800, #000000);
+  font-family: 'Pretendard Variable';
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 50px;
+  height: 35px;
+`;
+
+const ModalOverlay = styled.div`
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1001;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+const StyledList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const StyledListItem = styled.li`
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+`;
+
+const StyledProfileImage = styled(Image)`
+  border-radius: 50%;
+  margin-right: 8px;
+`;
+
+const StyledName = styled.p`
+  margin: 0;
 `;

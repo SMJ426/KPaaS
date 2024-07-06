@@ -135,8 +135,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         try {
             const responseData = await EditProfile(formData, accessToken);
             console.log(responseData);
-            if (responseData.state === "처리 성공") {
-                window.location.href = "/user/profile";
+            if (responseData.state === "success") {
+                window.location.href = "/profile";
             } else if (responseData.state === "중복된 이메일") {
                 alert(responseData.message);
                 alert("이메일을 변경해주세요.")
