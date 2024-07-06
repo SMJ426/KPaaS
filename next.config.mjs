@@ -10,6 +10,10 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false,
+  swcMinify: true,
+  compiler: {
+    styledComponents: true,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
