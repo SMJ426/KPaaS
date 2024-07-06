@@ -25,9 +25,10 @@ const StyledWrapper = styled.div`
   border-radius: 12px;
 
   .img-policy {
-    width: 180px;
+    min-width: 180px;
     height: 200px;
     box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.3);
+    margin-left: 40px;
   }
 
   .wrapper-desc {

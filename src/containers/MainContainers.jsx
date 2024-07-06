@@ -73,11 +73,12 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
       <div className="wrapper-body-card">
         <div>
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
-          <MiniCategoryComponents
+          {/* 필터 기능 우선 비활성화 */}
+          {/* <MiniCategoryComponents
             className="cateminibtn"
             selectedCategory={selectedCategory}
             onCategoryChange={handleCategoryChange}
-          />
+          /> */}
         </div>
 
         <CommuPosts
