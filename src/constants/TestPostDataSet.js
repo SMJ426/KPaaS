@@ -3,7 +3,7 @@ export const TestPostDataSet = {
     {
       post_id: 1,
       post_name: '건강 지킴이',
-      price: 3000,
+      price: 300000,
       email: 'teacher1@example.com',
       image_post: 'images/png/fitness_image_1.png',
       post_info:
@@ -22,7 +22,7 @@ export const TestPostDataSet = {
     {
       post_id: 2,
       post_name: '피트니스 전문가',
-      price: 3000,
+      price: 250000,
       email: 'teacher2@example.com',
       image_post: 'images/png/fitness_image_2.png',
       post_info:
@@ -41,7 +41,7 @@ export const TestPostDataSet = {
     {
       post_id: 3,
       post_name: '운동 열정가',
-      price: 3000,
+      price: 100000,
       email: 'teacher3@example.com',
       image_post: 'images/png/fitness_image_3.png',
       post_info:
@@ -60,7 +60,7 @@ export const TestPostDataSet = {
     {
       post_id: 4,
       post_name: '친절한 코치',
-      price: 3000,
+      price: 180000,
       email: 'teacher4@example.com',
       image_post: 'images/png/fitness_image_4.png',
       post_info:
@@ -79,7 +79,7 @@ export const TestPostDataSet = {
     {
       post_id: 5,
       post_name: '건강 추구자',
-      price: 3000,
+      price: 200000,
       email: 'teacher5@example.com',
       image_post: 'images/png/fitness_image_5.png',
       post_info:

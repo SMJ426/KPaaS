@@ -25,17 +25,22 @@ export default function PostItem({ postData, posts }) {
 
   const { pageNumber } = posts.pageable;
 
-  // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
-  // const accessToken = accessToken;
-  // const [liked, setLiked] = useState(like);
+  // 초기값을 지금은 false로 했지만, 다음엔 post.liked로 해야함
+  const [liked, setLiked] = useState(false);
 
   const linkPath = `/${pageNumber}/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
-  const liked = 'false';
 
   const formattedPrice = postData.price.toLocaleString('ko-KR');
+  const likedBtnSrc = liked
+    ? 'images/png/icon-heart-fill.png'
+    : 'images/png/icon-heart.png';
 
   // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
 
   // const handleLikeClick = async () => {
   //   if (!accessToken) {
@@ -97,28 +102,12 @@ export default function PostItem({ postData, posts }) {
             <p>수강비</p>
             <span>{formattedPrice}원</span>
           </div>
+
+          {/* 좋아요 버튼 */}
           <div className="wrapper-info-btns">
-            {liked ? (
-              // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
-              // <button className='liked' onClick={handleLikeClick}>
-              <button className="btn-like">
-                <img
-                  src="images/png/icon-heart.png"
-                  alt="like_blue"
-                  className="likeImg"
-                />
-              </button>
-            ) : (
-              // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
-              // <button className='like' onClick={handleLikeClick}>
-              <button className="btn-like">
-                <img
-                  src="images/png/icon-heart.png"
-                  alt="like"
-                  className="likeImg"
-                />
-              </button>
-            )}
+            <button className="btn-like" onClick={handleLikeClick}>
+              <img src={likedBtnSrc} alt="좋아요 버튼" />
+            </button>
             <Chatting />
             <Payments
               // accessToken={accessToken}
@@ -140,6 +129,10 @@ const StyledWrapper = styled.div`
   width: 288px;
   height: 380px;
   box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+  button {
+    cursor: pointer;
+  }
 
   .wrapper-profile-info {
     display: flex;
