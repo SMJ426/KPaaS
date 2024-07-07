@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
           rel="icon"
-          href="images/png/PTSD.png"
+          href="images/png/meta-image.png"
           sizes="32x32"
           type="image/png"
         />

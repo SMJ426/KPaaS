@@ -6,7 +6,13 @@ export default function MainNavigation({ accessToken }) {
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
-        <a className="logo">PT에프디</a>
+        <a className="logo">
+          <img
+            className="main-logo"
+            src="images/png/PTFD-main-logo.png"
+            alt="피티에프디"
+          />
+        </a>
       </Link>
 
       {/* 상단 바 중간 네비 게이터 */}
@@ -70,6 +76,11 @@ const StyledWrapper = styled.header`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    > img {
+      width: 200px;
+      height: 65px;
+    }
   }
 
   .wrapper-navigate-menu {
