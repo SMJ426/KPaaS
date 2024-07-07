@@ -25,9 +25,10 @@ const StyledWrapper = styled.div`
   border-radius: 12px;
 
   .img-policy {
-    width: 180px;
+    min-width: 180px;
     height: 200px;
     box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.3);
+    margin-left: 40px;
   }
 
   .wrapper-desc {
@@ -38,10 +39,16 @@ const StyledWrapper = styled.div`
 
     width: 200px;
     height: 200px;
-    padding-left: 15px;
+    padding: 0 15px;
 
     .title {
       border: none;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .desc {
+      font-size: 13px;
+      font-weight: 200;
     }
   }
 `;
