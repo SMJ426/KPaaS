@@ -93,11 +93,14 @@ export default function CategoryComponents({ handleCategoryChange }) {
 }
 
 const StyledWrapper = styled.div`
-  width: 180px;
+  width: 120px;
   position: sticky;
   top: 10%;
 
   .categoryTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 60px;
     flex-shrink: 0;
     border-radius: 10px 10px 0px 0px;
@@ -107,19 +110,21 @@ const StyledWrapper = styled.div`
       color: #191a1c;
       font-family: 'Pretendard Variable';
       font-size: 20px;
-      font-weight: 600;
-      padding-left: 20px;
-      padding-top: 18px;
+      font-weight: bold;
     }
   }
 
   .categoryForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     max-height: 800px;
     overflow-y: auto;
     border: 1px solid #bec0c6;
     border-top: none;
     background: #fff;
-    padding-bottom: 29px;
+    padding-bottom: 10px;
 
     /* 이 아래 부분은 스크롤 커스텀 디자인 */
     &::-webkit-scrollbar {
@@ -138,26 +143,24 @@ const StyledWrapper = styled.div`
     }
 
     .Checkboxes {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
       border: 1px solid #bec0c6;
-      margin-top: 30px;
-      margin-left: 20px;
     }
 
     .cateMg {
       display: flex;
       align-items: center;
+      justify-content: start;
+      margin: 14px 0;
     }
 
     .cateTexts {
       color: #737a8d;
       font-family: 'Pretendard Variable';
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       margin-left: 8px;
-      margin-top: 29px;
     }
   }
 

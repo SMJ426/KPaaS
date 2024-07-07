@@ -54,7 +54,7 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
 
       {/* 메인 배경 이미지 */}
       <img
-        src="/images/png/main-page.png"
+        src="/images/png/PTSD-main-logo.png"
         alt="메인 이미지"
         className="main-img"
       />
@@ -71,7 +71,7 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
       </Link> */}
 
       <div className="wrapper-body-card">
-        <div>
+        <div className="wrapper-cate">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
           {/* 필터 기능 우선 비활성화 */}
           {/* <MiniCategoryComponents

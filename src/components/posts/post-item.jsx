@@ -1,13 +1,13 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
+import styled from 'styled-components';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import styles from './post-item.module.css';
 import { LikeProduct, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 import Payments from '@compoents/components/payment/payments';
+import Chatting from '../chatting/Chatting';
 
 export default function PostItem({ postData, posts }) {
   const router = useRouter();
@@ -32,6 +32,8 @@ export default function PostItem({ postData, posts }) {
   const linkPath = `/${pageNumber}/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
   const liked = 'false';
+
+  const formattedPrice = postData.price.toLocaleString('ko-KR');
 
   // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
 
@@ -67,75 +69,172 @@ export default function PostItem({ postData, posts }) {
   // }
 
   return (
-    <div className={styles.postItem}>
-      <Link
-        href={linkProfile}
-        style={{ textDecoration: 'none' }}
-        className={styles.profile}
-      >
-        <Image
+    <StyledWrapper>
+      <Link href={linkProfile} className="wrapper-profile-info">
+        <img
           src={postData.user_profile}
           alt="프로필 이미지"
-          width={49}
-          height={49}
-          className={styles.profileImage}
-          priority
+          className="img-profile"
         />
-        <h2 className={styles.nickName}>{postData.nick_name}</h2>
+        <div className="wrapper-name">
+          <p className="nickname">{postData.nick_name}</p>
+          <p className="postname">{postData.post_name}</p>
+        </div>
       </Link>
 
-      <Link
-        href={linkPath}
-        style={{ textDecoration: 'none' }}
-        className={styles.PostLinks}
-      >
-        <h3>{postData.post_name}</h3>
-        <Image
-          src={postData.image_post}
-          width={240}
-          height={260}
-          alt="상품 이미지"
-          className={styles.productImg}
-          priority
-        />
-        <h1>가격</h1>
-        <h4>{postData.price}원</h4>
-      </Link>
-      <div className={styles.buttons}>
-        {liked ? (
-          // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
-          // <button className={styles.liked} onClick={handleLikeClick}>
-          <button className={styles.liked}>
-            좋아요{' '}
-            <Image
-              src={'/svgs/Favorite_blue.svg'}
-              width={22}
-              height={20}
-              alt="like_blue"
-              className={styles.likeImg}
+      <div className="wrapper-bottom">
+        <Link href={linkPath} className="wrapper-img-info">
+          <img
+            src={postData.image_post}
+            alt="상품 이미지"
+            className="img-post"
+          />
+          <span className="post_info">{postData.post_info}</span>
+        </Link>
+
+        <div className="wrapper-btns">
+          <div className="wrapper-price">
+            <p>수강비</p>
+            <span>{formattedPrice}원</span>
+          </div>
+          <div className="wrapper-info-btns">
+            {liked ? (
+              // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
+              // <button className='liked' onClick={handleLikeClick}>
+              <button className="btn-like">
+                <img
+                  src="images/png/icon-heart.png"
+                  alt="like_blue"
+                  className="likeImg"
+                />
+              </button>
+            ) : (
+              // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
+              // <button className='like' onClick={handleLikeClick}>
+              <button className="btn-like">
+                <img
+                  src="images/png/icon-heart.png"
+                  alt="like"
+                  className="likeImg"
+                />
+              </button>
+            )}
+            <Chatting />
+            <Payments
+              // accessToken={accessToken}
+              productId={postData.post_id}
+              post={posts}
+              nick_name={postData.nick_name}
             />
-          </button>
-        ) : (
-          // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
-          // <button className={styles.like} onClick={handleLikeClick}>
-          <button className={styles.like}>
-            좋아요{' '}
-            <Image
-              src={'/svgs/Favorite.svg'}
-              width={22}
-              height={20}
-              alt="like"
-              className={styles.likeImg}
-            />
-          </button>
-        )}
-        <Payments
-          // accessToken={accessToken}
-          productId={postData.post_id}
-          post={posts}
-          nick_name={postData.nick_name}
-        />
+          </div>
+        </div>
       </div>
-    </div>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 288px;
+  height: 380px;
+  box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+  .wrapper-profile-info {
+    display: flex;
+    gap: 12px;
+    padding: 12px 12px 0 12px;
+
+    .img-profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .wrapper-name {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+
+      .nickname {
+        font-size: 15px;
+        font-weight: bold;
+        font-family: 'Pretendard';
+        color: #29363d;
+      }
+      .postname {
+        font-size: 12px;
+        font-weight: 500;
+        font-family: 'Pretendard';
+        color: #5a6a72;
+      }
+    }
+  }
+
+  .wrapper-bottom {
+    padding: 12px 12px 0 12px;
+
+    .wrapper-img-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .img-post {
+        width: 100%;
+        height: 196px;
+        object-fit: cover;
+      }
+      span,
+      p {
+        font-family: 'Pretendard';
+      }
+      .post_info {
+        color: #5a6a72;
+        font-size: 12px;
+        line-height: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .wrapper-btns {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+
+      .wrapper-price {
+        display: flex;
+        gap: 8px;
+        > p {
+          font-weight: bold;
+          color: #29363d;
+        }
+        > span {
+          color: #29363d;
+        }
+
+        span,
+        p {
+          font-family: 'Pretendard';
+        }
+      }
+
+      .wrapper-info-btns {
+        display: flex;
+        gap: 9px;
+
+        .btn-like {
+          background-color: #ffffff;
+          border: none;
+          > img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+`;

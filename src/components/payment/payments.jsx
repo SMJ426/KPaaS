@@ -1,20 +1,19 @@
 'use client';
-import * as PortOne from "@portone/browser-sdk/v2";
+import * as PortOne from '@portone/browser-sdk/v2';
 import { useState } from 'react';
 import { memberPay, completePay } from '@compoents/util/payment-util';
 import { useRouter } from 'next/navigation';
-import styles from "./payments.module.css";
-import { fetchUserEmail } from "@compoents/util/Client";
+import styled from 'styled-components';
+import { fetchUserEmail } from '@compoents/util/Client';
 
-
-export default function Payments({ accessToken, productId, post, nick_name }){
+export default function Payments({ accessToken, productId, post, nick_name }) {
   const [purchases, setPurchase] = useState('');
   const router = useRouter();
 
   const handlePurchase = async () => {
     const currentDate = new Date().toISOString().split('T')[0];
     if (!accessToken) {
-      router.push("/user/login");
+      router.push('/user/login');
       return;
     }
     const email = await fetchUserEmail(nick_name);
@@ -27,17 +26,19 @@ export default function Payments({ accessToken, productId, post, nick_name }){
           product_name: post.product_name,
           product_id: parseInt(productId),
           product_point: post.price,
-          seller: post.userEmail,  // 현재 product/page api 응답에 userEmail 없음
-          purchase_at: currentDate
-        }
-      ]
+          seller: post.userEmail, // 현재 product/page api 응답에 userEmail 없음
+          purchase_at: currentDate,
+        },
+      ],
     };
 
     try {
       const response = await memberPay(accessToken, paymentData);
       setPurchase(response);
       if (response.charge === true) {
-        const confirmPurchase = window.confirm(`${response.message} ${response.point} 만큼 충전하시겠습니까?`);
+        const confirmPurchase = window.confirm(
+          `${response.message} ${response.point} 만큼 충전하시겠습니까?`
+        );
         if (confirmPurchase) {
           handleSetPoint(response.point);
         }
@@ -54,19 +55,19 @@ export default function Payments({ accessToken, productId, post, nick_name }){
 
     try {
       const response = await PortOne.requestPayment({
-        storeId: "store-8c143d19-2e6c-41e0-899d-8c3d02118d41",
-        channelKey: "channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8",
+        storeId: 'store-8c143d19-2e6c-41e0-899d-8c3d02118d41',
+        channelKey: 'channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8',
         paymentId: `${crypto.randomUUID()}`,
         orderName: 'point 충전',
         totalAmount: point,
-        currency: "CURRENCY_KRW",
-        payMethod: "EASY_PAY",
+        currency: 'CURRENCY_KRW',
+        payMethod: 'EASY_PAY',
         redirectUrl: `http://localhost:3000`,
       });
-      
+
       if (response.code != null) {
         return alert(response.message);
-      } 
+      }
 
       const validationData = {
         payment_id: response.paymentId,
@@ -77,9 +78,9 @@ export default function Payments({ accessToken, productId, post, nick_name }){
             product_id: parseInt(productId),
             product_point: post.price,
             seller: post.userEmail, // 현재 product/page api 응답에 userEmail 없음
-            purchase_at: currentDate
-          }
-        ]
+            purchase_at: currentDate,
+          },
+        ],
       };
 
       const Endresponse = await completePay(accessToken, validationData);
@@ -94,10 +95,25 @@ export default function Payments({ accessToken, productId, post, nick_name }){
   };
 
   return (
-    <div>
-      <button className={styles.buy} onClick={handlePurchase}>
-        구매하기
-      </button>
-    </div>
+    <StyledWrapper onClick={handlePurchase}>
+      <img src="images/svg/icon-shopping-cart.svg" alt="구매하기" />
+      {/* <sapn>수강하기</sapn> */}
+    </StyledWrapper>
   );
-};
+}
+
+const StyledWrapper = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffffff;
+  border: none;
+  font-family: 'Pretendard Variable';
+
+  > img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+`;

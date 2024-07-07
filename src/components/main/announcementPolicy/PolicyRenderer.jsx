@@ -39,10 +39,16 @@ const StyledWrapper = styled.div`
 
     width: 200px;
     height: 200px;
-    padding-left: 15px;
+    padding: 0 15px;
 
     .title {
       border: none;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .desc {
+      font-size: 13px;
+      font-weight: 200;
     }
   }
 `;
