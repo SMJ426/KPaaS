@@ -1,5 +1,5 @@
-import CommuPosts from '../posts/CommuPost';
-import styles from './ProductsComponent.module.css';
+import CommuPosts from '../posts/commu-post';
+import styled from 'styled-components';
 import Pagination from '../pagination/Paginations';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -20,8 +20,8 @@ export default function ProductsComponent({ userproducts, accessToken }) {
   };
 
   return (
-    <>
-      <section className={styles.section}>
+    <StyledWrapper>
+      <section className="section">
         <CommuPosts posts={userproducts} accessToken={accessToken} />
       </section>
       <Pagination
@@ -31,8 +31,24 @@ export default function ProductsComponent({ userproducts, accessToken }) {
         handlePageChange={handlePageChange}
         goToPreviousPageGroup={goToPreviousPageGroup}
         goToNextPageGroup={goToNextPageGroup}
-        className={styles.pagin}
+        className="pagin"
       />
-    </>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.header`
+  .section {
+    height: 1800px;
+  }
+  .pagin {
+    background-color: #ffffff;
+  }
+
+  @media screen and (max-width: 786px) {
+    .section {
+      margin-top: 0;
+      margin-left: 0;
+    }
+  }
+`;

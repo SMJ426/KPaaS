@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 // ${process.env.NEXT_PUBLIC_SERVER_URL}
 export async function Loginfetchs(email, password) {
   try {
-   const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/login`, { 
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/login`, { 
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
       cache: 'no-store',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -40,8 +40,8 @@ export async function RefreshAccessToken() { //refreshToken
   const cookieStore = cookies()
   const refreshToken = cookieStore.get('refreshToken')
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/refresh`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/refresh`, {
+  //const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/refresh`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/refresh`, {
       cache: 'no-store',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -93,8 +93,8 @@ export async function EditProfile(formData, accessToken) {
 
 export async function fetchUserProfile(accesstoken) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
       cache: 'no-store',
       headers: {
         'Authorization': `${accesstoken}`
@@ -108,32 +108,13 @@ export async function fetchUserProfile(accesstoken) {
   }
 };
 
-// 멤버 프로필 수정 api
-export async function PUTUserProfile(accesstoken, formData) {
-  try {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile`, {  
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile`, {
-      cache: 'no-store',
-      method: 'PUT',
-      headers: {
-        'Authorization': `${accesstoken}`
-      },
-      body: formData,
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('사용자 프로필 정보 수정 중 오류가 발생했습니다.', error);
-    throw error;
-  }
-};
 
 // 상대방 프로필 api
 
 export async function fetchOtherUserProfile(nick_name, accessToken){
   try {
-   const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile/other/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile/other/${nick_name}`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/member/profile/other/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/profile/other/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -152,8 +133,8 @@ export async function fetchOtherUserProfile(nick_name, accessToken){
 
 export async function followUser(accessToken, email) {
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow`, {   // 본문에 이메일 넣어서?
+  //const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow`, {   // 본문에 이메일 넣어서?
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -173,15 +154,15 @@ export async function followUser(accessToken, email) {
 // followList 가져오기
 export async function fetchFollowUser(nick_name) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/follower/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/follower/${nick_name}`, {
+  //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/follower/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/follower/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       }
     });
     const data = await response.json();
-    return data;
+    return data.followers;
   } catch (error) {
     console.error('사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.', error);
     throw error;
@@ -190,15 +171,16 @@ export async function fetchFollowUser(nick_name) {
 // following List
 export async function fetchFollowingUser(nick_name) {
   try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/following/${nick_name}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/following/${nick_name}`, {
+ // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow/following/${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/following/${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       }
     });
     const data = await response.json();
-    return data;
+    console.log(data.followings)
+    return data.followings;
   } catch (error) {
     console.error('사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.', error);
     throw error;
@@ -208,8 +190,8 @@ export async function fetchFollowingUser(nick_name) {
 // mypage
 export async function getSelling(nick_name) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}`, {
-   // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}`, {
+   // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
