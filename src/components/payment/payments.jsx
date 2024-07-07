@@ -71,7 +71,7 @@ export default function Payments({ accessToken, productId, post, nick_name }) {
 
       const validationData = {
         payment_id: response.paymentId,
-        total_point: point,
+        total_point: post.price,
         created_at: currentDate,
         payments_list: [
           {
