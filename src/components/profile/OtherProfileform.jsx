@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from 'react';
 import styled from "styled-components";
-
+import Link from "next/link";
 import ProductsComponent from "./ProductsComponent";
 import LikegridComponent from '../bucket/Likegrid';
 import { followUser } from "@compoents/util/http";
@@ -10,8 +10,17 @@ import { RefreshAccessToken } from "@compoents/util/http";
 
 import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
 
-export default function OtherProfileform({ userInfo, nick_name, accessToken, followerList, followingList, userproducts, isFollowing }) {
+export default function OtherProfileform({ 
+  userInfo, 
+  nick_name, 
+  accessToken, 
+  followerList,
+  followingList,
+  userproducts,
+}) {
   const [currentView, setCurrentView] = useState('likes');
+  const [isfollowrModalOpen, setIsfollowModalOpen] = useState(false);
+  const [isfollowingModalOpen, setIsfollowingModalOpen] = useState(false);
   const [isfollow, setfollowing] = useState(isFollowing);
 
   useEffect(() => {
@@ -72,43 +81,81 @@ export default function OtherProfileform({ userInfo, nick_name, accessToken, fol
             </div>
           </div>
           <div className="Followes">
-            <div>
-              <Popover showArrow={true} placement="bottom">
-                <PopoverTrigger className="followButton">
-                  <Button className="Followingbtn">팔로잉 {userInfo.following}</Button>
-                </PopoverTrigger>
-                <PopoverContent className="modal">
-                  {/* {followingList.map((following) => (
-                    <ul key={following.member_id}>
+          <div>
+            <button
+              className="Followingbtn"
+              onClick={() => setIsfollowingModalOpen(true)}
+            >
+              팔로잉 {userInfo.following}
+            </button>
+            <div className="modaloverlay" show={isfollowingModalOpen}>
+              <div className="modalcontent">
+                <button className="clostbtn" onClick={() => setIsfollowingModalOpen(false)}>
+                  X
+                </button>
+                <ul className="modalList">
+                  {followingList.map((following) => (
+                    <Link 
+                      key={following.member_id}
+                      href={`/profile/${following.nick_name}`}
+                      className="modalListItem"
+                      >
                       <div className="flex">
-                        <Image src={following.image} alt="프로필 사진" width={15} height={15} priority className="followImg" />
-                        <p className="names">{following.name}</p>
+                        <Image
+                          src={following.profile_image}
+                          alt="프로필 사진"
+                          width={50}
+                          height={50}
+                          priority
+                          className="followImg"
+                        />
+                        <p className="names">
+                          {following.user_name}
+                        </p>
                       </div>
-                    </ul>
-                  ))} */}
-                </PopoverContent>
-              </Popover>
-              <p className="profileName">{userInfo.user_name}</p>
-              <p className="profileEmail">{userInfo.email}</p>
-              <p className="profileMessage">{userInfo.member_info}</p>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <Popover showArrow={true} placement="bottom">
-              <PopoverTrigger className="followButton2">
-                <Button className="Followingbtn">
-                  팔로워 {userInfo.follower}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="modal">
-                {/* {followerList.map((follower) => (
-                  <ul key={follower.member_id}>
+            <p className="profileName">{userInfo.user_name}</p>
+            <p className="profileEmail">{userInfo.email}</p>
+            <p className="profileMessage">{userInfo.member_info}</p>
+          </div>
+          <button
+            className="Followingbtn"
+            onClick={() => setIsfollowModalOpen(true)}
+          >
+            팔로워 {userInfo.follower}
+          </button>
+          <div className="modaloverlay" show={isfollowrModalOpen}>
+            <div className="modalcontent">
+              <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
+                X
+                </button>
+              <ul className="modalList">
+                {followerList.map((follower) => (
+                  <Link 
+                  key={follower.member_id} 
+                  href={`/profile/${following.nick_name}`}
+                  className="modalListItem"
+                  >
                     <div className="flex">
-                      <Image src={follower.image} alt="프로필 사진" width={15} height={15} priority className="followImg" />
+                      <Image
+                        src={follower.image}
+                        alt="프로필 사진"
+                        width={15}
+                        height={15}
+                        priority
+                        className="followImg"
+                      />
                       <p className="names">{follower.name}</p>
                     </div>
-                  </ul>
-                ))} */}
-              </PopoverContent>
-            </Popover>
+                  </Link>
+                ))}
+              </ul>
+            </div>
+          </div>
             {isfollow ? (
               <button onClick={handleFollow} className="profileBtn">
                 팔로잉
@@ -185,42 +232,105 @@ const StyledWrapper = styled.header`
   display: flex;
 }
 
-.followButton {
-  background-color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-left: 50px;
-    height: 35px;
-}
+.Followingbtn {
+    position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  font-weight: normal;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  padding-left: var(--unit-4);
+  padding-right: var(--unit-4);
+  min-width: var(--unit-20);
+  height: var(--unit-10);
+  font-size: var(--text-small);
+  gap: var(--unit-2);
+  border-radius: var(--rounded-medium);
+  background-color: var(--bg-default);
+  color: var(--text-default-foreground);
+  z-index: 10;
+  transition:
+    transform 0.2s,
+    colors 0.2s,
+    opacity 0.2s;
+  &:hover {
+    opacity: var(--opacity-hover);
+  }
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--gray-800, #000000);
+  font-family: 'Pretendard Variable';
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 50px;
+  height: 35px;
+  }
 
-.followButton2{
-  background-color: #FFFFFF;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #000000);
-    font-family: "Pretendard Variable";
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    height: 35px;
-    margin-left: 15px;
-}
+  .modaloverlay {
+    display: ${(props) => (props.show ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  }
 
+  .modalcontent{
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  }
 
-.followImg{
-  margin-left: 5px;
-  margin-top: 3px;
-  margin-right: 15px;
-}
+  .closebtn{
+    position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  }
+
+  .modalList{
+    list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+
+  .modalListItem{
+    margin: 8px 0;
+  display: flex;
+  align-items: center;
+  }
+
+  .followImg {
+    margin-left: 5px;
+    margin-top: 3px;
+    margin-right: 15px;
+    border-radius: 50%;
+  }
+  .names{
+  margin: 0;
+  font-size: 25px;
+  margin-top: 15px;
+  }
 
 .profileName {
   margin-left: 50px;

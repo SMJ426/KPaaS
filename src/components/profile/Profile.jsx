@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,7 +17,8 @@ export default function UserProfile({
   accessToken,
 }) {
   const [currentView, setCurrentView] = useState('likes');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isfollowrModalOpen, setIsfollowModalOpen] = useState(false);
+  const [isfollowingModalOpen, setIsfollowingModalOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -64,56 +66,66 @@ export default function UserProfile({
         </div>
         <div className="Followes">
           <div>
-            <StyledButton
+            <button
               className="Followingbtn"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsfollowingModalOpen(true)}
             >
               팔로잉 {userInfo.following}
-            </StyledButton>
-            <ModalOverlay show={isModalOpen}>
-              <ModalContent>
-                <CloseButton onClick={() => setIsModalOpen(false)}>
+            </button>
+            <div className="modaloverlay" show={isfollowingModalOpen}>
+              <div className="modalcontent">
+                <button className="clostbtn" onClick={() => setIsfollowingModalOpen(false)}>
                   X
-                </CloseButton>
-                <StyledList>
+                </button>
+                <ul className="modalList">
                   {followingList.map((following) => (
-                    <StyledListItem key={following.member_id}>
+                    <Link 
+                      key={following.member_id}
+                      href={`/profile/${following.nick_name}`}
+                      className="modalListItem"
+                      >
                       <div className="flex">
-                        <StyledProfileImage
-                          src={following.image}
+                        <Image
+                          src={following.profile_image}
                           alt="프로필 사진"
-                          width={15}
-                          height={15}
+                          width={50}
+                          height={50}
                           priority
                           className="followImg"
                         />
-                        <StyledName className="names">
-                          {following.name}
-                        </StyledName>
+                        <p className="names">
+                          {following.user_name}
+                        </p>
                       </div>
-                    </StyledListItem>
+                    </Link>
                   ))}
-                </StyledList>
-              </ModalContent>
-            </ModalOverlay>
+                </ul>
+              </div>
+            </div>
             <p className="profileName">{userInfo.user_name}</p>
             <p className="profileEmail">{userInfo.email}</p>
             <p className="profileMessage">{userInfo.member_info}</p>
           </div>
-          <StyledButton
+          <button
             className="Followingbtn"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsfollowModalOpen(true)}
           >
             팔로워 {userInfo.follower}
-          </StyledButton>
-          <ModalOverlay show={isModalOpen}>
-            <ModalContent>
-              <CloseButton onClick={() => setIsModalOpen(false)}>X</CloseButton>
-              <StyledList>
+          </button>
+          <div className="modaloverlay" show={isfollowrModalOpen}>
+            <div className="modalcontent">
+              <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
+                X
+                </button>
+              <ul className="modalList">
                 {followerList.map((follower) => (
-                  <StyledListItem key={follower.member_id}>
+                  <Link 
+                  key={follower.member_id} 
+                  href={`/profile/${following.nick_name}`}
+                  className="modalListItem"
+                  >
                     <div className="flex">
-                      <StyledProfileImage
+                      <Image
                         src={follower.image}
                         alt="프로필 사진"
                         width={15}
@@ -121,13 +133,13 @@ export default function UserProfile({
                         priority
                         className="followImg"
                       />
-                      <StyledName className="names">{follower.name}</StyledName>
+                      <p className="names">{follower.name}</p>
                     </div>
-                  </StyledListItem>
+                  </Link>
                 ))}
-              </StyledList>
-            </ModalContent>
-          </ModalOverlay>
+              </ul>
+            </div>
+          </div>
           <button className="EditBtn" onClick={handleEditProfileClick}>
             프로필 수정
           </button>
@@ -170,6 +182,9 @@ export default function UserProfile({
 }
 
 const StyledWrapper = styled.header`
+
+
+
   .profileInfo {
     display: flex;
     justify-content: center;
@@ -217,41 +232,107 @@ const StyledWrapper = styled.header`
     display: flex;
   }
 
-  .followButton {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #000000);
-    font-family: 'Pretendard Variable';
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-left: 50px;
-    height: 35px;
+  .Followingbtn {
+    position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  font-weight: normal;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  padding-left: var(--unit-4);
+  padding-right: var(--unit-4);
+  min-width: var(--unit-20);
+  height: var(--unit-10);
+  font-size: var(--text-small);
+  gap: var(--unit-2);
+  border-radius: var(--rounded-medium);
+  background-color: var(--bg-default);
+  color: var(--text-default-foreground);
+  z-index: 10;
+  transition:
+    transform 0.2s,
+    colors 0.2s,
+    opacity 0.2s;
+  &:hover {
+    opacity: var(--opacity-hover);
+  }
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--gray-800, #000000);
+  font-family: 'Pretendard Variable';
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 50px;
+  height: 35px;
   }
 
-  .followButton2 {
-    background-color: #ffffff;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--gray-800, #000000);
-    font-family: 'Pretendard Variable';
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    height: 35px;
-    margin-left: 15px;
+  .modaloverlay {
+    display: ${(props) => (props.show ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  }
+
+  .modalcontent{
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  }
+
+  .closebtn{
+    position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  }
+
+  .modalList{
+    list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+
+  .modalListItem{
+    margin: 8px 0;
+  display: flex;
+  align-items: center;
   }
 
   .followImg {
     margin-left: 5px;
     margin-top: 3px;
     margin-right: 15px;
+    border-radius: 50%;
   }
+  .names{
+  margin: 0;
+  font-size: 25px;
+  margin-top: 15px;
+  }
+
+  
 
   .profileName {
     margin-left: 50px;
@@ -579,99 +660,3 @@ const StyledWrapper = styled.header`
   }
 `;
 
-const StyledButton = styled.button`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  appearance: none;
-  user-select: none;
-  white-space: nowrap;
-  font-weight: normal;
-  overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  padding-left: var(--unit-4);
-  padding-right: var(--unit-4);
-  min-width: var(--unit-20);
-  height: var(--unit-10);
-  font-size: var(--text-small);
-  gap: var(--unit-2);
-  border-radius: var(--rounded-medium);
-  background-color: var(--bg-default);
-  color: var(--text-default-foreground);
-  z-index: 10;
-  transition:
-    transform 0.2s,
-    colors 0.2s,
-    opacity 0.2s;
-  &:hover {
-    opacity: var(--opacity-hover);
-  }
-  background-color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: var(--gray-800, #000000);
-  font-family: 'Pretendard Variable';
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 50px;
-  height: 35px;
-`;
-
-const ModalOverlay = styled.div`
-  display: ${(props) => (props.show ? 'block' : 'none')};
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-`;
-
-const ModalContent = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 1001;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
-const StyledList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const StyledListItem = styled.li`
-  margin: 8px 0;
-  display: flex;
-  align-items: center;
-`;
-
-const StyledProfileImage = styled(Image)`
-  border-radius: 50%;
-  margin-right: 8px;
-`;
-
-const StyledName = styled.p`
-  margin: 0;
-`;
