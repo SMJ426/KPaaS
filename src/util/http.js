@@ -190,20 +190,15 @@ export async function fetchFollowingUser(nick_name) {
 // mypage
 export async function getSelling(nick_name) {
   try {
-   // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}`, {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}`, {
+   // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/mypage?nick_name=${nick_name}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${nick_name}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       }
     });
     const data = await response.json();
-    if (data === null) {
-      const api = [];
-      return api;
-    } else {
-      return data;
-    }
+    return data;
   } catch (error) {
     console.error('사용자 판매 물품 error', error);
     throw error;
@@ -213,8 +208,8 @@ export async function getSelling(nick_name) {
 // mypage
 export async function PagegetSelling(nick_name, page) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/product/mypage?nick_name=${nick_name}&page=${page}`, {
-  //  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/mypage?nick_name=${nick_name}&page=${page}`, {
+  //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/mypage?nick_name=${nick_name}&page=${page}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${nick_name}&page=${page}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',

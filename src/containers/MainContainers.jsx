@@ -1,5 +1,6 @@
 'use client';
 import styled from 'styled-components';
+import Link from 'next/link';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 import MiniCategoryComponents from '@compoents/components/minicategory/Minicategory';
 import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
@@ -63,12 +64,11 @@ export default function MainContainers({ postData, accessToken, nick_name }) {
       <AnnouncementPolicy />
 
       {/* 강사 등록 btn 우선 비황성화 */}
-      {/* <Link href="/newpost">
+      <Link href="/newpost">
         <button className="btn-newpost">
-          <FaPen className="pencli" />
           <div className="Add">강사등록</div>
         </button>
-      </Link> */}
+      </Link>
 
       <div className="wrapper-body-card">
         <div className="wrapper-cate">

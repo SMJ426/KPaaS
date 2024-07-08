@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { fetchUserEmail } from '@compoents/util/Client';
 
-export default function Payments({ accessToken, productId, post, nick_name }) {
+export default function Payments({ accessToken, postId, post, nick_name }) {
   const [purchases, setPurchase] = useState('');
   const router = useRouter();
 
@@ -23,10 +23,10 @@ export default function Payments({ accessToken, productId, post, nick_name }) {
       email: email,
       payments_list: [
         {
-          product_name: post.product_name,
-          product_id: parseInt(productId),
-          product_point: post.price,
-          seller: post.userEmail, // 현재 product/page api 응답에 userEmail 없음
+          post_name: post.postName,
+          post_id: parseInt(postId),
+          post_point: post.price,
+          seller: post.userEmail, // 현재 post/page api 응답에 userEmail 없음
           purchase_at: currentDate,
         },
       ],
@@ -75,9 +75,9 @@ export default function Payments({ accessToken, productId, post, nick_name }) {
         created_at: currentDate,
         payments_list: [
           {
-            product_id: parseInt(productId),
-            product_point: post.price,
-            seller: post.userEmail, // 현재 product/page api 응답에 userEmail 없음
+            post_id: parseInt(postId),
+            post_point: post.price,
+            seller: post.email, // 현재 post/page api 응답에 userEmail 없음
             purchase_at: currentDate,
           },
         ],

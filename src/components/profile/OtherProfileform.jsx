@@ -88,7 +88,7 @@ export default function OtherProfileform({
             >
               팔로잉 {userInfo.following}
             </button>
-            <div className="modaloverlay" show={isfollowingModalOpen}>
+            <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
               <div className="modalcontent">
                 <button className="clostbtn" onClick={() => setIsfollowingModalOpen(false)}>
                   X
@@ -128,7 +128,7 @@ export default function OtherProfileform({
           >
             팔로워 {userInfo.follower}
           </button>
-          <div className="modaloverlay" show={isfollowrModalOpen}>
+          <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
             <div className="modalcontent">
               <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
                 X
@@ -427,10 +427,10 @@ const StyledWrapper = styled.header`
 .verticalLine {
   position: absolute;
   border-top: 1px solid #E2E5EF;
-  width: 50%;
+  width: 60%;
   height: 1px;
   margin-top: 120px;
-  margin-left: 30%;
+  margin-left: 13%;
   padding: 0%;
 }
 

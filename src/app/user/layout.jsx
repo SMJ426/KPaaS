@@ -1,10 +1,10 @@
 
-import LoginHeader from "@compoents/components/layout/Login-Header";
+import UserHeader from "@compoents/components/layout/User-Header";
 
 export default function UserLayout({ children }) {
   return (
       <>
-          <LoginHeader />
+          <UserHeader />
           {children}
       </>
   );

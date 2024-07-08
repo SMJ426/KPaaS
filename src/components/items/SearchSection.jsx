@@ -7,7 +7,7 @@ import { debounce } from 'lodash';
 const SearchSection = ({ accessToken }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('product');
+  const [searchType, setSearchType] = useState('post');
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
   const searchElement = useRef();
 
@@ -19,12 +19,12 @@ const SearchSection = ({ accessToken }) => {
           return;
         }
         let endpoint = '';
-        if (searchType === 'product') {
-          endpoint = 'http://localhost:8888/product/search/word';
+        if (searchType === 'post') {
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/post/search/word`;
         } else if (searchType === 'member') {
-          endpoint = 'http://localhost:8888/member/search/word';
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/member/search/word`;
         }
-        // const response = await fetch('http://KPaas-apigateway-service-1:8888/product/search/word', {
+        // const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search/word', {
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -57,7 +57,7 @@ const SearchSection = ({ accessToken }) => {
     event.preventDefault();
     const searchTerm = searchElement.current.value;
     setSearchTerm(searchTerm);
-    if (searchType === 'product') {
+    if (searchType === 'post') {
       router.push(`/search/${searchTerm}`);
     } else if (searchType === 'member') {
       router.push(`/profile/${searchTerm}`);
@@ -68,7 +68,7 @@ const SearchSection = ({ accessToken }) => {
     setSearchTerm(item);
     searchElement.current.value = item;
     setAutoCompleteResults([]);
-    if (searchType === 'product') {
+    if (searchType === 'post') {
       router.push(`/search/${item}`);
     } else if (searchType === 'member') {
       router.push(`/profile/${item}`);

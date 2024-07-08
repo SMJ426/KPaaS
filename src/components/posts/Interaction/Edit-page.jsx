@@ -8,9 +8,9 @@ import styles from './Edit-page.module.css';
 import LoadingIndicator from '../../UI/LoadingIndicator';
 
 
-export default function EditProductForm({ productId, post, accessToken }) {
-    const posts = post.product;
-    const [productName, setProductName] = useState('');
+export default function EditpostForm({ postId, post, accessToken }) {
+    const posts = post.post;
+    const [postName, setpostName] = useState('');
     const [price, setPrice] = useState(null);
     const [images1, setImages1] = useState('');
     const [showimages1, setShowImages1] = useState('');
@@ -31,10 +31,10 @@ export default function EditProductForm({ productId, post, accessToken }) {
         setCreatedAt(currentDate);
         console.log(currentDate)
         if (posts) {
-            setProductName(posts.productName);
+            setpostName(posts.postName);
             setPrice(posts.price);
-            setImages1(posts.imageProduct);
-            setShowImages1(posts.imageProduct);
+            setImages1(posts.imagepost);
+            setShowImages1(posts.imagepost);
             setImages2(posts.imageReal);
             setShowImages2(posts.imageReal);
             setCategoryId(posts.categoryId);
@@ -82,12 +82,12 @@ export default function EditProductForm({ productId, post, accessToken }) {
     
 
 
-    async function handleSubmit(productData) {
+    async function handleSubmit(postData) {
         try {
-            const response = await PutPostData(productId, productData, accessToken) //formData
+            const response = await PutPostData(postId, postData, accessToken) //formData
             if (response.state == 'Jwt Expired') {
                 const NewaccessToken = await RefreshAccessToken();
-                await PutPostData(productId, productData, NewaccessToken);
+                await PutPostData(postId, postData, NewaccessToken);
               }
         } catch (error) {
             console.error('게시물 수정에 실패했습니다:', error);
@@ -95,22 +95,22 @@ export default function EditProductForm({ productId, post, accessToken }) {
         }
     }
 
-    async function sendProductHandler(event) {
+    async function sendpostHandler(event) {
         event.preventDefault();
 
         try {
-            const productData = {
-                product_name: productName,
+            const postData = {
+                post_name: postName,
                 price: parseInt(price),
-                image_product: images1,
+                image_post: images1,
                 image_real: images2,
                 create_at: createAt,
                 expire_at: getFormattedExpireAt(),
                 category_id: parseInt(categoryId),
             };
-            console.log(productData);
+            console.log(postData);
 
-            await handleSubmit(productData);
+            await handleSubmit(postData);
             const redirectUrl = "http://localhost:3000";
             window.location.href = redirectUrl;
         } catch (error) {
@@ -128,7 +128,7 @@ export default function EditProductForm({ productId, post, accessToken }) {
             ) : (
                 <>
                     <section className={styles.formContainer}>
-                        <form onSubmit={sendProductHandler}>
+                        <form onSubmit={sendpostHandler}>
                             <div className={styles.Warning}>이미지 수정은 상품 수정에서 불가능합니다. 삭제 후 다시 등록해주세요.</div>
                             <div className={styles.margins}>
                                 <label htmlFor='categoryId' className={styles.label}>카테고리</label>
@@ -148,14 +148,14 @@ export default function EditProductForm({ productId, post, accessToken }) {
                                 </select>
                             </div>
                             <div className={styles.margins}>
-                                <label htmlFor='productname' className={styles.label}>상품명</label>
+                                <label htmlFor='postname' className={styles.label}>상품명</label>
                                 <input
                                     className={styles.inputField}
                                     type='text'
-                                    id='productname'
+                                    id='postname'
                                     required
-                                    value={productName === null ? '' : productName}
-                                    onChange={(event) => setProductName(event.target.value)}
+                                    value={postName === null ? '' : postName}
+                                    onChange={(event) => setpostName(event.target.value)}
                                 />
                             </div>
                             <div className={styles.margins}>

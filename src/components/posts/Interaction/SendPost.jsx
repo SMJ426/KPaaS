@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 import styles from './SendPost.module.css';
 import Image from 'next/image';
 
-import { sendProductData } from '@compoents/util/post-util';
+import { sendpostData } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 
-export default function ProductForm({ accessToken }) {
+export default function postForm({ accessToken }) {
 
-  const [productName, setProductName] = useState('');
+  const [postName, setpostName] = useState('');
   const [price, setPrice] = useState('');
   const [images1, setImages1] = useState('/images/SendDfImg.png');
   const [showimages1, setShowImages1] = useState('/images/SendDfImg.png');
@@ -77,24 +77,24 @@ export default function ProductForm({ accessToken }) {
 
   const daysInMonth = Array.from({ length: new Date(year, month, 0).getDate() }, (_, index) => index + 1);
 
-  async function sendProductHandler(event) {
+  async function sendpostHandler(event) {
     event.preventDefault();
     try {
       const formData = new FormData();
       let req = {
-        "product_name": productName,
+        "post_name": postName,
         "price": parseInt(price),
         "category_id": parseInt(categoryId),
         "create_at": createdAt,
         "expire_at": getFormattedExpireAt(),
       }
       formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
-      formData.append('img_product', images1);
+      formData.append('img_post', images1);
       formData.append('img_real', images2);
-      const response = await sendProductData(formData, accessToken);
+      const response = await sendpostData(formData, accessToken);
       if (response.state == 'Jwt Expired') {
         const NewaccessToken = await RefreshAccessToken();
-        await sendProductData(formData, NewaccessToken);
+        await sendpostData(formData, NewaccessToken);
       }
       const redirectUrl = "http://localhost:3000";
       window.location.href = redirectUrl;
@@ -107,7 +107,7 @@ export default function ProductForm({ accessToken }) {
   return (
     <>
       <section className={styles.formContainer}>
-        <form onSubmit={sendProductHandler} className={styles.minis}>
+        <form onSubmit={sendpostHandler} className={styles.minis}>
 
           <div className={styles.minis}>
             <label className={styles.imglabel}>등록 이미지</label>
@@ -141,14 +141,14 @@ export default function ProductForm({ accessToken }) {
             </select>
           </div>
           <div className={styles.margins}>
-            <label htmlFor='productname' className={styles.label}>상품명</label>
+            <label htmlFor='postname' className={styles.label}>상품명</label>
             <input
               className={styles.inputField}
               type='text'
-              id='productname'
+              id='postname'
               required
-              value={productName}
-              onChange={(event) => setProductName(event.target.value)}
+              value={postName}
+              onChange={(event) => setpostName(event.target.value)}
             />
           </div>
           <div className={styles.margins}>

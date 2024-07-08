@@ -1,6 +1,6 @@
 'use server';
 
-import PostDetailContainers from '@compoents/containers/ProductDetailContainers';
+import PostDetailContainers from '@compoents/containers/PostDetailContainers';
 import { getPostData } from '@compoents/util/post-util';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -8,16 +8,16 @@ import { redirect } from 'next/navigation';
 export default async function PostDetailPage({ params }) {
   const cookieStore = cookies()
   const Authorization = cookieStore.get('Authorization');
-  const postdata = await getPostData(params.productId, Authorization.value);
+  const postdata = await getPostData(params.postId, Authorization.value);
   if (postdata.state == "잘못된 형식의 요청") {
     redirect('/');
   }
   return (
     <>
       <PostDetailContainers 
-      productId={params.productId} 
+      postId={params.postId} 
       postpage={params.postpage}
-      post={postdata.product} 
+      post={postdata.post} 
       postList={postdata} 
       accessToken={Authorization.value} 
       />

@@ -1,8 +1,8 @@
 
-export async function sendProductData(formData, accessToken) {
+export async function sendpostData(formData, accessToken) {
   try {
-    //const response = await fetch('http://KPaas-apigateway-service-1:8888/product', {
-    const response = await fetch('http://localhost:8888/product', {
+    //const response = await fetch('http://KPaas-apigateway-service-1:8888/post', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post`, {
       cache: 'no-store',
       method: 'POST',
       headers: {
@@ -24,8 +24,8 @@ export async function sendProductData(formData, accessToken) {
 }
 
 export async function getPostsFile() {
- const response = await fetch('http://KPaas-apigateway-service-1:8888/product/page', {
- // const response = await fetch('http://localhost:8888/product/page', {
+// const response = await fetch('http://KPaas-apigateway-service-1:8888/post/page', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page`, {
     cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
@@ -41,8 +41,8 @@ export async function getPostsFile() {
 }
 
 export async function LogingetPostsFile(accessToken, nick_name) {
-  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/page?nick_name=${nick_name}`, {
-  // const response = await fetch(`http://localhost:8888/product/page?nick_name=${nick_name}`, {
+  //const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/page?nick_name=${nick_name}`, {
+   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?nick_name=${nick_name}`, {
     cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
@@ -59,8 +59,8 @@ export async function LogingetPostsFile(accessToken, nick_name) {
 }
 
 export async function getPostsFiles(page, accessToken) {
-  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/page?page=${page}`, {
-  //  const response = await fetch(`http://localhost:8888/product/page?page=${page}`, {
+  //const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/page?page=${page}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${page}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -76,9 +76,9 @@ export async function getPostsFiles(page, accessToken) {
     }
   }
   
-  export async function getPostData(productid, accessToken) {
-    const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/detail/${productid}`, {
-   // const response = await fetch(`http://localhost:8888/product/detail/${productid}`, {
+  export async function getPostData(postId, accessToken) {
+   // const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/detail/${postid}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/detail/${postId}`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -86,12 +86,13 @@ export async function getPostsFiles(page, accessToken) {
       },
     });
     const data = await response.json();
+    console.log(data);
     return data;
   }
 
-  export async function PutPostData(productid, productData, accessToken) {
-    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/${productid}`, {
-      const response = await fetch(`http://localhost:8888/product/${productid}`, {
+  export async function PutPostData(postId, postData, accessToken) {
+    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/${postid}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}`, {
       cache: 'no-store',
       method: 'PUT',
       headers: {
@@ -99,16 +100,16 @@ export async function getPostsFiles(page, accessToken) {
         'Authorization': `${accessToken}`
       },
       body: JSON.stringify( 
-        productData 
+        postData 
       ), 
     });
     const data = await response.json();
     return data;
   }
 
-  export async function DeletePost(productid, accessToken) {
-    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/${productid}`, {
-    const response = await fetch(`http://localhost:8888/product/${productid}`, {
+  export async function DeletePost(postid, accessToken) {
+    // const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/${postid}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postid}`, {
       cache: 'no-store',
       method: 'DELETE',
       headers: {
@@ -130,10 +131,10 @@ export async function getPostsFiles(page, accessToken) {
 
   // like 요청
 
-  export async function LikeProduct(accessToken, product_id) {
+  export async function Likepost(accessToken, post_id) {
     try {
-    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/like/${product_id}`, {
-       const response = await fetch(`http://localhost:8888/product/like/${product_id}`, {   
+    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/like/${post_id}`, {
+       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/like/${post_id}`, {   
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,8 +157,8 @@ export async function getPostsFiles(page, accessToken) {
   // 사용자 좋아요 목록
   export async function LikeList(nick_name) {
     try {
-    //  const response = await fetch('http://KPaas-apigateway-service-1:8888/product/like', {
-      const response = await fetch(`http://localhost:8888/product/profile/like/${nick_name}`, { 
+    //  const response = await fetch('http://KPaas-apigateway-service-1:8888/post/like', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/profile/like/${nick_name}`, { 
         headers: {
           'Content-Type': 'application/json'
         },
@@ -166,7 +167,6 @@ export async function getPostsFiles(page, accessToken) {
         console.log("Error!");
       }
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.error('요청을 보내는 중 오류가 발생했습니다.', error);
@@ -174,10 +174,10 @@ export async function getPostsFiles(page, accessToken) {
     }
   }
 
-  export async function DeleteLike(accessToken, productid) {
+  export async function DeleteLike(accessToken, postid) {
     try {
-    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/product/like/${productid}`, {
-      const response = await fetch(`http://localhost:8888/product/like/${productid}`, { 
+    //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/like/${postid}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/like/${postid}`, { 
       method: 'DELETE',  
       headers: {
           'Content-Type': 'application/json',

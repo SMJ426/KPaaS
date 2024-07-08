@@ -4,20 +4,20 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { LikeProduct, DeleteLike } from '@compoents/util/post-util';
+import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 import Payments from '@compoents/components/payment/payments';
 import Chatting from '../chatting/Chatting';
 
-export default function PostItem({ postData, posts }) {
+export default function PostItem({ postData, posts, accessToken }) {
   const router = useRouter();
 
   // const {
-  //   product_name,
+  //   postName,
   //   price,
-  //   product_id,
-  //   nick_name,
-  //   image_product,
+  //   postId,
+  //   nickName,
+  //   imagePost,
   //   userProfile,
   //   state,
   //   like,
@@ -38,40 +38,40 @@ export default function PostItem({ postData, posts }) {
 
   // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
-  };
-
-  // const handleLikeClick = async () => {
-  //   if (!accessToken) {
-  //     router.push('/user/login');
-  //   }
-  //   try {
-  //     if (liked) {
-  //       // 이미 좋아요를 눌렀을 경우
-  //       const response = await DeleteLike(accessToken, product_id);
-  //       if (response.state == 'Jwt Expired') {
-  //         const NewaccessToken = await RefreshAccessToken();
-  //         await DeleteLike(NewaccessToken, product_id);
-  //       }
-  //       setLiked(false);
-  //     } else {
-  //       // 아직 좋아요를 누르지 않은 경우
-  //       const response = await LikeProduct(accessToken, product_id);
-  //       if (response.state == 'Jwt Expired') {
-  //         const NewaccessToken = await RefreshAccessToken();
-  //         await LikeProduct(NewaccessToken, product_id);
-  //       }
-  //       setLiked(true);
-  //     }
-  //   } catch (error) {
-  //     console.error('좋아요 처리 중 오류가 발생했습니다.', error);
-  //   }
+  // const handleLikeClick = () => {
+  //   setLiked(!liked);
   // };
 
-  // if (state !== 1) {
-  //   return null;
-  // }
+  const handleLikeClick = async () => {
+    if (!accessToken) {
+      router.push('/user/login');
+    }
+    try {
+      if (liked) {
+        // 이미 좋아요를 눌렀을 경우
+        const response = await DeleteLike(accessToken, postData.post_id);
+        if (response.state == 'Jwt Expired') {
+          const NewaccessToken = await RefreshAccessToken();
+          await DeleteLike(NewaccessToken, postData.post_id);
+        }
+        setLiked(false);
+      } else {
+        // 아직 좋아요를 누르지 않은 경우
+        const response = await Likepost(accessToken, postData.post_id);
+        if (response.state == 'Jwt Expired') {
+          const NewaccessToken = await RefreshAccessToken();
+          await Likepost(NewaccessToken, postData.post_id);
+        }
+        setLiked(true);
+      }
+    } catch (error) {
+      console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  if (postData.state !== 1) {
+    return null;
+  }
 
   return (
     <StyledWrapper>
@@ -110,8 +110,8 @@ export default function PostItem({ postData, posts }) {
             </button>
             <Chatting />
             <Payments
-              // accessToken={accessToken}
-              productId={postData.post_id}
+              accessToken={accessToken}
+              postId={postData.post_id}
               post={posts}
               nick_name={postData.nick_name}
             />
