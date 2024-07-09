@@ -1,26 +1,23 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './SendPost.module.css';
 import Image from 'next/image';
 
 import { sendpostData } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 
-export default function postForm({ accessToken }) {
+export default function PostForm({ accessToken }) {
 
-  const [postName, setpostName] = useState('');
+  const [postName, setPostName] = useState('');
   const [price, setPrice] = useState('');
-  const [images1, setImages1] = useState('/images/SendDfImg.png');
-  const [showimages1, setShowImages1] = useState('/images/SendDfImg.png');
-  const [images2, setImages2] = useState('/images/bkimg.png');
-  const [showimages2, setShowImages2] = useState('/images/bkimg.png');
+  const [images1, setImages1] = useState('/images/png/SendDfImg.png');
+  const [showImages1, setShowImages1] = useState('/images/png/SendDfImg.png');
   const [categoryId, setCategoryId] = useState('3001');
-  const [createdAt, setCreatedAt] = useState('');
-  const [year, setYear] = useState('2024');
-  const [month, setMonth] = useState('1');
-  const [day, setDay] = useState('1');
-  
-  const startYear = 2024;
+  const [totalNuber, setTotalnumber] = useState('');
+  const [TeacherInfo, setTeacherInfo] = useState('');
+
+  const [startDate, setStartDate] = useState({ year: '2024', month: '1', day: '1' });
+  const [endDate, setEndDate] = useState({ year: '2024', month: '1', day: '1' });
 
   const selectList = [
     { value: "3001", name: "음료" },
@@ -31,70 +28,59 @@ export default function postForm({ accessToken }) {
     { value: "3006", name: "기타" },
   ];
 
-  useEffect(() => {
-    const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜
-    setCreatedAt(currentDate);
-  }, []);
-
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    const imageUrl = (selectedImage);
+    const imageUrl = selectedImage;
     setImages1(imageUrl);
     const imageUrls = URL.createObjectURL(selectedImage);
     setShowImages1(imageUrls);
   };
 
-  const handleImageChanges = (e) => {
-    const selectedImage = e.target.files[0];
-    const imageUrl = (selectedImage);
-    setImages2(imageUrl);
-    const imageUrls = URL.createObjectURL(selectedImage);
-    setShowImages2(imageUrls);
-  };
-
   const handleSelect = (e) => {
-    setCategoryId(e.target.selectedOptions[0].value);
-  };
-  const handleYearChange = (e) => {
-    setYear(e.target.value);
+    setCategoryId(e.target.value);
   };
 
-  const handleMonthChange = (e) => {
-    const selectedMonth = e.target.value;
-    setMonth(selectedMonth);
-    const daysInSelectedMonth = new Date(year, selectedMonth, 0).getDate();
-    setDay(Math.min(day, daysInSelectedMonth));
+  const handleDateChange = (e, dateType, field) => {
+    const value = e.target.value;
+    if (dateType === 'start') {
+      setStartDate(prevState => ({
+        ...prevState,
+        [field]: value
+      }));
+    } else if (dateType === 'end') {
+      setEndDate(prevState => ({
+        ...prevState,
+        [field]: value
+      }));
+    }
   };
 
-  const handleDayChange = (e) => {
-    setDay(e.target.value);
-  };
-  const getFormattedExpireAt = () => {
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-    return `${year}-${formattedMonth}-${formattedDay}`;
+  const getFormattedDate = (date) => {
+    const formattedMonth = date.month < 10 ? `0${date.month}` : date.month;
+    const formattedDay = date.day < 10 ? `0${date.day}` : date.day;
+    return `${date.year}-${formattedMonth}-${formattedDay}`;
   };
 
-  const daysInMonth = Array.from({ length: new Date(year, month, 0).getDate() }, (_, index) => index + 1);
+  const startDaysInMonth = Array.from({ length: new Date(startDate.year, startDate.month, 0).getDate() }, (_, index) => index + 1);
+  const endDaysInMonth = Array.from({ length: new Date(endDate.year, endDate.month, 0).getDate() }, (_, index) => index + 1);
 
-  async function sendpostHandler(event) {
+  async function sendPostHandler(event) {
     event.preventDefault();
     try {
       const formData = new FormData();
-      let req = {
+      const req = {
         "post_name": postName,
         "price": parseInt(price),
         "category_id": parseInt(categoryId),
-        "create_at": createdAt,
-        "expire_at": getFormattedExpireAt(),
+        "start_at": getFormattedDate(startDate),
+        "end_at": getFormattedDate(endDate),
       }
       formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
-      formData.append('img_post', images1);
-      formData.append('img_real', images2);
+      formData.append('img', images1);
       const response = await sendpostData(formData, accessToken);
-      if (response.state == 'Jwt Expired') {
-        const NewaccessToken = await RefreshAccessToken();
-        await sendpostData(formData, NewaccessToken);
+      if (response.state === 'Jwt Expired') {
+        const newAccessToken = await RefreshAccessToken();
+        await sendpostData(formData, newAccessToken);
       }
       const redirectUrl = "http://localhost:3000";
       window.location.href = redirectUrl;
@@ -107,12 +93,12 @@ export default function postForm({ accessToken }) {
   return (
     <>
       <section className={styles.formContainer}>
-        <form onSubmit={sendpostHandler} className={styles.minis}>
+        <form onSubmit={sendPostHandler} className={styles.minis}>
 
           <div className={styles.minis}>
-            <label className={styles.imglabel}>등록 이미지</label>
+            <label className={styles.imglabel}>강의 소개</label>
             <label htmlFor='images1' className={styles.label}>
-              <Image src={showimages1} alt="상품 이미지" width="760" height="760" className={styles.selectImg} />
+              <Image src={showImages1} alt="상품 이미지" width="760" height="760" className={styles.selectImg} />
             </label>
             <input
               className={styles.inputField}
@@ -120,10 +106,10 @@ export default function postForm({ accessToken }) {
               id='images1'
               accept="image/*"
               style={{ display: "none" }}
-              onChange={(e) => handleImageChange(e)}
+              onChange={handleImageChange}
             />
           </div>
-          <div className={styles.NotEditImg}>이미지는 상품 등록 시 수정 불가합니다.</div>
+          <div className={styles.NotEditImg}>이미지는 강의 등록 시 수정 불가합니다.</div>
           <div className={styles.margins}>
             <label className={styles.label}>카테고리</label>
             <select
@@ -137,25 +123,33 @@ export default function postForm({ accessToken }) {
                   {item.name}
                 </option>
               ))}
-
             </select>
           </div>
           <div className={styles.margins}>
-            <label htmlFor='postname' className={styles.label}>상품명</label>
+            <label htmlFor='postname' className={styles.label}>강의제목</label>
             <input
               className={styles.inputField}
               type='text'
               id='postname'
               required
               value={postName}
-              onChange={(event) => setpostName(event.target.value)}
+              onChange={(event) => setPostName(event.target.value)}
             />
           </div>
-          <div className={styles.margins}>
+          <div className={styles.flexmargins}>
             <label htmlFor='price' className={styles.label}>가격</label>
             <input
-              className={styles.inputField}
-              type='int'
+              className={styles.inputFielded}
+              type='text'
+              id='price'
+              required
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+            />
+            <label htmlFor='price' className={styles.label}>가격</label>
+            <input
+              className={styles.inputFielded}
+              type='text'
               id='price'
               required
               value={price}
@@ -163,27 +157,26 @@ export default function postForm({ accessToken }) {
             />
           </div>
           <div className={styles.margins}>
-            <label htmlFor='expire' className={styles.label}>만료 기간 (년-월-일)</label>
+            <label htmlFor='start' className={styles.label}>시작 기간 (년-월-일)</label>
             <div className={styles.inputFieldRow}>
               <select
                 className={styles.inputFieldSmall}
-                type='text'
-                id='year'
+                id='startYear'
                 required
-                value={year}
-                onChange={handleYearChange}>
+                value={startDate.year}
+                onChange={(e) => handleDateChange(e, 'start', 'year')}
+              >
                 {Array.from({ length: 10 }, (_, index) => (
-                  <option key={startYear + index} value={startYear + index}>{startYear + index}년</option>
+                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
                 ))}
               </select>
               -
               <select
                 className={styles.inputFieldSmalls}
-                type='text'
-                id='month'
+                id='startMonth'
                 required
-                value={month}
-                onChange={handleMonthChange}
+                value={startDate.month}
+                onChange={(e) => handleDateChange(e, 'start', 'month')}
               >
                 {Array.from({ length: 12 }, (_, index) => (
                   <option key={index + 1} value={index + 1}>{index + 1}월</option>
@@ -192,41 +185,67 @@ export default function postForm({ accessToken }) {
               -
               <select
                 className={styles.inputFieldSmalls}
-                type='text'
-                id='day'
+                id='startDay'
                 required
-                value={day}
-                onChange={handleDayChange}
+                value={startDate.day}
+                onChange={(e) => handleDateChange(e, 'start', 'day')}
               >
-                {daysInMonth.map((dayOption) => (
+                {startDaysInMonth.map((dayOption) => (
                   <option key={dayOption} value={dayOption}>{dayOption}일</option>
                 ))}
               </select>
             </div>
           </div>
           <div className={styles.margins}>
-            <label className={styles.label}>실제 이미지 (바코드)</label>
-            <label htmlFor='images2' className={styles.label}>
-              <Image src={showimages2} alt="프로필 이미지" width="350" height="55" className={styles.bkImg} />
-            </label>
-            <input
+            <label htmlFor='end' className={styles.label}>만료 기간 (년-월-일)</label>
+            <div className={styles.inputFieldRow}>
+              <select
+                className={styles.inputFieldSmall}
+                id='endYear'
+                required
+                value={endDate.year}
+                onChange={(e) => handleDateChange(e, 'end', 'year')}
+              >
+                {Array.from({ length: 10 }, (_, index) => (
+                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
+                ))}
+              </select>
+              -
+              <select
+                className={styles.inputFieldSmalls}
+                id='endMonth'
+                required
+                value={endDate.month}
+                onChange={(e) => handleDateChange(e, 'end', 'month')}
+              >
+                {Array.from({ length: 12 }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>{index + 1}월</option>
+                ))}
+              </select>
+              -
+              <select
+                className={styles.inputFieldSmalls}
+                id='endDay'
+                required
+                value={endDate.day}
+                onChange={(e) => handleDateChange(e, 'end', 'day')}
+              >
+                {endDaysInMonth.map((dayOption) => (
+                  <option key={dayOption} value={dayOption}>{dayOption}일</option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.margins}>
+            <label htmlFor='TeacherInfo' className={styles.label}>강의내용</label>
+            <textarea
               className={styles.inputFields}
-              type='int'
-              id='price'
+              type='text'
+              id='TeacherInfo'
               required
-              value={price}
-              disabled
-              onChange={(event) => setPrice(event.target.value)}
+              value={TeacherInfo}
+              onChange={(event) => setTeacherInfo(event.target.value)}
             />
-            <input
-              className={styles.inputField}
-              type='file'
-              id='images2'
-              placeholder='바코드가 나온 사진을 등록하세요.'
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={(e) => handleImageChanges(e)}
-            />
+          </div>
           </div>
           <button className={styles.button}>등록</button>
         </form>
