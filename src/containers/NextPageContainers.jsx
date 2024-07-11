@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaPen } from 'react-icons/md';
 
 import MiniCategoryComponents from '@compoents/components/minicategory/Minicategory';
 import CommuPosts from '@compoents/components/posts/CommuPost';
@@ -59,7 +58,6 @@ export default function NextPageContainer({ postdata, postPage, accessToken }) {
         <div className={styles.buttonContainer}>
           <Link href="/newpost">
             <button className={styles.button}>
-              <FaPen className={styles.pencli} />
               <div className={styles.Add}>상품등록</div>
             </button>
           </Link>

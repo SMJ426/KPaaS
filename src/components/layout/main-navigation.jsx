@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
