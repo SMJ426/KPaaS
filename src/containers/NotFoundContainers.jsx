@@ -1,6 +1,5 @@
 'use client';
 
-import { FaPen } from 'react-icons/fa6';
 import MiniCategoryComponents from '@compoents/components/minicategory/Minicategory';
 import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
 import Link from 'next/link';
@@ -25,7 +24,6 @@ export default function NotFoundContainer() {
           <div className={styles.buttonContainer}>
             <Link href="/newpost">
               <button className={styles.button}>
-                <FaPen className={styles.pencli} />
                 <div className={styles.Add}>상품등록</div>
               </button>
             </Link>

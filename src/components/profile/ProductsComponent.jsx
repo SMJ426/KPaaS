@@ -1,4 +1,4 @@
-import CommuPosts from '../posts/commu-post';
+import CommuPost from '../posts/CommuPost';
 import styled from 'styled-components';
 import Pagination from '../pagination/Paginations';
 import { useState } from 'react';
@@ -22,7 +22,7 @@ export default function ProductsComponent({ userproducts, accessToken }) {
   return (
     <StyledWrapper>
       <section className="section">
-        <CommuPosts posts={userproducts} accessToken={accessToken} />
+        <CommuPost posts={userproducts} accessToken={accessToken} />
       </section>
       <Pagination
         currentPage={currentPage}
