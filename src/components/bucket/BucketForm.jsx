@@ -3,7 +3,7 @@ import * as PortOne from "@portone/browser-sdk/v2";
 import React, { useState, useEffect } from "react";
 import { LikeList, DeleteLike } from "@compoents/util/post-util";
 import { completePay } from "@compoents/util/payment-util";
-import styles from "./BucketForm.module.css";
+import styled from "styled-components";
 import Image from "next/image";
 
 export default function BucketForm({ nick_name, accessToken }) {
@@ -115,47 +115,365 @@ export default function BucketForm({ nick_name, accessToken }) {
     }
 
     return (
-        <>
-            <section className={styles.section1}>
-                <h1 className={styles.bktitle}>장바구니</h1>
-                <label className={styles.AllLable}>
+        <StyledWrapper>
+            <section className="section1">
+                <h1 className="bktitle">장바구니</h1>
+                <label className="AllLable">
                     <input
                         type="checkbox"
                         checked={selectAll}
                         onChange={handleSelectAllChange}
-                        className={styles.AllInput}
+                        className="AllInput"
                     />
                     전체 선택
                 </label>
                 
             </section>
-            <section className={styles.section2}>
-                <ul className={styles.postsGrid}>
+            <section className="section2">
+                <ul className="postsGrid">
                     {userLikes.map((like) => (
-                        <div key={like.postId} className={styles.postItem}>
+                        <div key={like.postId} className="postItem">
                             <input
                                 type='checkbox'
                                 id={like.postId}
-                                className={styles.Checkboxes}
+                                className="Checkboxes"
                                 onChange={() => handleCheckboxChange(like.postId, like.price)}
                                 checked={payments_list.some(post => post.post_id === like.postId)}
                             />
-                            <div className={styles.flexes}>
-                                <Image src={like.imagepost} alt="상품 사진" width={150} height={150} className={styles.IpImg} />
-                                <div className={styles.PrdName}>{like.postName}</div>
-                                <div className={styles.position}>
-                                <button className={styles.DtBtn} onClick={() => handleDeleteLike(like)}>삭제하기 <Image src={'/svgs/Close_round.svg'} width={24} height={24} alt="" className={styles.svgs} /></button>
-                                <button className={styles.OdBtn}>구매하기 <Image src={'/svgs/Box_alt_fill.svg'} width={24} height={24} alt="" className={styles.svgs}/></button>
+                            <div className="flexes">
+                                <Image src={like.imagepost} alt="상품 사진" width={150} height={150} className="IpImg" />
+                                <div className="PrdName">{like.postName}</div>
+                                <div className="position">
+                                <button className="DtBtn" onClick={() => handleDeleteLike(like)}>삭제하기 <Image src={'/svgs/Close_round.svg'} width={24} height={24} alt="" className="svgs" /></button>
+                                <button className="OdBtn">구매하기 <Image src={'/svgs/Box_alt_fill.svg'} width={24} height={24} alt="" className="svgs"/></button>
                                 </div>
                             </div>
                         </div>
                     ))}
-                    <div className={styles.selectAmount}>선택한 상품 금액 : {selectedAmount}</div>
+                    <div className="selectAmount">선택한 상품 금액 : {selectedAmount}</div>
                 </ul>
-                <button className={styles.SelectBtn} onClick={handleSetPoint} style={{ display: payments_list.length > 0 ? 'block' : 'none' }}>
+                <button className="SelectBtn" onClick={handleSetPoint} style={{ display: payments_list.length > 0 ? 'block' : 'none' }}>
                 선택 상품 구매하기
                 </button>
             </section>
-        </>
+        </StyledWrapper>
     );
 }
+
+const StyledWrapper = styled.header`
+
+
+
+
+.section1{
+    background: #FFFFFF;
+  }
+  
+  .bktitle{
+    color: var(--black, #191A1C);
+  font-family: "Pretendard Variable";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 20%;
+  }
+  
+  .AllLable{
+    color: var(--black, #191A1C);
+  font-family: "Pretendard Variable";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  
+  }
+  
+  .AllInput{
+    border-radius: 5px;
+  border: 2px solid var(--gray-400, #BEC0C6);
+  background: #FFF;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  margin-top: 30px;
+  margin-left: 22.3%;
+  margin-right: 30px;
+  margin-bottom: 37px;
+  }
+  
+  
+  .section2{
+    position: relative;
+    margin: 0;
+    background: var(--gray-200, #F4F5F9);
+  }
+  
+  .postsGrid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: 10px;
+    }
+  
+    .postItem {
+      margin-left: 18%;
+      border-radius: 20px;
+      background: #FFF;
+      box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+      width: 65%;
+      height: 300px;
+      margin-top: 46px;
+    }
+    .flexes{
+      display: flex;
+    }
+    .Checkboxes{
+      border-radius: 5px;
+      border: 2px solid var(--gray-400, #BEC0C6);
+      background: #FFF;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      margin-left: 23px;
+      margin-top: 23px;
+    }
+  
+    .SelectBtn{
+      border-radius: 10px;
+      background: var(--primary-primary, #496AF3);
+      width: 82%;
+      height: 90px;
+      flex-shrink: 0;
+      color: #FFF;
+      font-family: "Pretendard Variable";
+      font-size: 38px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      border: 0;
+      margin-left: 10%;
+      margin-bottom: 150px;
+    }
+  
+    .IpImg{
+      margin-left: 15%;
+    }
+  
+    .PrdName{
+      width: 300px;
+      color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 125px;
+    }
+  
+    .position{
+      position: absolute;
+      margin-left: 23%;
+      margin-top: 45px;
+    }
+  
+    .DtBtn{
+      width: 155px;
+      padding: 8px 20px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      border: 2px solid var(--gray-400, #BEC0C6);
+      background: #FFF;
+      color: var(--gray-600, #808389);
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+    }
+  
+    .OdBtn{
+      width: 155px;
+      padding: 8px 20px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 10px;
+  border: 2px solid var(--primary-primary, #496AF3);
+  background: #FFF;
+  color: var(--primary-primary, #496AF3);
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 15px;
+  margin-left: 30px;
+    }
+  
+    .selectAmount{
+      margin-left: 74%;
+    }
+  
+  
+  
+    @media screen and (max-width: 786px) {
+  
+  
+  .section1{
+      background: #FFFFFF;
+    }
+    
+    .bktitle{
+      color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 100%;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 20%;
+    }
+    
+    .AllLable{
+      color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    
+    }
+    
+    .AllInput{
+      border-radius: 5px;
+    border: 2px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-left: 22.3%;
+    margin-right: 30px;
+    
+    margin-bottom: 37px;
+    }
+    
+    
+    .section2{
+      position: relative;
+      margin: 0;
+      background: var(--gray-200, #F4F5F9);
+    }
+    
+    .postsGrid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 5px;
+      }
+    
+      .postItem {
+          border-radius: 10px;
+          background: #FFF;
+          box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.10);
+          width: 90%;
+          height: 400px;
+          margin-left: 5%;
+      }
+      .flexes{
+          display: table;
+      }
+      .Checkboxes{
+        border-radius: 5px;
+        border: 2px solid var(--gray-400, #BEC0C6);
+        background: #FFF;
+        width: 20px;
+        height: 20px;
+        margin-left: 23px;
+        margin-top: 23px;
+      }
+    
+      .SelectBtn{
+        border-radius: 10px;
+        background: var(--primary-primary, #496AF3);
+        width: 90%;
+        height: 60px;
+        flex-shrink: 0;
+        color: #FFF;
+        font-family: "Pretendard Variable";
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        border: 0;
+        margin-left: 5%;
+        margin-bottom: 150px;
+      }
+    
+      .IpImg{
+        margin-top: 10%;
+        margin-left: 35%;
+      }
+    
+      .PrdName{
+        width: 300px;
+        color: #000;
+        font-family: "Pretendard Variable";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-left: 40%;
+      }
+    
+      .position{
+        margin-left: 10%;
+        margin-top: 4%;
+        display: flex;
+      }
+    
+      .DtBtn{
+        width: 125px;
+        padding: 5px 15px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        border: 2px solid var(--gray-400, #BEC0C6);
+        background: #FFF;
+        color: var(--gray-600, #808389);
+        font-family: "Pretendard Variable";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    
+      .OdBtn{
+        width: 125px;
+        padding: 5px 15px;
+        justify-content: center;
+        align-items: center;  
+        border-radius: 10px;
+    border: 2px solid var(--primary-primary, #496AF3);
+    background: #FFF;
+    color: var(--primary-primary, #496AF3);
+    font-family: "Pretendard Variable";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 0px;
+    margin-left: 30px;
+      }
+    
+      .svgs{
+          width: 15px;
+          height: 15px;
+      }
+  
+      .selectAmount{
+        font-size: 80%;
+        margin-left: 65%;
+      }
+    
+  
+    }
+`;
