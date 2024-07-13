@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import Payments from '@compoents/components/payment/payments';
@@ -14,8 +13,8 @@ export default function LikeListComponent({ like, accessToken }) {
   const linkProfile = `/profile/${like.nickName}`;
   const formattedPrice = like.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked
-    ? 'images/png/icon-heart-fill.png'
-    : 'images/png/icon-heart.png';
+    ? '/images/png/icon-heart-fill.png'
+    : '/images/png/icon-heart.png';
   const handleLikeClick = async (postId) => {
     try {
       if (liked) {

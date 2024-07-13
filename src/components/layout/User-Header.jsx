@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 export default function UserHeader() {
   return (
@@ -8,10 +9,12 @@ export default function UserHeader() {
       <header className="headerContainer">
         <Link href="/" legacyBehavior passHref>
         <a className="logo">
-          <img
+          <Image
             className="main-logo"
-            src="images/png/PTFD-main-logo.png"
+            src="/images/png/PTFD-main-logo.png"
             alt="피티에프디"
+            width={200}
+            height={65}
           />
         </a>
         </Link>

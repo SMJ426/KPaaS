@@ -96,7 +96,7 @@ export default function Payments({ accessToken, postId, post, nick_name }) {
 
   return (
     <StyledWrapper onClick={handlePurchase}>
-      <img src="images/svg/icon-shopping-cart.svg" alt="구매하기" />
+      <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
       {/* <sapn>수강하기</sapn> */}
     </StyledWrapper>
   );

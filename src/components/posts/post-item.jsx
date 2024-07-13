@@ -33,8 +33,8 @@ export default function PostItem({ postData, posts, accessToken }) {
 
   const formattedPrice = postData.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked
-    ? 'images/png/icon-heart-fill.png'
-    : 'images/png/icon-heart.png';
+    ? '/images/png/icon-heart-fill.png'
+    : '/images/png/icon-heart.png';
 
   // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
 

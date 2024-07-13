@@ -9,7 +9,7 @@ export default function KakaoLogin() {
       const code = new URL(window.location.href).searchParams.get("code");
       if (code) {
       //  const response = await fetch(`http://KPaas-apigateway-service-1:8888/oauth2/kakao?code=${code}`, {
-        const response = await fetch(`http://localhost:8888/oauth2/kakao?code=${code}`, {
+        const response = await fetch(`http://default-api-gateway-ac1aa-25415783-e5552ebe7710.kr.lb.naverncp.com:8761/oauth2/kakao?code=${code}`, {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },

@@ -20,7 +20,7 @@ export default async function otherProfilePage({ params }) {
 
   const followerList = await fetchFollowUser(params.nick_name);
   const followingList = await fetchFollowingUser(params.nick_name);
-  const userproducts = [] //await getSelling(params.nick_name);
+  const userproducts = await getSelling(params.nick_name); 
     return (
       <OtherProfileform
         userInfo={userInfo.memberDto}

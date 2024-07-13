@@ -1,13 +1,13 @@
 'use client';
 import * as PortOne from "@portone/browser-sdk/v2";
 import React, { useState, useEffect } from "react";
-import { LikeList, DeleteLike } from "@compoents/util/post-util";
+import { DeleteLike } from "@compoents/util/post-util";
 import { completePay } from "@compoents/util/payment-util";
 import styled from "styled-components";
 import Image from "next/image";
 
-export default function BucketForm({ nick_name, accessToken }) {
-    const [userLikes, setUserLikes] = useState([]);
+export default function BucketForm({ Likey, accessToken }) {
+    const [userLikes, setUserLikes] = useState(Likey);
     const [payments_list, setPays] = useState([]);
     const [selectedAmount, setSelectedAmount] = useState(0);
     const [createdAt, setCreatedAt] = useState('');
@@ -16,17 +16,6 @@ export default function BucketForm({ nick_name, accessToken }) {
     useEffect(() => {
         const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜
         setCreatedAt(currentDate);
-
-        const fetchUserLikeposts = async () => {
-            try {
-                const data = await LikeList(nick_name);
-                setUserLikes(data.likeposts);
-                console.log(data);
-            } catch (error) {
-                console.error('사용자의 좋아하는 상품을 가져오는 중 오류가 발생했습니다.', error);
-            }
-        };
-        fetchUserLikeposts();
     }, []);
 
     // 전체 선택 체크박스를 클릭했을 때의 핸들러
@@ -141,7 +130,7 @@ export default function BucketForm({ nick_name, accessToken }) {
                                 checked={payments_list.some(post => post.post_id === like.postId)}
                             />
                             <div className="flexes">
-                                <Image src={like.imagepost} alt="상품 사진" width={150} height={150} className="IpImg" />
+                                <Image src={like.imagePost} alt="상품 사진" width={150} height={150} className="IpImg" />
                                 <div className="PrdName">{like.postName}</div>
                                 <div className="position">
                                 <button className="DtBtn" onClick={() => handleDeleteLike(like)}>삭제하기 <Image src={'/svgs/Close_round.svg'} width={24} height={24} alt="" className="svgs" /></button>

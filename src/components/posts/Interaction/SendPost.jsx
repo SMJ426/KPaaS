@@ -21,12 +21,9 @@ export default function PostForm({ accessToken }) {
   const [endDate, setEndDate] = useState({ year: '2024', month: '1', day: '1' });
 
   const selectList = [
-    { value: "3001", name: "음료" },
-    { value: "3002", name: "음식" },
-    { value: "3003", name: "영화 관람권" },
-    { value: "3004", name: "모바일 교환권" },
-    { value: "3005", name: "상품권" },
-    { value: "3006", name: "기타" },
+    { value: "3001", name: "가정방문" },
+    { value: "3002", name: "수영장" },
+    { value: "3003", name: "헬스장" },
   ];
 
   const selectlocationList = [
@@ -55,8 +52,11 @@ export default function PostForm({ accessToken }) {
     setShowImages1(imageUrls);
   };
 
-  const handleSelect = (e) => {
+  const handleCategorySelect = (e) => {
     setCategoryId(e.target.value);
+  };
+  
+  const handleLocationSelect = (e) => {
     setlocation(e.target.value);
   };
 
@@ -141,12 +141,12 @@ export default function PostForm({ accessToken }) {
           </div>
           <div className="NotEditImg">이미지는 강의 등록 시 수정 불가합니다.</div>
           <div className="margins">
-            <label className="label">카테고리</label>
+            <label className="label">강의장소</label>
             <select
               className="inputFielded"
               id='categoryId'
               value={categoryId}
-              onChange={handleSelect}
+              onChange={handleCategorySelect}
             >
               {selectList.map((item) => (
                 <option className="options" value={item.value} key={item.value}>
@@ -161,7 +161,7 @@ export default function PostForm({ accessToken }) {
               className="inputFielded"
               id='locationId'
               value={location}
-              onChange={handleSelect}
+              onChange={handleLocationSelect}
             >
               {selectlocationList.map((locate, index) => (
                 <option className="options" value={locate} key={index}>

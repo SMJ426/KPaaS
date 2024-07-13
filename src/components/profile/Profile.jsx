@@ -17,7 +17,7 @@ export default function UserProfile({
   accessToken,
 }) {
   const [currentView, setCurrentView] = useState('likes');
-  const [isfollowrModalOpen, setIsfollowModalOpen] = useState(false);
+  const [isfollowerModalOpen, setIsfollowModalOpen] = useState(false);
   const [isfollowingModalOpen, setIsfollowingModalOpen] = useState(false);
   const router = useRouter();
 
@@ -112,7 +112,7 @@ export default function UserProfile({
           >
             팔로워 {userInfo.follower}
           </button>
-          <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
+          <div className="modaloverlay" {...(isfollowerModalOpen ? { show: true } : {})}>
             <div className="modalcontent">
               <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
                 X

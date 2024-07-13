@@ -102,16 +102,10 @@ const SearchSection = ({ accessToken }) => {
         {autoCompleteResults.length > 0 && (
           <ul className="autoCompleteDropdown">
             {autoCompleteResults.slice(0, 9).map((item, index) => (
-              <>
-                <li
-                  key={index}
-                  className="autoCompleteItem"
-                  onClick={() => handleItemSelect(item)}
-                >
-                  {item}
-                </li>
+              <li key={index} className="autoCompleteItem">
+                <div onClick={() => handleItemSelect(item)}>{item}</div>
                 <div className="verticalLine"></div>
-              </>
+              </li>
             ))}
           </ul>
         )}
@@ -172,7 +166,6 @@ const StyledWrapper = styled.div`
   }
 
   .autoCompleteDropdown {
-    position: absolute;
     top: calc(100% + 10px);
     left: 0;
     width: calc(100% - 2px);

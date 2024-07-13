@@ -8,8 +8,6 @@ import LikegridComponent from '../bucket/Likegrid';
 import { followUser } from "@compoents/util/http";
 import { RefreshAccessToken } from "@compoents/util/http";
 
-import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
-
 export default function OtherProfileform({ 
   userInfo, 
   nick_name, 
@@ -17,9 +15,10 @@ export default function OtherProfileform({
   followerList,
   followingList,
   userproducts,
+  isFollowing
 }) {
   const [currentView, setCurrentView] = useState('likes');
-  const [isfollowrModalOpen, setIsfollowModalOpen] = useState(false);
+  const [isfollowerModalOpen, setIsfollowModalOpen] = useState(false);
   const [isfollowingModalOpen, setIsfollowingModalOpen] = useState(false);
   const [isfollow, setfollowing] = useState(isFollowing);
 
@@ -128,7 +127,7 @@ export default function OtherProfileform({
           >
             팔로워 {userInfo.follower}
           </button>
-          <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
+          <div className="modaloverlay" {...(isfollowerModalOpen ? { show: true } : {})}>
             <div className="modalcontent">
               <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
                 X
@@ -175,8 +174,18 @@ export default function OtherProfileform({
         </div>
         <div className="verticalLine"></div>
         <div className="Lists">
-          {currentView === 'products' && <ProductsComponent userproducts={userproducts} accessToken={accessToken} />}
-          {currentView === 'likes' && <LikegridComponent nick_name={userInfo.nick_name} accessToken={accessToken} />}
+        {currentView === 'likes' && (
+          <LikegridComponent
+            nick_name={userInfo.nick_name}
+            accessToken={accessToken}
+          />
+        )}
+        {currentView === 'products' && (
+          <ProductsComponent
+            userproducts={userproducts}
+            accessToken={accessToken}
+          />
+        )}
         </div>
 
       </StyledWrapper>
@@ -450,10 +459,10 @@ margin-left: 50px;
 margin-top: 40px;
 }
 
-.Lists{
-  margin-left: -200px;
-  margin-top: 300px;
-}
+.Lists {
+    margin-top: 200px;
+    height: 2000px;
+  }
 
 .profileBtn{
   margin-left: 0px;
