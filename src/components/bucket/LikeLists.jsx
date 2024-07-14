@@ -1,30 +1,34 @@
 'use client';
-import React, { useState } from "react";
-import Image from "next/image";
-import styles from "./LikeLists.module.css";
-import { LikeProduct, DeleteLike } from "@compoents/util/post-util";
-import Payment from "../payment/payment";
-import { RefreshAccessToken } from "@compoents/util/http";
-
+import React, { useState } from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { Likepost, DeleteLike } from '@compoents/util/post-util';
+import Payments from '@compoents/components/payment/payments';
+import { RefreshAccessToken } from '@compoents/util/http';
+import Chatting from '../chatting/Chatting';
 
 export default function LikeListComponent({ like, accessToken }) {
   const [liked, setLiked] = useState(true);
 
-
-  const handleLikeClick = async (productId) => {
+  const linkProfile = `/profile/${like.nickName}`;
+  const formattedPrice = like.price.toLocaleString('ko-KR');
+  const likedBtnSrc = liked
+    ? '/images/png/icon-heart-fill.png'
+    : '/images/png/icon-heart.png';
+  const handleLikeClick = async (postId) => {
     try {
       if (liked) {
-        const response = await DeleteLike(accessToken, productId);
+        const response = await DeleteLike(accessToken, postId);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await DeleteLike(NewaccessToken, productId);
+          await DeleteLike(NewaccessToken, postId);
         }
         setLiked(false);
       } else {
-        const response = await LikeProduct(accessToken, productId);
+        const response = await Likepost(accessToken, postId);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await LikeProduct(NewaccessToken, productId);
+          await Likepost(NewaccessToken, postId);
         }
         setLiked(true);
       }
@@ -34,35 +38,153 @@ export default function LikeListComponent({ like, accessToken }) {
   };
 
   return (
-    <>
-      <div key={like.productId} className={styles.postItem}>
-        <div className={styles.profile}>
-          <Image src={like.userProfile} alt="프로필 이미지" width={49} height={49} className={styles.profileImage} priority />
-          <h2 className={styles.nickName}>{like.nickName}</h2>
+    <StyledWrapper>
+      <Link className="wrapper-profile-info" href={linkProfile}>
+        <img
+          src={like.userProfile}
+          alt="프로필 이미지"
+          className="img-profile"
+        />
+        <div className="wrapper-name">
+          <p className="nickname">{like.nickName}</p>
+          <p className="postname">{like.postName}</p>
         </div>
-        <div className={styles.flexes}>
-          <h3>{like.productName}</h3>
-          <Image src={like.imageProduct} alt="상품 사진" width={240} height={260} className={styles.productImg} />
-          <h1>가격</h1>
-          <h4>{like.price}원</h4>
-          <div className={styles.buttons}>
-          {liked ? (
-          <button className={styles.liked} onClick={() => handleLikeClick(like.productId)}>
-            좋아요 <Image src={'/svgs/Favorite_blue.svg'} width={22} height={20} alt='like_blue' className={styles.likeImg}/> 
-          </button>
-        ) : (
-          <button className={styles.like} onClick={() => handleLikeClick(like.productId)}>
-            좋아요 <Image src={'/svgs/Favorite.svg'} width={22} height={20} alt='like' className={styles.likeImg}/> 
-          </button>
-        )}
-            <Payment
+      </Link>
+      <div className="wrapper-bottom">
+        <div className="wrapper-img-info">
+          <img src={like.imagePost} alt="상품 사진" className="img-post" />
+          <span className="post_info">{like.postInfo}</span>
+        </div>
+
+        <div className="wrapper-btns">
+          <div className="wrapper-price">
+            <p>수강비</p>
+            <span>{formattedPrice}원</span>
+          </div>
+          {/* 좋아요 버튼 */}
+          <div className="wrapper-info-btns">
+            <button className="btn-like" onClick={handleLikeClick}>
+              <img src={likedBtnSrc} alt="좋아요 버튼" />
+            </button>
+            <Chatting />
+            <Payments
               accessToken={accessToken}
-              productId={like.productId}
+              postId={like.postId}
               post={like}
+              nick_name={like.nickName}
             />
           </div>
         </div>
       </div>
-    </>
+    </StyledWrapper>
   );
-};
+}
+
+const StyledWrapper = styled.header`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 288px;
+  height: 380px;
+  box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
+  button {
+    cursor: pointer;
+  }
+
+  .wrapper-profile-info {
+    display: flex;
+    gap: 12px;
+    padding: 12px 12px 0 12px;
+
+    .img-profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .wrapper-name {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+
+      .nickname {
+        font-size: 15px;
+        font-weight: bold;
+        font-family: 'Pretendard';
+        color: #29363d;
+      }
+      .postname {
+        font-size: 12px;
+        font-weight: 500;
+        font-family: 'Pretendard';
+        color: #5a6a72;
+      }
+    }
+  }
+
+  .wrapper-bottom {
+    padding: 12px 12px 0 12px;
+
+    .wrapper-img-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .img-post {
+        width: 100%;
+        height: 196px;
+        object-fit: cover;
+      }
+      span,
+      p {
+        font-family: 'Pretendard';
+      }
+      .post_info {
+        color: #5a6a72;
+        font-size: 12px;
+        line-height: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .wrapper-btns {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+
+      .wrapper-price {
+        display: flex;
+        gap: 8px;
+        > p {
+          font-weight: bold;
+          color: #29363d;
+        }
+        > span {
+          color: #29363d;
+        }
+
+        span,
+        p {
+          font-family: 'Pretendard';
+        }
+      }
+
+      .wrapper-info-btns {
+        display: flex;
+        gap: 9px;
+
+        .btn-like {
+          background-color: #ffffff;
+          border: none;
+          > img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+`;

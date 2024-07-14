@@ -4,15 +4,15 @@ import { DeletePost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 import styles from './Delete-button.module.css';
 
-export default function DeletePostButton({ productId, accessToken }) {
+export default function DeletePostButton({ postId, accessToken }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function deletePostDataHandler() {
     setIsDeleting(true);
-    const response = await DeletePost(productId, accessToken);
+    const response = await DeletePost(postId, accessToken);
     if (response.state == 'Jwt Expired') {
       const NewaccessToken = await RefreshAccessToken();
-      await DeletePost(productId, NewaccessToken);
+      await DeletePost(postId, NewaccessToken);
     }
     setIsDeleting(false);
     window.location.href = '/';

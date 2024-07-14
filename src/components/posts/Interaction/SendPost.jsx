@@ -1,100 +1,116 @@
 'use client';
-import { useState, useEffect } from 'react';
-import styles from './SendPost.module.css';
+import { useState } from 'react';
+import styled from 'styled-components';
 import Image from 'next/image';
 
-import { sendProductData } from '@compoents/util/post-util';
+import { sendpostData } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 
-export default function ProductForm({ accessToken }) {
+export default function PostForm({ accessToken }) {
 
-  const [productName, setProductName] = useState('');
+  const [postName, setPostName] = useState('');
   const [price, setPrice] = useState('');
-  const [images1, setImages1] = useState('/images/SendDfImg.png');
-  const [showimages1, setShowImages1] = useState('/images/SendDfImg.png');
-  const [images2, setImages2] = useState('/images/bkimg.png');
-  const [showimages2, setShowImages2] = useState('/images/bkimg.png');
+  const [images1, setImages1] = useState('/images/png/SendDfImg.png');
+  const [showImages1, setShowImages1] = useState('/images/png/SendDfImg.png');
   const [categoryId, setCategoryId] = useState('3001');
-  const [createdAt, setCreatedAt] = useState('');
-  const [year, setYear] = useState('2024');
-  const [month, setMonth] = useState('1');
-  const [day, setDay] = useState('1');
-  
-  const startYear = 2024;
+  const [totalNumber, setTotalnumber] = useState('');
+  const [TeacherInfo, setTeacherInfo] = useState('');
+  const [location, setlocation] = useState('');
+
+  const [startDate, setStartDate] = useState({ year: '2024', month: '1', day: '1' });
+  const [endDate, setEndDate] = useState({ year: '2024', month: '1', day: '1' });
 
   const selectList = [
-    { value: "3001", name: "음료" },
-    { value: "3002", name: "음식" },
-    { value: "3003", name: "영화 관람권" },
-    { value: "3004", name: "모바일 교환권" },
-    { value: "3005", name: "상품권" },
-    { value: "3006", name: "기타" },
+    { value: "3001", name: "가정방문" },
+    { value: "3002", name: "수영장" },
+    { value: "3003", name: "헬스장" },
   ];
 
-  useEffect(() => {
-    const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜
-    setCreatedAt(currentDate);
-  }, []);
+  const selectlocationList = [
+    '서울 강서',
+    '서울 강동',
+    '서울 강북',
+    '서울 강남',
+    '부산',
+    '대구',
+    '인천',
+    '광주',
+    '대전',
+    '울산',
+    '경기도',
+    '강원도',
+    '충청도',
+    '전라도',
+  ];
+
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    const imageUrl = (selectedImage);
+    const imageUrl = selectedImage;
     setImages1(imageUrl);
     const imageUrls = URL.createObjectURL(selectedImage);
     setShowImages1(imageUrls);
   };
 
-  const handleImageChanges = (e) => {
-    const selectedImage = e.target.files[0];
-    const imageUrl = (selectedImage);
-    setImages2(imageUrl);
-    const imageUrls = URL.createObjectURL(selectedImage);
-    setShowImages2(imageUrls);
+  const handleCategorySelect = (e) => {
+    setCategoryId(e.target.value);
+  };
+  
+  const handleLocationSelect = (e) => {
+    setlocation(e.target.value);
   };
 
-  const handleSelect = (e) => {
-    setCategoryId(e.target.selectedOptions[0].value);
-  };
-  const handleYearChange = (e) => {
-    setYear(e.target.value);
-  };
-
-  const handleMonthChange = (e) => {
-    const selectedMonth = e.target.value;
-    setMonth(selectedMonth);
-    const daysInSelectedMonth = new Date(year, selectedMonth, 0).getDate();
-    setDay(Math.min(day, daysInSelectedMonth));
-  };
-
-  const handleDayChange = (e) => {
-    setDay(e.target.value);
-  };
-  const getFormattedExpireAt = () => {
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-    return `${year}-${formattedMonth}-${formattedDay}`;
+  const handleDateChange = (e, dateType, field) => {
+    const value = e.target.value;
+    if (dateType === 'start') {
+      setStartDate(prevState => ({
+        ...prevState,
+        [field]: value
+      }));
+    } else if (dateType === 'end') {
+      setEndDate(prevState => ({
+        ...prevState,
+        [field]: value
+      }));
+    }
   };
 
-  const daysInMonth = Array.from({ length: new Date(year, month, 0).getDate() }, (_, index) => index + 1);
+  const getFormattedDate = (date) => {
+    const formattedMonth = date.month < 10 ? `0${date.month}` : date.month;
+    const formattedDay = date.day < 10 ? `0${date.day}` : date.day;
+    return `${date.year}-${formattedMonth}-${formattedDay}`;
+  };
 
-  async function sendProductHandler(event) {
+  const startDaysInMonth = Array.from({ length: new Date(startDate.year, startDate.month, 0).getDate() }, (_, index) => index + 1);
+  const endDaysInMonth = Array.from({ length: new Date(endDate.year, endDate.month, 0).getDate() }, (_, index) => index + 1);
+
+  async function sendPostHandler(event) {
     event.preventDefault();
     try {
       const formData = new FormData();
-      let req = {
-        "product_name": productName,
+      const req = {
+        "post_name": postName,
         "price": parseInt(price),
+        "post_info": TeacherInfo,
         "category_id": parseInt(categoryId),
-        "create_at": createdAt,
-        "expire_at": getFormattedExpireAt(),
+        "start_at": getFormattedDate(startDate),
+        "end_at": getFormattedDate(endDate),
+        "total_number": parseInt(totalNumber),
+        "location": location
       }
       formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
-      formData.append('img_product', images1);
-      formData.append('img_real', images2);
-      const response = await sendProductData(formData, accessToken);
-      if (response.state == 'Jwt Expired') {
-        const NewaccessToken = await RefreshAccessToken();
-        await sendProductData(formData, NewaccessToken);
+      formData.append('img', images1);
+
+      // req console.log
+      const reqBlob = formData.get('req');
+      const reqText = await reqBlob.text();
+      const reqJson = JSON.parse(reqText);
+      
+      console.log('FormData req:', reqJson);
+      const response = await sendpostData(formData, accessToken);
+      if (response.state === 'Jwt Expired') {
+        const newAccessToken = await RefreshAccessToken();
+        await sendpostData(formData, newAccessToken);
       }
       const redirectUrl = "http://localhost:3000";
       window.location.href = redirectUrl;
@@ -105,85 +121,107 @@ export default function ProductForm({ accessToken }) {
   }
 
   return (
-    <>
-      <section className={styles.formContainer}>
-        <form onSubmit={sendProductHandler} className={styles.minis}>
+    <StyledWrapper>
+      <section className="formContainer">
+        <form onSubmit={sendPostHandler} className="minis">
 
-          <div className={styles.minis}>
-            <label className={styles.imglabel}>등록 이미지</label>
-            <label htmlFor='images1' className={styles.label}>
-              <Image src={showimages1} alt="상품 이미지" width="760" height="760" className={styles.selectImg} />
+          <div className="minis">
+            <label className="imglabel">강의 소개</label>
+            <label htmlFor='images1' className="label">
+              <Image src={showImages1} alt="상품 이미지" width="760" height="760" className="selectImg" />
             </label>
             <input
-              className={styles.inputField}
+              className="inputField"
               type='file'
               id='images1'
               accept="image/*"
               style={{ display: "none" }}
-              onChange={(e) => handleImageChange(e)}
+              onChange={handleImageChange}
             />
           </div>
-          <div className={styles.NotEditImg}>이미지는 상품 등록 시 수정 불가합니다.</div>
-          <div className={styles.margins}>
-            <label className={styles.label}>카테고리</label>
+          <div className="NotEditImg">이미지는 강의 등록 시 수정 불가합니다.</div>
+          <div className="margins">
+            <label className="label">강의장소</label>
             <select
-              className={styles.inputFielded}
+              className="inputFielded"
               id='categoryId'
               value={categoryId}
-              onChange={handleSelect}
+              onChange={handleCategorySelect}
             >
               {selectList.map((item) => (
-                <option className={styles.options} value={item.value} key={item.value}>
+                <option className="options" value={item.value} key={item.value}>
                   {item.name}
                 </option>
               ))}
-
             </select>
           </div>
-          <div className={styles.margins}>
-            <label htmlFor='productname' className={styles.label}>상품명</label>
+          <div className="margins">
+            <label className="label">지역</label>
+            <select
+              className="inputFielded"
+              id='locationId'
+              value={location}
+              onChange={handleLocationSelect}
+            >
+              {selectlocationList.map((locate, index) => (
+                <option className="options" value={locate} key={index}>
+                  {locate}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="margins">
+            <label htmlFor='postname' className="label">강의제목</label>
             <input
-              className={styles.inputField}
+              className="inputField"
               type='text'
-              id='productname'
+              id='postname'
               required
-              value={productName}
-              onChange={(event) => setProductName(event.target.value)}
+              value={postName}
+              onChange={(event) => setPostName(event.target.value)}
             />
           </div>
-          <div className={styles.margins}>
-            <label htmlFor='price' className={styles.label}>가격</label>
+          <div className="flexmargins">
+            <label htmlFor='price' className="label">가격</label>
             <input
-              className={styles.inputField}
-              type='int'
+              className="inputFielded"
+              type='text'
               id='price'
               required
               value={price}
               onChange={(event) => setPrice(event.target.value)}
             />
+            <label htmlFor='totalNumber' className="label">모집 회원 수</label>
+            <input
+              className="inputFielded"
+              type='text'
+              id='totalNumber'
+              required
+              value={totalNumber}
+              onChange={(event) => setTotalnumber(event.target.value)}
+            />
           </div>
-          <div className={styles.margins}>
-            <label htmlFor='expire' className={styles.label}>만료 기간 (년-월-일)</label>
-            <div className={styles.inputFieldRow}>
+          <div className="margins">
+            <label htmlFor='start' className="label">시작 기간 (년-월-일)</label>
+            <div className="inputFieldRow">
               <select
-                className={styles.inputFieldSmall}
-                type='text'
-                id='year'
+                className="inputFieldSmall"
+                id='startYear'
                 required
-                value={year}
-                onChange={handleYearChange}>
+                value={startDate.year}
+                onChange={(e) => handleDateChange(e, 'start', 'year')}
+              >
                 {Array.from({ length: 10 }, (_, index) => (
-                  <option key={startYear + index} value={startYear + index}>{startYear + index}년</option>
+                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
                 ))}
               </select>
               -
               <select
-                className={styles.inputFieldSmalls}
-                type='text'
-                id='month'
+                className="inputFieldSmalls"
+                id='startMonth'
                 required
-                value={month}
-                onChange={handleMonthChange}
+                value={startDate.month}
+                onChange={(e) => handleDateChange(e, 'start', 'month')}
               >
                 {Array.from({ length: 12 }, (_, index) => (
                   <option key={index + 1} value={index + 1}>{index + 1}월</option>
@@ -191,46 +229,348 @@ export default function ProductForm({ accessToken }) {
               </select>
               -
               <select
-                className={styles.inputFieldSmalls}
-                type='text'
-                id='day'
+                className="inputFieldSmalls"
+                id='startDay'
                 required
-                value={day}
-                onChange={handleDayChange}
+                value={startDate.day}
+                onChange={(e) => handleDateChange(e, 'start', 'day')}
               >
-                {daysInMonth.map((dayOption) => (
+                {startDaysInMonth.map((dayOption) => (
                   <option key={dayOption} value={dayOption}>{dayOption}일</option>
                 ))}
               </select>
             </div>
           </div>
-          <div className={styles.margins}>
-            <label className={styles.label}>실제 이미지 (바코드)</label>
-            <label htmlFor='images2' className={styles.label}>
-              <Image src={showimages2} alt="프로필 이미지" width="350" height="55" className={styles.bkImg} />
-            </label>
-            <input
-              className={styles.inputFields}
-              type='int'
-              id='price'
-              required
-              value={price}
-              disabled
-              onChange={(event) => setPrice(event.target.value)}
-            />
-            <input
-              className={styles.inputField}
-              type='file'
-              id='images2'
-              placeholder='바코드가 나온 사진을 등록하세요.'
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={(e) => handleImageChanges(e)}
-            />
+          <div className="margins">
+            <label htmlFor='end' className="label">만료 기간 (년-월-일)</label>
+            <div className="inputFieldRow">
+              <select
+                className="inputFieldSmall"
+                id='endYear'
+                required
+                value={endDate.year}
+                onChange={(e) => handleDateChange(e, 'end', 'year')}
+              >
+                {Array.from({ length: 10 }, (_, index) => (
+                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
+                ))}
+              </select>
+              -
+              <select
+                className="inputFieldSmalls"
+                id='endMonth'
+                required
+                value={endDate.month}
+                onChange={(e) => handleDateChange(e, 'end', 'month')}
+              >
+                {Array.from({ length: 12 }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>{index + 1}월</option>
+                ))}
+              </select>
+              -
+              <select
+                className="inputFieldSmalls"
+                id='endDay'
+                required
+                value={endDate.day}
+                onChange={(e) => handleDateChange(e, 'end', 'day')}
+              >
+                {endDaysInMonth.map((dayOption) => (
+                  <option key={dayOption} value={dayOption}>{dayOption}일</option>
+                ))}
+              </select>
+            </div>
+            <div className="margins">
+              <label htmlFor='TeacherInfo' className="label">강의내용</label>
+              <textarea
+                className="inputFields"
+                type='text'
+                id='TeacherInfo'
+                required
+                value={TeacherInfo}
+                onChange={(event) => setTeacherInfo(event.target.value)}
+              />
+            </div>
           </div>
-          <button className={styles.button}>등록</button>
+          <button className="button">등록</button>
         </form>
       </section>
-    </>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.header`
+  .formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .imglabel {
+    display: flex;
+    color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    
+  }
+
+  .label{
+    color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .selectImg{
+    margin-top: 30px;
+    border-radius: 10px;
+    margin-left: 15%;
+    width: 60%;
+    height: 60%;
+  }
+  .margins{
+    margin-top: 30px;
+  }
+  
+  .inputField {
+    display: flex;
+    width: 840px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 30px;
+    padding-left: 10px;
+  }
+
+  .selectField {
+    margin: 10px;
+    width: 20%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+ }
+  .button {
+    margin-top: 54px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 840px;
+    height: 70px;
+  }
+  
+  .bkImg{
+    display: flex;
+    position: absolute;
+    margin-top: 32px;
+    margin-left: 10px;
+  }
+  .inputFields {
+    display: flex;
+    width: 790px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 30px;
+    padding-left: 50px;
+  }
+  .inputFielded{
+    display: flex;
+    width: 50%;
+    height: 60px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-size: 100%;
+  }
+
+  .inputFieldRow{
+    margin-top: 2%;
+  }
+
+  .inputFieldSmall{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-left: 10%;
+    margin-right: 5%;
+    width: 15%;
+  }
+
+  .inputFieldSmalls{
+    padding: 10px;
+    margin-left: 10%;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 15%;
+  }
+
+  .NotEditImg{
+    color: red;
+  }
+
+
+
+  
+  @media screen and (max-width: 786px) {
+    /* ProductForm.module.css */
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .imglabel {
+    display: flex;
+    color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    
+  }
+
+  .minis{
+    width: 50%;
+  }
+  .label{
+    color: var(--black, #191A1C);
+    font-family: "Pretendard Variable";
+    font-size: 80%;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .selectImg{
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    margin-left: 20px;
+  }
+  .margins{
+    margin-top: 10px;
+    width: 50%;
+    
+  }
+  
+  .inputField {
+    display: flex;
+    width: 170%;
+    height: 30px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-size: 60%;
+  }
+
+  .selectField {
+    margin: 10px;
+    width: 240px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+ }
+  .button {
+    margin-top: 24px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 120%;
+    height: 40px;
+    margin-left: -40px;
+  }
+  
+  .bkImg{
+    display: flex;
+    position: absolute;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    width: 30%;
+    height: 4.5%;
+  }
+  .inputFields {
+    display: flex;
+    width: 140%;
+    height: 30px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 15px;
+    padding-left: 50px;
+  }
+
+  .inputFielded{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-size: 60%;
+  }
+
+  .inputFieldRow{
+    margin-top: 2%;
+    display: flex;
+    width: 100%;
+  }
+
+  .inputFieldSmall{
+    padding: 5px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-right: 5%;
+    font-size: 60%
+  }
+
+  .inputFieldSmalls{
+    padding: 5px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #BEC0C6);
+    background: #FFF;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 60%;
+  }
+
+  .options{
+    height: auto;
+  }
+
+  .NotEditImg{
+    color: red;
+    font-size: 50%;
+    margin-left: 25%;
+  }
+
+  }
+
+`;

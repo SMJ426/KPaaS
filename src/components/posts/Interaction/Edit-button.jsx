@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import styles from './Edit-button.module.css';
 
-export default function PutDetailbutton({ productId, postpage }) {
+export default function PutDetailbutton({ postId, postpage }) {
     const router = useRouter();
 
     const handleButtonClick = () => {
-      router.push(`/${postpage}/${productId}/edit`);
+      router.push(`/${postpage}/${postId}/edit`);
     };
   return (
     <>  

@@ -17,7 +17,7 @@ export default function UserProfile({
   accessToken,
 }) {
   const [currentView, setCurrentView] = useState('likes');
-  const [isfollowrModalOpen, setIsfollowModalOpen] = useState(false);
+  const [isfollowerModalOpen, setIsfollowModalOpen] = useState(false);
   const [isfollowingModalOpen, setIsfollowingModalOpen] = useState(false);
   const router = useRouter();
 
@@ -72,7 +72,7 @@ export default function UserProfile({
             >
               팔로잉 {userInfo.following}
             </button>
-            <div className="modaloverlay" show={isfollowingModalOpen}>
+            <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
               <div className="modalcontent">
                 <button className="clostbtn" onClick={() => setIsfollowingModalOpen(false)}>
                   X
@@ -112,7 +112,7 @@ export default function UserProfile({
           >
             팔로워 {userInfo.follower}
           </button>
-          <div className="modaloverlay" show={isfollowrModalOpen}>
+          <div className="modaloverlay" {...(isfollowerModalOpen ? { show: true } : {})}>
             <div className="modalcontent">
               <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
                 X
@@ -428,10 +428,10 @@ const StyledWrapper = styled.header`
   .verticalLine {
     position: absolute;
     border-top: 1px solid #e2e5ef;
-    width: 50%;
+    width: 60%;
     height: 1px;
     margin-top: 120px;
-    margin-left: 30%;
+    margin-left: 13%;
     padding: 0%;
   }
 
@@ -452,8 +452,7 @@ const StyledWrapper = styled.header`
   }
 
   .Lists {
-    margin-left: -200px;
-    margin-top: 300px;
+    margin-top: 200px;
     height: 2000px;
   }
 

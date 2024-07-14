@@ -10,7 +10,7 @@ export default function MainNavigation({ accessToken }) {
         <a className="logo">
           <img
             className="main-logo"
-            src="images/png/PTFD-main-logo.png"
+            src="/images/png/PTFD-main-logo.png"
             alt="피티에프디"
           />
         </a>
