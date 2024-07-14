@@ -25,7 +25,7 @@ const StyledWrapper = styled.div`
   border-radius: 12px;
 
   .img-policy {
-    min-width: 180px;
+    width: 180px;
     height: 200px;
     box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.3);
     margin-left: 40px;
@@ -49,6 +49,16 @@ const StyledWrapper = styled.div`
     .desc {
       font-size: 13px;
       font-weight: 200;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .img-policy {
+      max-width: 180px;
+      margin: 0;
+    }
+    .wrapper-desc {
+      display: none;
     }
   }
 `;
