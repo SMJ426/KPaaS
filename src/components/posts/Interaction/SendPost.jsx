@@ -7,7 +7,6 @@ import { sendpostData } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 
 export default function PostForm({ accessToken }) {
-
   const [postName, setPostName] = useState('');
   const [price, setPrice] = useState('');
   const [images1, setImages1] = useState('/images/png/SendDfImg.png');
@@ -17,13 +16,21 @@ export default function PostForm({ accessToken }) {
   const [TeacherInfo, setTeacherInfo] = useState('');
   const [location, setlocation] = useState('');
 
-  const [startDate, setStartDate] = useState({ year: '2024', month: '1', day: '1' });
-  const [endDate, setEndDate] = useState({ year: '2024', month: '1', day: '1' });
+  const [startDate, setStartDate] = useState({
+    year: '2024',
+    month: '1',
+    day: '1',
+  });
+  const [endDate, setEndDate] = useState({
+    year: '2024',
+    month: '1',
+    day: '1',
+  });
 
   const selectList = [
-    { value: "3001", name: "가정방문" },
-    { value: "3002", name: "수영장" },
-    { value: "3003", name: "헬스장" },
+    { value: '3001', name: '가정방문' },
+    { value: '3002', name: '수영장' },
+    { value: '3003', name: '헬스장' },
   ];
 
   const selectlocationList = [
@@ -43,7 +50,6 @@ export default function PostForm({ accessToken }) {
     '전라도',
   ];
 
-
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
     const imageUrl = selectedImage;
@@ -55,7 +61,7 @@ export default function PostForm({ accessToken }) {
   const handleCategorySelect = (e) => {
     setCategoryId(e.target.value);
   };
-  
+
   const handleLocationSelect = (e) => {
     setlocation(e.target.value);
   };
@@ -63,14 +69,14 @@ export default function PostForm({ accessToken }) {
   const handleDateChange = (e, dateType, field) => {
     const value = e.target.value;
     if (dateType === 'start') {
-      setStartDate(prevState => ({
+      setStartDate((prevState) => ({
         ...prevState,
-        [field]: value
+        [field]: value,
       }));
     } else if (dateType === 'end') {
-      setEndDate(prevState => ({
+      setEndDate((prevState) => ({
         ...prevState,
-        [field]: value
+        [field]: value,
       }));
     }
   };
@@ -81,41 +87,49 @@ export default function PostForm({ accessToken }) {
     return `${date.year}-${formattedMonth}-${formattedDay}`;
   };
 
-  const startDaysInMonth = Array.from({ length: new Date(startDate.year, startDate.month, 0).getDate() }, (_, index) => index + 1);
-  const endDaysInMonth = Array.from({ length: new Date(endDate.year, endDate.month, 0).getDate() }, (_, index) => index + 1);
+  const startDaysInMonth = Array.from(
+    { length: new Date(startDate.year, startDate.month, 0).getDate() },
+    (_, index) => index + 1
+  );
+  const endDaysInMonth = Array.from(
+    { length: new Date(endDate.year, endDate.month, 0).getDate() },
+    (_, index) => index + 1
+  );
 
   async function sendPostHandler(event) {
     event.preventDefault();
     try {
       const formData = new FormData();
       const req = {
-        "post_name": postName,
-        "price": parseInt(price),
-        "post_info": TeacherInfo,
-        "category_id": parseInt(categoryId),
-        "start_at": getFormattedDate(startDate),
-        "end_at": getFormattedDate(endDate),
-        "total_number": parseInt(totalNumber),
-        "location": location
-      }
-      formData.append('req', new Blob([JSON.stringify(req)], { type: "application/json" }));
+        post_name: postName,
+        price: parseInt(price),
+        post_info: TeacherInfo,
+        category_id: parseInt(categoryId),
+        start_at: getFormattedDate(startDate),
+        end_at: getFormattedDate(endDate),
+        total_number: parseInt(totalNumber),
+        location: location,
+      };
+      formData.append(
+        'req',
+        new Blob([JSON.stringify(req)], { type: 'application/json' })
+      );
       formData.append('img', images1);
 
       // req console.log
       const reqBlob = formData.get('req');
       const reqText = await reqBlob.text();
       const reqJson = JSON.parse(reqText);
-      
+
       console.log('FormData req:', reqJson);
       const response = await sendpostData(formData, accessToken);
       if (response.state === 'Jwt Expired') {
         const newAccessToken = await RefreshAccessToken();
         await sendpostData(formData, newAccessToken);
       }
-      const redirectUrl = "http://localhost:3000";
+      const redirectUrl = 'http://localhost:3000';
       window.location.href = redirectUrl;
-    }
-    catch (error) {
+    } catch (error) {
       console.error('에러 발생:', error);
     }
   }
@@ -124,27 +138,34 @@ export default function PostForm({ accessToken }) {
     <StyledWrapper>
       <section className="formContainer">
         <form onSubmit={sendPostHandler} className="minis">
-
           <div className="minis">
             <label className="imglabel">강의 소개</label>
-            <label htmlFor='images1' className="label">
-              <Image src={showImages1} alt="상품 이미지" width="760" height="760" className="selectImg" />
+            <label htmlFor="images1" className="label">
+              <Image
+                src={showImages1}
+                alt="상품 이미지"
+                width="760"
+                height="760"
+                className="selectImg"
+              />
             </label>
             <input
               className="inputField"
-              type='file'
-              id='images1'
+              type="file"
+              id="images1"
               accept="image/*"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               onChange={handleImageChange}
             />
           </div>
-          <div className="NotEditImg">이미지는 강의 등록 시 수정 불가합니다.</div>
+          <div className="NotEditImg">
+            이미지는 강의 등록 시 수정 불가합니다.
+          </div>
           <div className="margins">
             <label className="label">강의장소</label>
             <select
               className="inputFielded"
-              id='categoryId'
+              id="categoryId"
               value={categoryId}
               onChange={handleCategorySelect}
             >
@@ -159,7 +180,7 @@ export default function PostForm({ accessToken }) {
             <label className="label">지역</label>
             <select
               className="inputFielded"
-              id='locationId'
+              id="locationId"
               value={location}
               onChange={handleLocationSelect}
             >
@@ -171,121 +192,145 @@ export default function PostForm({ accessToken }) {
             </select>
           </div>
           <div className="margins">
-            <label htmlFor='postname' className="label">강의제목</label>
+            <label htmlFor="postname" className="label">
+              강의제목
+            </label>
             <input
               className="inputField"
-              type='text'
-              id='postname'
+              type="text"
+              id="postname"
               required
               value={postName}
               onChange={(event) => setPostName(event.target.value)}
             />
           </div>
           <div className="flexmargins">
-            <label htmlFor='price' className="label">가격</label>
+            <label htmlFor="price" className="label">
+              가격
+            </label>
             <input
               className="inputFielded"
-              type='text'
-              id='price'
+              type="text"
+              id="price"
               required
               value={price}
               onChange={(event) => setPrice(event.target.value)}
             />
-            <label htmlFor='totalNumber' className="label">모집 회원 수</label>
+            <label htmlFor="totalNumber" className="label">
+              모집 회원 수
+            </label>
             <input
               className="inputFielded"
-              type='text'
-              id='totalNumber'
+              type="text"
+              id="totalNumber"
               required
               value={totalNumber}
               onChange={(event) => setTotalnumber(event.target.value)}
             />
           </div>
           <div className="margins">
-            <label htmlFor='start' className="label">시작 기간 (년-월-일)</label>
+            <label htmlFor="start" className="label">
+              시작 기간 (년-월-일)
+            </label>
             <div className="inputFieldRow">
               <select
                 className="inputFieldSmall"
-                id='startYear'
+                id="startYear"
                 required
                 value={startDate.year}
                 onChange={(e) => handleDateChange(e, 'start', 'year')}
               >
                 {Array.from({ length: 10 }, (_, index) => (
-                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
+                  <option key={2024 + index} value={2024 + index}>
+                    {2024 + index}년
+                  </option>
                 ))}
               </select>
               -
               <select
                 className="inputFieldSmalls"
-                id='startMonth'
+                id="startMonth"
                 required
                 value={startDate.month}
                 onChange={(e) => handleDateChange(e, 'start', 'month')}
               >
                 {Array.from({ length: 12 }, (_, index) => (
-                  <option key={index + 1} value={index + 1}>{index + 1}월</option>
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}월
+                  </option>
                 ))}
               </select>
               -
               <select
                 className="inputFieldSmalls"
-                id='startDay'
+                id="startDay"
                 required
                 value={startDate.day}
                 onChange={(e) => handleDateChange(e, 'start', 'day')}
               >
                 {startDaysInMonth.map((dayOption) => (
-                  <option key={dayOption} value={dayOption}>{dayOption}일</option>
+                  <option key={dayOption} value={dayOption}>
+                    {dayOption}일
+                  </option>
                 ))}
               </select>
             </div>
           </div>
           <div className="margins">
-            <label htmlFor='end' className="label">만료 기간 (년-월-일)</label>
+            <label htmlFor="end" className="label">
+              만료 기간 (년-월-일)
+            </label>
             <div className="inputFieldRow">
               <select
                 className="inputFieldSmall"
-                id='endYear'
+                id="endYear"
                 required
                 value={endDate.year}
                 onChange={(e) => handleDateChange(e, 'end', 'year')}
               >
                 {Array.from({ length: 10 }, (_, index) => (
-                  <option key={2024 + index} value={2024 + index}>{2024 + index}년</option>
+                  <option key={2024 + index} value={2024 + index}>
+                    {2024 + index}년
+                  </option>
                 ))}
               </select>
               -
               <select
                 className="inputFieldSmalls"
-                id='endMonth'
+                id="endMonth"
                 required
                 value={endDate.month}
                 onChange={(e) => handleDateChange(e, 'end', 'month')}
               >
                 {Array.from({ length: 12 }, (_, index) => (
-                  <option key={index + 1} value={index + 1}>{index + 1}월</option>
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}월
+                  </option>
                 ))}
               </select>
               -
               <select
                 className="inputFieldSmalls"
-                id='endDay'
+                id="endDay"
                 required
                 value={endDate.day}
                 onChange={(e) => handleDateChange(e, 'end', 'day')}
               >
                 {endDaysInMonth.map((dayOption) => (
-                  <option key={dayOption} value={dayOption}>{dayOption}일</option>
+                  <option key={dayOption} value={dayOption}>
+                    {dayOption}일
+                  </option>
                 ))}
               </select>
             </div>
             <div className="margins">
-              <label htmlFor='TeacherInfo' className="label">강의내용</label>
+              <label htmlFor="TeacherInfo" className="label">
+                강의내용
+              </label>
               <textarea
                 className="inputFields"
-                type='text'
-                id='TeacherInfo'
+                type="text"
+                id="TeacherInfo"
                 required
                 value={TeacherInfo}
                 onChange={(event) => setTeacherInfo(event.target.value)}
@@ -301,50 +346,49 @@ export default function PostForm({ accessToken }) {
 
 const StyledWrapper = styled.header`
   .formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .imglabel {
     display: flex;
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    
-  }
-
-  .label{
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
+    color: var(--black, #191a1c);
+    font-family: 'Pretendard Variable';
     font-size: 32px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
 
-  .selectImg{
+  .label {
+    color: var(--black, #191a1c);
+    font-family: 'Pretendard Variable';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .selectImg {
     margin-top: 30px;
     border-radius: 10px;
     margin-left: 15%;
     width: 60%;
     height: 60%;
   }
-  .margins{
+  .margins {
     margin-top: 30px;
   }
-  
+
   .inputField {
     display: flex;
     width: 840px;
     height: 60px;
     border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #fff;
     margin-top: 30px;
     padding-left: 10px;
   }
@@ -355,7 +399,7 @@ const StyledWrapper = styled.header`
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
- }
+  }
   .button {
     margin-top: 54px;
     padding: 10px 20px;
@@ -367,8 +411,8 @@ const StyledWrapper = styled.header`
     width: 840px;
     height: 70px;
   }
-  
-  .bkImg{
+
+  .bkImg {
     display: flex;
     position: absolute;
     margin-top: 32px;
@@ -379,198 +423,191 @@ const StyledWrapper = styled.header`
     width: 790px;
     height: 60px;
     border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #fff;
     margin-top: 30px;
     padding-left: 50px;
   }
-  .inputFielded{
+  .inputFielded {
     display: flex;
     width: 50%;
     height: 60px;
     border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #fff;
     margin-top: 10px;
     padding-left: 10px;
     font-size: 100%;
   }
 
-  .inputFieldRow{
+  .inputFieldRow {
     margin-top: 2%;
   }
 
-  .inputFieldSmall{
+  .inputFieldSmall {
     padding: 10px;
     border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #fff;
     margin-left: 10%;
     margin-right: 5%;
     width: 15%;
   }
 
-  .inputFieldSmalls{
+  .inputFieldSmalls {
     padding: 10px;
     margin-left: 10%;
     border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #fff;
     margin-left: 5%;
     margin-right: 5%;
     width: 15%;
   }
 
-  .NotEditImg{
+  .NotEditImg {
     color: red;
   }
 
-
-
-  
   @media screen and (max-width: 786px) {
     /* ProductForm.module.css */
 
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  }
-  
-  .imglabel {
-    display: flex;
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    
-  }
+    .formContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .minis{
-    width: 50%;
-  }
-  .label{
-    color: var(--black, #191A1C);
-    font-family: "Pretendard Variable";
-    font-size: 80%;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
+    .imglabel {
+      display: flex;
+      color: var(--black, #191a1c);
+      font-family: 'Pretendard Variable';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
 
-  .selectImg{
-    border-radius: 10px;
-    width: 200px;
-    height: 200px;
-    margin-left: 20px;
-  }
-  .margins{
-    margin-top: 10px;
-    width: 50%;
-    
-  }
-  
-  .inputField {
-    display: flex;
-    width: 170%;
-    height: 30px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
-    margin-top: 10px;
-    padding-left: 10px;
-    font-size: 60%;
-  }
+    .minis {
+      width: 50%;
+    }
+    .label {
+      color: var(--black, #191a1c);
+      font-family: 'Pretendard Variable';
+      font-size: 80%;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
 
-  .selectField {
-    margin: 10px;
-    width: 240px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
- }
-  .button {
-    margin-top: 24px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120%;
-    height: 40px;
-    margin-left: -40px;
-  }
-  
-  .bkImg{
-    display: flex;
-    position: absolute;
-    margin-top: 16.5px;
-    margin-left: 10px;
-    width: 30%;
-    height: 4.5%;
-  }
-  .inputFields {
-    display: flex;
-    width: 140%;
-    height: 30px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
-    margin-top: 15px;
-    padding-left: 50px;
-  }
+    .selectImg {
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
+      margin-left: 20px;
+    }
+    .margins {
+      margin-top: 10px;
+      width: 50%;
+    }
 
-  .inputFielded{
-    display: flex;
-    width: 100%;
-    height: 30px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
-    margin-top: 10px;
-    padding-left: 10px;
-    font-size: 60%;
-  }
+    .inputField {
+      display: flex;
+      width: 170%;
+      height: 30px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-top: 10px;
+      padding-left: 10px;
+      font-size: 60%;
+    }
 
-  .inputFieldRow{
-    margin-top: 2%;
-    display: flex;
-    width: 100%;
-  }
+    .selectField {
+      margin: 10px;
+      width: 240px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .button {
+      margin-top: 24px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 120%;
+      height: 40px;
+      margin-left: -40px;
+    }
 
-  .inputFieldSmall{
-    padding: 5px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
-    margin-right: 5%;
-    font-size: 60%
-  }
+    .bkImg {
+      display: flex;
+      position: absolute;
+      margin-top: 16.5px;
+      margin-left: 10px;
+      width: 30%;
+      height: 4.5%;
+    }
+    .inputFields {
+      display: flex;
+      width: 140%;
+      height: 30px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-top: 15px;
+      padding-left: 50px;
+    }
 
-  .inputFieldSmalls{
-    padding: 5px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #BEC0C6);
-    background: #FFF;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-size: 60%;
-  }
+    .inputFielded {
+      display: flex;
+      width: 100%;
+      height: 30px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-top: 10px;
+      padding-left: 10px;
+      font-size: 60%;
+    }
 
-  .options{
-    height: auto;
-  }
+    .inputFieldRow {
+      margin-top: 2%;
+      display: flex;
+      width: 100%;
+    }
 
-  .NotEditImg{
-    color: red;
-    font-size: 50%;
-    margin-left: 25%;
-  }
+    .inputFieldSmall {
+      padding: 5px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-right: 5%;
+      font-size: 60%;
+    }
 
-  }
+    .inputFieldSmalls {
+      padding: 5px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-size: 60%;
+    }
 
+    .options {
+      height: auto;
+    }
+
+    .NotEditImg {
+      color: red;
+      font-size: 50%;
+      margin-left: 25%;
+    }
+  }
 `;

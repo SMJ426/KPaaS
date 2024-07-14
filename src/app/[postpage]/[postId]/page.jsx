@@ -6,20 +6,20 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function PostDetailPage({ params }) {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   const postdata = await getPostData(params.postId, Authorization.value);
-  if (postdata.state == "잘못된 형식의 요청") {
+  if (postdata.state == '잘못된 형식의 요청') {
     redirect('/');
   }
   return (
     <>
-      <PostDetailContainers 
-      postId={params.postId} 
-      postpage={params.postpage}
-      post={postdata.post} 
-      postList={postdata} 
-      accessToken={Authorization.value} 
+      <PostDetailContainers
+        postId={params.postId}
+        postpage={params.postpage}
+        post={postdata.post}
+        postList={postdata}
+        accessToken={Authorization.value}
       />
     </>
   );

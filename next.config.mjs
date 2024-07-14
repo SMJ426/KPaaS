@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['k.kakaocdn.net', 't1.kakaocdn.net', 't1', 'contest16-objectstorage-imagebucket.kr.object.ncloudstorage.com'],
+    domains: [
+      'k.kakaocdn.net',
+      't1.kakaocdn.net',
+      't1',
+      'contest16-objectstorage-imagebucket.kr.object.ncloudstorage.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',

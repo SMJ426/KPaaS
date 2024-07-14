@@ -3,15 +3,26 @@ import DeletePostButton from '@compoents/components/posts/Interaction/Delete-but
 import styles from './PostDetailContainers.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import Payment from "@compoents/components/payment/payment";
+import Payment from '@compoents/components/payment/payment';
 import { useState } from 'react';
 import { Likepost } from '@compoents/util/post-util';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { IoIosMenu } from "react-icons/io";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from '@nextui-org/react';
+import { IoIosMenu } from 'react-icons/io';
 import PutDetailbutton from '@compoents/components/posts/Interaction/Edit-button';
 
-
-export default function PostDetailContainers({ postId, postpage, post, postList, accessToken }) {
+export default function PostDetailContainers({
+  postId,
+  postpage,
+  post,
+  postList,
+  accessToken,
+}) {
   const [liked, setLiked] = useState(false);
   const handleLikeClick = async () => {
     try {
@@ -29,43 +40,62 @@ export default function PostDetailContainers({ postId, postpage, post, postList,
 
   return (
     <>
-    {postList.me && (
-      <Dropdown>
-      <DropdownTrigger>
-        <Button 
-          variant="bordered" 
-        >
-          <IoIosMenu />
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
-        <DropdownItem key="Edit"><PutDetailbutton postpage={postpage} postId={postId} accessToken={accessToken} /></DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
-        <DeletePostButton postpage={postpage} postId={postId} accessToken={accessToken} />
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
-    )}
+      {postList.me && (
+        <Dropdown>
+          <DropdownTrigger>
+            <Button variant="bordered">
+              <IoIosMenu />
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
+            <DropdownItem key="Edit">
+              <PutDetailbutton
+                postpage={postpage}
+                postId={postId}
+                accessToken={accessToken}
+              />
+            </DropdownItem>
+            <DropdownItem key="delete" className="text-danger" color="danger">
+              <DeletePostButton
+                postpage={postpage}
+                postId={postId}
+                accessToken={accessToken}
+              />
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      )}
       <div className={styles.postForm}>
         <div className={styles.postCtr}>
-          <Image src={post.imagePost} alt='상품 이미지' width={600} height={600} className={styles.postImg} />
+          <Image
+            src={post.imagePost}
+            alt="상품 이미지"
+            width={600}
+            height={600}
+            className={styles.postImg}
+          />
         </div>
         <Link href={linkProfile} className={styles.profiles}>
-          <Image src={post.userProfile} alt='프로필 이미지' width={78} height={78} className={styles.ProImg} />
+          <Image
+            src={post.userProfile}
+            alt="프로필 이미지"
+            width={78}
+            height={78}
+            className={styles.ProImg}
+          />
           <p className={styles.nickNames}>{post.nickName}</p>
         </Link>
         <div className={styles.verticalLine}></div>
         <div className={styles.prdName}>{post.postName}</div>
         <div className={styles.price}>{post.price}원</div>
         <div className={styles.buttons}>
-        <button className={`${styles.like} ${liked ? styles.liked : ''}`} onClick={handleLikeClick}>
-          좋아요 ♡
-        </button>
-          <Payment
-            accessToken={accessToken}
-            postId={postId}
-            post={post}
-          />
+          <button
+            className={`${styles.like} ${liked ? styles.liked : ''}`}
+            onClick={handleLikeClick}
+          >
+            좋아요 ♡
+          </button>
+          <Payment accessToken={accessToken} postId={postId} post={post} />
         </div>
         {postList.postList && postList.postList.length > 0 && (
           <>
@@ -73,17 +103,33 @@ export default function PostDetailContainers({ postId, postpage, post, postList,
             <div>
               <p className={styles.recomePrd}>추천 상품</p>
               <ul className={styles.postsGrid}>
-                {postList && postList.postList
-                .filter(posts => posts.state == 1)
-                .map((posts) => (
-                  <div key={posts.postId} className={styles.postItem}>
-                    <Link href={`/${postpage}/${postId}`} style={{ textDecoration: "none" }}>
-                      <div><Image src={posts.imagepost || '/defaultImg.jpg'} alt="상품" width={350} height={350} className={styles.ListImgs} /></div>
-                      <div className={styles.ListprdName}>{posts.postName}</div>
-                      <div className={styles.ListPrice}>{posts.price}원</div>
-                    </Link>
-                  </div>
-                ))}
+                {postList &&
+                  postList.postList
+                    .filter((posts) => posts.state == 1)
+                    .map((posts) => (
+                      <div key={posts.postId} className={styles.postItem}>
+                        <Link
+                          href={`/${postpage}/${postId}`}
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <div>
+                            <Image
+                              src={posts.imagepost || '/defaultImg.jpg'}
+                              alt="상품"
+                              width={350}
+                              height={350}
+                              className={styles.ListImgs}
+                            />
+                          </div>
+                          <div className={styles.ListprdName}>
+                            {posts.postName}
+                          </div>
+                          <div className={styles.ListPrice}>
+                            {posts.price}원
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
               </ul>
             </div>
           </>

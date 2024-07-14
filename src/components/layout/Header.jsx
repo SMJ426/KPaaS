@@ -1,5 +1,4 @@
-import MainNavigation from "./main-navigation";
-
+import MainNavigation from './main-navigation';
 
 const StyledMainHeader = ({ children }) => {
   return (

@@ -1,8 +1,15 @@
-
-import { Popover, PopoverTrigger, PopoverContent, Button } from '@nextui-org/react';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+} from '@nextui-org/react';
 import styles from './Minicategory.module.css';
 
-export default function MiniCategoryComponents({ selectedCategory, onCategoryChange }) {
+export default function MiniCategoryComponents({
+  selectedCategory,
+  onCategoryChange,
+}) {
   const handleCategoryChange = (categoryId) => {
     onCategoryChange(categoryId);
   };

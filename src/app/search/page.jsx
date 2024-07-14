@@ -1,6 +1,3 @@
-
 export default function Searchmain() {
-    return (
-        <h1>hello</h1>
-    )
+  return <h1>hello</h1>;
 }

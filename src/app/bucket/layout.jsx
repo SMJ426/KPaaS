@@ -1,19 +1,19 @@
 'use server';
-import MainNavigation from "@compoents/components/layout/main-navigation";
-import { cookies } from "next/headers";
+import MainNavigation from '@compoents/components/layout/main-navigation';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function ProductLayout({ children }) {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   if (Authorization && Authorization.value) {
-  return (
+    return (
       <>
-          <MainNavigation accessToken={Authorization.value} />
-          {children}
+        <MainNavigation accessToken={Authorization.value} />
+        {children}
       </>
-  );
-} else {
-  redirect('/user/login');
-}
+    );
+  } else {
+    redirect('/user/login');
+  }
 }

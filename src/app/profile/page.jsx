@@ -14,30 +14,29 @@ export default async function ProfilePage() {
   const followingList = await fetchFollowingUser(userInfo.nick_name);
   if (userInfo.state == 'Jwt Expired') {
     return (
-        <>
-          <UserProfile
-            userInfo={userInfo}
-            followerList={followerList}
-            followingList={followingList}
-            userproducts={[]}
-            accessToken={Authorization.value}
-          />
-        </>
-      );
+      <>
+        <UserProfile
+          userInfo={userInfo}
+          followerList={followerList}
+          followingList={followingList}
+          userproducts={[]}
+          accessToken={Authorization.value}
+        />
+      </>
+    );
   } else {
-  
-  const userproducts = await getSelling(userInfo.nick_name);
-  
-  return (
-    <>
-      <UserProfile
-        userInfo={userInfo}
-        followerList={followerList}
-        followingList={followingList}
-        userproducts={userproducts}
-        accessToken={Authorization.value}
-      />
-    </>
-  );
-}
+    const userproducts = await getSelling(userInfo.nick_name);
+
+    return (
+      <>
+        <UserProfile
+          userInfo={userInfo}
+          followerList={followerList}
+          followingList={followingList}
+          userproducts={userproducts}
+          accessToken={Authorization.value}
+        />
+      </>
+    );
+  }
 }

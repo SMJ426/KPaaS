@@ -36,7 +36,7 @@ export default async function Home() {
 
   // Test용 데이터 사용
   //const postData = TestPostDataSet;
-   const postdata = await fetchPostData(authorizationValue);
+  const postdata = await fetchPostData(authorizationValue);
 
   const userData = await fetchUserData(authorizationValue);
 

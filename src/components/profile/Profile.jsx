@@ -8,7 +8,6 @@ import LikegridComponent from '../bucket/Likegrid';
 import ProductsComponent from './ProductsComponent';
 import { RefreshAccessToken } from '@compoents/util/http';
 
-
 export default function UserProfile({
   userInfo,
   followerList,
@@ -72,18 +71,24 @@ export default function UserProfile({
             >
               팔로잉 {userInfo.following}
             </button>
-            <div className="modaloverlay" {...(isfollowingModalOpen ? { show: true } : {})}>
+            <div
+              className="modaloverlay"
+              {...(isfollowingModalOpen ? { show: true } : {})}
+            >
               <div className="modalcontent">
-                <button className="clostbtn" onClick={() => setIsfollowingModalOpen(false)}>
+                <button
+                  className="clostbtn"
+                  onClick={() => setIsfollowingModalOpen(false)}
+                >
                   X
                 </button>
                 <ul className="modalList">
                   {followingList.map((following) => (
-                    <Link 
+                    <Link
                       key={following.member_id}
                       href={`/profile/${following.nick_name}`}
                       className="modalListItem"
-                      >
+                    >
                       <div className="flex">
                         <Image
                           src={following.profile_image}
@@ -93,9 +98,7 @@ export default function UserProfile({
                           priority
                           className="followImg"
                         />
-                        <p className="names">
-                          {following.user_name}
-                        </p>
+                        <p className="names">{following.user_name}</p>
                       </div>
                     </Link>
                   ))}
@@ -112,17 +115,23 @@ export default function UserProfile({
           >
             팔로워 {userInfo.follower}
           </button>
-          <div className="modaloverlay" {...(isfollowerModalOpen ? { show: true } : {})}>
+          <div
+            className="modaloverlay"
+            {...(isfollowerModalOpen ? { show: true } : {})}
+          >
             <div className="modalcontent">
-              <button className="closebtn" onClick={() => setIsfollowModalOpen(false)}>
+              <button
+                className="closebtn"
+                onClick={() => setIsfollowModalOpen(false)}
+              >
                 X
-                </button>
+              </button>
               <ul className="modalList">
                 {followerList.map((follower) => (
-                  <Link 
-                  key={follower.member_id} 
-                  href={`/profile/${following.nick_name}`}
-                  className="modalListItem"
+                  <Link
+                    key={follower.member_id}
+                    href={`/profile/${following.nick_name}`}
+                    className="modalListItem"
                   >
                     <div className="flex">
                       <Image
@@ -182,9 +191,6 @@ export default function UserProfile({
 }
 
 const StyledWrapper = styled.header`
-
-
-
   .profileInfo {
     display: flex;
     justify-content: center;
@@ -234,90 +240,90 @@ const StyledWrapper = styled.header`
 
   .Followingbtn {
     position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  appearance: none;
-  user-select: none;
-  white-space: nowrap;
-  font-weight: normal;
-  overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  padding-left: var(--unit-4);
-  padding-right: var(--unit-4);
-  min-width: var(--unit-20);
-  height: var(--unit-10);
-  font-size: var(--text-small);
-  gap: var(--unit-2);
-  border-radius: var(--rounded-medium);
-  background-color: var(--bg-default);
-  color: var(--text-default-foreground);
-  z-index: 10;
-  transition:
-    transform 0.2s,
-    colors 0.2s,
-    opacity 0.2s;
-  &:hover {
-    opacity: var(--opacity-hover);
-  }
-  background-color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: var(--gray-800, #000000);
-  font-family: 'Pretendard Variable';
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 50px;
-  height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    appearance: none;
+    user-select: none;
+    white-space: nowrap;
+    font-weight: normal;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    padding-left: var(--unit-4);
+    padding-right: var(--unit-4);
+    min-width: var(--unit-20);
+    height: var(--unit-10);
+    font-size: var(--text-small);
+    gap: var(--unit-2);
+    border-radius: var(--rounded-medium);
+    background-color: var(--bg-default);
+    color: var(--text-default-foreground);
+    z-index: 10;
+    transition:
+      transform 0.2s,
+      colors 0.2s,
+      opacity 0.2s;
+    &:hover {
+      opacity: var(--opacity-hover);
+    }
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--gray-800, #000000);
+    font-family: 'Pretendard Variable';
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 50px;
+    height: 35px;
   }
 
   .modaloverlay {
     display: ${(props) => (props.show ? 'block' : 'none')};
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  }
-
-  .modalcontent{
     position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
   }
 
-  .closebtn{
+  .modalcontent {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+  }
+
+  .closebtn {
     position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
   }
 
-  .modalList{
+  .modalList {
     list-style: none;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
   }
 
-  .modalListItem{
+  .modalListItem {
     margin: 8px 0;
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
   }
 
   .followImg {
@@ -326,13 +332,11 @@ const StyledWrapper = styled.header`
     margin-right: 15px;
     border-radius: 50%;
   }
-  .names{
-  margin: 0;
-  font-size: 25px;
-  margin-top: 15px;
+  .names {
+    margin: 0;
+    font-size: 25px;
+    margin-top: 15px;
   }
-
-  
 
   .profileName {
     margin-left: 50px;
@@ -658,4 +662,3 @@ const StyledWrapper = styled.header`
     }
   }
 `;
-

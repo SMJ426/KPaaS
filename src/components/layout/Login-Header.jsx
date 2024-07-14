@@ -7,13 +7,13 @@ export default function LoginHeader() {
     <StyledWrapper>
       <header className="headerContainer">
         <Link href="/" legacyBehavior passHref>
-        <a className="logo">
-          <img
-            className="main-logo"
-            src="images/png/PTFD-main-logo.png"
-            alt="피티에프디"
-          />
-        </a>
+          <a className="logo">
+            <img
+              className="main-logo"
+              src="images/png/PTFD-main-logo.png"
+              alt="피티에프디"
+            />
+          </a>
         </Link>
       </header>
     </StyledWrapper>
@@ -28,9 +28,8 @@ const StyledWrapper = styled.header`
     /* width: 1440px; */
     flex-shrink: 0;
     border: 0px;
-
   }
-  
+
   .logo {
     display: flex;
     align-items: center;
@@ -52,16 +51,16 @@ const StyledWrapper = styled.header`
   @media screen and (max-width: 786px) {
     .headerContainer {
       display: flex;
-      background-color: #456AE2;
+      background-color: #456ae2;
       height: 80px;
       flex-shrink: 0;
       border: 0px;
       margin-left: 0;
     }
-    
+
     .logo {
-      color: #FFFFFF;
-      font-family: "Gmarket Sans TTF";
+      color: #ffffff;
+      font-family: 'Gmarket Sans TTF';
       font-size: 25px;
       font-style: normal;
       font-weight: 700;
@@ -73,5 +72,4 @@ const StyledWrapper = styled.header`
       cursor: pointer;
     }
   }
-
 `;

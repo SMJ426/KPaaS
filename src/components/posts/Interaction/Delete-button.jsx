@@ -19,7 +19,11 @@ export default function DeletePostButton({ postId, accessToken }) {
   }
 
   return (
-    <button className={styles.btn} onClick={deletePostDataHandler} disabled={isDeleting}>
+    <button
+      className={styles.btn}
+      onClick={deletePostDataHandler}
+      disabled={isDeleting}
+    >
       {isDeleting ? '삭제 중...' : '삭제'}
     </button>
   );

@@ -1,7 +1,7 @@
 import PostsGrid from './PostsGrid';
 import styled from 'styled-components';
 
-export default function CommuPosts({ postData, accessToken}) {
+export default function CommuPosts({ postData, accessToken }) {
   return (
     <StyledWrapper>
       <h3 className="title-postCard">강사님</h3>

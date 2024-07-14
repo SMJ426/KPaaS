@@ -1,10 +1,10 @@
 'use server';
-import ProductForm from "@compoents/components/posts/Interaction/SendPost";
-import { cookies } from "next/headers";
+import ProductForm from '@compoents/components/posts/Interaction/SendPost';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function ProductPage() {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   if (Authorization && Authorization.value) {
     return (
@@ -13,6 +13,6 @@ export default async function ProductPage() {
       </>
     );
   } else {
-        redirect('/user/login');
+    redirect('/user/login');
   }
 }

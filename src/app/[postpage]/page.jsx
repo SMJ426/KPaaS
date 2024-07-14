@@ -4,16 +4,20 @@ import { getPostsFiles } from '@compoents/util/post-util';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default async function CommuPostsPage({params}) {
-  if (isNaN(params.postpage)) { 
+export default async function CommuPostsPage({ params }) {
+  if (isNaN(params.postpage)) {
     redirect('/');
-    return <></>
+    return <></>;
   }
-  const cookieStore = cookies()
-  const Authorization = cookieStore.get('Authorization')
+  const cookieStore = cookies();
+  const Authorization = cookieStore.get('Authorization');
   const authorizationValue = Authorization?.value || '';
   const postdata = await getPostsFiles(params.postpage, authorizationValue);
   return (
-    <NextPageContainer postdata={postdata} postPage={params.postpage} accessToken={authorizationValue} />
-  )
+    <NextPageContainer
+      postdata={postdata}
+      postPage={params.postpage}
+      accessToken={authorizationValue}
+    />
+  );
 }

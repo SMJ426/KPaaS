@@ -1,17 +1,19 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import styles from './Edit-button.module.css';
 
 export default function PutDetailbutton({ postId, postpage }) {
-    const router = useRouter();
+  const router = useRouter();
 
-    const handleButtonClick = () => {
-      router.push(`/${postpage}/${postId}/edit`);
-    };
+  const handleButtonClick = () => {
+    router.push(`/${postpage}/${postId}/edit`);
+  };
   return (
-    <>  
-     <button className={styles.btn} onClick={handleButtonClick}>수정</button>
+    <>
+      <button className={styles.btn} onClick={handleButtonClick}>
+        수정
+      </button>
     </>
   );
 }

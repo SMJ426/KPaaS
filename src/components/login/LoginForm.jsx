@@ -1,13 +1,13 @@
-"use client";
+'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import styled from "styled-components";
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import styled from 'styled-components';
 import { Loginfetchs } from '@compoents/util/http';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [requestError, setRequestError] = useState(false);
   const router = useRouter();
   const NaverLogo = '/images/naver.jpg';
@@ -26,20 +26,18 @@ export default function LoginForm() {
     return;
   };
 
-
-
   const handleSignup = () => {
-    router.push("/user/signup"); // 회원가입 페이지로 이동
+    router.push('/user/signup'); // 회원가입 페이지로 이동
   };
   const handleTeacherSignup = () => {
-    router.push("/user/teachersignup"); // 회원가입 페이지로 이동
+    router.push('/user/teachersignup'); // 회원가입 페이지로 이동
   };
 
   const handleKakaoLogin = () => {
     const REST_API_KEY = 'b9759cba8e0cdd5bcdb9d601f5a10ac1';
     const REDIRECT_URI = 'http://localhost:3000/user/login/oauth2/kakao';
     window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&scope=talk_message,profile_nickname,profile_image,account_email`;
-  }
+  };
 
   const handleNaverLogin = () => {
     window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
@@ -47,23 +45,22 @@ export default function LoginForm() {
 
   function handleFocus(e) {
     const field = e.target.id;
-    if (field === "email") {
-      document.getElementById("email").style.borderColor = "#496AF3";
-    } else if (field === "password") {
-      document.getElementById("password").style.borderColor = "#496AF3";
-    }
-    else if (requestError === 403) {
-      if (field === "email") {
-        document.getElementById("email").style.borderColor = "#FF0000";
-      } else if (field === "password") {
-        document.getElementById("password").style.borderColor = "#FF0000";
+    if (field === 'email') {
+      document.getElementById('email').style.borderColor = '#496AF3';
+    } else if (field === 'password') {
+      document.getElementById('password').style.borderColor = '#496AF3';
+    } else if (requestError === 403) {
+      if (field === 'email') {
+        document.getElementById('email').style.borderColor = '#FF0000';
+      } else if (field === 'password') {
+        document.getElementById('password').style.borderColor = '#FF0000';
       }
     }
   }
 
   return (
     <PageContainer>
-        <Write1>로그인</Write1>
+      <Write1>로그인</Write1>
       <FormContainer onSubmit={handleSubmit}>
         <LoginText>이메일</LoginText>
         <label htmlFor="email">
@@ -72,7 +69,7 @@ export default function LoginForm() {
             id="email"
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value)
+              setEmail(e.target.value);
               handleFocus(e);
             }}
             placeholder="이메일을 입력해주세요..."
@@ -85,7 +82,7 @@ export default function LoginForm() {
             id="password"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
+              setPassword(e.target.value);
               handleFocus(e);
             }}
           />
@@ -101,7 +98,7 @@ export default function LoginForm() {
           사용자 회원가입
         </Button2>
         <Button2 type="button" onClick={handleTeacherSignup}>
-            강사 회원가입
+          강사 회원가입
         </Button2>
         <EasyLogin>간편 로그인</EasyLogin>
         <AnyLogins>
@@ -110,7 +107,12 @@ export default function LoginForm() {
           </NaverButton>
           <KakaoButton onClick={handleKakaoLogin}>
             <EllipseContainer>
-              <StyledImage src={KakaoLogo} alt="이미지" width={72} height={72} />
+              <StyledImage
+                src={KakaoLogo}
+                alt="이미지"
+                width={72}
+                height={72}
+              />
             </EllipseContainer>
           </KakaoButton>
         </AnyLogins>
@@ -129,10 +131,9 @@ const PageContainer = styled.div`
   height: 894px;
 `;
 
-
 const Write1 = styled.div`
   color: #000000;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
@@ -153,7 +154,7 @@ const FormContainer = styled.form`
 
 const LoginText = styled.h1`
   color: #788991;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -167,7 +168,7 @@ const LoginText = styled.h1`
 
 const LoginText2 = styled.h1`
   color: #788991;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -188,11 +189,11 @@ const Input = styled.input`
   border-left: 0px;
   border-right: 0px;
   border-bottom: solid var(--gray-800, #737a8d);
-  background: #F4F5F5;
+  background: #f4f5f5;
   margin-left: 59px;
   margin-top: 14px;
-  color: var(--black, #191A1C);
-  font-family: "Pretendard Variable";
+  color: var(--black, #191a1c);
+  font-family: 'Pretendard Variable';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -200,8 +201,8 @@ const Input = styled.input`
   padding-left: 23px;
 
   &::placeholder {
-    color: var(--gray-400, #BEC0C6);
-    font-family: "Pretendard Variable";
+    color: var(--gray-400, #bec0c6);
+    font-family: 'Pretendard Variable';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -219,7 +220,7 @@ const Input2 = styled.input`
   border-left: 0px;
   border-right: 0px;
   border-bottom: solid var(--gray-800, #737a8d);
-  background: #F4F5F5;
+  background: #f4f5f5;
   margin-left: 59px;
   margin-top: 14px;
   padding-left: 23px;
@@ -227,46 +228,46 @@ const Input2 = styled.input`
 
 const Button1 = styled.button`
   width: 566px;
-    height: 50px;
-    margin-top: 52px;
-    margin-left: 59px;
-    border-radius: 10px 0px 0px 0px;
-    border-radius: 10px;
-    border: #496AF3;
-    background: var(--primary-primary, #496AF3);
-    color: #FFF;
-    font-family: "Pretendard Variable";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    padding: 0%;
+  height: 50px;
+  margin-top: 52px;
+  margin-left: 59px;
+  border-radius: 10px 0px 0px 0px;
+  border-radius: 10px;
+  border: #496af3;
+  background: var(--primary-primary, #496af3);
+  color: #fff;
+  font-family: 'Pretendard Variable';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0%;
 `;
 
 const Button2 = styled.button`
   width: 566px;
-    height: 50px;
-    margin-top: 18px;
-    margin-left: 59px;
-    border-radius: 10px 0px 0px 0px;
-    border: 1.5px 0px 0px 0px;
-    border-radius: 10px;
-border: 1.5px solid var(--primary-primary, #496AF3);
-background: #FFF;
-color: var(--primary-primary, #496AF3);
-font-family: "Pretendard Variable";
-font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-padding: 0%;
+  height: 50px;
+  margin-top: 18px;
+  margin-left: 59px;
+  border-radius: 10px 0px 0px 0px;
+  border: 1.5px 0px 0px 0px;
+  border-radius: 10px;
+  border: 1.5px solid var(--primary-primary, #496af3);
+  background: #fff;
+  color: var(--primary-primary, #496af3);
+  font-family: 'Pretendard Variable';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0%;
 `;
 
 const EasyLogin = styled.div`
   margin-top: 52px;
   margin-left: 297px;
-  color: var(--gray-500, #8B8E98);
-  font-family: "Pretendard Variable";
+  color: var(--gray-500, #8b8e98);
+  font-family: 'Pretendard Variable';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -288,8 +289,8 @@ const StyledImage = styled(Image)`
 `;
 
 const ErrorMsg = styled.div`
-  color: var(--red, #FF0000);
-  font-family: "Pretendard Variable";
+  color: var(--red, #ff0000);
+  font-family: 'Pretendard Variable';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -322,8 +323,8 @@ const EllipseContainer = styled.div`
 `;
 
 const NaverText = styled.div`
-  color: #191A1C;
-  font-family: "Pretendard Variable";
+  color: #191a1c;
+  font-family: 'Pretendard Variable';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -332,8 +333,8 @@ const NaverText = styled.div`
 `;
 
 const KakaoText = styled.div`
-  color: #191A1C;
-  font-family: "Pretendard Variable";
+  color: #191a1c;
+  font-family: 'Pretendard Variable';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
