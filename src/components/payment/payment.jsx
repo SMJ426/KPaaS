@@ -39,7 +39,7 @@ export default function Payment({ accessToken, postId, post }) {
           {
             post_id: parseInt(postId),
             post_point: post.price,
-            seller: post.userEmail,
+            seller: post.email,
             purchase_at: currentDate,
           },
         ],
