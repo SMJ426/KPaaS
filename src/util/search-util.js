@@ -4,7 +4,6 @@ export async function fetchProductName(searchTerm) {
   //const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search', {  
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/search`, {
       cache: 'no-store',
-      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
