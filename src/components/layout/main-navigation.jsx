@@ -30,7 +30,7 @@ export default function MainNavigation({ accessToken }) {
           <p>Curriculum</p>
         </Link>
 
-        <Link href="#">
+        <Link href="/chat">
           <p>채팅하기</p>
         </Link>
 

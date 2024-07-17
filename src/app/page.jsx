@@ -2,9 +2,8 @@
 
 import MainContainers from '@compoents/containers/MainContainers';
 import { cookies } from 'next/headers';
-import { LogingetPostsFile, getPostsFile } from '@compoents/util/post-util';
+import { getPostsFile } from '@compoents/util/post-util';
 import { fetchUserProfile } from '@compoents/util/http';
-import { TestPostDataSet } from '../constants/TestPostDataSet';
 
 async function getAuthorizationToken() {
   const cookieStore = cookies();
@@ -17,8 +16,8 @@ async function fetchPostData(authorizationValue) {
     return await getPostsFile();
   } else {
     const accessToken = decodeURIComponent(authorizationValue);
-    const profileData = await fetchUserProfile(accessToken);
-    return await LogingetPostsFile(accessToken, profileData.nick_name);
+
+    return await getPostsFile(accessToken);
   }
 }
 
