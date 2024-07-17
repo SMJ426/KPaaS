@@ -18,7 +18,8 @@ export default async function PostDetailPage({ params }) {
         postId={params.postId}
         postpage={params.postpage}
         post={postdata.post}
-        postList={postdata}
+        postList={postdata.postList}
+        me={postdata.me}
         accessToken={Authorization.value}
       />
     </>

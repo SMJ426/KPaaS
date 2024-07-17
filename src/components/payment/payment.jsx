@@ -57,47 +57,25 @@ export default function Payment({ accessToken, postId, post }) {
   };
 
   return (
-    <StyledWrapper>
-      <button className="buy-btn" onClick={handleSetPoint}>
-        구매하기
-      </button>
+    <StyledWrapper onClick={handleSetPoint}>
+      <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+      {/* <sapn>수강하기</sapn> */}
     </StyledWrapper>
   );
 }
 
-const StyledWrapper = styled.header`
-  .buy-btn {
-    width: 113px;
-    height: 40px;
-    flex-shrink: 0;
-    background: #496af3;
-    border-radius: 10px;
-    border: 0;
-    color: #ffffff;
-    font-family: 'Pretendard Variable';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    margin-left: 44px;
-    cursor: pointer;
-  }
+const StyledWrapper = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @media screen and (max-width: 786px) {
-    .buy-btn {
-      width: 93px;
-      height: 40px;
-      flex-shrink: 0;
-      background: #496af3;
-      border-radius: 10px;
-      border: 0;
-      color: #ffffff;
-      font-family: 'Pretendard Variable';
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-left: 44px;
-    }
+  background-color: #ffffff;
+  border: none;
+  font-family: 'Pretendard Variable';
+
+  > img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 `;

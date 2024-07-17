@@ -18,7 +18,7 @@ async function fetchPostData(authorizationValue) {
   } else {
     const accessToken = decodeURIComponent(authorizationValue);
     const profileData = await fetchUserProfile(accessToken);
-    return await LogingetPostsFile(accessToken, profileData.nick_name);
+    return await getPostsFile(accessToken);
   }
 }
 

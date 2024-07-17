@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { memberPay, completePay } from '@compoents/util/payment-util';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import { fetchUserEmail } from '@compoents/util/Client';
 
 export default function Payments({ accessToken, postId, post, nick_name }) {
   const [purchases, setPurchase] = useState('');
@@ -16,17 +15,15 @@ export default function Payments({ accessToken, postId, post, nick_name }) {
       router.push('/user/login');
       return;
     }
-    const email = await fetchUserEmail(nick_name);
 
     const paymentData = {
       total_point: post.price,
-      email: email,
       payments_list: [
         {
           post_name: post.postName,
           post_id: parseInt(postId),
           post_point: post.price,
-          seller: post.userEmail, // 현재 post/page api 응답에 userEmail 없음
+          seller: post.email, // 현재 post/page api 응답에 userEmail 없음
           purchase_at: currentDate,
         },
       ],
