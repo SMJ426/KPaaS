@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 import PostDropdown from '@compoents/components/posts/Detailoptions/PostDropdown';
-import Recommendations from '@compoents/components/posts/Detailoptions/ RecommendComponents';
+import Recommendations from '@compoents/components/posts/Detailoptions/RecommendComponents';
 import PostDetails from '@compoents/components/posts/Detailoptions/DetailPostcomponents';
 
 

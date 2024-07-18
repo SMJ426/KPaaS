@@ -94,7 +94,6 @@ export async function getPostData(postId, accessToken) {
     }
   );
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
