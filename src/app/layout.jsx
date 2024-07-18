@@ -2,9 +2,9 @@ import Providers from './providers';
 import './globals.css';
 
 export const metadata = {
-  title: 'PTSD',
+  title: 'PTFD',
   description:
-    'PTSD는 장애인을 전문 트레이너와 연결해주는 플랫폼입니다. 맞춤형 훈련과 개별 지도를 제공합니다.',
+    'PTFD는 장애인을 전문 트레이너와 연결해주는 플랫폼입니다. 맞춤형 훈련과 개별 지도를 제공합니다.',
 };
 
 export default function RootLayout({ children }) {
