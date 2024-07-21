@@ -69,8 +69,8 @@ export default function SmallProfile({ accessToken }) {
         <Image
           src={userInfo.profile_image || defaultImage} // UserInfo.image ||
           alt="이미지"
-          width={83}
-          height={83}
+          width={50}
+          height={50}
           className={styles.profileImage}
           priority
         />

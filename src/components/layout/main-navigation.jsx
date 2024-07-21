@@ -30,8 +30,8 @@ export default function MainNavigation({ accessToken }) {
           <p>Curriculum</p>
         </Link>
 
-        <Link href="#">
-          <p>Recruitment</p>
+        <Link href="/chat">
+          <p>채팅하기</p>
         </Link>
 
         <Link href="#">
@@ -47,11 +47,7 @@ export default function MainNavigation({ accessToken }) {
         </div>
       )}
 
-      {accessToken && (
-        <div className="navigate-bar">
-          <SmallProfile accessToken={accessToken} />
-        </div>
-      )}
+      {accessToken && <SmallProfile accessToken={accessToken} />}
     </StyledWrapper>
   );
 }
@@ -71,13 +67,6 @@ const StyledWrapper = styled.header`
     align-items: center;
     cursor: pointer;
 
-    color: var(--black, #191a1c);
-    font-family: 'Gmarket Sans TTF';
-    font-size: 38px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-
     > img {
       width: 200px;
       height: 65px;
@@ -87,6 +76,8 @@ const StyledWrapper = styled.header`
   .wrapper-navigate-menu {
     display: flex;
     gap: 50px;
+    font-family: 'Pretendard';
+    font-weight: bold;
   }
 
   .btn-login {
@@ -100,7 +91,6 @@ const StyledWrapper = styled.header`
 
     background-color: #eeeeee;
     color: #2e6ff2;
-    font-family: 'Pretendard Variable';
     font-style: normal;
     font-weight: 600;
     line-height: normal;

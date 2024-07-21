@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import MainNavigation from '@compoents/components/layout/main-navigation';
-import MiniCategoryComponents from '@compoents/components/minicategory/Minicategory';
 import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
 import Pagination from '@compoents/components/pagination/Paginations';
 import { useState } from 'react';

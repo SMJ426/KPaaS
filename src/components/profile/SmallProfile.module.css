@@ -5,7 +5,6 @@
 .profileImage {
   border-radius: 50%;
   cursor: pointer;
-  margin-bottom: 5px;
 }
 
 .modalBackground {
@@ -84,95 +83,4 @@
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-
-@media screen and (max-width: 786px) {
-  .Modaldiv {
-    z-index: 1000;
-  }
-  .profileImage {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: 3px;
-  }
-
-  .modalBackground {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 50%;
-    background-color: #ffffff;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.2));
-  }
-
-  .modalContent {
-    background-color: #ffffff;
-    z-index: 1000;
-    flex-shrink: 0;
-    padding: 10px;
-    border-radius: 8px;
-    filter: drop-shadow(10px 10px 50px rgba(0, 0, 0, 0.2));
-    text-align: center;
-    color: var(--gray-600, #808389);
-    font-family: 'Pretendard Variable';
-  }
-
-  .verticalLine {
-    border-top: 1px solid #e2e5ef;
-    width: 130px;
-    height: 1px;
-    margin-left: 4px;
-    margin-top: 12px;
-    padding: 0%;
-  }
-
-  .contents {
-    background-color: #ffffff;
-    border: 0;
-    color: var(--gray-600, #808389);
-    font-family: 'Pretendard Variable';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .logcontents {
-    background-color: #ffffff;
-    border: 0;
-    color: var(--secondary, #e13333);
-    font-family: 'Pretendard Variable';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 15px;
-    text-align: center;
-    margin-bottom: 5px;
-    cursor: pointer;
-  }
-
-  .button {
-    font: inherit;
-    background-color: transparent;
-    color: black;
-    font-weight: bold;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  .active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
 }
