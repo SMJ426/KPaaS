@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import styles from './Edit-button.module.css';
 
 export default function PutDetailbutton({ postId, postpage }) {
   const router = useRouter();
@@ -11,7 +10,7 @@ export default function PutDetailbutton({ postId, postpage }) {
   };
   return (
     <>
-      <button className={styles.btn} onClick={handleButtonClick}>
+      <button className="btn" onClick={handleButtonClick}>
         수정
       </button>
     </>
