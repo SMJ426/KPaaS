@@ -84,11 +84,11 @@ export default function OtherProfileform({
             </button>
             <div
               className="modaloverlay"
-              {...(isfollowingModalOpen ? { show: true } : {})}
+              style={{ display: isfollowingModalOpen ? 'block' : 'none' }}
             >
               <div className="modalcontent">
                 <button
-                  className="clostbtn"
+                  className="closebtn"
                   onClick={() => setIsfollowingModalOpen(false)}
                 >
                   X
@@ -128,7 +128,7 @@ export default function OtherProfileform({
           </button>
           <div
             className="modaloverlay"
-            {...(isfollowerModalOpen ? { show: true } : {})}
+            style={{ display: isfollowerModalOpen ? 'block' : 'none' }}
           >
             <div className="modalcontent">
               <button
@@ -141,19 +141,19 @@ export default function OtherProfileform({
                 {followerList.map((follower) => (
                   <Link
                     key={follower.member_id}
-                    href={`/profile/${following.nick_name}`}
+                    href={`/profile/${follower.nick_name}`}
                     className="modalListItem"
                   >
                     <div className="flex">
                       <Image
-                        src={follower.image}
+                        src={follower.profile_image}
                         alt="프로필 사진"
-                        width={15}
-                        height={15}
+                        width={30}
+                        height={30}
                         priority
                         className="followImg"
                       />
-                      <p className="names">{follower.name}</p>
+                      <p className="names">{follower.nick_name}</p>
                     </div>
                   </Link>
                 ))}
@@ -298,16 +298,6 @@ const StyledWrapper = styled.header`
     height: 35px;
   }
 
-  .modaloverlay {
-    display: ${(props) => (props.show ? 'block' : 'none')};
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-  }
 
   .modalcontent {
     position: fixed;
@@ -350,8 +340,8 @@ const StyledWrapper = styled.header`
   }
   .names {
     margin: 0;
-    font-size: 25px;
-    margin-top: 15px;
+    font-size: 20px;
+    margin-top: 10px;
   }
 
   .profileName {

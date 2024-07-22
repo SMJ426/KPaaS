@@ -73,11 +73,11 @@ export default function UserProfile({
             </button>
             <div
               className="modaloverlay"
-              {...(isfollowingModalOpen ? { show: true } : {})}
+              style={{ display: isfollowerModalOpen ? 'block' : 'none' }}
             >
               <div className="modalcontent">
                 <button
-                  className="clostbtn"
+                  className="closebtn"
                   onClick={() => setIsfollowingModalOpen(false)}
                 >
                   X
@@ -98,7 +98,7 @@ export default function UserProfile({
                           priority
                           className="followImg"
                         />
-                        <p className="names">{following.user_name}</p>
+                        <p className="names">{following.nick_name}</p>
                       </div>
                     </Link>
                   ))}
@@ -117,7 +117,7 @@ export default function UserProfile({
           </button>
           <div
             className="modaloverlay"
-            {...(isfollowerModalOpen ? { show: true } : {})}
+            style={{ display: isfollowerModalOpen ? 'block' : 'none' }}
           >
             <div className="modalcontent">
               <button
@@ -130,19 +130,19 @@ export default function UserProfile({
                 {followerList.map((follower) => (
                   <Link
                     key={follower.member_id}
-                    href={`/profile/${following.nick_name}`}
+                    href={`/profile/${follower.nick_name}`}
                     className="modalListItem"
                   >
                     <div className="flex">
                       <Image
-                        src={follower.image}
+                        src={follower.profile_image}
                         alt="프로필 사진"
                         width={15}
                         height={15}
                         priority
                         className="followImg"
                       />
-                      <p className="names">{follower.name}</p>
+                      <p className="names">{follower.nick_name}</p>
                     </div>
                   </Link>
                 ))}
@@ -334,8 +334,8 @@ const StyledWrapper = styled.header`
   }
   .names {
     margin: 0;
-    font-size: 25px;
-    margin-top: 15px;
+    font-size: 20px;
+    margin-top: 10px;
   }
 
   .profileName {
