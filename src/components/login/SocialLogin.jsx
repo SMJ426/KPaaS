@@ -18,15 +18,14 @@ export default function SocialLogin() {
 
   return (
     <StyledWrapper>
-      <button className="social-button" onClick={handleNaverLogin}>
+      <button className="btn-social naver" onClick={handleNaverLogin}>
         <img src="/images/svg/naver-logo.svg" alt="네이버로 로그인하기" />
         <p className="social-text">네이버로 로그인</p>
       </button>
-      <button className="social-button" onClick={handleKakaoLogin}>
-        <div className="ellipse-container">
-          <img src="/images/svg/kakao-logo.svg" alt="카카오로 로그인하기" />
-          <p className="social-text">카카오로 로그인</p>
-        </div>
+
+      <button className="btn-social kakao" onClick={handleKakaoLogin}>
+        <img src="/images/svg/kakao-logo.svg" alt="카카오로 로그인하기" />
+        <p className="social-text">카카오로 로그인</p>
       </button>
     </StyledWrapper>
   );
@@ -36,4 +35,30 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 10px;
+
+  .btn-social {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    padding: 9px;
+    background-color: #ffffff;
+
+    cursor: pointer;
+
+    .social-text {
+      margin: 0 auto;
+      padding-right: 30px;
+    }
+  }
+
+  .naver {
+    border: 1px solid #00bf18;
+  }
+  .kakao {
+    border: 1px solid #f2c94c;
+  }
 `;

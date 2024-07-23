@@ -91,14 +91,14 @@ export default function LoginForm() {
             로그인
           </button>
           <button
-            className="signup-button"
+            className="signup-button user"
             type="button"
             onClick={handleSignup}
           >
             사용자 회원가입
           </button>
           <button
-            className="signup-button"
+            className="signup-button teacher"
             type="button"
             onClick={handleTeacherSignup}
           >
@@ -197,6 +197,14 @@ const StyledWrapper = styled.div`
 
       font-size: 14px;
       color: #29363d;
+    }
+    .user {
+      background-color: #e8f0fe;
+      color: #2e6ff2;
+    }
+    .teacher {
+      background-color: #e8f0fe;
+      color: #2e6ff2;
     }
   }
 
