@@ -11,7 +11,6 @@ export default function ProfileContent({
 }) {
   return (
     <StyledWrapper>
-      <div className="Lists">
         {currentView === 'likes' && (
           <LikegridComponent nick_name={nick_name} accessToken={accessToken} />
         )}
@@ -21,14 +20,11 @@ export default function ProfileContent({
             accessToken={accessToken}
           />
         )}
-      </div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.header`
-    .Lists {
     margin-top: 200px;
     height: 2000px;
-  }
 `;

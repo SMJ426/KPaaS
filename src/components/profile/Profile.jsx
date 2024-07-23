@@ -97,9 +97,4 @@ const StyledWrapper = styled.header`
     padding: 0%;
   }
 
-  .Loading {
-    margin-left: 40%;
-    margin-top: 40%;
-  }
-
 `;

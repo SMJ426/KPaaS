@@ -10,14 +10,14 @@ export default function ProfileNavigation({
     <StyledWrapper>
       <button
         onClick={() => setCurrentView('likes')}
-        className={currentView === 'likes' ? 'Button1' : 'Button3'}
+        className={currentView === 'likes' ? 'onlikebtn' : 'offlikebtn'}
       >
         좋아요한 PT
       </button>
       {isTeacher && (
         <button
           onClick={() => setCurrentView('products')}
-          className={currentView === 'products' ? 'Button2' : 'Button4'}
+          className={currentView === 'products' ? 'onPostbtn' : 'offPostbtn'}
         >
           게시된 PT
         </button>
@@ -26,7 +26,7 @@ export default function ProfileNavigation({
   );
 }
 const StyledWrapper = styled.header`
-    .Button1 {
+    .onlikebtn {
     position: absolute;
     color: var(--primary-primary, #000000);
     font-family: 'Pretendard Variable';
@@ -40,7 +40,7 @@ const StyledWrapper = styled.header`
     margin-top: 70px;
   }
 
-  .Button3 {
+  .offlikebtn {
     position: absolute;
     color: var(--gray-400, #9b9b9b);
     font-family: 'Pretendard Variable';
@@ -54,7 +54,7 @@ const StyledWrapper = styled.header`
     margin-top: 70px;
   }
 
-  .Button2 {
+  .onPostbtn {
     position: absolute;
     color: var(--gray-400, #000000);
     font-family: 'Pretendard Variable';
@@ -68,7 +68,7 @@ const StyledWrapper = styled.header`
     margin-top: 70px;
   }
 
-  .Button4 {
+  .offPostbtn {
     position: absolute;
     color: var(--primary-primary, #9b9b9b);
     font-family: 'Pretendard Variable';
