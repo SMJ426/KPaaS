@@ -178,6 +178,13 @@ const StyledWrapper = styled.div`
     gap: 9px;
     width: 100%;
     margin-top: 30px;
+    > button {
+      transition: box-shadow 0.3s;
+    }
+
+    > button:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
     .login-button {
       border: none;

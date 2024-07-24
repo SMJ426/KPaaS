@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
 
 export default function SocialLogin() {
   const handleKakaoLogin = () => {
@@ -57,8 +56,18 @@ const StyledWrapper = styled.div`
 
   .naver {
     border: 1px solid #00bf18;
+
+    &:hover {
+      background-color: #00bf18;
+      color: #ffffff;
+    }
   }
   .kakao {
     border: 1px solid #f2c94c;
+
+    &:hover {
+      background-color: #f2c94c;
+      color: #ffffff;
+    }
   }
 `;
