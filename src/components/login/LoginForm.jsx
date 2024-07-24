@@ -183,7 +183,7 @@ const StyledWrapper = styled.div`
     }
 
     > button:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .login-button {
