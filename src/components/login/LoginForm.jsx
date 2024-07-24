@@ -126,7 +126,6 @@ const StyledWrapper = styled.div`
   font-family: 'Spoqa Han Sans Neo';
   margin: 0 auto;
   width: 400px;
-  padding-top: 100px;
 
   .title {
     color: #29363d;
