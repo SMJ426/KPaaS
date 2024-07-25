@@ -1,5 +1,5 @@
 import Chatting from '@compoents/components/chatting/Chatting';
-import Payments from '@compoents/components/payment/payments';
+import Payment from '@compoents/components/payment/payment';
 import styled from 'styled-components';
 
 export default function ActionButtons({
@@ -16,7 +16,7 @@ export default function ActionButtons({
           <img src={likedBtnSrc} alt="좋아요 버튼" />
         </button>
         <Chatting />
-        <Payments accessToken={accessToken} postId={postId} post={post} />
+        <Payment accessToken={accessToken} postId={postId} post={post} />
       </div>
     </StyledWrapper>
   );

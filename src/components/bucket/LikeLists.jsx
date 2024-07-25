@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
-import Payments from '@compoents/components/payment/payments';
+import Payment from '../payment/payment';
 import { RefreshAccessToken } from '@compoents/util/http';
 import Chatting from '../chatting/Chatting';
 
@@ -67,7 +67,7 @@ export default function LikeListComponent({ like, accessToken }) {
               <img src={likedBtnSrc} alt="좋아요 버튼" />
             </button>
             <Chatting />
-            <Payments
+            <Payment
               accessToken={accessToken}
               postId={like.postId}
               post={like}

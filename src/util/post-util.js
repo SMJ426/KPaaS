@@ -176,12 +176,14 @@ export async function LikeList(nick_name) {
         headers: {
           'Content-Type': 'application/json',
         },
+        cache: 'no-store'
       }
     );
     if (!response.ok) {
       console.log('Error!');
     }
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error('요청을 보내는 중 오류가 발생했습니다.', error);

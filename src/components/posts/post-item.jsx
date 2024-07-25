@@ -1,15 +1,16 @@
 'use client';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
-import Payments from '@compoents/components/payment/payments';
+import ChoosePayModal from '../payment/ChoosePay';
+import Payment from '../payment/payment';
 import Chatting from '../chatting/Chatting';
 
-export default function PostItem({ postData, posts, accessToken }) {
+export default function PostItem({ postData, posts, accessToken, user_nickname }) {
   const router = useRouter();
 
   // const {
@@ -27,10 +28,11 @@ export default function PostItem({ postData, posts, accessToken }) {
 
   // 초기값을 지금은 false로 했지만, 다음엔 post.liked로 해야함
   const [liked, setLiked] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const linkPath = `/${pageNumber}/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
-
   const formattedPrice = postData.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked
     ? '/images/png/icon-heart-fill.png'
@@ -41,6 +43,26 @@ export default function PostItem({ postData, posts, accessToken }) {
   // const handleLikeClick = () => {
   //   setLiked(!liked);
   // };
+
+  const handleOpenDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleCloseDropdown = () => {
+    setShowDropdown(false);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const handleLikeClick = async () => {
     if (!accessToken) {
@@ -109,12 +131,19 @@ export default function PostItem({ postData, posts, accessToken }) {
               <img src={likedBtnSrc} alt="좋아요 버튼" />
             </button>
             <Chatting />
-            <Payments
-              accessToken={accessToken}
-              postId={postData.post_id}
-              post={posts}
-              nick_name={postData.nick_name}
-            />
+            <div className="dropdown-container" ref={dropdownRef}>
+              <button onClick={handleOpenDropdown} className="btn-choose">
+                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+              </button>
+              {showDropdown && (
+                <ChoosePayModal
+                  accessToken={accessToken}
+                  postId={postData.post_id}
+                  post={postData}
+                  nick_name={user_nickname}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -214,9 +243,12 @@ const StyledWrapper = styled.div`
           font-family: 'Pretendard';
         }
       }
-
+      .dropdown-container {
+    position: relative;
+  }
       .wrapper-info-btns {
         display: flex;
+        position: relative;
         gap: 9px;
 
         .btn-like {
@@ -225,6 +257,21 @@ const StyledWrapper = styled.div`
           > img {
             width: 20px;
             height: 20px;
+          }
+        }
+        .btn-choose {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          background-color: #ffffff;
+          border: none;
+          font-family: 'Pretendard Variable';
+
+          > img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
           }
         }
       }

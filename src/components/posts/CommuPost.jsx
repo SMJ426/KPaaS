@@ -1,11 +1,11 @@
 import PostsGrid from './PostsGrid';
 import styled from 'styled-components';
 
-export default function CommuPosts({ postData, accessToken }) {
+export default function CommuPosts({ postData, accessToken, nick_name }) {
   return (
     <StyledWrapper>
       <h3 className="title-postCard">강사님</h3>
-      <PostsGrid postData={postData} accessToken={accessToken} />
+      <PostsGrid postData={postData} accessToken={accessToken} nick_name={nick_name} />
     </StyledWrapper>
   );
 }
