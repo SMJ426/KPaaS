@@ -49,82 +49,90 @@ export default function LoginForm() {
   const isError = requestError === 403;
 
   return (
-    <StyledWrapper isError={isError}>
-      <h1 className="title">로그인</h1>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <p className="login-text">이메일</p>
-        <label htmlFor="email">
-          <input
-            className="input"
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              handleFocus(e);
-            }}
-            placeholder="이메일을 입력해주세요"
-          />
-        </label>
-        <p className="login-text">비밀번호</p>
-        <label htmlFor="password">
-          <input
-            className="input"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              handleFocus(e);
-            }}
-          />
-        </label>
+    <CenteredWrapper>
+      <StyledWrapper isError={isError}>
+        <h1 className="title">로그인</h1>
+        <form className="form-container" onSubmit={handleSubmit}>
+          <p className="login-text">이메일</p>
+          <label htmlFor="email">
+            <input
+              className="input"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                handleFocus(e);
+              }}
+              placeholder="이메일을 입력해주세요"
+            />
+          </label>
+          <p className="login-text">비밀번호</p>
+          <label htmlFor="password">
+            <input
+              className="input"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                handleFocus(e);
+              }}
+            />
+          </label>
 
-        {isError && (
-          <div className="error-msg">
-            아이디 혹은 비밀번호를 다시 확인해주세요.
+          {isError && (
+            <div className="error-msg">
+              아이디 혹은 비밀번호를 다시 확인해주세요.
+            </div>
+          )}
+
+          <div className="wrapper-btns">
+            <button className="login-button" type="submit">
+              로그인
+            </button>
+            <button
+              className="signup-button user"
+              type="button"
+              onClick={handleSignup}
+            >
+              사용자 회원가입
+            </button>
+            <button
+              className="signup-button teacher"
+              type="button"
+              onClick={handleTeacherSignup}
+            >
+              강사 회원가입
+            </button>
           </div>
-        )}
 
-        <div className="wrapper-btns">
-          <button className="login-button" type="submit">
-            로그인
-          </button>
-          <button
-            className="signup-button user"
-            type="button"
-            onClick={handleSignup}
-          >
-            사용자 회원가입
-          </button>
-          <button
-            className="signup-button teacher"
-            type="button"
-            onClick={handleTeacherSignup}
-          >
-            강사 회원가입
-          </button>
-        </div>
+          {/* 구분선 */}
+          <div className="divider">
+            <hr />
+            <span>간편 로그인</span>
+            <hr />
+          </div>
 
-        {/* 구분선 */}
-        <div className="divider">
-          <hr />
-          <span>간편 로그인</span>
-          <hr />
-        </div>
-
-        {/* 네이버 ,카카오 로그인 */}
-        <SocialLogin />
-      </form>
-    </StyledWrapper>
+          {/* 네이버 ,카카오 로그인 */}
+          <SocialLogin />
+        </form>
+      </StyledWrapper>
+    </CenteredWrapper>
   );
 }
+
+const CenteredWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 전체 화면 높이를 차지하도록 설정 */
+`;
 
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: 'Spoqa Han Sans Neo';
-  margin: 0 auto;
   width: 400px;
 
   .title {
