@@ -8,7 +8,6 @@ export default function ChoosePayModal({
   accessToken,
   postId,
   post,
-  nick_name,
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -31,7 +30,7 @@ export default function ChoosePayModal({
   };
 
   const handlebucket = () => {
-    window.location.href = `http://localhost:3000/bucket/${nick_name}`
+    window.location.href = `http://localhost:3000/bucket`
   }
 
   return (
@@ -41,11 +40,9 @@ export default function ChoosePayModal({
           accessToken={accessToken}
           postId={postId}
           post={post}
-          nick_name={nick_name}
         >
           직접 구매
         </Payment>
-        <div className="verticalLine"></div>
         <button onClick={handlebucketClick}>장바구니에 담기</button>
       </div>
       {isModalVisible && (
@@ -90,13 +87,6 @@ const StyledDropdown = styled.div`
       &:hover {
         background-color: #f5f5f5;
       }
-    }
-    .verticalLine {
-      border-top: 1px solid #e2e5ef;
-      width: 80%;
-      height: 1px;
-      margin-left: 10px;
-      padding: 0%;
     }
   }
 `;

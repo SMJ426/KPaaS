@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import Payment from '@compoents/components/payment/payment';
+import { useDropdown } from '@compoents/components/payment/payDropdown';
+import ChoosePayModal from '@compoents/components/payment/ChoosePay';
 
 export default function PostDetails({ 
     post, 
@@ -11,6 +12,9 @@ export default function PostDetails({
     likedBtnSrc, 
     handleLikeClick 
 }) {
+  const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
+
+
   return (
     <StyledWrapper>
       <div className="productImage">
@@ -37,7 +41,18 @@ export default function PostDetails({
         </ul>
         <div className="verticalLine"></div>
         <div className="buttons">
-        <Payment accessToken={accessToken} postId={postId} post={post} />
+        <div className="dropdown-container" ref={dropdownRef}>
+              <button onClick={handleOpenDropdown} className="btn-choose">
+                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+              </button>
+              {showDropdown && (
+                <ChoosePayModal
+                  accessToken={accessToken}
+                  postId={postId}
+                  post={post}
+                />
+              )}
+            </div>
           <button className="btnlike" onClick={handleLikeClick}>
             <img src={likedBtnSrc} className="likeimg" alt="좋아요 버튼" />
           </button>
@@ -158,6 +173,24 @@ const StyledWrapper = styled.main`
     line-height: normal;
     text-align: center;
     margin-top: 30px;
+  }
+    .dropdown-container {
+    position: relative;
+    .btn-choose {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          background-color: #ffffff;
+          border: none;
+          font-family: 'Pretendard Variable';
+
+          > img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+          }
+        }
   }
 `;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PostItem from './post-item';
 
-export default function PostsGrid({ postData, accessToken, nick_name }) {
+export default function PostsGrid({ postData, accessToken }) {
   if (!postData) {
     return null;
   }
@@ -16,7 +16,6 @@ export default function PostsGrid({ postData, accessToken, nick_name }) {
           postData={post}
           posts={postData}
           accessToken={accessToken}
-          user_nickname={nick_name}
         />
       ))}
     </StyledWrapper>
