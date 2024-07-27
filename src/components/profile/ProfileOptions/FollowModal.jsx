@@ -15,7 +15,7 @@ export default function FollowModal({ isOpen, onClose, list }) {
         <ul className="modalList">
           {list.map((item) => (
             <Link
-              key={item.member_id}
+              key={item.nick_name}
               href={`/profile/${item.nick_name}`}
               className="modalListItem"
             >
