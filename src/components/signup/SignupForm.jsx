@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { signup, checkNickname, checkEmail } from '@compoents/util/Client';
 import InputName from './memberSignup/InputName';
 import InputProfileImg from './memberSignup/InputProfileImg';
+import InputEmail from './memberSignup/InputEmail';
 
 export default function SignupForm() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,6 @@ export default function SignupForm() {
   const [nameError, setNameError] = useState('');
   const [emailError, setemailError] = useState('');
   const [nicknameError, setnicknameError] = useState('');
-  const [requestError, setRequestError] = useState(false);
   const smile = '/svgs/ellipse-87.svg';
   const showpsw = '/svgs/View.svg';
   const dfImg = '/images/kakaoImg.jpg';
@@ -158,24 +158,6 @@ export default function SignupForm() {
     }
   };
 
-  function handleFocus(e) {
-    const field = e.target.id;
-    if (field === 'email') {
-      document.getElementById('email').style.borderColor = '#496AF3';
-    } else if (field === 'password') {
-      document.getElementById('password').style.borderColor = '#496AF3';
-    } else if (field === 'name') {
-      document.getElementById('name').style.borderColor = '#496AF3';
-    } else if (requestError === 400) {
-      if (field === 'email') {
-        document.getElementById('email').style.borderColor = '#FF0000';
-      } else if (field === 'password') {
-        document.getElementById('password').style.borderColor = '#FF0000';
-      } else if (field === 'name') {
-        document.getElementById('name').style.borderColor = '#496AF3';
-      }
-    }
-  }
   return (
     <StyledWrapper>
       <h1 className="title-signup">회원가입</h1>
@@ -191,76 +173,20 @@ export default function SignupForm() {
         <InputName
           name={name}
           setName={setName}
-          handleFocus={handleFocus}
           nameError={nameError}
           smile={smile}
         />
-        <h1 className="logintext2">이메일</h1>
-        <div className="anyLogins">
-          <label htmlFor="email">
-            <input
-              className="Input3"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                handleFocus(e);
-              }}
-              placeholder="이메일을 입력해주세요..."
-            />
-          </label>
-          <button
-            type="button"
-            className="nickBtn"
-            onClick={handleCheckDuplicateEmail}
-          >
-            중복 확인
-          </button>
-          {isEmailDuplicate === true && (
-            <div>
-              <Image
-                className="vector"
-                alt="벡터"
-                src={'/svgs/Ellipse-168.svg'}
-                width={14}
-                height={14}
-              />
-              <Image
-                className="vector2"
-                alt="벡터2"
-                src={'/svgs/Vector340.svg'}
-                width={12}
-                height={10}
-              />
-              <p className="nickFalse"> 사용 불가능한 이메일입니다.</p>
-            </div>
-          )}
-          {isEmailDuplicate === false && (
-            <div className="nickTrue">
-              <Image
-                src={'/svgs/Ellipse-169.svg'}
-                alt="스마일2"
-                width={14}
-                height={14}
-                className="Vector3"
-              />
-              사용 가능한 이메일입니다.
-            </div>
-          )}
-        </div>
-        {emailError && (
-          <div className="anyLogins">
-            <Image
-              src={smile}
-              width={30}
-              height={30}
-              alt="스마일"
-              className="smile"
-            />
-            <p className="errorMsg">{emailError}</p>
-          </div>
-        )}
+
+        {/* 이메일 설정 */}
+        <InputEmail
+          setEmail={setEmail}
+          handleCheckDuplicateEmail={handleCheckDuplicateEmail}
+          isEmailDuplicate={isEmailDuplicate}
+          emailError={emailError}
+          email={email}
+          smile={smile}
+        />
+
         <h1 className="logintext2">비밀번호</h1>
         <div className="anyLogins">
           <input
@@ -270,7 +196,7 @@ export default function SignupForm() {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
-              handleFocus(e);
+              // handleFocus(e);
             }}
             placeholder="비밀번호"
           />
@@ -290,7 +216,7 @@ export default function SignupForm() {
             value={confirmPassword}
             onChange={(e) => {
               setConfirmPassword(e.target.value);
-              handleFocus(e);
+              // handleFocus(e);
             }}
             placeholder="비밀번호 확인"
           />
@@ -315,7 +241,6 @@ export default function SignupForm() {
           </div>
         )}
         <div className="verticalLine"></div>
-
         <h1 className="logintext3">프로필 정보</h1>
         <h1 className="logintext">닉네임</h1>
         <div className="anyLogins">
@@ -386,12 +311,11 @@ export default function SignupForm() {
             value={info}
             onChange={(e) => {
               setInfo(e.target.value);
-              handleFocus(e);
+              // handleFocus(e);
             }}
             placeholder="소개글을 작성해보세요!"
           />
         </div>
-
         <button type="button" className="Button1" onClick={handleSignup}>
           회원가입
         </button>
@@ -411,17 +335,31 @@ const StyledWrapper = styled.header`
   .title-signup {
     font-size: 24px;
     font-weight: bold;
+    padding-top: 100px;
   }
 
   .formContainer {
     width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .error-msg {
+    color: #f4492e;
+    font-size: 14px;
+    padding-top: 15px;
+  }
+
+  .nonError-msg {
+    color: #496af3;
+    font-size: 14px;
+    padding-top: 15px;
   }
 
   .logintext {
     color: var(--black, #191a1c);
-
     font-size: 18px;
-
     font-weight: 600;
     line-height: normal;
     width: 78px;

@@ -1,16 +1,17 @@
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
-export default function InputName({
-  name,
-  setName,
-  handleFocus,
-  nameError,
-  smile,
-}) {
+export default function InputName({ name, setName, nameError }) {
+  function handleFocus(e) {
+    const field = e.target.id;
+
+    if (field === 'name' && !nameError) {
+      document.getElementById('name').style.borderColor = '#496AF3';
+    }
+  }
+
   return (
-    <StyledWrapper>
+    <StyledWrapper isError={nameError}>
       <p className="name-text">이름</p>
       <input
         className="input-name"
@@ -21,42 +22,39 @@ export default function InputName({
           setName(e.target.value);
           handleFocus(e);
         }}
-        placeholder="이름"
       />
-      {nameError && (
-        <div className="anyLogins">
-          <Image
-            src={smile}
-            width={30}
-            height={30}
-            alt="스마일"
-            className="smile"
-          />
-          <p className="errorMsg">{nameError}</p>
-        </div>
-      )}
+      {nameError && <p className="error-msg">{nameError}</p>}
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
+  padding-top: 50px;
+
   .name-text {
-    color: var(--black, #191a1c);
-    font-size: 18px;
+    font-size: 14px;
+    color: #788991;
   }
 
   .input-name {
     width: 100%;
     height: 50px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
+    border-radius: 5px 5px 0 0;
+    padding: 14px 0 14px 14px;
+    border: ${(props) => (props.isError ? '1px solid red' : 'none')};
+    border-bottom: ${(props) =>
+      props.isError ? '1px solid red' : '1px solid #a0acb1'};
+    margin-top: 7px;
 
-    color: var(--black, #191a1c);
+    font-size: 14px;
+    color: #29363d;
+    background-color: #f4f5f5;
 
-    font-size: 16px;
-    font-weight: 400;
-
-    padding-left: 23px;
+    &::placeholder {
+      color: #767676;
+    }
+    &:focus {
+      outline: none;
+    }
   }
 `;
