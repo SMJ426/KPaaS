@@ -1,83 +1,71 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function InputEmail({
-  setEmail,
-  handleCheckDuplicateEmail,
-  isEmailDuplicate,
-  emailError,
-  email,
+export default function InputNickName({
+  nick_name,
+  setNickname,
+  handleCheckDuplicate,
+  isDuplicate,
+  nicknameError,
 }) {
-  function handleFocus(e) {
-    const field = e.target.id;
-
-    if (field === 'email' && !emailError) {
-      document.getElementById('email').style.borderColor = '#496AF3';
-    }
-  }
-
   return (
-    <StyledWrapper isError={emailError}>
-      <p className="email-text">이메일</p>
-      <div className="wrapper-email-logins">
-        <div className="wrapper-input-duplicate">
-          <label htmlFor="email">
-            <input
-              className="input-email"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                handleFocus(e);
-              }}
-            />
-          </label>
+    <StyledWrapper isError={nicknameError}>
+      <p className="nickName-text">닉네임</p>
+      <div className="wrapper-nickNames">
+        <div className="wrapper-input-duplicates">
+          <input
+            className="input-nickName"
+            type="string"
+            value={nick_name}
+            onChange={(e) => setNickname(e.target.value)}
+          />
           <button
             type="button"
             className="btn-duplicate"
-            onClick={handleCheckDuplicateEmail}
+            onClick={handleCheckDuplicate}
           >
             중복 확인
           </button>
         </div>
-
-        {/* 중복 로직 */}
-        {isEmailDuplicate === true && (
-          <div className="result-email-check">
+        {isDuplicate === true && (
+          <div className="result-nickName-check">
             <img src="/images/png/error-check.png" alt="사용할 수 없습니다." />
-            <p className="error-msg"> 사용 불가능한 이메일입니다.</p>
+            <p className="error-msg"> 사용 불가능한 닉네임입니다.</p>
           </div>
         )}
-        {isEmailDuplicate === false && (
-          <div className="result-email-check">
+
+        {/* 중복 로직 */}
+        {isDuplicate === false && (
+          <div className="result-nickName-check">
             <img src="/images/png/nonError-check.png" alt="사용 가능 합니다." />
-            <p className="nonError-msg">사용 가능한 이메일입니다.</p>
+            <p className="nonError-msg">사용 가능한 닉네임입니다.</p>
           </div>
         )}
       </div>
-
-      {/* 빈 값 로직 */}
-      {emailError && <p className="error-msg">{emailError}</p>}
+      {nicknameError && (
+        <div className="anyLogins">
+          <p className="error-msg">{nicknameError}</p>
+        </div>
+      )}
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-  .email-text {
+  .nickName-text {
     font-size: 14px;
     color: #788991;
   }
 
-  .wrapper-email-logins {
+  .wrapper-nickNames {
     width: 100%;
-    .wrapper-input-duplicate {
+    .wrapper-input-duplicates {
       display: flex;
       width: 100%;
       justify-content: space-between;
       align-items: center;
 
-      .input-email {
+      .input-nickName {
         width: 380px;
         height: 50px;
         border-radius: 5px 5px 0 0;
@@ -121,8 +109,7 @@ const StyledWrapper = styled.div`
         }
       }
     }
-
-    .result-email-check {
+    .result-nickName-check {
       display: flex;
       align-items: center;
       gap: 5px;
