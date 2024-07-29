@@ -24,12 +24,10 @@ const SearchSection = ({ accessToken }) => {
         } else if (searchType === 'member') {
           endpoint = `${process.env.NEXT_PUBLIC_API_URL}/member/search/word`;
         }
-        // const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search/word', {
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `${accessToken}`,
           },
           body: JSON.stringify({
             word: term,
@@ -75,11 +73,23 @@ const SearchSection = ({ accessToken }) => {
     }
   };
 
+  const handleSearchTypeChange = (event) => {
+    setSearchType(event.target.value);
+  };
+
   return (
     <StyledWrapper>
       <form id="search-form">
         {/* 검색바 영역 */}
         <div className="wrapper-search-section">
+          <select
+            onChange={handleSearchTypeChange}
+            value={searchType}
+            className="selects-option"
+          >
+            <option value="post">상품</option>
+            <option value="member">회원</option>
+          </select>
           <div className="wrapper-search-bar">
             <input
               type="search"
@@ -100,14 +110,21 @@ const SearchSection = ({ accessToken }) => {
         </div>
 
         {autoCompleteResults.length > 0 && (
-          <ul className="autoCompleteDropdown">
+          <AutoCompleteDropdown>
             {autoCompleteResults.slice(0, 9).map((item, index) => (
+              <div className='ato'>
               <li key={index} className="autoCompleteItem">
-                <div onClick={() => handleItemSelect(item)}>{item}</div>
-                <div className="verticalLine"></div>
+              <img src='/images/svg/search-bar.svg' className='search_btn' />
+                <div
+                  className="itemContent"
+                  onClick={() => handleItemSelect(item)}
+                >
+                  {item}
+                </div>
               </li>
+              </div>
             ))}
-          </ul>
+          </AutoCompleteDropdown>
         )}
       </form>
     </StyledWrapper>
@@ -121,32 +138,50 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px 0 30px 0;
+  position: relative;
 
   .wrapper-search-section {
     display: flex;
     align-items: center;
+    width: 600px;
+    margin: 0 auto;
+}
 
-    .wrapper-search-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.selects-option {
+   display: flex;
+    align-items: center;
+    justify-content: space-between; /* 내부 요소 간격 조절 */
+    height: 56px;
+    border: 4px solid #eeeeee;
+    border-right: none;
+    border-radius: 40px 0 0 40px;
+    padding: 0 5px 0 23px;
+    background-color: #ffffff;
+    width: 80px;
+}
 
-      width: 600px;
-      height: 56px;
-      border-radius: 40px;
-      border: 4px solid #eeeeee;
+.wrapper-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    height: 56px;
+    border: 4px solid #eeeeee;
+    border-left: none;
+    border-radius: 0 40px 40px 0;
+    background-color: #ffffff;
+}
 
-      .inputSch {
-        width: 550px;
-        height: 40px;
-        margin-left: 10px;
-        border: none;
-        outline: none;
-        background-color: #ffffff;
-        padding-left: 20px;
-        font-size: 16px;
-        color: #5a6a72;
-      }
+.inputSch {
+    flex-grow: 1;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding-left: 40px;
+    font-size: 16px;
+    color: #5a6a72;
+}
       .inputSch::placeholder {
         display: flex;
         align-items: center;
@@ -164,29 +199,38 @@ const StyledWrapper = styled.div`
       }
     }
   }
+`;
 
-  .autoCompleteDropdown {
-    top: calc(100% + 10px);
-    left: 0;
-    width: calc(100% - 2px);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    z-index: 999;
+const AutoCompleteDropdown = styled.ul`
+  position: absolute;
+  top: 100%;
+  margin-left: 80px;
+  width: 500px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 10;
+  
+
+  .ato{
+  display: flex;
+    &:hover{
+      background-color: #f0f0f0;
+    }
   }
+  
 
   .autoCompleteItem {
-    padding: 5px;
-    cursor: pointer;
-    margin-left: 3%;
-    margin-top: 5px;
+    display: flex;
   }
 
-  .verticalLine {
-    border-top: 1px solid #e2e5ef;
-    width: 100%;
-    height: 1px;
-    margin-top: 10px;
-    padding: 0%;
+  .search_btn {
+    padding: 10px 8px 8px 15px;
+  }
+
+  .itemContent {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 17px 20px 0 10px;
   }
 `;

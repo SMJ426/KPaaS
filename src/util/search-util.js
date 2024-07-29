@@ -1,9 +1,9 @@
 // 상품 검색
 export async function fetchProductName(searchTerm) {
   //const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search', {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/search`,
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/search`,
     {
+      method: 'POST',
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
