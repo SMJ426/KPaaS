@@ -1,5 +1,6 @@
 import Providers from './providers';
 import './globals.css';
+import PtfdFooter from '@compoents/components/footer/PtfdFooter';
 
 export const metadata = {
   title: 'PTFD',
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Providers>{children}</Providers>
+        <PtfdFooter />
       </body>
     </html>
   );
