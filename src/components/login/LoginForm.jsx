@@ -202,6 +202,12 @@ const StyledWrapper = styled.div`
 
       background-color: #2e6ff2;
       color: #ffffff;
+
+      &:hover {
+        background-color: #ffffff;
+        border: 1px solid #2e6ff2;
+        color: #2e6ff2;
+      }
     }
 
     .signup-button {
@@ -211,6 +217,11 @@ const StyledWrapper = styled.div`
 
       font-size: 14px;
       color: #29363d;
+
+      &:hover {
+        background-color: #2e6ff2;
+        color: #ffffff;
+      }
     }
     .user {
       background-color: #e8f0fe;
