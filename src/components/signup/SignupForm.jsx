@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { signup, checkNickname, checkEmail } from '@compoents/util/Client';
 import InputName from './memberSignup/InputName';
@@ -28,7 +27,6 @@ export default function SignupForm() {
   const [emailError, setemailError] = useState('');
   const [nicknameError, setnicknameError] = useState('');
   const smile = '/svgs/ellipse-87.svg';
-  const showpsw = '/svgs/View.svg';
   const dfImg = '/images/kakaoImg.jpg';
 
   useEffect(() => {
@@ -180,12 +178,7 @@ export default function SignupForm() {
         />
 
         {/* 이름 설정 */}
-        <InputName
-          name={name}
-          setName={setName}
-          nameError={nameError}
-          smile={smile}
-        />
+        <InputName name={name} setName={setName} nameError={nameError} />
 
         {/* 이메일 설정 */}
         <InputEmail
@@ -194,7 +187,6 @@ export default function SignupForm() {
           isEmailDuplicate={isEmailDuplicate}
           emailError={emailError}
           email={email}
-          smile={smile}
         />
 
         {/* 비밀번호 설정 */}
@@ -232,7 +224,6 @@ export default function SignupForm() {
           회원가입
         </button>
       </form>
-      <section className="flexSection2"></section>
     </StyledWrapper>
   );
 }
