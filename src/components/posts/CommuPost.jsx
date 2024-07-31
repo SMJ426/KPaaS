@@ -5,7 +5,7 @@ export default function CommuPosts({ postData, accessToken }) {
   return (
     <StyledWrapper>
       <h3 className="title-postCard">강사님</h3>
-      <PostsGrid postData={postData} accessToken={accessToken}  />
+      <PostsGrid postData={postData} accessToken={accessToken} />
     </StyledWrapper>
   );
 }
