@@ -1,10 +1,15 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { RefreshAccessToken } from '@compoents/util/http';
-import { PutPostData } from '@compoents/util/post-util';
 import styled from 'styled-components';
+import Link from 'next/link';
+
+import ImageUpload from './SmallInteraction/ImageUpload';
+import FormSection from './SmallInteraction/FormSection';
+import EditorSection from './SmallInteraction/EditorSection';
+import DateSection from './SmallInteraction/DateSection';
+
+import { PutPostData } from '@compoents/util/post-util';
+import { RefreshAccessToken } from '@compoents/util/http';
 
 export default function EditpostForm({ postId, post, accessToken }) {
   const posts = post.post;
@@ -59,12 +64,19 @@ export default function EditpostForm({ postId, post, accessToken }) {
       setImages1(posts.imagePost);
       setShowImages1(posts.imagePost);
       setCategoryId(posts.categoryId);
-      setStartDate(posts.startAt);
-      setEndDate(posts.endAt);
+
+      // 날짜 문자열을 파싱하여 날짜 객체 설정
+      const parseDate = (dateStr) => {
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return { year, month, day };
+      };
+
+      setStartDate(parseDate(posts.startAt));
+      setEndDate(parseDate(posts.endAt));
+      
       setTotalnumber(posts.totalNumber);
       setlocation(posts.location);
       setTeacherInfo(posts.postInfo);
-      console.log(posts);
     }
   }, [posts]);
 
@@ -115,10 +127,10 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
   async function handleSubmit(postData) {
     try {
-      const response = await PutPostData(postId, postData, accessToken); //formData
-      if (response.state == 'Jwt Expired') {
-        const NewaccessToken = await RefreshAccessToken();
-        await PutPostData(postId, postData, NewaccessToken);
+      const response = await PutPostData(postId, postData, accessToken);
+      if (response.state === 'Jwt Expired') {
+        const newAccessToken = await RefreshAccessToken();
+        await PutPostData(postId, postData, newAccessToken);
       }
     } catch (error) {
       console.error('게시물 수정에 실패했습니다:', error);
@@ -140,7 +152,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
         total_number: parseInt(totalNumber),
         location: location,
       };
-      console.log(postData);
 
       await handleSubmit(postData);
       const redirectUrl = 'http://localhost:3000';
@@ -155,440 +166,109 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
   return (
     <StyledWrapper>
-      <section className="formContainer">
-        <form onSubmit={sendPostHandler} className="minis">
-          <div className="minis">
-            <label className="imglabel">강의 소개</label>
-            <label htmlFor="images1" className="label">
-              <Image
-                src={showImages1}
-                alt="상품 이미지"
-                width="760"
-                height="760"
-                className="selectImg"
-              />
-            </label>
-            <input
-              className="inputField"
-              type="file"
-              id="images1"
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={handleImageChange}
+      <h1 className="title">PT 수정</h1>
+      <form onSubmit={sendPostHandler} className="form-container">
+        <div className="main-content">
+          <ImageUpload
+            showImages1={showImages1}
+            handleImageChange={handleImageChange}
+          />
+          <div className="form-section">
+            <FormSection
+              postName={postName}
+              setPostName={setPostName}
+              price={price}
+              setPrice={setPrice}
+              categoryId={categoryId}
+              handleCategorySelect={handleCategorySelect}
+              selectList={selectList}
+              location={location}
+              handleLocationSelect={handleLocationSelect}
+              selectlocationList={selectlocationList}
+              totalNumber={totalNumber}
+              setTotalnumber={setTotalnumber}
+            />
+            <DateSection
+              startDate={startDate}
+              endDate={endDate}
+              handleDateChange={handleDateChange}
+              startDaysInMonth={startDaysInMonth}
+              endDaysInMonth={endDaysInMonth}
             />
           </div>
-          <div className="NotEditImg">
-            이미지는 강의 등록 시 수정 불가합니다.
-          </div>
-          <div className="margins">
-            <label className="label">강의장소</label>
-            <select
-              className="inputFielded"
-              id="categoryId"
-              value={categoryId}
-              onChange={handleCategorySelect}
-            >
-              {selectList.map((item) => (
-                <option className="options" value={item.value} key={item.value}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="margins">
-            <label className="label">지역</label>
-            <select
-              className="inputFielded"
-              id="locationId"
-              value={location}
-              onChange={handleLocationSelect}
-            >
-              {selectlocationList.map((locate, index) => (
-                <option className="options" value={locate} key={index}>
-                  {locate}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="margins">
-            <label htmlFor="postname" className="label">
-              강의제목
-            </label>
-            <input
-              className="inputField"
-              type="text"
-              id="postname"
-              required
-              value={postName}
-              onChange={(event) => setPostName(event.target.value)}
-            />
-          </div>
-          <div className="flexmargins">
-            <label htmlFor="price" className="label">
-              가격
-            </label>
-            <input
-              className="inputFielded"
-              type="text"
-              id="price"
-              required
-              value={price}
-              onChange={(event) => setPrice(event.target.value)}
-            />
-            <label htmlFor="totalNumber" className="label">
-              모집 회원 수
-            </label>
-            <input
-              className="inputFielded"
-              type="text"
-              id="totalNumber"
-              required
-              value={totalNumber}
-              onChange={(event) => setTotalnumber(event.target.value)}
-            />
-          </div>
-          <div className="margins">
-            <label htmlFor="start" className="label">
-              시작 기간 (년-월-일)
-            </label>
-            <div className="inputFieldRow">
-              <select
-                className="inputFieldSmall"
-                id="startYear"
-                required
-                value={startDate.year}
-                onChange={(e) => handleDateChange(e, 'start', 'year')}
-              >
-                {Array.from({ length: 10 }, (_, index) => (
-                  <option key={2024 + index} value={2024 + index}>
-                    {2024 + index}년
-                  </option>
-                ))}
-              </select>
-              -
-              <select
-                className="inputFieldSmalls"
-                id="startMonth"
-                required
-                value={startDate.month}
-                onChange={(e) => handleDateChange(e, 'start', 'month')}
-              >
-                {Array.from({ length: 12 }, (_, index) => (
-                  <option key={index + 1} value={index + 1}>
-                    {index + 1}월
-                  </option>
-                ))}
-              </select>
-              -
-              <select
-                className="inputFieldSmalls"
-                id="startDay"
-                required
-                value={startDate.day}
-                onChange={(e) => handleDateChange(e, 'start', 'day')}
-              >
-                {startDaysInMonth.map((dayOption) => (
-                  <option key={dayOption} value={dayOption}>
-                    {dayOption}일
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="margins">
-            <label htmlFor="end" className="label">
-              만료 기간 (년-월-일)
-            </label>
-            <div className="inputFieldRow">
-              <select
-                className="inputFieldSmall"
-                id="endYear"
-                required
-                value={endDate.year}
-                onChange={(e) => handleDateChange(e, 'end', 'year')}
-              >
-                {Array.from({ length: 10 }, (_, index) => (
-                  <option key={2024 + index} value={2024 + index}>
-                    {2024 + index}년
-                  </option>
-                ))}
-              </select>
-              -
-              <select
-                className="inputFieldSmalls"
-                id="endMonth"
-                required
-                value={endDate.month}
-                onChange={(e) => handleDateChange(e, 'end', 'month')}
-              >
-                {Array.from({ length: 12 }, (_, index) => (
-                  <option key={index + 1} value={index + 1}>
-                    {index + 1}월
-                  </option>
-                ))}
-              </select>
-              -
-              <select
-                className="inputFieldSmalls"
-                id="endDay"
-                required
-                value={endDate.day}
-                onChange={(e) => handleDateChange(e, 'end', 'day')}
-              >
-                {endDaysInMonth.map((dayOption) => (
-                  <option key={dayOption} value={dayOption}>
-                    {dayOption}일
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="margins">
-              <label htmlFor="TeacherInfo" className="label">
-                강의내용
-              </label>
-              <textarea
-                className="inputFields"
-                type="text"
-                id="TeacherInfo"
-                required
-                value={TeacherInfo}
-                onChange={(event) => setTeacherInfo(event.target.value)}
-              />
-            </div>
-          </div>
-          <button className="button">등록</button>
-        </form>
-      </section>
+        </div>
+
+        <EditorSection
+          TeacherInfo={TeacherInfo}
+          setTeacherInfo={setTeacherInfo}
+        />
+
+        <div className="button-container">
+          <Link href="/">
+            <button type="button" className="cancel-button">
+              취소
+            </button>
+          </Link>
+          <button type="submit" className="submit-button">
+            수정하기
+          </button>
+        </div>
+      </form>
     </StyledWrapper>
   );
 }
 
-const StyledWrapper = styled.header`
-  .formContainer {
+const StyledWrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .form-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-  .imglabel {
+  .main-content {
     display: flex;
-    color: var(--black, #191a1c);
-    font-family: 'Pretendard Variable';
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    gap: 40px;
+    margin-bottom: 30px;
   }
 
-  .label {
-    color: var(--black, #191a1c);
-    font-family: 'Pretendard Variable';
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
-
-  .selectImg {
-    margin-top: 30px;
-    border-radius: 10px;
-    margin-left: 40px;
-  }
-  .margins {
-    margin-top: 30px;
-  }
-
-  .inputField {
+  .form-section {
+    flex: 1;
     display: flex;
-    width: 840px;
-    height: 60px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
-    background: #fff;
+    flex-direction: column;
+    gap: 20px;
     margin-top: 30px;
-    padding-left: 10px;
   }
 
-  .inputFielded {
+  .button-container {
     display: flex;
-    width: 840px;
-    height: 60px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
-    background: #fff;
-    margin-top: 30px;
-    padding-left: 10px;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
   }
 
-  .selectField {
-    margin: 10px;
-    width: 20%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .button {
-    margin-top: 54px;
+  .cancel-button,
+  .submit-button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    width: 840px;
-    height: 70px;
   }
 
-  .bkImg {
-    display: flex;
-    position: absolute;
-    margin-top: 32px;
-    margin-left: 10px;
-  }
-  .inputFields {
-    display: flex;
-    width: 790px;
-    height: 60px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
-    background: #fff;
-    margin-top: 30px;
-    padding-left: 50px;
+  .cancel-button {
+    background-color: #f0f0f0;
   }
 
-  .inputFieldRow {
-    margin-top: 2%;
-  }
-
-  .inputFieldSmall {
-    padding: 10px;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
-    background: #fff;
-    margin-left: 10%;
-    margin-right: 5%;
-    width: 15%;
-  }
-
-  .inputFieldSmalls {
-    padding: 10px;
-    margin-left: 10%;
-    border-radius: 10px;
-    border: 1.5px solid var(--gray-400, #bec0c6);
-    background: #fff;
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 15%;
-  }
-
-  @media screen and (max-width: 786px) {
-    .formContainer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-left: 20%;
-    }
-
-    .imglabel {
-      display: flex;
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    }
-
-    .minis {
-      width: 50%;
-    }
-    .label {
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    }
-
-    .selectImg {
-      border-radius: 10px;
-      width: 200px;
-      height: 200px;
-      margin-left: 20px;
-    }
-    .margins {
-      margin-top: 10px;
-      width: 50%;
-    }
-
-    .inputField {
-      display: flex;
-      width: 170%;
-      height: 30px;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-top: 10px;
-      padding-left: 10px;
-      font-size: 60%;
-    }
-
-    .selectField {
-      margin: 10px;
-      width: 240px;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .button {
-      margin-top: 24px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 340px;
-      height: 40px;
-      margin-left: -40px;
-    }
-
-    .bkImg {
-      display: flex;
-      position: absolute;
-      margin-top: 17px;
-      margin-left: 10px;
-      width: 200px;
-      height: 30px;
-    }
-    .inputFields {
-      display: flex;
-      width: 140%;
-      height: 30px;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-top: 15px;
-      padding-left: 50px;
-    }
-
-    .inputFielded {
-      display: flex;
-      width: 100%;
-      height: 30px;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-top: 10px;
-      padding-left: 10px;
-      font-size: 60%;
-    }
-
-    .Warning {
-      font-size: 50%;
-    }
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
   }
 `;
