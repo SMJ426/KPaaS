@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Payment from './payment';
 import { Likepost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
+import { useRouter } from 'next/navigation';
 
-export default function ChoosePayModal({
-  accessToken,
-  postId,
-  post,
-}) {
+export default function ChoosePayModal({ accessToken, postId, post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const router = useRouter();
   const handlebucketClick = async () => {
+    
+    if (!accessToken) {
+      router.push('/user/login');
+    }
+
     try {
       let response = await Likepost(accessToken, postId);
-  
+
       if (response.state === 'Jwt Expired') {
         const newAccessToken = await RefreshAccessToken();
         response = await Likepost(newAccessToken, postId);
       }
       setIsModalVisible(true);
     } catch (error) {
-      console.error('장바구니에 담는중 오류가 발생했습니다.', error);
+      console.error('장바구니에 담는 중 오류가 발생했습니다.', error);
     }
   };
 
@@ -30,17 +32,27 @@ export default function ChoosePayModal({
   };
 
   const handlebucket = () => {
-    window.location.href = `http://localhost:3000/bucket`
-  }
+    window.location.href = `http://localhost:3000/bucket`;
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isModalVisible && event.target.closest('.modalContent') === null) {
+        setIsModalVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isModalVisible]);
 
   return (
     <StyledDropdown>
       <div className="dropdownContent">
-        <Payment
-          accessToken={accessToken}
-          postId={postId}
-          post={post}
-        >
+        <Payment accessToken={accessToken} postId={postId} post={post}>
           직접 구매
         </Payment>
         <button onClick={handlebucketClick}>장바구니에 담기</button>

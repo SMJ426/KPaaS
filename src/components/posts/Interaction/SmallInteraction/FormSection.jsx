@@ -14,6 +14,7 @@ export default function FormSection({
   selectlocationList,
   totalNumber,
   setTotalnumber,
+  errors,
 }) {
   return (
     <StyledWrapper>
@@ -26,10 +27,11 @@ export default function FormSection({
           onChange={(event) => setPostName(event.target.value)}
           placeholder="상품명을 입력해 주세요"
         />
+        {errors.postName && <p className="error">{errors.postName}</p>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="price">판매가</label>
+        <label htmlFor="price">가격</label>
         <div className="price-input">
           <input
             type="text"
@@ -40,6 +42,7 @@ export default function FormSection({
           />
           <span>원</span>
         </div>
+        {errors.price && <p className="error">{errors.price}</p>}
       </div>
 
       <div className="form-group">
@@ -58,7 +61,7 @@ export default function FormSection({
       </div>
 
       <div className="form-group">
-        <label htmlFor="totalNumber" className="label">
+        <label htmlFor="location" className="label">
           지역
         </label>
         <select
@@ -75,6 +78,7 @@ export default function FormSection({
             </option>
           ))}
         </select>
+        {errors.location && <p className="error">{errors.location}</p>}
       </div>
 
       <div className="form-group">
@@ -89,15 +93,16 @@ export default function FormSection({
           />
           <span>명</span>
         </div>
+        {errors.totalNumber && <p className="error">{errors.totalNumber}</p>}
       </div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   .form-group {
     display: flex;
@@ -120,8 +125,8 @@ const StyledWrapper = styled.div`
   .price-input {
     display: flex;
     align-items: center;
-    
-    .totalprice{
+
+    .totalprice {
       width: 80px;
     }
 
@@ -130,10 +135,10 @@ const StyledWrapper = styled.div`
     }
   }
 
-  .totals{
+  .totals {
     display: flex;
     align-items: center;
-    
+
     .totalInput {
       width: 80px;
     }
@@ -144,5 +149,11 @@ const StyledWrapper = styled.div`
 
   .days-margin {
     margin-left: 50px;
+  }
+
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
   }
 `;

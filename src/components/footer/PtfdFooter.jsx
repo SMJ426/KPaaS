@@ -66,6 +66,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 400px;
+  margin-top: 50px;
 
   background-color: #ebebeb;
   height: 200px;

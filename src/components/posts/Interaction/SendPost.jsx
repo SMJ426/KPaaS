@@ -23,13 +23,21 @@ export default function PostForm({ accessToken }) {
 
   const [startDate, setStartDate] = useState({
     year: '2024',
-    month: '1',
+    month: '8',
     day: '1',
   });
   const [endDate, setEndDate] = useState({
     year: '2024',
-    month: '1',
+    month: '8',
     day: '1',
+  });
+
+  const [errors, setErrors] = useState({
+    postName: '',
+    price: '',
+    totalNumber: '',
+    TeacherInfo: '',
+    location: '',
   });
 
   const selectList = [
@@ -101,8 +109,48 @@ export default function PostForm({ accessToken }) {
     (_, index) => index + 1
   );
 
+  const validateFields = () => {
+    let valid = true;
+    const newErrors = {
+      postName: '',
+      price: '',
+      totalNumber: '',
+      TeacherInfo: '',
+      location: '',
+    };
+
+    if (!postName) {
+      newErrors.postName = '상품명을 입력해주세요.';
+      valid = false;
+    }
+    if (!price) {
+      newErrors.price = '가격을 입력해주세요.';
+      valid = false;
+    }
+    if (!totalNumber) {
+      newErrors.totalNumber = '모집 회원 수를 입력해주세요.';
+      valid = false;
+    }
+    if (!TeacherInfo) {
+      newErrors.TeacherInfo = 'PT 내용을 입력해주세요.';
+      valid = false;
+    }
+    if (!location) {
+      newErrors.location = '지역을 지정해주세요.';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   async function sendPostHandler(event) {
     event.preventDefault();
+
+    if (!validateFields()) {
+      return;
+    }
+
     try {
       const formData = new FormData();
       const req = {
@@ -156,6 +204,7 @@ export default function PostForm({ accessToken }) {
               selectlocationList={selectlocationList}
               totalNumber={totalNumber}
               setTotalnumber={setTotalnumber}
+              errors={errors}
             />
             <DateSection
               startDate={startDate}
@@ -170,6 +219,7 @@ export default function PostForm({ accessToken }) {
         <EditorSection
           TeacherInfo={TeacherInfo}
           setTeacherInfo={setTeacherInfo}
+          error={errors.TeacherInfo}
         />
 
         <div className="button-container">
