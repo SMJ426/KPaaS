@@ -14,7 +14,7 @@ export default function PostDetailContainers({
   post,
   postList,
   accessToken,
-  me,
+  nick_name,
 }) {
   const [liked, setLiked] = useState(false);
 
@@ -58,7 +58,7 @@ export default function PostDetailContainers({
   return (
     <StyledWrapper>
       <div className="container">
-        {me && (
+        {nick_name === post.nickName && (
           <PostDropdown
             postpage={postpage}
             postId={postId}

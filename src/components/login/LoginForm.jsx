@@ -74,7 +74,6 @@ export default function LoginForm() {
                 setEmail(e.target.value);
                 handleFocus(e);
               }}
-              placeholder="이메일을 입력해주세요"
             />
           </label>
           <p className="login-text">비밀번호</p>
