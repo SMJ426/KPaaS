@@ -7,7 +7,7 @@ import { debounce } from 'lodash';
 const SearchSection = ({ accessToken }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('post');
+  const [searchType, setSearchType] = useState('member');
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
   const searchElement = useRef();
 
