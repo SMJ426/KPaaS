@@ -14,6 +14,8 @@ import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn'
 export default function MainContainers({
   postData,
   accessToken,
+  role,
+  nick_name,
 }) {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -67,9 +69,7 @@ export default function MainContainers({
       <AnnouncementPolicy />
 
       {/* 강사 등록 btn 우선 비황성화 */}
-      {role === "ROLE_TEACHER" && (
-        <SendPostButton nick_name={nick_name} />
-      )}
+      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
