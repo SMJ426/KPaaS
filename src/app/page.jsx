@@ -25,7 +25,7 @@ async function fetchUserData(authorizationValue) {
   if (authorizationValue !== '') {
     const accessToken = decodeURIComponent(authorizationValue);
     const profileData = await fetchUserProfile(accessToken);
-    return { accessToken, nick_name: profileData.nick_name };
+    return { accessToken, nick_name: profileData.nick_name, role: profileData.role};
   }
   return { accessToken: '', nick_name: '' };
 }
@@ -44,6 +44,7 @@ export default async function Home() {
       postData={postdata}
       accessToken={authorizationValue}
       nick_name={userData.nick_name}
+      role={userData.role}
     />
   );
 }
