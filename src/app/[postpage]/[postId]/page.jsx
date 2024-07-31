@@ -19,7 +19,6 @@ export default async function PostDetailPage({ params }) {
         postpage={params.postpage}
         post={postdata.post}
         postList={postdata.postList}
-        me={postdata.me}
         accessToken={Authorization.value}
       />
     </>

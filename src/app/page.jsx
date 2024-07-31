@@ -37,13 +37,10 @@ export default async function Home() {
   //const postData = TestPostDataSet;
   const postdata = await fetchPostData(authorizationValue);
 
-  const userData = await fetchUserData(authorizationValue);
-
   return (
     <MainContainers
       postData={postdata}
       accessToken={authorizationValue}
-      nick_name={userData.nick_name}
     />
   );
 }

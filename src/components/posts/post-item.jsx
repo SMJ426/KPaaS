@@ -1,17 +1,18 @@
 'use client';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useDropdown } from '../payment/payDropdown';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
-import Payments from '@compoents/components/payment/payments';
+import ChoosePayModal from '../payment/ChoosePay';
 import Chatting from '../chatting/Chatting';
 
 export default function PostItem({ postData, posts, accessToken }) {
   const router = useRouter();
-
+  const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
   // const {
   //   postName,
   //   price,
@@ -27,10 +28,8 @@ export default function PostItem({ postData, posts, accessToken }) {
 
   // 초기값을 지금은 false로 했지만, 다음엔 post.liked로 해야함
   const [liked, setLiked] = useState(false);
-
   const linkPath = `/${pageNumber}/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
-
   const formattedPrice = postData.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked
     ? '/images/png/icon-heart-fill.png'
@@ -109,12 +108,18 @@ export default function PostItem({ postData, posts, accessToken }) {
               <img src={likedBtnSrc} alt="좋아요 버튼" />
             </button>
             <Chatting />
-            <Payments
-              accessToken={accessToken}
-              postId={postData.post_id}
-              post={posts}
-              nick_name={postData.nick_name}
-            />
+            <div className="dropdown-container" ref={dropdownRef}>
+              <button onClick={handleOpenDropdown} className="btn-choose">
+                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+              </button>
+              {showDropdown && (
+                <ChoosePayModal
+                  accessToken={accessToken}
+                  postId={postData.post_id}
+                  post={postData}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -214,9 +219,12 @@ const StyledWrapper = styled.div`
           font-family: 'Pretendard';
         }
       }
-
+      .dropdown-container {
+        position: relative;
+      }
       .wrapper-info-btns {
         display: flex;
+        position: relative;
         gap: 9px;
 
         .btn-like {
@@ -225,6 +233,21 @@ const StyledWrapper = styled.div`
           > img {
             width: 20px;
             height: 20px;
+          }
+        }
+        .btn-choose {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          background-color: #ffffff;
+          border: none;
+          font-family: 'Pretendard Variable';
+
+          > img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
           }
         }
       }

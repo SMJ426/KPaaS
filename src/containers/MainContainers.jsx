@@ -13,8 +13,6 @@ import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/An
 export default function MainContainers({
   postData,
   accessToken,
-  nick_name,
-  role,
 }) {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -89,7 +87,6 @@ export default function MainContainers({
           postData={postData}
           selectedCategory={selectedCategory}
           accessToken={accessToken}
-          nick_name={nick_name}
         />
       </div>
 

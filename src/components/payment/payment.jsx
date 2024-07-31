@@ -58,24 +58,11 @@ export default function Payment({ accessToken, postId, post }) {
 
   return (
     <StyledWrapper onClick={handleSetPoint}>
-      <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
-      {/* <sapn>수강하기</sapn> */}
+      <div>바로 구매하기</div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #ffffff;
-  border: none;
-  font-family: 'Pretendard Variable';
-
-  > img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
+  
 `;
