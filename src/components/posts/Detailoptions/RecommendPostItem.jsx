@@ -36,7 +36,7 @@ export default function RecommendPostItem({
             <RecommendPrice price={post.price} />
             <ActionButtons
               likedBtnSrc={likedBtnSrc}
-              handleLikeClick={handleLikeClick}
+              handleLikeClick={() => handleLikeClick(post.postId)}
               accessToken={accessToken}
               postId={post.postId}
               post={post}

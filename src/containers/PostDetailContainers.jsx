@@ -16,26 +16,24 @@ export default function PostDetailContainers({
   accessToken,
   nick_name,
 }) {
-  const [liked, setLiked] = useState(false);
+  const [likedPosts, setLikedPosts] = useState({});
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (postId) => {
     try {
-      if (liked) {
-        // 이미 좋아요를 눌렀을 경우
+      if (likedPosts[postId]) {
         const response = await DeleteLike(accessToken, postId);
-        if (response.state == 'Jwt Expired') {
+        if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
           await DeleteLike(NewaccessToken, postId);
         }
-        setLiked(false);
+        setLikedPosts(prev => ({ ...prev, [postId]: false }));
       } else {
-        // 아직 좋아요를 누르지 않은 경우
         const response = await Likepost(accessToken, postId);
-        if (response.state == 'Jwt Expired') {
+        if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await Likepost(NewaccessToken, postData.post_id);
+          await Likepost(NewaccessToken, postId);
         }
-        setLiked(true);
+        setLikedPosts(prev => ({ ...prev, [postId]: true }));
       }
     } catch (error) {
       console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
@@ -51,7 +49,7 @@ export default function PostDetailContainers({
   const formattedPrice = post.price.toLocaleString('ko-KR');
 
   const linkProfile = `/profile/${post.nickName}`;
-  const likedBtnSrc = liked
+  const likedBtnSrc = likedPosts
     ? '/images/png/icon-heart-fill.png'
     : '/images/png/icon-heart.png';
 
@@ -71,14 +69,14 @@ export default function PostDetailContainers({
           formattedPrice={formattedPrice}
           accessToken={accessToken}
           postId={postId}
-          likedBtnSrc={likedBtnSrc}
-          handleLikeClick={handleLikeClick}
+          likedBtnSrc={likedPosts[postId] ? '/images/png/icon-heart-fill.png' : '/images/png/icon-heart.png'}
+          handleLikeClick={() => handleLikeClick(postId)}
         />
         <Recommendations
           postList={postList}
           accessToken={accessToken}
           postpage={postpage}
-          likedBtnSrc={likedBtnSrc}
+          likedPosts={likedPosts}
           handleLikeClick={handleLikeClick}
         />
       </div>

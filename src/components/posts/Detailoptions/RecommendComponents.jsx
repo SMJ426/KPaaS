@@ -6,7 +6,7 @@ export default function Recommendations({
   postList,
   accessToken,
   postpage,
-  likedBtnSrc,
+  likedPosts,
   handleLikeClick,
 }) {
   return (
@@ -15,17 +15,20 @@ export default function Recommendations({
       <div className="recommendationGrid">
         {postList &&
           postList.length > 0 &&
-          postList
-            .map((post) => (
-              <RecommendPostItem
-                key={post.postId}
-                post={post}
-                postpage={postpage}
-                likedBtnSrc={likedBtnSrc}
-                handleLikeClick={handleLikeClick}
-                accessToken={accessToken}
-              />
-            ))}
+          postList.map((post) => (
+            <RecommendPostItem
+              key={post.postId}
+              post={post}
+              postpage={postpage}
+              likedBtnSrc={
+                likedPosts[post.postId]
+                  ? '/images/png/icon-heart-fill.png'
+                  : '/images/png/icon-heart.png'
+              }
+              handleLikeClick={() => handleLikeClick(post.postId)}
+              accessToken={accessToken}
+            />
+          ))}
       </div>
     </StyledWrapper>
   );
