@@ -9,6 +9,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [requestError, setRequestError] = useState(false);
+  const [userType, setUserType] = useState('member'); // 'member' 또는 'teacher'
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -23,22 +24,16 @@ export default function LoginForm() {
     return;
   };
 
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+  };
+
   const handleSignup = () => {
     router.push('/user/signup'); // 회원가입 페이지로 이동
   };
 
   const handleTeacherSignup = () => {
     router.push('/user/teachersignup'); // 회원가입 페이지로 이동
-  };
-
-  const handleKakaoLogin = () => {
-    const REST_API_KEY = 'b9759cba8e0cdd5bcdb9d601f5a10ac1';
-    const REDIRECT_URI = 'http://localhost:3000/user/login/oauth2/kakao';
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&scope=talk_message,profile_nickname,profile_image,account_email`;
-  };
-
-  const handleNaverLogin = () => {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
   };
 
   function handleFocus(e) {
@@ -60,7 +55,21 @@ export default function LoginForm() {
 
   return (
     <CenteredWrapper>
-      <StyledWrapper isError={isError}>
+      <StyledWrapper $isError={isError}>
+        <div className="user-type-tabs">
+          <button
+            className={`tab-button ${userType === 'member' ? 'active' : ''}`}
+            onClick={() => handleUserTypeChange('member')}
+          >
+            회원 로그인
+          </button>
+          <button
+            className={`tab-button ${userType === 'teacher' ? 'active' : ''}`}
+            onClick={() => handleUserTypeChange('teacher')}
+          >
+            강사 로그인
+          </button>
+        </div>
         <h1 className="title">로그인</h1>
         <form className="form-container" onSubmit={handleSubmit}>
           <p className="login-text">이메일</p>
@@ -100,31 +109,37 @@ export default function LoginForm() {
             <button className="login-button" type="submit">
               로그인
             </button>
-            <button
-              className="signup-button user"
-              type="button"
-              onClick={handleSignup}
-            >
-              사용자 회원가입
-            </button>
-            <button
-              className="signup-button teacher"
-              type="button"
-              onClick={handleTeacherSignup}
-            >
-              강사 회원가입
-            </button>
+            {userType === 'member' ? (
+              <button
+                className="signup-button user"
+                type="button"
+                onClick={handleSignup}
+              >
+                사용자 회원가입
+              </button>
+            ) : (
+              <button
+                className="signup-button teacher"
+                type="button"
+                onClick={handleTeacherSignup}
+              >
+                강사 회원가입
+              </button>
+            )}
           </div>
 
-          {/* 구분선 */}
-          <div className="divider">
-            <hr />
-            <span>간편 로그인</span>
-            <hr />
+          <div className="social-login-container">
+            {userType === 'member' && (
+              <>
+                <div className="divider">
+                  <hr />
+                  <span>간편 로그인</span>
+                  <hr />
+                </div>
+                <SocialLogin />
+              </>
+            )}
           </div>
-
-          {/* 네이버 ,카카오 로그인 */}
-          <SocialLogin />
         </form>
       </StyledWrapper>
     </CenteredWrapper>
@@ -143,6 +158,42 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   font-family: 'Spoqa Han Sans Neo';
   width: 400px;
+  min-height: 700px;
+
+  .user-type-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .tab-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f4f5f5;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+    &:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+
+    &:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.active {
+      background-color: #2e6ff2;
+      color: white;
+    }
+
+    &:hover:not(.active) {
+      background-color: #e8f0fe;
+    }
+  }
+  .social-login-container {
+    height: 150px; // 소셜 로그인 컴포넌트의 대략적인 높이 (필요에 따라 조정)
+  }
 
   .title {
     color: #29363d;
@@ -162,9 +213,9 @@ const StyledWrapper = styled.div`
     height: 50px;
     border-radius: 5px 5px 0 0;
     padding: 14px 0 14px 14px;
-    border: ${(props) => (props.isError ? '1px solid red' : 'none')};
+    border: ${(props) => (props.$isError ? '1px solid red' : 'none')};
     border-bottom: ${(props) =>
-      props.isError ? '1px solid red' : '1px solid #a0acb1'};
+      props.$isError ? '1px solid red' : '1px solid #a0acb1'};
     margin: 7px 0 30px 0;
 
     font-size: 14px;
