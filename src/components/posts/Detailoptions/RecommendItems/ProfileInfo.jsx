@@ -20,6 +20,7 @@ const StyledWrapper = styled.section`
     display: flex;
     gap: 12px;
     padding: 12px 12px 0 12px;
+    height: 64px;
 
     .img-profile {
       width: 40px;

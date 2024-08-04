@@ -23,8 +23,8 @@ export default function FollowModal({ isOpen, onClose, list }) {
                 <Image
                   src={item.profile_image}
                   alt="프로필 사진"
-                  width={50}
-                  height={50}
+                  width={45}
+                  height={45}
                   priority
                   className="followImg"
                 />
@@ -54,7 +54,7 @@ const StyledWrapper = styled.div`
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
     max-height: 80vh;
     overflow-y: auto;
@@ -77,6 +77,7 @@ const StyledWrapper = styled.div`
 
         .flex {
           display: flex;
+          padding: 5px 5px 5px 5px;
           .followImg {
             margin-left: 5px;
             margin-top: 3px;

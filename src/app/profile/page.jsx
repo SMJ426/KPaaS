@@ -4,6 +4,7 @@ import UserProfile from '@compoents/components/profile/Profile';
 import { cookies } from 'next/headers';
 import { fetchUserProfile, getSelling } from '@compoents/util/http';
 import { fetchFollowUser, fetchFollowingUser } from '@compoents/util/http';
+import MainNavigation from '@compoents/components/layout/main-navigation';
 
 export default async function ProfilePage() {
   const cookieStore = cookies();
@@ -15,6 +16,7 @@ export default async function ProfilePage() {
   if (userInfo.state == 'Jwt Expired') {
     return (
       <>
+        <MainNavigation accessToken={Authorization?.value} />
         <UserProfile
           userInfo={userInfo}
           followerList={followerList}
@@ -29,6 +31,7 @@ export default async function ProfilePage() {
 
     return (
       <>
+        <MainNavigation accessToken={Authorization?.value} />
         <UserProfile
           userInfo={userInfo}
           followerList={followerList}
