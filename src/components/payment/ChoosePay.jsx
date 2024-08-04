@@ -60,7 +60,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
       {isModalVisible && (
         <Modal>
           <div className="modalContent">
-            <p>장바구니에 원하시는 PT가 담겼습니다. 이동하시겠습니까?</p>
+            <p>장바구니에 원하시는 PT가 담겼습니다.</p>
             <button onClick={handlebucket}>장바구니로 이동</button>
             <button onClick={handleCloseModal}>상품 더보기</button>
           </div>
@@ -80,6 +80,7 @@ const StyledDropdown = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
   width: 140px;
+  font-family: 'Spoqa Han Sans Neo';
 
   .dropdownContent {
     display: flex;
@@ -117,24 +118,47 @@ const Modal = styled.div`
 
   .modalContent {
     background: white;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 90%;
+    max-width: 400px;
+
+    p {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+    }
 
     button {
-      padding: 10px 20px;
-      margin: 10px;
-      background-color: #0070f3;
+      width: 100%;
+      padding: 12px 0;
+      margin: 10px 0;
       border: none;
-      color: white;
-      cursor: pointer;
+      border-radius: 5px;
       font-size: 16px;
-      border-radius: 4px;
-      transition: background-color 0.3s;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
 
-      &:hover {
-        background-color: #005bb5;
+      &:first-of-type {
+        background-color: #007bff;
+        color: white;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+
+      &:last-of-type {
+        background-color: #f8f9fa;
+        color: #007bff;
+        border: 1px solid #007bff;
+
+        &:hover {
+          background-color: #e2e6ea;
+        }
       }
     }
   }

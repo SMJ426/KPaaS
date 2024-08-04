@@ -43,6 +43,7 @@ const StyledWrapper = styled.section`
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        height: 20px;
       }
     }
       

@@ -143,6 +143,7 @@ const StyledWrapper = styled.div`
     display: flex;
     gap: 12px;
     padding: 12px 12px 0 12px;
+    height: 64px;
 
     .img-profile {
       width: 40px;
@@ -195,6 +196,7 @@ const StyledWrapper = styled.div`
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        height: 20px;
       }
     }
 
