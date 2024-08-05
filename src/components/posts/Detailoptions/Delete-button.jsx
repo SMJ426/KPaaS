@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { DeletePost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
-import styles from './Delete-button.module.css';
 
 export default function DeletePostButton({ postId, accessToken }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,7 +19,7 @@ export default function DeletePostButton({ postId, accessToken }) {
 
   return (
     <button
-      className={styles.btn}
+      className="btn"
       onClick={deletePostDataHandler}
       disabled={isDeleting}
     >

@@ -94,7 +94,6 @@ export async function getPostData(postId, accessToken) {
     }
   );
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
@@ -177,6 +176,7 @@ export async function LikeList(nick_name) {
         headers: {
           'Content-Type': 'application/json',
         },
+        cache: 'no-store'
       }
     );
     if (!response.ok) {

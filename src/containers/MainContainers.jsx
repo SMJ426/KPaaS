@@ -9,12 +9,13 @@ import { useRouter } from 'next/navigation';
 import CommuPosts from '@compoents/components/posts/CommuPost';
 import SearchSection from '../components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
+import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn';
 
 export default function MainContainers({
   postData,
   accessToken,
-  nick_name,
   role,
+  nick_name,
 }) {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -68,12 +69,7 @@ export default function MainContainers({
       <AnnouncementPolicy />
 
       {/* 강사 등록 btn 우선 비황성화 */}
-      <Link href="/newpost">
-        <button className="btn-newpost">
-          <div className="Add">강사등록</div>
-        </button>
-      </Link>
-
+      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
@@ -89,7 +85,6 @@ export default function MainContainers({
           postData={postData}
           selectedCategory={selectedCategory}
           accessToken={accessToken}
-          nick_name={nick_name}
         />
       </div>
 
@@ -118,7 +113,7 @@ const StyledWrapper = styled.div`
   .wrapper-body-card {
     display: flex;
     height: 100%;
-    margin-top: 150px;
+    margin-top: 50px;
   }
 
   .cateminibtn {

@@ -9,6 +9,7 @@ import {
 } from '@compoents/util/http';
 import { redirect } from 'next/navigation';
 import NotFoundContainer from '@compoents/containers/NotFoundContainers';
+import MainNavigation from '@compoents/components/layout/main-navigation';
 
 export default async function otherProfilePage({ params }) {
   const cookieStore = cookies();
@@ -27,6 +28,8 @@ export default async function otherProfilePage({ params }) {
     const followingList = await fetchFollowingUser(params.nick_name);
     const userproducts = await getSelling(params.nick_name);
     return (
+      <>
+      <MainNavigation accessToken={Authorization?.value} />
       <OtherProfileform
         userInfo={userInfo.memberDto}
         nick_name={params.nick_name}
@@ -36,6 +39,7 @@ export default async function otherProfilePage({ params }) {
         userproducts={userproducts}
         isFollowing={userInfo.follow}
       />
+      </>
     );
   } else {
     redirect('/user/login');

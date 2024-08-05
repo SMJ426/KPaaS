@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
-import Payments from '@compoents/components/payment/payments';
 import { RefreshAccessToken } from '@compoents/util/http';
 import Chatting from '../chatting/Chatting';
+import { useDropdown } from '../payment/payDropdown';
+import ChoosePayModal from '../payment/ChoosePay';
 
 export default function LikeListComponent({ like, accessToken }) {
   const [liked, setLiked] = useState(true);
+
+  const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
 
   const linkProfile = `/profile/${like.nickName}`;
   const formattedPrice = like.price.toLocaleString('ko-KR');
@@ -67,12 +70,18 @@ export default function LikeListComponent({ like, accessToken }) {
               <img src={likedBtnSrc} alt="좋아요 버튼" />
             </button>
             <Chatting />
-            <Payments
-              accessToken={accessToken}
-              postId={like.postId}
-              post={like}
-              nick_name={like.nickName}
-            />
+            <div className="dropdown-container" ref={dropdownRef}>
+              <button onClick={handleOpenDropdown} className="btn-choose">
+                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+              </button>
+              {showDropdown && (
+                <ChoosePayModal
+                  accessToken={accessToken}
+                  postId={like.postId}
+                  post={like.post}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -182,6 +191,24 @@ const StyledWrapper = styled.header`
           > img {
             width: 20px;
             height: 20px;
+          }
+        }
+        .dropdown-container {
+          position: relative;
+          .btn-choose {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #ffffff;
+            border: none;
+            font-family: 'Pretendard Variable';
+
+            > img {
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+            }
           }
         }
       }
