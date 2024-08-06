@@ -18,7 +18,6 @@ export default async function PostDetailPage({ params }) {
     <>
       <PostDetailContainers
         postId={params.postId}
-        postpage={params.postpage}
         post={postdata.post}
         postList={postdata.postList}
         accessToken={Authorization.value}

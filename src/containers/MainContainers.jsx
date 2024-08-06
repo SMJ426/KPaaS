@@ -1,36 +1,46 @@
 'use client';
 import styled from 'styled-components';
-import Link from 'next/link';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
-import Pagination from '@compoents/components/pagination/Paginations';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import CommuPosts from '@compoents/components/posts/CommuPost';
 import SearchSection from '../components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
 import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn';
 
-export default function MainContainers({
-  postData,
-  accessToken,
-  role,
-  nick_name,
-}) {
-  const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const PAGE_GROUP_SIZE = 5;
+const fetchPosts = async ({ pageParam = 0 }) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
 
-  const handlePageChange = (page) => {
-    router.push(`/${page}`);
-  };
-  const goToPreviousPageGroup = () => {
-    setCurrentPage((prev) => prev - PAGE_GROUP_SIZE);
-  };
-  const goToNextPageGroup = () => {
-    setCurrentPage((prev) => prev + PAGE_GROUP_SIZE);
-  };
+export default function MainContainers({ initialPostData, accessToken, role, nick_name }) {
+  const [selectedCategory, setSelectedCategory] = useState([]);
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['posts'],
+    queryFn: fetchPosts,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.last) return undefined;
+      return pages.length;
+    },
+    refetchOnWindowFocus: false,
+    initialData: { pages: [initialPostData], pageParams: [0] },
+  });
 
   const handleCategoryChange = (e) => {
     const categoryId = parseInt(e.target.id);
@@ -50,52 +60,37 @@ export default function MainContainers({
     }
   };
 
+  const allPosts = data ? data.pages.flatMap(page => page.content) : [];
+
   return (
     <StyledWrapper>
-      {/* 메인 상단바 */}
       <MainNavigation accessToken={accessToken} />
-
-      {/* 검색 바 */}
       <SearchSection accessToken={accessToken} />
-
-      {/* 메인 배경 이미지 */}
       <img
         src="/images/png/PTSD-main-logo.png"
         alt="메인 이미지"
         className="main-img"
       />
-
-      {/* 공지사항 및 신규정책 */}
       <AnnouncementPolicy />
-
-      {/* 강사 등록 btn 우선 비황성화 */}
       {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
-          {/* 필터 기능 우선 비활성화 */}
-          {/* <MiniCategoryComponents
-            className="cateminibtn"
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          /> */}
         </div>
-
-        <CommuPosts
-          postData={postData}
-          selectedCategory={selectedCategory}
-          accessToken={accessToken}
-        />
+        <InfiniteScroll
+          dataLength={allPosts.length}
+          next={fetchNextPage}
+          hasMore={hasNextPage}
+          loader={<h4>Loading...</h4>}
+          endMessage={<p>모든 게시물을 불러왔습니다.</p>}
+        >
+          <CommuPosts
+            postData={allPosts}
+            selectedCategory={selectedCategory}
+            accessToken={accessToken}
+          />
+        </InfiniteScroll>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        postData={postData}
-        PAGE_GROUP_SIZE={PAGE_GROUP_SIZE}
-        handlePageChange={handlePageChange}
-        goToPreviousPageGroup={goToPreviousPageGroup}
-        goToNextPageGroup={goToNextPageGroup}
-      />
     </StyledWrapper>
   );
 }

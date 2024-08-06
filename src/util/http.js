@@ -199,7 +199,6 @@ export async function fetchFollowingUser(nick_name) {
       }
     );
     const data = await response.json();
-    console.log(data.followings);
     return data.followings;
   } catch (error) {
     console.error(

@@ -2,23 +2,13 @@
 
 import MainContainers from '@compoents/containers/MainContainers';
 import { cookies } from 'next/headers';
-import { getPostsFile } from '@compoents/util/post-util';
+import { getPostsFile, LogingetPostsFile } from '@compoents/util/post-util';
 import { fetchUserProfile } from '@compoents/util/http';
 
 async function getAuthorizationToken() {
   const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   return Authorization ? Authorization.value || '' : '';
-}
-
-async function fetchPostData(authorizationValue) {
-  if (authorizationValue === '') {
-    return await getPostsFile();
-  } else {
-    const accessToken = decodeURIComponent(authorizationValue);
-
-    return await getPostsFile(accessToken);
-  }
 }
 
 async function fetchUserData(authorizationValue) {
@@ -34,17 +24,26 @@ async function fetchUserData(authorizationValue) {
   return { accessToken: '', nick_name: '' };
 }
 
+async function fetchPostData(authorizationValue) {
+  if (authorizationValue === '') {
+    return await getPostsFile();
+  } else {
+    const userData = await fetchUserData(authorizationValue);
+    return await LogingetPostsFile(encodeURI(userData.nick_name));
+  }
+}
+
 export default async function Home() {
   const authorizationValue = await getAuthorizationToken();
 
   // Test용 데이터 사용
   //const postData = TestPostDataSet;
-  const postdata = await fetchPostData(authorizationValue);
+  const initialPostData = await fetchPostData(authorizationValue);
   const userData = await fetchUserData(authorizationValue);
 
   return (
     <MainContainers
-      postData={postdata}
+      initialPostData={initialPostData}
       accessToken={authorizationValue}
       nick_name={userData.nick_name}
       role={userData.role}

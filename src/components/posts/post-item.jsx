@@ -24,11 +24,10 @@ export default function PostItem({ postData, posts, accessToken }) {
   //   like,
   // } = props.post;
 
-  const { pageNumber } = posts.pageable;
 
   // 초기값을 지금은 false로 했지만, 다음엔 post.liked로 해야함
   const [liked, setLiked] = useState(false);
-  const linkPath = `/${pageNumber}/${postData.post_id}`;
+  const linkPath = `/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
   const formattedPrice = postData.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked

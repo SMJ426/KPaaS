@@ -5,7 +5,6 @@ import RecommendPostItem from './RecommendPostItem';
 export default function Recommendations({
   postList,
   accessToken,
-  postpage,
   likedPosts,
   handleLikeClick,
 }) {
@@ -19,7 +18,6 @@ export default function Recommendations({
             <RecommendPostItem
               key={post.postId}
               post={post}
-              postpage={postpage}
               likedBtnSrc={
                 likedPosts[post.postId]
                   ? '/images/png/icon-heart-fill.png'

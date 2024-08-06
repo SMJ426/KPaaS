@@ -6,15 +6,13 @@ export default function PostsGrid({ postData, accessToken }) {
     return null;
   }
 
-  const postDataArr = postData.content;
-
   return (
     <StyledWrapper>
-      {postDataArr?.map((post) => (
+      {postData.map((post) => (
         <PostItem
           key={post.post_id}
           postData={post}
-          posts={postData}
+          posts={{ content: postData }}
           accessToken={accessToken}
         />
       ))}

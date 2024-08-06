@@ -10,7 +10,6 @@ import PostDetails from '@compoents/components/posts/Detailoptions/DetailPostcom
 
 export default function PostDetailContainers({
   postId,
-  postpage,
   post,
   postList,
   accessToken,
@@ -58,7 +57,6 @@ export default function PostDetailContainers({
       <div className="container">
         {nick_name === post.nickName && (
           <PostDropdown
-            postpage={postpage}
             postId={postId}
             accessToken={accessToken}
           />
@@ -75,7 +73,6 @@ export default function PostDetailContainers({
         <Recommendations
           postList={postList}
           accessToken={accessToken}
-          postpage={postpage}
           likedPosts={likedPosts}
           handleLikeClick={handleLikeClick}
         />

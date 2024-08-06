@@ -1,6 +1,5 @@
 import CommuPosts from '../posts/CommuPost';
 import styled from 'styled-components';
-import Pagination from '../pagination/Paginations';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -24,15 +23,6 @@ export default function ProductsComponent({ userproducts, accessToken }) {
       <section className="section">
         <CommuPosts postData={userproducts} accessToken={accessToken} />
       </section>
-      <Pagination
-        currentPage={currentPage}
-        posts={userproducts}
-        PAGE_GROUP_SIZE={PAGE_GROUP_SIZE}
-        handlePageChange={handlePageChange}
-        goToPreviousPageGroup={goToPreviousPageGroup}
-        goToNextPageGroup={goToNextPageGroup}
-        className="pagin"
-      />
     </StyledWrapper>
   );
 }

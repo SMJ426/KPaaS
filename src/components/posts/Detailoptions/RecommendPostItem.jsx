@@ -8,7 +8,6 @@ import RecommendPrice from './RecommendItems/RecommendPrice';
 
 export default function RecommendPostItem({
   post,
-  postpage,
   likedBtnSrc,
   handleLikeClick,
   accessToken,
@@ -27,7 +26,6 @@ export default function RecommendPostItem({
         />
         <div className="wrapper-bottom">
           <PostContent
-            postpage={postpage}
             postId={post.postId}
             imagePost={post.imagePost}
             postInfo={post.postInfo}
