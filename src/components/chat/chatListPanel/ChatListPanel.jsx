@@ -22,6 +22,15 @@ export default function ChatListPanel() {
         console.log('WebSocket 연결 성공 입니다!!!!!');
         // 이건 우선은 넣어 놨는데 추후에 추가될 예정
         fetchChatRooms();
+
+        // 채팅방1에 메시지가 도착하면 메시지를 받아서 화면에 출력
+        client.subscribe('/sub/room1', (msg) => {
+          const receivedMessage = JSON.parse(msg.body);
+          console.log('구독한 메시지 수신:', receivedMessage);
+          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        });
+
+        console.log('/sub/room1에 구독 성공'); // 구독 성공 로그
       },
 
       // error 확인을 위해 header 와 body를 각각 로깅함
@@ -40,6 +49,10 @@ export default function ChatListPanel() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    console.log('123123 Messages updated:', messages);
+  }, [messages]);
 
   // 채팅 방 목록을 가져오는 API
   // 물론 이 요청은 위에 useEffect 를 보면 웹소켓 연결이 성공적으로 이뤄진후 요청됨
@@ -60,15 +73,15 @@ export default function ChatListPanel() {
     if (stompClient && stompClient.connected) {
       const messageBody = {
         content: message,
-        type: 'TALK',
-        chatRoomId: '1',
+        type: 'TALK', // TALK or ENTER
+        roomId: '1',
       };
       console.log('전송중 >>', messageBody);
       stompClient.publish({
         destination: '/pub/chat/message',
         body: JSON.stringify(messageBody),
       });
-      setMessages([...messages, messageBody]); // 메시지 목록 업데이트
+      setMessages((prevMessages) => [...prevMessages, messageBody]); // 메시지 목록 업데이트
       setMessage('');
     } else {
       console.error('STOMP가 연결 안됐음');
@@ -80,11 +93,11 @@ export default function ChatListPanel() {
       <h2 className="userName">유저 이름</h2>
       {/* {chatRooms.map((room, index) => (
         <ChattingListRenderer key={index}
-         listData={room} />
+          listData={room} />
       ))} */}
       <div>
         {messages.map((msg, index) => (
-          <p key={index}>{msg.content}</p>
+          <p key={index}>{typeof msg === 'string' ? msg : ''}</p>
         ))}
       </div>
       <div>
