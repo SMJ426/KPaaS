@@ -9,18 +9,7 @@ import CommuPosts from '@compoents/components/posts/CommuPost';
 import SearchSection from '../components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
 import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn';
-
-const fetchPosts = async ({ pageParam = 0 }) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
+import { getPostsFile, LogingetPostsFile } from '@compoents/util/post-util';
 
 export default function MainContainers({ initialPostData, accessToken, role, nick_name }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -32,11 +21,14 @@ export default function MainContainers({ initialPostData, accessToken, role, nic
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
+    queryKey: ['posts', !!accessToken],
+    queryFn: ({ pageParam = 0 }) => 
+      accessToken 
+        ? LogingetPostsFile(pageParam, encodeURI(nick_name))
+        : getPostsFile({ pageParam }),
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.last) return undefined;
-      return pages.length;
+      return pages.length;  // 페이지 배열의 길이를 반환하여 다음 페이지 번호로 사용
     },
     refetchOnWindowFocus: false,
     initialData: { pages: [initialPostData], pageParams: [0] },
@@ -60,7 +52,8 @@ export default function MainContainers({ initialPostData, accessToken, role, nic
     }
   };
 
-  const allPosts = data ? data.pages.flatMap(page => page.content) : [];
+  const allPosts = data?.pages.flatMap(page => page.content) || [];
+
 
   return (
     <StyledWrapper>

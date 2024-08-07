@@ -24,7 +24,7 @@ export async function sendpostData(formData, accessToken) {
 
 export async function getPostsFile({ pageParam = 0 }) {
   // const response = await fetch('http://KPaas-apigateway-service-1:8888/post/page', {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=$${pageParam}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`, {
     cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
@@ -39,28 +39,24 @@ export async function getPostsFile({ pageParam = 0 }) {
   }
 }
 
-export async function LogingetPostsFile(accessToken, nick_name) {
-  //const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/page?nick_name=${nick_name}`, {
+export async function LogingetPostsFile(pageParam, nick_name) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/page?nick_name=${nick_name}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}&nick_name=${nick_name}`,
     {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `${accessToken}`,
       },
     }
   );
   const data = await response.json();
   if (data === null) {
-    const api = [];
-    return api;
+    return { content: [], last: true };
   } else {
     return data;
   }
 }
 
-// 무한 스크롤
 export async function getPostsFiles(page, accessToken) {
   //const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/page?page=${page}`, {
   const response = await fetch(

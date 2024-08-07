@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDropdown } from '../payment/payDropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
@@ -34,6 +34,9 @@ export default function PostItem({ postData, posts, accessToken }) {
     ? '/images/png/icon-heart-fill.png'
     : '/images/png/icon-heart.png';
 
+    useEffect(() => {
+      setLiked(postData.like);
+    }, [postData.like]);
   // TODO : accessToken이 없는 상태로는 우선 주석처리후 사용
 
   // const handleLikeClick = () => {

@@ -14,7 +14,7 @@ async function getAuthorizationToken() {
 async function fetchUserData(authorizationValue) {
   if (authorizationValue !== '') {
     const accessToken = decodeURIComponent(authorizationValue);
-    const profileData = await fetchUserProfile(accessToken);
+    const profileData = await fetchUserProfile(authorizationValue);
     return {
       accessToken,
       nick_name: profileData.nick_name,
@@ -26,21 +26,18 @@ async function fetchUserData(authorizationValue) {
 
 async function fetchPostData(authorizationValue) {
   if (authorizationValue === '') {
-    return await getPostsFile();
+    return await getPostsFile({ pageParam: 0 });
   } else {
     const userData = await fetchUserData(authorizationValue);
-    return await LogingetPostsFile(encodeURI(userData.nick_name));
+    return await LogingetPostsFile(0, encodeURI(userData.nick_name));
   }
 }
 
 export default async function Home() {
   const authorizationValue = await getAuthorizationToken();
-
-  // Test용 데이터 사용
-  //const postData = TestPostDataSet;
+  
   const initialPostData = await fetchPostData(authorizationValue);
   const userData = await fetchUserData(authorizationValue);
-
   return (
     <MainContainers
       initialPostData={initialPostData}

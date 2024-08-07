@@ -3,7 +3,6 @@ import ProfileInfo from './RecommendItems/ProfileInfo';
 import PostContent from './RecommendItems/PostContent';
 import ActionButtons from './RecommendItems/ActionButton';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import RecommendPrice from './RecommendItems/RecommendPrice';
 
 export default function RecommendPostItem({
@@ -12,9 +11,6 @@ export default function RecommendPostItem({
   handleLikeClick,
   accessToken,
 }) {
-  useEffect(() => {
-    console.log('RecommendPostItem - post:', post);
-  }, [post]);
 
   return (
     <StyledWrapper>
