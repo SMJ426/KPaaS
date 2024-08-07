@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 
-export default function ChatConversationPanel() {
+export default function ChatConversationPanel({ userInfo }) {
   // WebSocket 클라이언트 인스턴스를 저장하는 상태
   const [stompClient, setStompClient] = useState(null);
   const [message, setMessage] = useState('');
@@ -16,7 +16,7 @@ export default function ChatConversationPanel() {
   useEffect(() => {
     // WebSocket 연결 설정하는 부분
     const socket = new SockJS(
-      'http://default-chat-service-b2f3c-25862159-fc922caa53fb.kr.lb.naverncp.com:50/ws'
+      'http://default-chat-service-7c2a3-25892552-1d82f05544d5.kr.lb.naverncp.com:50/ws'
     );
     const client = new Client({
       webSocketFactory: () => socket,
@@ -58,6 +58,7 @@ export default function ChatConversationPanel() {
   const sendMessage = () => {
     if (stompClient && stompClient.connected) {
       const messageBody = {
+        sender: userInfo.nick_name,
         content: message,
         type: 'TALK', // TALK or ENTER
         roomId: '1',
@@ -73,11 +74,14 @@ export default function ChatConversationPanel() {
       console.error('STOMP가 연결 안됐음');
     }
   };
+
+  console.log('789789 messages>> ', messages);
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
         {messages.map((msg, index) => (
-          <p key={index}>{typeof msg === 'string' ? msg : ''}</p>
+          <p key={index}>{msg.content}</p>
+          // <p key={index}>{typeof msg === 'string' ? msg : ''}</p>
         ))}
       </div>
       <div className="wrapper-input">
@@ -99,7 +103,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   width: 70%;
-  background-color: greenyellow;
+  /* background-color: greenyellow; */
 
   .wrapper-messages {
     flex: 1;

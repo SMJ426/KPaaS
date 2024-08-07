@@ -8,7 +8,7 @@ export default function ChatClient({ userInfo }) {
   return (
     <StyledWrapper>
       <ChatListPanel userInfo={userInfo} />
-      <ChatConversationPanel />
+      <ChatConversationPanel userInfo={userInfo} />
     </StyledWrapper>
   );
 }
