@@ -10,29 +10,30 @@ import SearchSection from '../components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
 import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn';
 import { getPostsFile, LogingetPostsFile } from '@compoents/util/post-util';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
-export default function MainContainers({ initialPostData, accessToken, role, nick_name }) {
+export default function MainContainers({
+  initialPostData,
+  accessToken,
+  role,
+  nick_name,
+}) {
   const [selectedCategory, setSelectedCategory] = useState([]);
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['posts', !!accessToken],
-    queryFn: ({ pageParam = 0 }) => 
-      accessToken 
-        ? LogingetPostsFile(pageParam, encodeURI(nick_name))
-        : getPostsFile({ pageParam }),
-    getNextPageParam: (lastPage, pages) => {
-      if (lastPage.last) return undefined;
-      return pages.length;  // 페이지 배열의 길이를 반환하여 다음 페이지 번호로 사용
-    },
-    refetchOnWindowFocus: false,
-    initialData: { pages: [initialPostData], pageParams: [0] },
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['posts', !!accessToken],
+      queryFn: ({ pageParam = 0 }) =>
+        accessToken
+          ? LogingetPostsFile(pageParam, encodeURI(nick_name))
+          : getPostsFile({ pageParam }),
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.last) return undefined;
+        return pages.length;
+      },
+      refetchOnWindowFocus: false,
+      initialData: { pages: [initialPostData], pageParams: [0] },
+    });
 
   const handleCategoryChange = (e) => {
     const categoryId = parseInt(e.target.id);
@@ -52,8 +53,12 @@ export default function MainContainers({ initialPostData, accessToken, role, nic
     }
   };
 
-  const allPosts = data?.pages.flatMap(page => page.content) || [];
+  const MoveToTop = () => {
+    // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+  const allPosts = data?.pages.flatMap((page) => page.content) || [];
 
   return (
     <StyledWrapper>
@@ -74,8 +79,11 @@ export default function MainContainers({ initialPostData, accessToken, role, nic
           dataLength={allPosts.length}
           next={fetchNextPage}
           hasMore={hasNextPage}
-          loader={<h4>Loading...</h4>}
-          endMessage={<p>모든 게시물을 불러왔습니다.</p>}
+          loader={
+            <div className="Loading">
+              <LoadingIndicator />
+            </div>
+          }
         >
           <CommuPosts
             postData={allPosts}
@@ -83,6 +91,9 @@ export default function MainContainers({ initialPostData, accessToken, role, nic
             accessToken={accessToken}
           />
         </InfiniteScroll>
+        <button className="TopBtn" onClick={MoveToTop}>
+          <img src="/images/png/top1.png" alt="맨위로" />
+        </button>
       </div>
     </StyledWrapper>
   );
@@ -102,6 +113,27 @@ const StyledWrapper = styled.div`
     display: flex;
     height: 100%;
     margin-top: 50px;
+
+    .Loading {
+      margin-left: 50%;
+    }
+    .TopBtn {
+      display: flex;
+      position: sticky;
+      top: 90%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+      height: 50px;
+      border-radius: 9px;
+      margin-left: 50px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
 
   .cateminibtn {

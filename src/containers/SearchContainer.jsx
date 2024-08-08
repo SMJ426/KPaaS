@@ -5,33 +5,39 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import SearchSection from '@compoents/components/items/SearchSection';
 import AnnouncementPolicy from '@compoents/components/main/announcementPolicy/AnnouncementPolicy';
+import SendPostButton from '@compoents/components/posts/Interaction/SendPostbtn';
 import CategoryComponents from '@compoents/components/minicategory/CategoryComponents';
 import CommuPosts from '@compoents/components/posts/CommuPost';
 import styled from 'styled-components';
-import { fetchProductName, LoginfetchProductName } from '@compoents/util/search-util';
+import {
+  fetchProductName,
+  LoginfetchProductName,
+} from '@compoents/util/search-util';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
-export default function SearchContainer({ initialSearchResults, searchTerm, accessToken, role, nick_name }) {
+export default function SearchContainer({
+  initialSearchResults,
+  searchTerm,
+  accessToken,
+  role,
+  nick_name,
+}) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['posts', !!accessToken],
-    queryFn: ({ pageParam = 0 }) => 
-      accessToken 
-        ? LoginfetchProductName(pageParam, searchTerm, nick_name)
-        : fetchProductName({ pageParam, searchTerm }),
-    getNextPageParam: (lastPage, pages) => {
-      if (lastPage.last) return undefined;
-      return pages.length;  
-    },
-    refetchOnWindowFocus: false,
-    initialData: { pages: [initialSearchResults], pageParams: [0] },
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['posts', !!accessToken],
+      queryFn: ({ pageParam = 0 }) =>
+        accessToken
+          ? LoginfetchProductName(pageParam, searchTerm, nick_name)
+          : fetchProductName({ pageParam, searchTerm }),
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.last) return undefined;
+        return pages.length;
+      },
+      refetchOnWindowFocus: false,
+      initialData: { pages: [initialSearchResults], pageParams: [0] },
+    });
 
   const handleCategoryChange = (e) => {
     const categoryId = parseInt(e.target.id);
@@ -40,7 +46,11 @@ export default function SearchContainer({ initialSearchResults, searchTerm, acce
     );
   };
 
-  const allResults = data?.pages.flatMap(page => page.content) || [];
+  const MoveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const allResults = data?.pages.flatMap((page) => page.content) || [];
 
   return (
     <StyledWrapper>
@@ -51,6 +61,7 @@ export default function SearchContainer({ initialSearchResults, searchTerm, acce
         className="main-img"
       />
       <AnnouncementPolicy />
+      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
           <CategoryComponents handleCategoryChange={handleCategoryChange} />
@@ -68,8 +79,11 @@ export default function SearchContainer({ initialSearchResults, searchTerm, acce
             return fetchNextPage();
           }}
           hasMore={hasNextPage}
-          loader={<h4>Loading...</h4>}
-          endMessage={<p>모든 검색 결과를 불러왔습니다.</p>}
+          loader={
+            <div className="Loading">
+              <LoadingIndicator />
+            </div>
+          }
         >
           <CommuPosts
             postData={allResults}
@@ -77,6 +91,9 @@ export default function SearchContainer({ initialSearchResults, searchTerm, acce
             accessToken={accessToken}
           />
         </InfiniteScroll>
+        <button className="TopBtn" onClick={MoveToTop}>
+          <img src="/images/png/top1.png" alt="맨위로" />
+        </button>
       </div>
     </StyledWrapper>
   );
@@ -95,7 +112,29 @@ const StyledWrapper = styled.div`
   .wrapper-body-card {
     display: flex;
     height: 100%;
-    margin-top: 150px;
+    margin-top: 50px;
+
+    .Loading {
+      margin-left: 50%;
+    }
+    .TopBtn {
+      display: flex;
+      position: sticky;
+      top: 90%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+      height: 50px;
+      border-radius: 9px;
+      margin-left: 50px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
   }
 
   .cateminibtn {
