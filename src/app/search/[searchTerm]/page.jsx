@@ -1,6 +1,9 @@
 import NotFoundContainer from '@compoents/containers/NotFoundContainers';
 import SearchContainer from '@compoents/containers/SearchContainer';
-import { fetchProductName, LoginfetchProductName } from '@compoents/util/search-util';
+import {
+  fetchProductName,
+  LoginfetchProductName,
+} from '@compoents/util/search-util';
 import { fetchUserProfile } from '@compoents/util/http';
 import { cookies } from 'next/headers';
 
@@ -10,7 +13,11 @@ async function fetchPostData(accessToken, searchTerm) {
       return await fetchProductName({ pageParam: 0, searchTerm });
     } else {
       const userData = await fetchUserProfile(accessToken);
-      return await LoginfetchProductName(0, searchTerm, encodeURI(userData.nick_name));
+      return await LoginfetchProductName(
+        0,
+        searchTerm,
+        encodeURI(userData.nick_name)
+      );
     }
   } catch (error) {
     console.error('Error fetching post data:', error);

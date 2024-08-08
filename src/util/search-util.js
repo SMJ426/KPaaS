@@ -1,5 +1,5 @@
 // 상품 검색
-export async function fetchProductName({pageParam = 0, searchTerm}) {
+export async function fetchProductName({ pageParam = 0, searchTerm }) {
   //const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search', {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}`,
@@ -23,8 +23,7 @@ export async function fetchProductName({pageParam = 0, searchTerm}) {
   return search;
 }
 
-
-// Login like 
+// Login like
 export async function LoginfetchProductName(pageParam, searchTerm, nick_name) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}&nick_name=${nick_name}`,
