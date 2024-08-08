@@ -11,28 +11,27 @@ export default function RecommendPostItem({
   handleLikeClick,
   accessToken,
 }) {
-
   return (
     <StyledWrapper>
       <div className="postItem">
         <ProfileInfo
-          userProfile={post.userProfile}
-          nickName={post.nickName}
-          postName={post.postName}
+          userProfile={post.user_profile}
+          nickName={post.nick_name}
+          postName={post.post_name}
         />
         <div className="wrapper-bottom">
           <PostContent
-            postId={post.postId}
-            imagePost={post.imagePost}
-            postInfo={post.postInfo}
+            postId={post.post_id}
+            imagePost={post.image_post}
+            postInfo={post.post_info}
           />
           <div className="wrapper-btns">
             <RecommendPrice price={post.price} />
             <ActionButtons
               likedBtnSrc={likedBtnSrc}
-              handleLikeClick={() => handleLikeClick(post.postId)}
+              handleLikeClick={handleLikeClick}
               accessToken={accessToken}
-              postId={post.postId}
+              postId={post.post_id}
               post={post}
             />
           </div>

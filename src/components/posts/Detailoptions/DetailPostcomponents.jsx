@@ -19,7 +19,7 @@ export default function PostDetails({
     <StyledWrapper>
       <div className="productImage">
         <Image
-          src={post.imagePost}
+          src={post.image_post}
           alt="상품 이미지"
           width={600}
           height={600}
@@ -27,17 +27,17 @@ export default function PostDetails({
         />
       </div>
       <div className="productDetails">
-        <h1 className="nickNames">{post.nickName}</h1>
-        <h1 className="productName">{post.postName}</h1>
+        <h1 className="nickNames">{post.nick_name}</h1>
+        <h1 className="productName">{post.post_name}</h1>
         <p className="productPrice">{formattedPrice}원</p>
         <ul className="productInfo">
           <li>지역 : {post.location}</li>
-          <li>강의 장소 : {categoryMap[post.categoryId]}</li>
-          <li>모집 회원수 : {post.totalNumber}</li>
+          <li>강의 장소 : {categoryMap[post.category_id]}</li>
+          <li>모집 회원수 : {post.total_number}</li>
           <li>
-            강의 기간 : {post.startAt} ~ {post.endAt}
+            강의 기간 : {post.start_at} ~ {post.end_at}
           </li>
-          <li>{post.postInfo}</li>
+          <li>{post.post_info}</li>
         </ul>
         <div className="verticalLine"></div>
         <div className="buttons">

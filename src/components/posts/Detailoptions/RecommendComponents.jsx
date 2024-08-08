@@ -16,14 +16,14 @@ export default function Recommendations({
           postList.length > 0 &&
           postList.map((post) => (
             <RecommendPostItem
-              key={post.postId}
+              key={post.post_id}
               post={post}
               likedBtnSrc={
-                likedPosts[post.postId]
+                likedPosts[post.post_id]
                   ? '/images/png/icon-heart-fill.png'
                   : '/images/png/icon-heart.png'
               }
-              handleLikeClick={() => handleLikeClick(post.postId)}
+              handleLikeClick={() => handleLikeClick(post.post_id)}
               accessToken={accessToken}
             />
           ))}

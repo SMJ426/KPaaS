@@ -15,24 +15,30 @@ export default function PostDetailContainers({
   accessToken,
   nick_name,
 }) {
-  const [likedPosts, setLikedPosts] = useState({});
+  const [likedPosts, setLikedPosts] = useState(() => {
+    const initialLikedPosts = { [postId]: post.like };
+    postList.forEach(post => {
+      initialLikedPosts[post.post_id] = post.like;
+    });
+    return initialLikedPosts;
+  });
 
-  const handleLikeClick = async (postId) => {
+  const handleLikeClick = async (clickedPostId) => {
     try {
-      if (likedPosts[postId]) {
-        const response = await DeleteLike(accessToken, postId);
+      if (likedPosts[clickedPostId]) {
+        const response = await DeleteLike(accessToken, clickedPostId);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await DeleteLike(NewaccessToken, postId);
+          await DeleteLike(NewaccessToken, clickedPostId);
         }
-        setLikedPosts(prev => ({ ...prev, [postId]: false }));
+        setLikedPosts(prev => ({ ...prev, [clickedPostId]: false }));
       } else {
-        const response = await Likepost(accessToken, postId);
+        const response = await Likepost(accessToken, clickedPostId);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await Likepost(NewaccessToken, postId);
+          await Likepost(NewaccessToken, clickedPostId);
         }
-        setLikedPosts(prev => ({ ...prev, [postId]: true }));
+        setLikedPosts(prev => ({ ...prev, [clickedPostId]: true }));
       }
     } catch (error) {
       console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
@@ -48,7 +54,7 @@ export default function PostDetailContainers({
   const formattedPrice = post.price.toLocaleString('ko-KR');
 
   const linkProfile = `/profile/${post.nickName}`;
-  const likedBtnSrc = likedPosts
+  const likedBtnSrc = likedPosts[postId]
     ? '/images/png/icon-heart-fill.png'
     : '/images/png/icon-heart.png';
 
