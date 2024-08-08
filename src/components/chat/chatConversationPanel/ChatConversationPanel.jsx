@@ -4,12 +4,16 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
+import RequestMessages from './RequestMessages';
 
 export default function ChatConversationPanel({ userInfo }) {
   // WebSocket 클라이언트 인스턴스를 저장하는 상태
   const [stompClient, setStompClient] = useState(null);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  // 보낸 메세지들을 모아둔 상태
+  const [requestMessages, setRequestMessages] = useState([]);
+  // 받은 메세지들을 모아둔 상태
+  const [receiveMessages, setReceiveMessages] = useState([]);
 
   // 이 아래 부턴 저의 이해를 돕기 위해 개인적인 주석도 포함되어있습니다.
   // 물론, 기능 구현 되면 제거할 예정입니당
@@ -22,13 +26,17 @@ export default function ChatConversationPanel({ userInfo }) {
       webSocketFactory: () => socket,
       onConnect: () => {
         console.log('WebSocket 연결 성공 입니다!!!!!');
-        // 이건 우선은 넣어 놨는데 추후에 추가될 예정
 
         // 채팅방1에 메시지가 도착하면 메시지를 받아서 화면에 출력
         client.subscribe('/sub/room1', (msg) => {
+          console.log('123123 msg >>', msg);
+          console.log('456456 msg.body >>', msg.body);
           const receivedMessage = JSON.parse(msg.body);
           console.log('구독한 메시지 수신:', receivedMessage);
-          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+          setReceiveMessages((prevMessages) => [
+            ...prevMessages,
+            receivedMessage,
+          ]);
         });
 
         console.log('/sub/room1에 구독 성공'); // 구독 성공 로그
@@ -52,8 +60,12 @@ export default function ChatConversationPanel({ userInfo }) {
   }, []);
 
   useEffect(() => {
-    console.log('123123 Messages updated:', messages);
-  }, [messages]);
+    console.log('보낸 메세지들 ', requestMessages);
+  }, [requestMessages]);
+
+  useEffect(() => {
+    console.log('받은 메세지들 ', receiveMessages);
+  }, [receiveMessages]);
 
   const sendMessage = () => {
     if (stompClient && stompClient.connected) {
@@ -68,7 +80,7 @@ export default function ChatConversationPanel({ userInfo }) {
         destination: '/pub/chat/message',
         body: JSON.stringify(messageBody),
       });
-      setMessages((prevMessages) => [...prevMessages, messageBody]); // 메시지 목록 업데이트
+      setRequestMessages((prevMessages) => [...prevMessages, messageBody]); // 메시지 목록 업데이트
       setMessage('');
     } else {
       console.error('STOMP가 연결 안됐음');
@@ -78,8 +90,13 @@ export default function ChatConversationPanel({ userInfo }) {
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
-        {messages.map((msg, index) => (
-          <p key={index}>{msg.content}</p>
+        {/* 보낸 메세지 */}
+        {requestMessages.map((msg, index) => (
+          <RequestMessages requestMessages={msg} key={index} />
+        ))}
+        {/* 받은 메세지 */}
+        {receiveMessages.map((msg, index) => (
+          <p key={index}>{msg}</p>
           // <p key={index}>{typeof msg === 'string' ? msg : ''}</p>
         ))}
       </div>
