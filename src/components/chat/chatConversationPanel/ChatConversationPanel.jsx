@@ -75,7 +75,6 @@ export default function ChatConversationPanel({ userInfo }) {
     }
   };
 
-  console.log('789789 messages>> ', messages);
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
