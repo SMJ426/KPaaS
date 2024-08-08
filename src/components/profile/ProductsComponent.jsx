@@ -21,7 +21,7 @@ export default function ProductsComponent({ userproducts, accessToken }) {
   return (
     <StyledWrapper>
       <section className="section">
-        <CommuPosts postData={userproducts} accessToken={accessToken} />
+        <CommuPosts postData={userproducts.content} accessToken={accessToken} />
       </section>
     </StyledWrapper>
   );

@@ -61,7 +61,7 @@ export default function PostDetailContainers({
   return (
     <StyledWrapper>
       <div className="container">
-        {nick_name === post.nickName && (
+        {nick_name === post.nick_name && (
           <PostDropdown
             postId={postId}
             accessToken={accessToken}
