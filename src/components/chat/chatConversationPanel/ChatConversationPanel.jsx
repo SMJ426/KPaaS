@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import RequestMessages from './RequestMessages';
+import ReceivedMessages from './ReceivedMessages';
 
 export default function ChatConversationPanel({ userInfo }) {
   // WebSocket 클라이언트 인스턴스를 저장하는 상태
@@ -33,10 +34,14 @@ export default function ChatConversationPanel({ userInfo }) {
           console.log('456456 msg.body >>', msg.body);
           const receivedMessage = JSON.parse(msg.body);
           console.log('구독한 메시지 수신:', receivedMessage);
-          setReceiveMessages((prevMessages) => [
-            ...prevMessages,
-            receivedMessage,
-          ]);
+
+          // 받은 메시지가 자신이 보낸 메시지가 아닐 경우에만 추가 -> 수정하자
+          if (receivedMessage.sender.user_name == userInfo.nick_name) {
+            setReceiveMessages((prevMessages) => [
+              ...prevMessages,
+              receivedMessage,
+            ]);
+          }
         });
 
         console.log('/sub/room1에 구독 성공'); // 구독 성공 로그
@@ -92,12 +97,15 @@ export default function ChatConversationPanel({ userInfo }) {
       <div className="wrapper-messages">
         {/* 보낸 메세지 */}
         {requestMessages.map((msg, index) => (
-          <RequestMessages requestMessages={msg} key={index} />
+          <RequestMessages
+            requestMessages={msg}
+            userInfo={userInfo}
+            key={index}
+          />
         ))}
         {/* 받은 메세지 */}
         {receiveMessages.map((msg, index) => (
-          <p key={index}>{msg}</p>
-          // <p key={index}>{typeof msg === 'string' ? msg : ''}</p>
+          <ReceivedMessages key={index} receiveMessages={msg} />
         ))}
       </div>
       <div className="wrapper-input">
