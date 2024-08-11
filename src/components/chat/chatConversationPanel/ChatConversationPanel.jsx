@@ -35,8 +35,8 @@ export default function ChatConversationPanel({ userInfo }) {
           const receivedMessage = JSON.parse(msg.body);
           console.log('구독한 메시지 수신:', receivedMessage);
 
-          // 받은 메시지가 자신이 보낸 메시지가 아닐 경우에만 추가 -> 수정하자
-          if (receivedMessage.sender.user_name == userInfo.nick_name) {
+          // 받은 메시지가 자신이 보낸 메시지가 아닐 경우에만 추가
+          if (receivedMessage.sender.user_name !== userInfo.nick_name) {
             setReceiveMessages((prevMessages) => [
               ...prevMessages,
               receivedMessage,
