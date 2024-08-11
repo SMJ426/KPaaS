@@ -5,7 +5,7 @@ export default function ChattingListRenderer({ listData }) {
   return (
     <StyledWrapper>
       <img
-        src="https://via.placeholder.com/50"
+        src="https://via.placeholder.com/40"
         alt="test image"
         className="profile-image"
       />
@@ -28,8 +28,8 @@ const StyledWrapper = styled.div`
   margin-top: 10px;
 
   .profile-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
 

@@ -5,7 +5,7 @@ function RequestMessages({ requestMessages, userInfo }) {
   return (
     <StyledWrapper>
       <p>
-        {userInfo.user_name}:{requestMessages.content}
+        {userInfo.nick_name}:{requestMessages.content}
       </p>
     </StyledWrapper>
   );

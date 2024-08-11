@@ -15,4 +15,8 @@ export default function ChatClient({ userInfo }) {
 
 const StyledWrapper = styled.div`
   display: flex;
+  margin: 0 auto;
+  width: 1200px;
+  height: calc(100vh - 80px);
+  overflow: hidden;
 `;

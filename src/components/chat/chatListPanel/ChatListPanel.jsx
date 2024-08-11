@@ -17,6 +17,7 @@ export default function ChatListPanel({ userInfo }) {
       </div>
       <div className="wrapper-chatting-rooms">
         <h2 className="userName">{userInfo.nick_name}</h2>
+        <br className="divide-line" />
         <div className="chatting-rooms">
           {chatRooms.map((room, index) => (
             <ChattingListRenderer key={index} listData={room} />
@@ -29,9 +30,10 @@ export default function ChatListPanel({ userInfo }) {
 
 const StyledWrapper = styled.div`
   display: flex;
-  width: 30%;
-  height: 100vh;
+  width: 400px;
+  height: 100%;
   background-color: #ffffff;
+  border-top: 1px solid #eaebee;
 
   .wrapper-profile-img {
     display: flex;

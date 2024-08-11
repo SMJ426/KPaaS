@@ -6,6 +6,8 @@ import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
+import ChatPartnerProfile from './ChatPartnerProfile';
+import ChatClassOverview from './ChatClassOverview';
 
 export default function ChatConversationPanel({ userInfo }) {
   const [stompClient, setStompClient] = useState(null);
@@ -75,15 +77,22 @@ export default function ChatConversationPanel({ userInfo }) {
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
+        {/* 채팅 상대방 프로필 부분 */}
+        <ChatPartnerProfile />
+
+        {/* 간략한 수업 정보 부분 */}
+        <ChatClassOverview />
+
+        {/* 실제 채팅 부분 */}
         {allMessages.map((msg, index) =>
-          msg.type === 'sent' ? (
+          msg.type === 'received' ? (
+            <ReceivedMessages key={index} receiveMessages={msg} />
+          ) : (
             <RequestMessages
               requestMessages={msg}
               userInfo={userInfo}
               key={index}
             />
-          ) : (
-            <ReceivedMessages key={index} receiveMessages={msg} />
           )
         )}
       </div>
@@ -104,14 +113,14 @@ const StyledWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 70%;
-  /* background-color: greenyellow; */
+  height: 100%;
+  width: 800px;
+
+  border: 1px solid #eaebee;
 
   .wrapper-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 10px;
   }
   .wrapper-input {
     display: flex;
