@@ -74,12 +74,17 @@ export default function ChatConversationPanel({ userInfo }) {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  };
+
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
         {/* 채팅 상대방 프로필 부분 */}
         <ChatPartnerProfile />
-
         {/* 간략한 수업 정보 부분 */}
         <ChatClassOverview />
 
@@ -101,6 +106,7 @@ export default function ChatConversationPanel({ userInfo }) {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
           placeholder="메시지를 입력하세요"
         />
         <button onClick={sendMessage}>메시지 보내기</button>
@@ -121,21 +127,32 @@ const StyledWrapper = styled.div`
   .wrapper-messages {
     flex: 1;
     overflow-y: auto;
+    margin-bottom: 135px;
   }
+
   .wrapper-input {
     display: flex;
-    padding: 10px;
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-
+    width: calc(100% - 16px);
+    height: 125px;
     position: absolute;
     bottom: 0;
+    background-color: #fff;
+
+    margin: 0 16px;
+    padding: 10px;
+    border: 1px solid #212124;
+    border-radius: 8px;
+
     input {
       flex: 1;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: none;
       border-radius: 4px;
       margin-right: 10px;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     button {
