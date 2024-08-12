@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AnnouncementTestDataSet } from '../../../constants/AnnouncementTestDataSet';
+import Mainsmallpage from '../announcementGym/Mainsmallpage';
 import AnnouncementRenderer from './AnnouncementRenderer';
 import PolicyRenderer from './PolicyRenderer';
 
@@ -35,9 +36,7 @@ function AnnouncementPolicy() {
     <StyledWrapper>
       <div className="wrapper-announcement">
         <p className="title">공지사항</p>
-        {AnnouncementTestDataSet.map((data, index) => (
-          <AnnouncementRenderer key={index} announcementData={data} />
-        ))}
+        <Mainsmallpage />
       </div>
 
       <div className="wrapper-policy">
