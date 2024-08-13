@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function ReceivedMessages({ receiveMessages }) {
+  console.log('receiveMessages >> ', receiveMessages);
   const senderData = receiveMessages.sender;
 
   const date = new Date(receiveMessages.sendAt);
@@ -15,7 +16,7 @@ function ReceivedMessages({ receiveMessages }) {
 
   return (
     <StyledWrapper>
-      <img src={senderData.role} alt={senderData.nick_name} />
+      <img src={senderData.profile_image} alt={senderData.nick_name} />
       <div className="wrapper-content">
         <p>{receiveMessages.content}</p>
         <span>{formattedTime}</span>

@@ -25,7 +25,7 @@ export default function ChatConversationPanel({ userInfo }) {
           const receivedMessage = JSON.parse(msg.body);
 
           // 상대방에게 받은 메세지일때만 추가
-          if (receivedMessage.sender.user_name !== userInfo.nick_name) {
+          if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
             setAllMessages((prevMessages) => [
               ...prevMessages,
               { ...receivedMessage, type: 'received' },
@@ -63,6 +63,7 @@ export default function ChatConversationPanel({ userInfo }) {
         destination: '/pub/chat/message',
         body: JSON.stringify(messageBody),
       });
+
       setAllMessages((prevMessages) => [
         ...prevMessages,
         { ...messageBody, type: 'sent' },

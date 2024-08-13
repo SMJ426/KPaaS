@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function RequestMessages({ requestMessages, userInfo }) {
+function RequestMessages({ requestMessages }) {
+  console.log('requestMessages >> ', requestMessages);
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();
