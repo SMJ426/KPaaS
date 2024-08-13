@@ -76,8 +76,11 @@ export default function ChatConversationPanel({ userInfo }) {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      sendMessage();
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (message.trim().length !== 0) {
+        sendMessage();
+      }
     }
   };
 
@@ -103,14 +106,20 @@ export default function ChatConversationPanel({ userInfo }) {
         )}
       </div>
       <div className="wrapper-input">
-        <input
+        <textarea
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder="메시지를 입력하세요"
+          placeholder="메시지를 입력해주세요"
+          maxLength={1000}
         />
-        <button onClick={sendMessage}>메시지 보내기</button>
+        <div className="input-footer">
+          <span className="char-count">{message.length}/1000자</span>
+          <button onClick={sendMessage} disabled={message.trim().length === 0}>
+            전송
+          </button>
+        </div>
       </div>
     </StyledWrapper>
   );
@@ -133,36 +142,60 @@ const StyledWrapper = styled.div`
 
   .wrapper-input {
     display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 8px;
     width: calc(100% - 16px);
     height: 125px;
     position: absolute;
-    bottom: 0;
+    bottom: 40px;
     background-color: #fff;
 
     margin: 0 16px;
-    padding: 10px;
+    padding: 16px;
     border: 1px solid #212124;
     border-radius: 8px;
 
-    input {
+    textarea {
       flex: 1;
-      padding: 10px;
+      width: 100%;
+      height: 64px;
       border: none;
+      font-size: 14px;
       border-radius: 4px;
-      margin-right: 10px;
+      resize: none;
+      overflow-y: auto;
 
       &:focus {
         outline: none;
       }
     }
 
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
+    .input-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      .char-count {
+        font-size: 12px;
+        color: #888;
+      }
+
+      button {
+        width: 64px;
+        height: 32px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+
+        &:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 `;
