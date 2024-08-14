@@ -58,12 +58,13 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   useEffect(() => {
+    console.log(posts)
     if (posts) {
-      setPostName(posts.postName);
+      setPostName(posts.post_name);
       setPrice(posts.price);
-      setImages1(posts.imagePost);
-      setShowImages1(posts.imagePost);
-      setCategoryId(posts.categoryId);
+      setImages1(posts.image_post);
+      setShowImages1(posts.image_post);
+      setCategoryId(posts.category_id);
 
       // 날짜 문자열을 파싱하여 날짜 객체 설정
       const parseDate = (dateStr) => {
@@ -71,12 +72,12 @@ export default function EditpostForm({ postId, post, accessToken }) {
         return { year, month, day };
       };
 
-      setStartDate(parseDate(posts.startAt));
-      setEndDate(parseDate(posts.endAt));
+      setStartDate(parseDate(posts.start_at));
+      setEndDate(parseDate(posts.end_at));
       
-      setTotalnumber(posts.totalNumber);
+      setTotalnumber(posts.total_number);
       setlocation(posts.location);
-      setTeacherInfo(posts.postInfo);
+      setTeacherInfo(posts.post_info);
     }
   }, [posts]);
 

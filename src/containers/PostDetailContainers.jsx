@@ -14,6 +14,7 @@ export default function PostDetailContainers({
   postList,
   accessToken,
   nick_name,
+  role
 }) {
   const [likedPosts, setLikedPosts] = useState(() => {
     const initialLikedPosts = { [postId]: post.like };
@@ -52,6 +53,7 @@ export default function PostDetailContainers({
   };
 
   const formattedPrice = post.price.toLocaleString('ko-KR');
+  const canEditOrDelete = nick_name === post.nick_name || role === 'ADMIN';
 
   const linkProfile = `/profile/${post.nickName}`;
   const likedBtnSrc = likedPosts[postId]
@@ -61,7 +63,7 @@ export default function PostDetailContainers({
   return (
     <StyledWrapper>
       <div className="container">
-        {nick_name === post.nick_name && (
+        {canEditOrDelete  && (
           <PostDropdown
             postId={postId}
             accessToken={accessToken}
