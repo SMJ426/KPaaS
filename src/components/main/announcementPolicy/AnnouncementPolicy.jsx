@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AnnouncementTestDataSet } from '../../../constants/AnnouncementTestDataSet';
 import Mainsmallpage from '../announcementGym/Mainsmallpage';
-import AnnouncementRenderer from './AnnouncementRenderer';
 import PolicyRenderer from './PolicyRenderer';
 
 function AnnouncementPolicy() {
@@ -35,7 +34,7 @@ function AnnouncementPolicy() {
   return (
     <StyledWrapper>
       <div className="wrapper-announcement">
-        <p className="title">공지사항</p>
+        <p className="title">내 주변 체육시설 찾기</p>
         <Mainsmallpage />
       </div>
 
@@ -62,17 +61,17 @@ const StyledWrapper = styled.div`
   margin-top: 80px;
 
   .title {
-    font-size: 30px;
-    border-bottom: 1px solid #eeeeee;
-    font-family: 'Pretendard';
+    font-size: 24px;
+    border-bottom: 1px solid #eee;
     padding-bottom: 10px;
+    margin-bottom: 20px;
     font-weight: 500;
   }
 
   .wrapper-announcement {
     width: 70%;
-    border-right: 2px solid #eeeeee;
     padding-right: 40px;
+    border-right: 2px solid #eee;
   }
 
   .wrapper-policy {

@@ -5,33 +5,47 @@ import styled from 'styled-components';
 export default function OneGymMapForm({ gym, onClose }) {
   return (
     <StyledWrapper>
-      <h3>{gym.시설명}</h3>
+      <h2 className="gym-title">{gym.시설명}</h2>
       <KakaoMap gym={gym} />
-      <button className="backBtn" onClick={() => onClose(false)}>
-        {' '}
-        이걸 클릭하면 돌아가요!{' '}
+      <button className="back-btn" onClick={() => onClose(false)}>
+        돌아가기
       </button>
     </StyledWrapper>
   );
 }
 
-OneGymMapForm;
-
 const StyledWrapper = styled.div`
-  .backBtn {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 800px;
+  margin: 0 auto;
+
+  .gym-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .back-btn {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 20px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    background-color: #fee500;
-    color: #000;
-    border: none;
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: #fdd835;
+      background-color: #e9ecef;
+      color: #212529;
     }
   }
 `;

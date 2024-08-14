@@ -76,8 +76,8 @@ export default function KakaoMap({ gym }) {
 
   return (
     <StyledWrapper>
-      <div id="map" ref={mapContainer} className="FindMap"></div>
-      <button onClick={handleButtonClick} className="findBtn">
+      <div id="map" ref={mapContainer} className="map-container"></div>
+      <button onClick={handleButtonClick} className="find-route-btn">
         길 찾기
       </button>
     </StyledWrapper>
@@ -85,27 +85,30 @@ export default function KakaoMap({ gym }) {
 }
 
 const StyledWrapper = styled.div`
-  .FindMap {
-    width: 400px;
-    height: 350px;
-    margin: 0 auto;
-    display: block;
+  .map-container {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .findBtn {
+  .find-route-btn {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px 20px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    background-color: #fee500;
-    color: #000;
+    background-color: #3b5bdb;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #fdd835;
+      background-color: #364fc7;
     }
   }
 `;
