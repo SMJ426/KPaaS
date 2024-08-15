@@ -58,7 +58,7 @@ const StyledWrapper = styled.header`
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 9999999;
+  z-index: 9;
 
   background-color: #ffffff;
   height: 80px;

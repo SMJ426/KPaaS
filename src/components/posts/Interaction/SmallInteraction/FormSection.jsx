@@ -27,7 +27,6 @@ export default function FormSection({
           onChange={(event) => setPostName(event.target.value)}
           placeholder="상품명을 입력해 주세요"
         />
-        {errors.postName && <p className="error">{errors.postName}</p>}
       </div>
 
       <div className="form-group">
@@ -42,7 +41,6 @@ export default function FormSection({
           />
           <span>원</span>
         </div>
-        {errors.price && <p className="error">{errors.price}</p>}
       </div>
 
       <div className="form-group">
@@ -78,7 +76,6 @@ export default function FormSection({
             </option>
           ))}
         </select>
-        {errors.location && <p className="error">{errors.location}</p>}
       </div>
 
       <div className="form-group">
@@ -93,7 +90,6 @@ export default function FormSection({
           />
           <span>명</span>
         </div>
-        {errors.totalNumber && <p className="error">{errors.totalNumber}</p>}
       </div>
     </StyledWrapper>
   );

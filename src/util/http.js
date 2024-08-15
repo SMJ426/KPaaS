@@ -102,7 +102,7 @@ export async function fetchUserProfile(accesstoken) {
         },
       }
     );
-    const data = await response.json();
+    const data  = await response.json(); 
     return data;
   } catch (error) {
     console.error(
@@ -199,7 +199,6 @@ export async function fetchFollowingUser(nick_name) {
       }
     );
     const data = await response.json();
-    console.log(data.followings);
     return data.followings;
   } catch (error) {
     console.error(

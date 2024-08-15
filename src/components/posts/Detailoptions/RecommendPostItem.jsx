@@ -3,42 +3,35 @@ import ProfileInfo from './RecommendItems/ProfileInfo';
 import PostContent from './RecommendItems/PostContent';
 import ActionButtons from './RecommendItems/ActionButton';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import RecommendPrice from './RecommendItems/RecommendPrice';
 
 export default function RecommendPostItem({
   post,
-  postpage,
   likedBtnSrc,
   handleLikeClick,
   accessToken,
 }) {
-  useEffect(() => {
-    console.log('RecommendPostItem - post:', post);
-  }, [post]);
-
   return (
     <StyledWrapper>
       <div className="postItem">
         <ProfileInfo
-          userProfile={post.userProfile}
-          nickName={post.nickName}
-          postName={post.postName}
+          userProfile={post.user_profile}
+          nickName={post.nick_name}
+          postName={post.post_name}
         />
         <div className="wrapper-bottom">
           <PostContent
-            postpage={postpage}
-            postId={post.postId}
-            imagePost={post.imagePost}
-            postInfo={post.postInfo}
+            postId={post.post_id}
+            imagePost={post.image_post}
+            postInfo={post.post_info}
           />
           <div className="wrapper-btns">
             <RecommendPrice price={post.price} />
             <ActionButtons
               likedBtnSrc={likedBtnSrc}
-              handleLikeClick={() => handleLikeClick(post.postId)}
+              handleLikeClick={handleLikeClick}
               accessToken={accessToken}
-              postId={post.postId}
+              postId={post.post_id}
               post={post}
             />
           </div>

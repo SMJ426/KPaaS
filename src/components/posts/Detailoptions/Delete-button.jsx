@@ -2,14 +2,15 @@
 import { useState } from 'react';
 import { DeletePost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
+import styled from 'styled-components';
 
-export default function DeletePostButton({ postId, accessToken }) {
+export default function DeletePostButton ({ className, postId, accessToken }){
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function deletePostDataHandler() {
     setIsDeleting(true);
     const response = await DeletePost(postId, accessToken);
-    if (response.state == 'Jwt Expired') {
+    if (response.state === 'Jwt Expired') {
       const NewaccessToken = await RefreshAccessToken();
       await DeletePost(postId, NewaccessToken);
     }
@@ -18,22 +19,32 @@ export default function DeletePostButton({ postId, accessToken }) {
   }
 
   return (
-    <button
-      className="btn"
+    <StyledWrapper
+      className={className}
       onClick={deletePostDataHandler}
       disabled={isDeleting}
     >
       {isDeleting ? '삭제 중...' : '삭제'}
-    </button>
+    </StyledWrapper>
   );
 }
 
-// .btn{
-//   width: 65px;
-//   height: 25px;
-//   border: 0;
-//   border-radius: 10px;
-//   margin-left: 83%;
-//   margin-bottom: 10px;
-//   margin-top: 10px;
-// }
+const StyledWrapper = styled.button`
+
+  width: 100%;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #ff4d4f;
+
+  &:hover {
+    background-color: #fff1f0;
+  }
+
+  &:disabled {
+    color: #d9d9d9;
+    cursor: not-allowed;
+  }
+`;

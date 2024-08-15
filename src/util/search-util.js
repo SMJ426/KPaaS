@@ -1,9 +1,10 @@
 // 상품 검색
-export async function fetchProductName(searchTerm) {
+export async function fetchProductName({ pageParam = 0, searchTerm }) {
   //const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search', {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/search`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}`,
     {
+      method: 'POST',
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -22,14 +23,13 @@ export async function fetchProductName(searchTerm) {
   return search;
 }
 
-// 상품 검색
-export async function fetchProductNamePaging(searchTerm, page) {
-  //const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/search?page=${page}`, {
+// Login like
+export async function LoginfetchProductName(pageParam, searchTerm, nick_name) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${page}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}&nick_name=${nick_name}`,
     {
-      cache: 'no-store',
       method: 'POST',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },

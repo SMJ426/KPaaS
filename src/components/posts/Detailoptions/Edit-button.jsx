@@ -1,27 +1,32 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import styled from 'styled-components';
 
-export default function PutDetailbutton({ postId, postpage }) {
+export default function PutDetailButton({ className, postId, accessToken }) {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    router.push(`/${postpage}/${postId}/edit`);
+    router.push(`/${postId}/edit`);
   };
+
   return (
-    <>
-      <button className="btn" onClick={handleButtonClick}>
-        수정
-      </button>
-    </>
+    <StyledWrapper className={className} onClick={handleButtonClick}>
+      수정
+    </StyledWrapper>
   );
 }
 
-// .btn{
-//   width: 65px;
-//   height: 25px;
-//   border: 0;
-//   border-radius: 10px;
-//   margin-left: 5px;
-//   background: #a2dee7ad;
-// }
+const StyledWrapper = styled.button`
+  width: 100%;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;

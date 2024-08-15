@@ -2,7 +2,6 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 export default function PostContent({
-  postpage,
   postId,
   imagePost,
   postInfo,
@@ -10,7 +9,7 @@ export default function PostContent({
 }) {
   return (
     <StyledWrapper>
-      <Link href={`/${postpage}/${postId}`} className="wrapper-img-info">
+      <Link href={`/${postId}`} className="wrapper-img-info">
         <img src={imagePost} alt="상품 이미지" className="img-post" />
         <span className="post_info">{postInfo}</span>
       </Link>
