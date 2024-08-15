@@ -47,7 +47,7 @@ const StyledWrapper = styled.div`
     background-color: #3797f0;
     color: #ffffff;
     padding: 10px 14px;
-    border-radius: 50px 5px 50px 50px;
+    border-radius: 20px 5px 20px 20px;
 
     word-wrap: break-word;
     white-space: pre-wrap;

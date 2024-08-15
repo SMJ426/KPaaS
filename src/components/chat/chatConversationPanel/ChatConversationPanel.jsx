@@ -24,7 +24,6 @@ export default function ChatConversationPanel({ userInfo }) {
         client.subscribe('/sub/room1', (msg) => {
           const receivedMessage = JSON.parse(msg.body);
 
-          // 상대방에게 받은 메세지일때만 추가
           if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
             setAllMessages((prevMessages) => [
               ...prevMessages,
@@ -93,17 +92,19 @@ export default function ChatConversationPanel({ userInfo }) {
         <ChatClassOverview />
 
         {/* 실제 채팅 부분 */}
-        {allMessages.map((msg, index) =>
-          msg.type === 'received' ? (
-            <ReceivedMessages key={index} receiveMessages={msg} />
-          ) : (
-            <RequestMessages
-              requestMessages={msg}
-              userInfo={userInfo}
-              key={index}
-            />
-          )
-        )}
+        <div className="wrapper-messages-list">
+          {allMessages.map((msg, index) =>
+            msg.type === 'received' ? (
+              <ReceivedMessages key={index} receiveMessages={msg} />
+            ) : (
+              <RequestMessages
+                requestMessages={msg}
+                userInfo={userInfo}
+                key={index}
+              />
+            )
+          )}
+        </div>
       </div>
       <div className="wrapper-input">
         <textarea
@@ -136,8 +137,13 @@ const StyledWrapper = styled.div`
 
   .wrapper-messages {
     flex: 1;
-    overflow-y: auto;
     margin-bottom: 135px;
+
+    .wrapper-messages-list {
+      overflow-y: auto;
+      width: 100%;
+      height: 530px;
+    }
   }
 
   .wrapper-input {
@@ -148,7 +154,7 @@ const StyledWrapper = styled.div`
     width: calc(100% - 16px);
     height: 125px;
     position: absolute;
-    bottom: 40px;
+    bottom: 30px;
     background-color: #fff;
 
     margin: 0 16px;
