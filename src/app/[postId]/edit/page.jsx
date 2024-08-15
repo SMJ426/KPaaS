@@ -6,12 +6,10 @@ import { cookies } from 'next/headers';
 export default async function EditPage({ params }) {
   const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
-  const postData = getPostData(params.postId, Authorization.value);
-  const [post] = await Promise.all([postData]);
-
+  const postData = await getPostData(params.postId, Authorization.value);
   return (
     <EditpostForm
-      post={post}
+      post={postData}
       postId={params.postId}
       accessToken={Authorization.value}
     />

@@ -10,81 +10,114 @@ export default function ProfileInfo({
 }) {
   return (
     <StyledWrapper>
-      <Image
-        src={userInfo.profile_image || '/images/kakaoImg.jpg'}
-        alt="이미지"
-        width={200}
-        height={200}
-        className="profileImg"
-        priority
-      />
-        <div className="profileNickName">
-         {userInfo.nick_name}
+      <div className="profile-container">
+        <div className="image-container">
+          <Image
+            src={userInfo.profile_image || '/images/kakaoImg.jpg'}
+            alt="프로필 이미지"
+            width={200}
+            height={200}
+            className="profileImg"
+            priority
+          />
         </div>
-      <div className="Followes">
-        <div>
-          <button className="Followingbtn" onClick={onFollowingClick}>
-            팔로잉 {userInfo.following}
-          </button>
+        <div className="info-container">
+          <div className="header">
+            <div className="profileNickName-container">
+              <span className="profileNickName">{userInfo.nick_name}</span>
+            </div>
+            <div className="edit-button-container">
+              <button className="EditBtn" onClick={onEditClick}>
+                프로필 수정
+              </button>
+            </div>
+          </div>
+          <div className="follow-info">
+            <button className="Followingbtn" onClick={onFollowingClick}>
+              팔로잉 {userInfo.following}
+            </button>
+            <button className="Followingbtn" onClick={onFollowerClick}>
+              팔로워 {userInfo.follower}
+            </button>
+          </div>
           <p className="profileName">{userInfo.user_name}</p>
           <p className="profileEmail">{userInfo.email}</p>
           <p className="profileMessage">{userInfo.member_info}</p>
         </div>
-        <button className="Followingbtn" onClick={onFollowerClick}>
-          팔로워 {userInfo.follower}
-        </button>
-        <button className="EditBtn" onClick={onEditClick}>
-          프로필 수정
-        </button>
       </div>
     </StyledWrapper>
   );
 }
+
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 50px;
+
+  .profile-container {
+    display: flex;
+    align-items: flex-start;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .image-container {
+    flex-shrink: 0;
+    margin-right: 30px;
+  }
 
   .profileImg {
-    border-radius: 90%;
+    border-radius: 50%;
     cursor: pointer;
+  }
+
+  .info-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .profileNickName-container {
+    flex-grow: 1;
+    margin-right: 15px;
   }
 
   .profileNickName {
-    position: absolute;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--black, #191a1c);
     font-size: 28px;
     font-weight: 600;
-    margin-left: -55px;
   }
 
-  .Followes {
+  .follow-info {
     display: flex;
-    margin-top: 60px;
+    margin-bottom: 15px;
   }
 
   .Followingbtn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     color: var(--gray-800, #000000);
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 400;
-    margin-left: 50px;
-    height: 35px;
-    padding: 0 var(--unit-4);
-    min-width: var(--unit-20);
-    gap: var(--unit-2);
-    transition:
-      transform 0.2s,
-      colors 0.2s,
-      opacity 0.2s;
+    margin-right: 20px;
+    padding: 0;
+
     &:hover {
-      opacity: var(--opacity-hover);
+      text-decoration: underline;
     }
   }
 
@@ -94,35 +127,24 @@ const StyledWrapper = styled.div`
     color: var(--gray-400, #000000);
     font-size: 15px;
     font-weight: 400;
-    margin-left: 50px;
+    margin-bottom: 5px;
   }
-
-  .profileName {
-    margin-top: 10px;
-  }
-
-  .profileEmail {
-    position: absolute;
-    margin-top: 0;
-  }
-
-  .profileMessage {
-    margin-top: 40px;
-  }
-
 
   .EditBtn {
-    position: absolute;
     cursor: pointer;
-    margin-left: 250px;
-    margin-top: -55px;
     width: 110px;
     height: 35px;
     border-radius: 10px;
     background: var(--gray-800, #e8e9ec);
     color: var(--gray-400, #7b8196);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     border: 0;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: #d0d2d9;
+      color: #5a6075;
+    }
   }
 `;
