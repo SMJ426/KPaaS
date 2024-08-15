@@ -56,5 +56,4 @@ EXPOSE 3000
 # **********
 FROM inter AS prod
 
-ENTRYPOINT ["/bin/sh", "/usr/local/bin/docker-entrypoint.sh"]
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
