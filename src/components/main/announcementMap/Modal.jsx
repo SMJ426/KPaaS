@@ -31,7 +31,7 @@ const ModalContent = styled.div`
   position: relative;
   width: 65vw;
   max-width: 1200px;
-  height: 70vh;
+  height: 80vh;
   max-height: 800px;
   overflow: auto;
   display: flex;
