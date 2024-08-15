@@ -1,7 +1,7 @@
 # **********
 # base stage
 # **********
-FROM --platform=linux/amd64/v2 node:20.9.0-alpine AS base
+FROM node:20.9.0-alpine AS base
 
 WORKDIR /app
 
