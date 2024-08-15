@@ -22,6 +22,7 @@ export default async function PostDetailPage({ params }) {
         postList={postdata.postList}
         accessToken={Authorization.value}
         nick_name={profile.nick_name}
+        role={profile.role}
       />
     </>
   );
