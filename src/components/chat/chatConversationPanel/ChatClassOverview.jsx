@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ChatClassOverview() {
+function ChatClassOverview({ postData }) {
+  const formattedPrice = `${postData?.price.toLocaleString()}원`;
+
   return (
     <StyledWrapper>
       <img
-        src="https://via.placeholder.com/40"
-        alt="test image"
+        src={postData?.image_post}
+        alt="상품 이미지"
         className="post-image"
       />
       <div className="wrapper-post-info">
-        <span className="info-post">This is a sample post info</span>
-        <span className="price-post">900,000원</span>
+        <span className="info-post">{postData?.post_info}</span>
+        <span className="price-post">{formattedPrice}</span>
       </div>
     </StyledWrapper>
   );

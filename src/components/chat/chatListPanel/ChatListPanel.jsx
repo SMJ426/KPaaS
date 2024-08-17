@@ -1,13 +1,13 @@
+'use client';
+
 import React from 'react';
 import styled from 'styled-components';
-import { ChattingListTestDataSet } from './testData/ChattingListTestData';
 import ChattingListRenderer from './ChattingListRenderer';
 
-export default function ChatListPanel({ userInfo }) {
-  const chatRooms = ChattingListTestDataSet;
-
+export default function ChatListPanel({ userInfo, chatRooms }) {
   return (
     <StyledWrapper>
+      {/* 현재 로그인 한 유저 프로필 정보 부분 */}
       <div className="wrapper-profile-img">
         <img
           src={userInfo.profile_image}
@@ -17,7 +17,8 @@ export default function ChatListPanel({ userInfo }) {
       </div>
       <div className="wrapper-chatting-rooms">
         <h2 className="userName">{userInfo.nick_name}</h2>
-        <br className="divide-line" />
+        <div className="divide-line" />
+        {/* 채팅 목록 부분 */}
         <div className="chatting-rooms">
           {chatRooms.map((room, index) => (
             <ChattingListRenderer key={index} listData={room} />
@@ -40,6 +41,7 @@ const StyledWrapper = styled.div`
     justify-content: center;
     height: 100%;
     width: 60px;
+    padding-bottom: 10px;
 
     padding-left: 1px;
     padding-top: 10px;
@@ -58,13 +60,22 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     flex: 1;
     overflow: hidden;
-    padding: 10px;
 
     .userName {
-      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      height: 63px;
+      margin-left: 10px;
+    }
+    .divide-line {
+      height: 1px;
+      background-color: #eaebee;
     }
 
     .chatting-rooms {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       flex: 1;
       overflow-y: auto;
     }

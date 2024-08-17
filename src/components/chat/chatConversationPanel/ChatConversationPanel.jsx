@@ -8,20 +8,55 @@ import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
 import ChatPartnerProfile from './ChatPartnerProfile';
 import ChatClassOverview from './ChatClassOverview';
+import axios from 'axios';
 
-export default function ChatConversationPanel({ userInfo }) {
+export default function ChatConversationPanel({ userInfo, roomId }) {
+  const [postData, setPostData] = useState(null);
   const [stompClient, setStompClient] = useState(null);
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
+  const [isComposing, setIsComposing] = useState(false);
+
+  // postData 가져오기 요청
+  useEffect(() => {
+    if (!roomId) return;
+
+    const Authorization = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('Authorization='))
+      ?.split('=')[1];
+
+    if (Authorization) {
+      const decodedToken = decodeURIComponent(Authorization);
+
+      axios
+        .get(
+          `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
+          {
+            headers: {
+              Authorization: decodedToken,
+            },
+          }
+        )
+        .then((response) => {
+          setPostData(response.data.post);
+        })
+        .catch((error) => {
+          console.error('Error fetching post', error);
+        });
+    }
+  }, [roomId]);
 
   useEffect(() => {
+    if (!roomId) return;
+
     const socket = new SockJS(
       'http://default-chat-service-7c2a3-25892552-1d82f05544d5.kr.lb.naverncp.com:50/ws'
     );
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
-        client.subscribe('/sub/room1', (msg) => {
+        client.subscribe(`/sub/${roomId}`, (msg) => {
           const receivedMessage = JSON.parse(msg.body);
 
           if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
@@ -47,7 +82,7 @@ export default function ChatConversationPanel({ userInfo }) {
         client.deactivate();
       }
     };
-  }, []);
+  }, [roomId]);
 
   const sendMessage = () => {
     if (stompClient && stompClient.connected) {
@@ -55,7 +90,7 @@ export default function ChatConversationPanel({ userInfo }) {
         sender: userInfo.nick_name,
         content: message,
         type: 'TALK', // TALK or ENTER
-        roomId: '1',
+        roomId: roomId,
       };
 
       stompClient.publish({
@@ -75,7 +110,7 @@ export default function ChatConversationPanel({ userInfo }) {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
       e.preventDefault();
       if (message.trim().length !== 0) {
         sendMessage();
@@ -83,13 +118,21 @@ export default function ChatConversationPanel({ userInfo }) {
     }
   };
 
+  const handleCompositionStart = () => {
+    setIsComposing(true);
+  };
+
+  const handleCompositionEnd = () => {
+    setIsComposing(false);
+  };
+
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
         {/* 채팅 상대방 프로필 부분 */}
-        <ChatPartnerProfile />
+        <ChatPartnerProfile postData={postData} />
         {/* 간략한 수업 정보 부분 */}
-        <ChatClassOverview />
+        <ChatClassOverview postData={postData} />
 
         {/* 실제 채팅 부분 */}
         <div className="wrapper-messages-list">
@@ -112,6 +155,8 @@ export default function ChatConversationPanel({ userInfo }) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyPress}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
           placeholder="메시지를 입력해주세요"
           maxLength={1000}
         />
@@ -141,8 +186,9 @@ const StyledWrapper = styled.div`
 
     .wrapper-messages-list {
       overflow-y: auto;
+      margin-top: 10px;
       width: 100%;
-      height: 530px;
+      height: 540px;
     }
   }
 
@@ -154,7 +200,7 @@ const StyledWrapper = styled.div`
     width: calc(100% - 16px);
     height: 125px;
     position: absolute;
-    bottom: 30px;
+    bottom: 10px;
     background-color: #fff;
 
     margin: 0 16px;

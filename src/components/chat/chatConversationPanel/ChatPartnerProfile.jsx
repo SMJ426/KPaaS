@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ChatPartnerProfile() {
+function ChatPartnerProfile({ postData }) {
   return (
     <StyledWrapper>
       <img
-        src="https://via.placeholder.com/40"
-        alt="test image"
+        src={postData?.user_profile}
+        alt={postData?.nick_name}
         className="profile-image"
       />
-      <span className="chatPartner-nick">상대방 nick_name</span>
+      <span className="chatPartner-nick">{postData?.nick_name}</span>
     </StyledWrapper>
   );
 }
