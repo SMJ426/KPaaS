@@ -120,9 +120,11 @@ export default function PostItem({ postData, posts, accessToken }) {
                 <img src={likedBtnSrc} alt="좋아요 버튼" />
               </button>
 
-              <button onClick={handleChatClick}>
+              {/* 채팅하기 버튼 */}
+              <button onClick={handleChatClick} className="btn-chatting">
                 <Chatting />
               </button>
+
               <div className="dropdown-container" ref={dropdownRef}>
                 <button onClick={handleOpenDropdown} className="btn-choose">
                   <img
@@ -256,6 +258,10 @@ const StyledWrapper = styled.div`
             height: 20px;
           }
         }
+
+        .btn-chatting {
+          border: none;
+        }
         .btn-choose {
           display: flex;
           justify-content: center;
@@ -267,7 +273,7 @@ const StyledWrapper = styled.div`
 
           > img {
             width: 20px;
-            height: 20px;
+            height: 23px;
             cursor: pointer;
           }
         }
