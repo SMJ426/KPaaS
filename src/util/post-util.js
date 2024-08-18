@@ -164,11 +164,11 @@ export async function Likepost(accessToken, post_id) {
 }
 
 // 사용자 좋아요 목록
-export async function LikeList(nick_name) {
+export async function LikeList(nick_name, pageParam = 0) {
   try {
     //  const response = await fetch('http://KPaas-apigateway-service-1:8888/post/like', {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/profile/like/${nick_name}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/post/profile/like/${nick_name}?page=${pageParam}`,
       {
         headers: {
           'Content-Type': 'application/json',

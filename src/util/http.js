@@ -210,11 +210,10 @@ export async function fetchFollowingUser(nick_name) {
 }
 
 // mypage
-export async function getSelling(nick_name) {
+export async function getSelling(nick_name, pageParam = 0) {
   try {
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/mypage?nick_name=${nick_name}`, {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${nick_name}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${encodeURIComponent(nick_name)}&page=${pageParam}`,
       {
         cache: 'no-store',
         headers: {
@@ -222,34 +221,14 @@ export async function getSelling(nick_name) {
         },
       }
     );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('사용자 판매 물품 error', error);
-    throw error;
-  }
-}
 
-// mypage
-export async function PagegetSelling(nick_name, page) {
-  try {
-    //  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/mypage?nick_name=${nick_name}&page=${page}`, {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${nick_name}&page=${page}`,
-      {
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    const data = await response.json();
-    if (data === null) {
-      const api = [];
-      return api;
-    } else {
-      return data;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data = await response.json();
+
+    return data;
   } catch (error) {
     console.error('사용자 판매 물품 error', error);
     throw error;

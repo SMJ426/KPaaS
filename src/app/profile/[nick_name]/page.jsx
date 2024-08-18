@@ -26,7 +26,7 @@ export default async function otherProfilePage({ params }) {
 
     const followerList = await fetchFollowUser(params.nick_name);
     const followingList = await fetchFollowingUser(params.nick_name);
-    const userproducts = await getSelling(params.nick_name);
+    const initialProducts = await getSelling(params.nick_name, 0);
     return (
       <>
       <MainNavigation accessToken={Authorization?.value} />
@@ -36,7 +36,7 @@ export default async function otherProfilePage({ params }) {
         accessToken={Authorization.value}
         followerList={followerList}
         followingList={followingList}
-        userproducts={userproducts}
+        initialProducts={initialProducts}
         isFollowing={userInfo.follow}
       />
       </>

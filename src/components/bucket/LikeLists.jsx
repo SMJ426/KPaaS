@@ -13,25 +13,25 @@ export default function LikeListComponent({ like, accessToken }) {
 
   const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
 
-  const linkProfile = `/profile/${like.nickName}`;
+  const linkProfile = `/profile/${like.nick_name}`;
   const formattedPrice = like.price.toLocaleString('ko-KR');
   const likedBtnSrc = liked
     ? '/images/png/icon-heart-fill.png'
     : '/images/png/icon-heart.png';
-  const handleLikeClick = async (postId) => {
+  const handleLikeClick = async () => {
     try {
       if (liked) {
-        const response = await DeleteLike(accessToken, postId);
+        const response = await DeleteLike(accessToken, like.post_id);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await DeleteLike(NewaccessToken, postId);
+          await DeleteLike(NewaccessToken, like.post_id);
         }
         setLiked(false);
       } else {
-        const response = await Likepost(accessToken, postId);
+        const response = await Likepost(accessToken, like.post_id);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
-          await Likepost(NewaccessToken, postId);
+          await Likepost(NewaccessToken, like.post_id);
         }
         setLiked(true);
       }
@@ -44,19 +44,19 @@ export default function LikeListComponent({ like, accessToken }) {
     <StyledWrapper>
       <Link className="wrapper-profile-info" href={linkProfile}>
         <img
-          src={like.userProfile}
+          src={like.user_profile}
           alt="프로필 이미지"
           className="img-profile"
         />
         <div className="wrapper-name">
-          <p className="nickname">{like.nickName}</p>
-          <p className="postname">{like.postName}</p>
+          <p className="nickname">{like.nick_name}</p>
+          <p className="postname">{like.post_name}</p>
         </div>
       </Link>
       <div className="wrapper-bottom">
         <div className="wrapper-img-info">
-          <img src={like.imagePost} alt="상품 사진" className="img-post" />
-          <span className="post_info">{like.postInfo}</span>
+          <img src={like.image_post} alt="상품 사진" className="img-post" />
+          <span className="post_info">{like.post_info}</span>
         </div>
 
         <div className="wrapper-btns">
@@ -77,8 +77,8 @@ export default function LikeListComponent({ like, accessToken }) {
               {showDropdown && (
                 <ChoosePayModal
                   accessToken={accessToken}
-                  postId={like.postId}
-                  post={like.post}
+                  postId={like.post_id}
+                  post={like}
                 />
               )}
             </div>
