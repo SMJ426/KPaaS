@@ -8,5 +8,6 @@ export default async function ChatPage() {
   const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   const userInfo = await fetchUserProfile(Authorization.value);
+
   return <ChatClient userInfo={userInfo} />;
 }
