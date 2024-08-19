@@ -51,7 +51,6 @@ export default function SmallProfile({ accessToken }) {
           console.log(Newdata);
         } else {
           setuserInfo(data);
-          console.log(data);
         }
       } catch (error) {
         console.error(

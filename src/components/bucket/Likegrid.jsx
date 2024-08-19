@@ -1,44 +1,56 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { LikeList } from '@compoents/util/post-util';
 import LikeListComponent from './LikeLists';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
 export default function LikegridComponent({ nick_name, accessToken }) {
-  const [userLikes, setUserLikes] = useState([]);
-
-  useEffect(() => {
-    const fetchUserLikeposts = async () => {
-      try {
-        if (!accessToken) {
-          throw new Error('로그인이 필요합니다.');
-        }
-        const data = await LikeList(nick_name);
-        setUserLikes(data.likePosts);
-      } catch (error) {
-        console.error(
-          '사용자의 좋아하는 상품을 가져오는 중 오류가 발생했습니다.',
-          error
-        );
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['userLikes', nick_name],
+    queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.last || lastPage.number >= lastPage.totalPages - 1) {
+        return undefined;
       }
-    };
+      return lastPage.number + 1;
+    },
+    enabled: !!accessToken,
+  });
 
-    fetchUserLikeposts();
-  }, [accessToken, nick_name]);
+  const allLikes = data?.pages.flatMap((page) => page.content) || [];
+
+  if (status === 'loading') return <LoadingIndicator />;
+  if (status === 'error') return <p>에러가 발생했습니다.</p>;
 
   return (
     <StyledWrapper>
       <section className="section">
-        <ul className="postsGrid">
-          {userLikes.map((like) => (
-            <LikeListComponent
-              key={like.postId}
-              nick_name={nick_name}
-              like={like}
-              accessToken={accessToken}
-            />
-          ))}
-        </ul>
+        <InfiniteScroll
+          dataLength={allLikes.length}
+          next={fetchNextPage}
+          hasMore={hasNextPage}
+          loader={<LoadingIndicator />}
+        >
+          <ul className="postsGrid">
+            {allLikes.map((like, index) => (
+              <LikeListComponent
+                key={`${like.id}-${index}`}
+                nick_name={nick_name}
+                like={like}
+                accessToken={accessToken}
+              />
+            ))}
+          </ul>
+        </InfiniteScroll>
       </section>
     </StyledWrapper>
   );
@@ -50,7 +62,7 @@ const StyledWrapper = styled.header`
     margin-left: 150px;
     width: 100%;
     margin-bottom: 5%;
-    height: 1800px;
+    min-height: 100vh;
   }
 
   .postsGrid {
@@ -64,7 +76,6 @@ const StyledWrapper = styled.header`
       margin-top: 0;
       margin-left: 5%;
       width: 95%;
-      height: 100%;
     }
 
     .postsGrid {

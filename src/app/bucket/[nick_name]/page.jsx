@@ -9,12 +9,13 @@ export default async function BucketPage({ params }) {
   const cookieStore = cookies();
   const Authorization = cookieStore.get('Authorization');
   if (Authorization && Authorization.value) {
-    const userLikes = await LikeList(params.nick_name);
-    console.log(userLikes);
+    const initialUserLikes = await LikeList(params.nick_name, 0); // 첫 번째 페이지만 가져옵니다
+    console.log(initialUserLikes);
     return (
       <>
         <BucketForm
-          Likey={userLikes.likePosts}
+          initialLikes={initialUserLikes}
+          nick_name={params.nick_name}
           accessToken={Authorization.value}
         />
       </>
