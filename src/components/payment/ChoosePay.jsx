@@ -32,7 +32,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   };
 
   const handlebucket = () => {
-    window.location.href = `http://localhost:3000/bucket`;
+    window.location.href = `http://http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/bucket`;
   };
 
   useEffect(() => {

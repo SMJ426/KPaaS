@@ -28,7 +28,7 @@ export default function Payment({ accessToken, postId, post }) {
         totalAmount: post.price,
         currency: 'CURRENCY_KRW',
         payMethod: 'EASY_PAY',
-        redirectUrl: `http://localhost:3000`,
+        redirectUrl: `http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30`,
       });
 
       if (response.code != null) {

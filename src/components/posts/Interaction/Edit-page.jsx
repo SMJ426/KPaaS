@@ -155,7 +155,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
       };
 
       await handleSubmit(postData);
-      const redirectUrl = 'http://localhost:3000';
+      const redirectUrl = 'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
       window.location.href = redirectUrl;
     } catch (error) {
       console.error('에러 발생:', error);
