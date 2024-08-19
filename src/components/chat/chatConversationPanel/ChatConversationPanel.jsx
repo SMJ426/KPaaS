@@ -129,10 +129,14 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
-        {/* 채팅 상대방 프로필 부분 */}
-        <ChatPartnerProfile postData={postData} />
-        {/* 간략한 수업 정보 부분 */}
-        <ChatClassOverview postData={postData} />
+        {postData && (
+          <>
+            {/* 채팅 상대방 프로필 부분 */}
+            <ChatPartnerProfile postData={postData} />
+            {/* 간략한 수업 정보 부분 */}
+            <ChatClassOverview postData={postData} />
+          </>
+        )}
 
         {/* 실제 채팅 부분 */}
         <div className="wrapper-messages-list">
