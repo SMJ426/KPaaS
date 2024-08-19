@@ -6,41 +6,37 @@ import styled from 'styled-components';
 import PostItem from '@compoents/components/posts/post-item';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 
-const BASE_URL = 'http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761';
+const BASE_URL =
+  'http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761';
 
-const fetchPosts = async ({ pageParam = 0 }) => { // 
-    const response = await fetch(`${BASE_URL}/post/search?page=${pageParam}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ post_name: "post" }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    };
-
-const PostList = () => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
-    getNextPageParam: (lastPage, pages) => {
-      if (lastPage.last) return undefined;
-      return pages.length;
+const fetchPosts = async ({ pageParam = 0 }) => {
+  const response = await fetch(`${BASE_URL}/post/search?page=${pageParam}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-    refetchOnWindowFocus: false,
+    body: JSON.stringify({ post_name: 'post' }),
   });
 
-  const allPosts = data ? data.pages.flatMap(page => page.content) : [];
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
+
+const PostList = () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['posts'],
+      queryFn: fetchPosts,
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.last) return undefined;
+        return pages.length;
+      },
+      refetchOnWindowFocus: false,
+    });
+
+  const allPosts = data ? data.pages.flatMap((page) => page.content) : [];
 
   return (
     <>
@@ -64,7 +60,10 @@ const PostList = () => {
                 <PostItem
                   key={post.post_id}
                   postData={post}
-                  posts={{ content: allPosts, pageable: { pageNumber: data.pages.length - 1 } }}
+                  posts={{
+                    content: allPosts,
+                    pageable: { pageNumber: data.pages.length - 1 },
+                  }}
                   accessToken={null} // accessToken 설정 필요
                 />
               ))}
@@ -75,7 +74,6 @@ const PostList = () => {
     </>
   );
 };
-  
 
 const StyledWrapper = styled.div`
   margin-left: 50px;

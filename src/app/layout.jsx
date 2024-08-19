@@ -22,7 +22,8 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Providers>{children}</Providers>
-        <PtfdFooter />
+        {/* 채팅에서는 footer가 필요 없어서 공통 layout에 넣으면 안될듯 */}
+        {/* <PtfdFooter /> */}
       </body>
     </html>
   );

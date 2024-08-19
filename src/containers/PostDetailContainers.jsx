@@ -7,18 +7,17 @@ import PostDropdown from '@compoents/components/posts/Detailoptions/PostDropdown
 import Recommendations from '@compoents/components/posts/Detailoptions/RecommendComponents';
 import PostDetails from '@compoents/components/posts/Detailoptions/DetailPostcomponents';
 
-
 export default function PostDetailContainers({
   postId,
   post,
   postList,
   accessToken,
   nick_name,
-  role
+  role,
 }) {
   const [likedPosts, setLikedPosts] = useState(() => {
     const initialLikedPosts = { [postId]: post.like };
-    postList.forEach(post => {
+    postList.forEach((post) => {
       initialLikedPosts[post.post_id] = post.like;
     });
     return initialLikedPosts;
@@ -32,14 +31,14 @@ export default function PostDetailContainers({
           const NewaccessToken = await RefreshAccessToken();
           await DeleteLike(NewaccessToken, clickedPostId);
         }
-        setLikedPosts(prev => ({ ...prev, [clickedPostId]: false }));
+        setLikedPosts((prev) => ({ ...prev, [clickedPostId]: false }));
       } else {
         const response = await Likepost(accessToken, clickedPostId);
         if (response.state === 'Jwt Expired') {
           const NewaccessToken = await RefreshAccessToken();
           await Likepost(NewaccessToken, clickedPostId);
         }
-        setLikedPosts(prev => ({ ...prev, [clickedPostId]: true }));
+        setLikedPosts((prev) => ({ ...prev, [clickedPostId]: true }));
       }
     } catch (error) {
       console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
@@ -63,11 +62,8 @@ export default function PostDetailContainers({
   return (
     <StyledWrapper>
       <div className="container">
-        {canEditOrDelete  && (
-          <PostDropdown
-            postId={postId}
-            accessToken={accessToken}
-          />
+        {canEditOrDelete && (
+          <PostDropdown postId={postId} accessToken={accessToken} />
         )}
         <PostDetails
           post={post}
@@ -75,7 +71,11 @@ export default function PostDetailContainers({
           formattedPrice={formattedPrice}
           accessToken={accessToken}
           postId={postId}
-          likedBtnSrc={likedPosts[postId] ? '/images/png/icon-heart-fill.png' : '/images/png/icon-heart.png'}
+          likedBtnSrc={
+            likedPosts[postId]
+              ? '/images/png/icon-heart-fill.png'
+              : '/images/png/icon-heart.png'
+          }
           handleLikeClick={() => handleLikeClick(postId)}
         />
         <Recommendations
@@ -207,6 +207,4 @@ const StyledWrapper = styled.div`
     text-align: center;
     margin-top: 30px;
   }
-
-  
 `;
