@@ -16,7 +16,7 @@ function ReceivedMessages({ receiveMessages }) {
 
   return (
     <StyledWrapper>
-      <img src={senderData.profile_image} alt={senderData.nick_name} />
+      <img src={receiveMessages.profile_image} alt={senderData.nick_name} />
       <div className="wrapper-content">
         <p>{receiveMessages.content}</p>
         <span>{formattedTime}</span>

@@ -8,6 +8,7 @@ import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
 import ChatPartnerProfile from './ChatPartnerProfile';
 import ChatClassOverview from './ChatClassOverview';
+import { useChatListQuery } from '../query/useChatListQuery';
 import axios from 'axios';
 
 export default function ChatConversationPanel({ userInfo, roomId }) {
@@ -16,6 +17,35 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
   const [isComposing, setIsComposing] = useState(false);
+
+  // useChatListQuery 훅을 사용하여 초기 채팅 메시지 가져오기
+  const Authorization = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('Authorization='))
+    ?.split('=')[1];
+  const decodedToken = decodeURIComponent(Authorization);
+
+  const {
+    data: chatList,
+    isLoading,
+    error,
+  } = useChatListQuery(roomId, decodedToken);
+
+  console.log('chatList.chats >>', chatList?.chats);
+  useEffect(() => {
+    if (chatList && chatList.chats.length > 0) {
+      setAllMessages(
+        chatList.chats.map((msg) => ({
+          content: msg.content,
+          sender: msg.sender.nick_name,
+          type:
+            msg.sender.nick_name === userInfo.nick_name ? 'sent' : 'received',
+          time: msg.sendAt,
+          profile_image: msg.sender.profile_image,
+        }))
+      );
+    }
+  }, [chatList]);
 
   // postData 가져오기 요청
   useEffect(() => {
@@ -132,6 +162,8 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     setIsComposing(false);
   };
 
+  if (isLoading || error) return null;
+  console.log('12313allMessages >>', allMessages);
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
