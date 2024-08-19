@@ -8,7 +8,7 @@ import {
   getSelling,
 } from '@compoents/util/http';
 import { redirect } from 'next/navigation';
-import NotFoundContainer from '@compoents/containers/NotFoundContainers';
+import NotFoundUser from '@compoents/containers/NotFoundUser';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 
 export default async function otherProfilePage({ params }) {
@@ -21,12 +21,12 @@ export default async function otherProfilePage({ params }) {
       Authorization.value
     );
     if (userInfo.message === 'No value present') {
-      return <NotFoundContainer />;
+      return <NotFoundUser />;
     }
 
     const followerList = await fetchFollowUser(params.nick_name);
     const followingList = await fetchFollowingUser(params.nick_name);
-    const userproducts = await getSelling(params.nick_name);
+    const initialProducts = await getSelling(params.nick_name, 0);
     return (
       <>
       <MainNavigation accessToken={Authorization?.value} />
@@ -36,7 +36,7 @@ export default async function otherProfilePage({ params }) {
         accessToken={Authorization.value}
         followerList={followerList}
         followingList={followingList}
-        userproducts={userproducts}
+        initialProducts={initialProducts}
         isFollowing={userInfo.follow}
       />
       </>

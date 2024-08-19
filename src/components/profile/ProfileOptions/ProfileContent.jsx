@@ -7,7 +7,7 @@ export default function ProfileContent({
   currentView,
   nick_name,
   accessToken,
-  userproducts,
+  initialProducts,
 }) {
   return (
     <StyledWrapper>
@@ -16,8 +16,9 @@ export default function ProfileContent({
         )}
         {currentView === 'products' && (
           <ProductsComponent
-            userproducts={userproducts}
+            initialProducts={initialProducts}
             accessToken={accessToken}
+            nick_name={nick_name}
           />
         )}
     </StyledWrapper>
@@ -26,5 +27,4 @@ export default function ProfileContent({
 
 const StyledWrapper = styled.header`
     margin-top: 200px;
-    height: 2000px;
 `;

@@ -174,7 +174,7 @@ export default function PostForm({ accessToken }) {
         const newAccessToken = await RefreshAccessToken();
         await sendpostData(formData, newAccessToken);
       }
-      const redirectUrl = 'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
+      const redirectUrl = 'http://localhost:3000';
       window.location.href = redirectUrl;
     } catch (error) {
       console.error('에러 발생:', error);

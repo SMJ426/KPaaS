@@ -13,18 +13,18 @@ export default function CartItem({
         <input
           type="checkbox"
           checked={isChecked}
-          onChange={() => onCheckboxChange(like.postId, like.price)}
+          onChange={() => onCheckboxChange(like.post_id, like.price)}
           className="selectAll"
         />
         <Image
-          src={like.imagePost}
+          src={like.image_post}
           alt="상품 사진"
           width={100}
           height={100}
           className="productImage"
         />
         <div className="productInfo">
-          <div className="productName">{like.postName}</div>
+          <div className="productName">{like.post_name}</div>
           <div className="productPrice">{like.price.toLocaleString()}원</div>
         </div>
         <div className="actionButtons">

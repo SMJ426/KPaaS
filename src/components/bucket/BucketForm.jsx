@@ -1,19 +1,42 @@
 'use client';
 import * as PortOne from '@portone/browser-sdk/v2';
 import React, { useState, useEffect } from 'react';
-import { DeleteLike } from '@compoents/util/post-util';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { DeleteLike, LikeList } from '@compoents/util/post-util';
 import { completePay } from '@compoents/util/payment-util';
 import styled from 'styled-components';
 import SelectAllCheckbox from './bucketoptions/SelectAllCheckbox';
 import OrderSummary from './bucketoptions/OrderSummary';
 import CartItem from './bucketoptions/CartItem';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
+import { generateUUID } from '../payment/payUUID';
 
-export default function BucketForm({ Likey, accessToken }) {
-  const [userLikes, setUserLikes] = useState(Likey);
+export default function BucketForm({ initialLikes, nick_name, accessToken }) {
   const [payments_list, setPays] = useState([]);
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [createdAt, setCreatedAt] = useState('');
   const [selectAll, setSelectAll] = useState(false);
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['userLikes', nick_name],
+    queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.last || !lastPage.content || lastPage.content.length === 0) {
+        return undefined;
+      }
+      return lastPage.number + 1;
+    },
+    initialData: { pages: [initialLikes], pageParams: [0] },
+  });
+
+  const allLikes = data?.pages.flatMap((page) => page.content) || [];
 
   useEffect(() => {
     const currentDate = new Date().toISOString().split('T')[0];
@@ -24,16 +47,16 @@ export default function BucketForm({ Likey, accessToken }) {
     setSelectAll(!selectAll);
     if (!selectAll) {
       setPays(
-        userLikes.map((like) => ({
-          post_name: like.postName,
-          post_id: like.postId,
+        allLikes.map((like) => ({
+          post_name: like.post_name,
+          post_id: like.post_id,
           post_point: like.price,
-          seller: like.userEmail,
+          seller: like.email,
           purchase_at: createdAt,
         }))
       );
       setSelectedAmount(
-        userLikes.reduce((total, like) => total + like.price, 0)
+        allLikes.reduce((total, like) => total + like.price, 0)
       );
     } else {
       setPays([]);
@@ -46,14 +69,14 @@ export default function BucketForm({ Likey, accessToken }) {
       (post) => post.post_id === postId
     );
     if (selectedpostIndex === -1) {
-      const post = userLikes.find((like) => like.postId === postId);
+      const post = allLikes.find((like) => like.post_id === postId);
       setPays([
         ...payments_list,
         {
-          post_name: post.postName,
-          post_id: post.postId,
+          post_name: post.post_name,
+          post_id: post.post_id,
           post_point: post.price,
-          seller: post.userEmail,
+          seller: post.email,
           purchase_at: createdAt,
         },
       ]);
@@ -66,6 +89,8 @@ export default function BucketForm({ Likey, accessToken }) {
     }
   };
 
+
+
   const handleSetPoint = async () => {
     const currentDate = new Date().toISOString().split('T')[0];
     setCreatedAt(currentDate);
@@ -73,7 +98,7 @@ export default function BucketForm({ Likey, accessToken }) {
     const response = await PortOne.requestPayment({
       storeId: 'store-8c143d19-2e6c-41e0-899d-8c3d02118d41',
       channelKey: 'channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8',
-      paymentId: `${crypto.randomUUID()}`,
+      paymentId: generateUUID(),
       orderName: 'point 충전',
       totalAmount: selectedAmount,
       currency: 'CURRENCY_KRW',
@@ -99,12 +124,16 @@ export default function BucketForm({ Likey, accessToken }) {
 
   const handleDeleteLike = async (like) => {
     try {
-      await DeleteLike(accessToken, like.postId);
-      setUserLikes(userLikes.filter((item) => item.postId !== like.postId));
+      await DeleteLike(accessToken, like.post_id);
+      // 삭제 후 쿼리를 무효화하여 데이터를 다시 불러옵니다.
+      queryClient.invalidateQueries(['userLikes', nick_name]);
     } catch (error) {
       console.error('좋아하는 상품 삭제 중 오류가 발생했습니다.', error);
     }
   };
+
+  if (status === 'loading') return <LoadingIndicator />;
+  if (status === 'error') return <p>에러가 발생했습니다.</p>;
 
   return (
     <StyledWrapper>
@@ -113,24 +142,29 @@ export default function BucketForm({ Likey, accessToken }) {
         selectAll={selectAll}
         handleSelectAllChange={handleSelectAllChange}
       />
-      <div className="cartContainer">
-        {userLikes.map((like) => (
+      <InfiniteScroll
+        dataLength={allLikes.length}
+        next={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={<LoadingIndicator />}
+        className="cartContainer"
+      >
+        {allLikes.map((like) => (
           <CartItem
-            key={like.postId}
+            key={like.post_id}
             like={like}
             isChecked={payments_list.some(
-              (post) => post.post_id === like.postId
+              (post) => post.post_id === like.post_id
             )}
             onCheckboxChange={handleCheckboxChange}
             onDelete={handleDeleteLike}
           />
         ))}
-      </div>
+      </InfiniteScroll>
       <OrderSummary selectedAmount={selectedAmount} onOrder={handleSetPoint} />
     </StyledWrapper>
   );
 }
-
 const StyledWrapper = styled.div`
   max-width: 800px;
   margin: 0 auto;

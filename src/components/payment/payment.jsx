@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import CancleModal from './CancleModal';
 import { useState } from 'react';
+import { generateUUID } from './payUUID';
 
 export default function Payment({ accessToken, postId, post }) {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function Payment({ accessToken, postId, post }) {
       const response = await PortOne.requestPayment({
         storeId: 'store-8c143d19-2e6c-41e0-899d-8c3d02118d41',
         channelKey: 'channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8',
-        paymentId: `${crypto.randomUUID()}`,
+        paymentId: generateUUID(),
         orderName: 'point 충전',
         totalAmount: post.price,
         currency: 'CURRENCY_KRW',

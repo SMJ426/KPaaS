@@ -1,4 +1,4 @@
-import NotFoundContainer from '@compoents/containers/NotFoundContainers';
+import NotFoundPost from '@compoents/containers/NotFoundPost';
 import SearchContainer from '@compoents/containers/SearchContainer';
 import {
   fetchProductName,
@@ -40,7 +40,7 @@ export default async function SearchPage({ params }) {
     const initialPostData = await fetchPostData(accessToken, searchTerm);
 
     if (!initialPostData || initialPostData.content?.length === 0) {
-      return <NotFoundContainer />;
+      return <NotFoundPost />;
     }
 
     return (
