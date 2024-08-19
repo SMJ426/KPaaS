@@ -56,15 +56,21 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
-        client.subscribe(`/sub/${roomId}`, (msg) => {
-          const receivedMessage = JSON.parse(msg.body);
+        client.subscribe(`/sub/room${roomId}`, (msg) => {
+          try {
+            const receivedMessage = JSON.parse(msg.body);
+            console.log('파싱된 메시지:', receivedMessage);
 
-          if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
-            setAllMessages((prevMessages) => [
-              ...prevMessages,
-              { ...receivedMessage, type: 'received' },
-            ]);
+            if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
+              setAllMessages((prevMessages) => [
+                ...prevMessages,
+                { ...receivedMessage, type: 'received' },
+              ]);
+            }
+          } catch (error) {
+            console.error('메시지 파싱 오류:', error);
           }
+          console.log(`/sub/room${roomId} 구독 성공`);
         });
       },
 
