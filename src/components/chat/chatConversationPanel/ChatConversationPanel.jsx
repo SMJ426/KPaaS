@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
@@ -17,6 +17,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
   const [isComposing, setIsComposing] = useState(false);
+  const messagesEndRef = useRef(null);
 
   // useChatListQuery 훅을 사용하여 초기 채팅 메시지 가져오기
   const Authorization = document.cookie
@@ -47,7 +48,13 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     }
   }, [chatList]);
 
-  // postData 가져오기 요청
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [allMessages]);
+
+  // postData 부분
   useEffect(() => {
     if (!roomId) return;
 
@@ -189,6 +196,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
               />
             )
           )}
+          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className="wrapper-input">
@@ -230,7 +238,7 @@ const StyledWrapper = styled.div`
       overflow-y: auto;
       margin-top: 10px;
       width: 100%;
-      height: 540px;
+      height: 680px;
     }
   }
 
