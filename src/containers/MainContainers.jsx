@@ -35,23 +35,16 @@ export default function MainContainers({
       initialData: { pages: [initialPostData], pageParams: [0] },
     });
 
-  const handleCategoryChange = (e) => {
-    const categoryId = parseInt(e.target.id);
-    if (Array.isArray(selectedCategory)) {
-      if (selectedCategory.includes(categoryId)) {
-        setSelectedCategory((prevCategories) =>
-          prevCategories.filter((id) => id !== categoryId)
-        );
-      } else {
-        setSelectedCategory((prevCategories) => [
-          ...prevCategories,
-          categoryId,
-        ]);
-      }
-    } else {
-      setSelectedCategory([categoryId]);
-    }
-  };
+    const handleCategoryChange = (categoryId) => {
+      setSelectedCategory(prevCategories => {
+        if (prevCategories.includes(categoryId)) {
+          return prevCategories.filter(id => id !== categoryId);
+        } else {
+          return [...prevCategories, categoryId];
+        }
+      });
+    };
+  
 
   const MoveToTop = () => {
     // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성

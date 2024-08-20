@@ -85,8 +85,11 @@ export default function KakaoMap({ gym }) {
 }
 
 const StyledWrapper = styled.div`
+
+  margin: auto;
+
   .map-container {
-    width: 100%;
+    width: 600px;
     height: 400px;
     border-radius: 8px;
     overflow: hidden;

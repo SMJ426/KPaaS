@@ -37,7 +37,7 @@ export default function CategoryComponents({ handleCategoryChange }) {
               type="checkbox"
               id="3001"
               className="Checkboxes"
-              onChange={handleCategoryChange}
+              onChange={() => handleCategoryChange('3001')}
             />
             <p className="cateTexts">가정방문</p>
           </div>
@@ -46,7 +46,7 @@ export default function CategoryComponents({ handleCategoryChange }) {
               type="checkbox"
               id="3002"
               className="Checkboxes"
-              onChange={handleCategoryChange}
+              onChange={() => handleCategoryChange('3002')}
             />
             <p className="cateTexts">수영장</p>
           </div>
@@ -55,19 +55,16 @@ export default function CategoryComponents({ handleCategoryChange }) {
               type="checkbox"
               id="3003"
               className="Checkboxes"
-              onChange={handleCategoryChange}
+              onChange={() => handleCategoryChange('3003')}
             />
             <p className="cateTexts">헬스장</p>
           </div>
           <div className="cateMg">
             <input
               type="checkbox"
-              id="3004"
+              id="region"
               className="Checkboxes"
-              onChange={(e) => {
-                handleCategoryChange(e);
-                handleRegionToggle();
-              }}
+              onChange={handleRegionToggle}
             />
             <p className="cateTexts">지역</p>
           </div>
@@ -77,9 +74,9 @@ export default function CategoryComponents({ handleCategoryChange }) {
                 <div className="cateMg" key={index}>
                   <input
                     type="checkbox"
-                    id={`region-${index}`}
+                    id={`region-${region}`}
                     className="Checkboxes"
-                    onChange={handleCategoryChange}
+                    onChange={() => handleCategoryChange(region)}
                   />
                   <p className="cateTexts">{region}</p>
                 </div>

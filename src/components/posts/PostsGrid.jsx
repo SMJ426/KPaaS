@@ -1,18 +1,34 @@
 import styled from 'styled-components';
 import PostItem from './post-item';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
-export default function PostsGrid({ postData, accessToken }) {
+export default function PostsGrid({ selectedCategory, postData, accessToken }) {
   if (!postData) {
-    return null;
+    return <LoadingIndicator />;
+  }
+
+  const filteredPosts = selectedCategory.length === 0
+    ? postData
+    : postData.filter(post => {
+        return selectedCategory.some(category => {
+          if (['3001', '3002', '3003'].includes(category)) {
+            return post.category_id.toString() === category;
+          }
+          return post.location && post.location.includes(category);
+        });
+      });
+
+  if (filteredPosts.length === 0) {
+    return <p>선택한 카테고리에 해당하는 게시물이 없습니다.</p>;
   }
 
   return (
     <StyledWrapper>
-      {postData?.map((post, index) => (
+      {filteredPosts.map((post, index) => (
         <PostItem
-          key={`${post.id}-${index}`}
+          key={`${post.post_id}-${index}`}
           postData={post}
-          posts={{ content: postData }}
+          posts={{ content: filteredPosts }}
           accessToken={accessToken}
         />
       ))}
