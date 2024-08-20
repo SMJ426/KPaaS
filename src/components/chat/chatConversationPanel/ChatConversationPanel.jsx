@@ -58,29 +58,33 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   useEffect(() => {
     if (!roomId) return;
 
-    const Authorization = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('Authorization='))
-      ?.split('=')[1];
+    const cleanedRoomId = roomId.replace(/'/g, '');
 
-    if (Authorization) {
-      const decodedToken = decodeURIComponent(Authorization);
-
-      axios
-        .get(
-          `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
-          {
-            headers: {
-              Authorization: decodedToken,
-            },
-          }
-        )
-        .then((response) => {
-          setPostData(response.data.post);
-        })
-        .catch((error) => {
-          console.error('Error fetching post', error);
-        });
+    if (!isNaN(cleanedRoomId) && typeof Number(cleanedRoomId) === 'number'){
+      const Authorization = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('Authorization='))
+        ?.split('=')[1];
+  
+      if (Authorization) {
+        const decodedToken = decodeURIComponent(Authorization);
+  
+        axios
+          .get(
+            `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
+            {
+              headers: {
+                Authorization: decodedToken,
+              },
+            }
+          )
+          .then((response) => {
+            setPostData(response.data.post);
+          })
+          .catch((error) => {
+            console.error('Error fetching post', error);
+          });
+      }
     }
   }, [roomId]);
 
@@ -170,7 +174,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   };
 
   if (isLoading || error) return null;
-  console.log('12313allMessages >>', allMessages);
+
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
