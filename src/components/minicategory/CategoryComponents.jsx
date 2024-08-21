@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export default function CategoryComponents({ handleCategoryChange }) {
+export default function CategoryComponents({
+  handleCategoryChange,
+  handleLocationChange,
+}) {
   const [isRegionSelected, setIsRegionSelected] = useState(false);
 
   const handleRegionToggle = () => {
@@ -59,6 +62,8 @@ export default function CategoryComponents({ handleCategoryChange }) {
             />
             <p className="cateTexts">헬스장</p>
           </div>
+
+          {/* ... 다른 카테고리들 ... */}
           <div className="cateMg">
             <input
               type="checkbox"
@@ -76,7 +81,7 @@ export default function CategoryComponents({ handleCategoryChange }) {
                     type="checkbox"
                     id={`region-${region}`}
                     className="Checkboxes"
-                    onChange={() => handleCategoryChange(region)}
+                    onChange={() => handleLocationChange(region)}
                   />
                   <p className="cateTexts">{region}</p>
                 </div>

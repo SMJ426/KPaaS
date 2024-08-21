@@ -22,39 +22,47 @@ export async function sendpostData(formData, accessToken) {
   }
 }
 
-export async function getPostsFile({ pageParam = 0 }) {
-  // const response = await fetch('http://KPaas-apigateway-service-1:8888/post/page', {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`, {
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const data = await response.json();
-  if (data === null) {
-    const api = [];
-    return api;
-  } else {
-    return data;
-  }
-}
+export async function getPostsFile({
+  pageParam = 0,
+  categories = [],
+  locations = [],
+}) {
+  const queryParams = new URLSearchParams({ page: pageParam });
+  if (categories.length > 0)
+    queryParams.append('category_id', categories.join(','));
+  if (locations.length > 0) queryParams.append('location', locations.join(','));
 
-export async function LogingetPostsFile(pageParam, nick_name) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}&nick_name=${nick_name}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/page?${queryParams}`,
     {
       cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     }
   );
   const data = await response.json();
-  if (data === null) {
-    return { content: [], last: true };
-  } else {
-    return data;
-  }
+  return data || { content: [], last: true };
+}
+
+export async function LogingetPostsFile(
+  pageParam,
+  nick_name,
+  categories = [],
+  locations = []
+) {
+  const queryParams = new URLSearchParams({ page: pageParam, nick_name });
+  if (categories.length > 0)
+    queryParams.append('category_id', categories.join(','));
+  if (locations.length > 0) queryParams.append('location', locations.join(','));
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/page?${queryParams}`,
+    {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  const data = await response.json();
+  return data || { content: [], last: true };
 }
 
 export async function getPostsFiles(page, accessToken) {
@@ -172,7 +180,7 @@ export async function LikeList(nick_name, pageParam = 0) {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'no-store',
       }
     );
     if (!response.ok) {

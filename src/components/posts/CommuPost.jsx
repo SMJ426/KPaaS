@@ -1,15 +1,11 @@
 import PostsGrid from './PostsGrid';
 import styled from 'styled-components';
 
-export default function CommuPosts({ selectedCategory, postData, accessToken }) {
+export default function CommuPosts({ postData, accessToken }) {
   return (
     <StyledWrapper>
       <h3 className="title-postCard">강사님</h3>
-      <PostsGrid 
-        selectedCategory={selectedCategory} 
-        postData={postData} 
-        accessToken={accessToken} 
-      />
+      <PostsGrid postData={postData} accessToken={accessToken} />
     </StyledWrapper>
   );
 }
