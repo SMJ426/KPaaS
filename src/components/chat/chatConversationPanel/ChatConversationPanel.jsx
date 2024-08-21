@@ -249,7 +249,7 @@ const StyledWrapper = styled.div`
     align-items: end;
     gap: 8px;
     width: calc(100% - 16px);
-    height: 125px;
+    height: 115px;
     position: absolute;
     bottom: 10px;
     background-color: #fff;
