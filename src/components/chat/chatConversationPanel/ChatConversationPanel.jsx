@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
@@ -8,6 +8,7 @@ import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
 import ChatPartnerProfile from './ChatPartnerProfile';
 import ChatClassOverview from './ChatClassOverview';
+import { useChatListQuery } from '../query/useChatListQuery';
 import axios from 'axios';
 
 export default function ChatConversationPanel({ userInfo, roomId }) {
@@ -16,34 +17,73 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
   const [isComposing, setIsComposing] = useState(false);
+  const messagesEndRef = useRef(null);
 
-  // postData 가져오기 요청
+  // useChatListQuery 훅을 사용하여 초기 채팅 메시지 가져오기
+  const Authorization = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('Authorization='))
+    ?.split('=')[1];
+  const decodedToken = decodeURIComponent(Authorization);
+
+  const {
+    data: chatList,
+    isLoading,
+    error,
+  } = useChatListQuery(roomId, decodedToken);
+
+  useEffect(() => {
+    if (chatList && chatList.chats.length > 0) {
+      setAllMessages(
+        chatList.chats.map((msg) => ({
+          content: msg.content,
+          sender: msg.sender.nick_name,
+          type:
+            msg.sender.nick_name === userInfo.nick_name ? 'sent' : 'received',
+          time: msg.sendAt,
+          profile_image: msg.sender.profile_image,
+        }))
+      );
+    }
+  }, [chatList]);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [allMessages]);
+
+  // postData 부분
   useEffect(() => {
     if (!roomId) return;
 
-    const Authorization = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('Authorization='))
-      ?.split('=')[1];
+    const cleanedRoomId = roomId.replace(/'/g, '');
 
-    if (Authorization) {
-      const decodedToken = decodeURIComponent(Authorization);
+    if (!isNaN(cleanedRoomId) && typeof Number(cleanedRoomId) === 'number') {
+      const Authorization = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('Authorization='))
+        ?.split('=')[1];
 
-      axios
-        .get(
-          `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
-          {
-            headers: {
-              Authorization: decodedToken,
-            },
-          }
-        )
-        .then((response) => {
-          setPostData(response.data.post);
-        })
-        .catch((error) => {
-          console.error('Error fetching post', error);
-        });
+      if (Authorization) {
+        const decodedToken = decodeURIComponent(Authorization);
+
+        axios
+          .get(
+            `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
+            {
+              headers: {
+                Authorization: decodedToken,
+              },
+            }
+          )
+          .then((response) => {
+            setPostData(response.data.post);
+          })
+          .catch((error) => {
+            console.error('Error fetching post', error);
+          });
+      }
     }
   }, [roomId]);
 
@@ -59,7 +99,6 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
         client.subscribe(`/sub/room${roomId}`, (msg) => {
           try {
             const receivedMessage = JSON.parse(msg.body);
-            console.log('파싱된 메시지:', receivedMessage);
 
             if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
               setAllMessages((prevMessages) => [
@@ -70,7 +109,6 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
           } catch (error) {
             console.error('메시지 파싱 오류:', error);
           }
-          console.log(`/sub/room${roomId} 구독 성공`);
         });
       },
 
@@ -132,6 +170,8 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     setIsComposing(false);
   };
 
+  if (isLoading || error) return null;
+
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
@@ -157,6 +197,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
               />
             )
           )}
+          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className="wrapper-input">
@@ -193,12 +234,12 @@ const StyledWrapper = styled.div`
   .wrapper-messages {
     flex: 1;
     margin-bottom: 135px;
+    overflow-y: auto;
 
     .wrapper-messages-list {
-      overflow-y: auto;
       margin-top: 10px;
       width: 100%;
-      height: 540px;
+      height: 100%;
     }
   }
 
@@ -208,7 +249,7 @@ const StyledWrapper = styled.div`
     align-items: end;
     gap: 8px;
     width: calc(100% - 16px);
-    height: 125px;
+    height: 115px;
     position: absolute;
     bottom: 10px;
     background-color: #fff;

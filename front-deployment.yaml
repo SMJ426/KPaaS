@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-service
+  template:
+    metadata:
+      labels:
+        app: front-service
+    spec:
+      containers:
+        - name: front-service
+          image: contest16-frontend.kr.ncr.ntruss.com/frontend:latest
+          ports:
+            - containerPort: 3000
