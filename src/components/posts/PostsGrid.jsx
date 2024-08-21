@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 import PostItem from './post-item';
+import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
 export default function PostsGrid({ postData, accessToken }) {
   if (!postData) {
-    return null;
+    return <LoadingIndicator />;
+  }
+
+  if (postData.length === 0) {
+    return <p>표시할 게시물이 없습니다.</p>;
   }
 
   return (
     <StyledWrapper>
-      {postData?.map((post, index) => (
+      {postData.map((post, index) => (
         <PostItem
-          key={`${post.id}-${index}`}
+          key={`${post.post_id}-${index}`}
           postData={post}
           posts={{ content: postData }}
           accessToken={accessToken}

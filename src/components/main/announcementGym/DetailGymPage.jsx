@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import KakaoMap from '../announcementMap/KakaoMap';
 import styled from 'styled-components';
+import Modal from '../announcementMap/Modal';
 
 export default function DetailGymPage({ location, onClose }) {
   const [gymswithLocation, setGymswithLocation] = useState(null);
-  const [openMapForGym, setOpenMapForGym] = useState(null);
+  const [selectedGym, setSelectedGym] = useState(null);
 
   useEffect(() => {
     const fetchGymswithLocation = async () => {
@@ -18,7 +19,6 @@ export default function DetailGymPage({ location, onClose }) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log(data);
         setGymswithLocation(data);
       } catch (error) {
         console.error('상세부 가져오기 실패', error);
@@ -30,77 +30,58 @@ export default function DetailGymPage({ location, onClose }) {
     }
   }, [location]);
 
-  const handleMapToggle = (gymId) => {
-    setOpenMapForGym(openMapForGym === gymId ? null : gymId);
+  const handleMapView = (gym) => {
+    setSelectedGym(gym);
   };
 
   return (
     <StyledWrapper>
       <h2>{location} 지역의 센터 목록</h2>
       {gymswithLocation ? (
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>시설명</th>
-                <th>구 단위 지역</th>
-                <th>시 단위 지역</th>
-                <th>전화번호</th>
-                <th>홈페이지</th>
-                <th>지도 보기</th>
-              </tr>
-            </thead>
-            <tbody>
-              {gymswithLocation.data.map((gym) => (
-                <React.Fragment key={gym.번호}>
-                  <tr>
-                    <td>{gym.시설명}</td>
-                    <td>{gym.소재지}</td>
-                    <td>{gym.시_도}</td>
-                    <td>{gym.전화번호}</td>
-                    <td>
-                      <a
-                        href={`http://${gym.홈페이지}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        웹사이트
-                      </a>
-                    </td>
-                    <td>
-                      <button className="map-button" onClick={() => handleMapToggle(gym.번호)}>
-                        {openMapForGym === gym.번호 ? '지도 닫기' : '지도 보기'}
-                      </button>
-                    </td>
-                  </tr>
-                  {openMapForGym === gym.번호 && (
-                    <tr>
-                      <td colSpan="6" className="map-cell">
-                        <KakaoMap gym={gym} />
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
+        <div className="gym-grid">
+          {gymswithLocation.data.map((gym) => (
+            <div key={gym.번호} className="gym-card">
+              <h3>{gym.시설명}</h3>
+              <p>{gym.소재지}, {gym.시_도}</p>
+              <p>{gym.전화번호}</p>
+              <div className="button-group">
+                <a
+                  href={`http://${gym.홈페이지}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="website-button"
+                >
+                  웹사이트
+                </a>
+                <button className="map-button" onClick={() => handleMapView(gym)}>
+                  지도 보기
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <p className="loading">로딩 중입니다.. 잠시만 기다려주세요!</p>
       )}
-      <button className="close-button" onClick={onClose}>돌아가기</button>
+      {selectedGym && (
+        <Modal onClose={() => setSelectedGym(null)}>
+          <div className="map-modal">
+            <h3>{selectedGym.시설명}</h3>
+            <KakaoMap gym={selectedGym} />
+          </div>
+        </Modal>
+      )}
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-  background-color: #ffffff;
+  font-family: 'Pretendard', sans-serif;
+  background-color: #f8f9fa;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  max-height: 80vh;
+  width: 100%;
+  height: 100%;
   overflow-y: auto;
 
   h2 {
@@ -110,48 +91,69 @@ const StyledWrapper = styled.div`
     text-align: center;
   }
 
-  .table-container {
-    overflow-x: auto;
+  .gym-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  .gym-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    h3 {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
   }
 
-  th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   }
 
-  th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-    color: #495057;
-  }
-
-  tr:hover {
-    background-color: #f1f3f5;
-  }
-
-  .map-button {
-    padding: 8px 12px;
-    background-color: #3b5bdb;
-    color: white;
+  .website-button, .map-button {
+    padding: 6px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .website-button {
+    background-color: #3b5bdb;
+    color: white;
 
     &:hover {
       background-color: #364fc7;
     }
   }
 
-  .map-cell {
-    padding: 20px 0;
+  .map-button {
+    background-color: #2ecc71;
+    color: white;
+
+    &:hover {
+      background-color: #27ae60;
+    }
   }
 
   .loading {
@@ -160,32 +162,17 @@ const StyledWrapper = styled.div`
     font-style: italic;
   }
 
-  .close-button {
-    display: block;
+  .map-modal {
     width: 100%;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #f8f9fa;
-    color: #495057;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    &:hover {
-      background-color: #e9ecef;
-      color: #212529;
-    }
-  }
-
-  a {
-    color: #3b5bdb;
-    text-decoration: none;
-    
-    &:hover {
-      text-decoration: underline;
+    h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #333;
     }
   }
 `;

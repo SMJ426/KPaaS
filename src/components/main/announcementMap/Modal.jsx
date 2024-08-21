@@ -25,45 +25,31 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
   position: relative;
-  width: 65vw;
-  max-width: 1200px;
-  height: 80vh;
+  width: 90vw;
+  max-width: 800px;
+  height: 90vh;
   max-height: 800px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h2 {
-    margin-top: 0;
-    font-size: 24px;
-    text-align: center;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   border: none;
   background: transparent;
   font-size: 24px;
   cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #e74c3c;
+  }
 `;

@@ -18,15 +18,25 @@ export default function MainContainers({
   role,
   nick_name,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ['posts', !!accessToken],
+      queryKey: ['posts', !!accessToken, selectedCategories, selectedLocations],
       queryFn: ({ pageParam = 0 }) =>
         accessToken
-          ? LogingetPostsFile(pageParam, encodeURI(nick_name))
-          : getPostsFile({ pageParam }),
+          ? LogingetPostsFile(
+              pageParam,
+              encodeURI(nick_name),
+              selectedCategories,
+              selectedLocations
+            )
+          : getPostsFile({
+              pageParam,
+              categories: selectedCategories,
+              locations: selectedLocations,
+            }),
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.last) return undefined;
         return pages.length;
@@ -35,30 +45,28 @@ export default function MainContainers({
       initialData: { pages: [initialPostData], pageParams: [0] },
     });
 
-  const handleCategoryChange = (e) => {
-    const categoryId = parseInt(e.target.id);
-    if (Array.isArray(selectedCategory)) {
-      if (selectedCategory.includes(categoryId)) {
-        setSelectedCategory((prevCategories) =>
-          prevCategories.filter((id) => id !== categoryId)
-        );
-      } else {
-        setSelectedCategory((prevCategories) => [
-          ...prevCategories,
-          categoryId,
-        ]);
-      }
-    } else {
-      setSelectedCategory([categoryId]);
-    }
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
   };
+
+  const handleLocationChange = (location) => {
+    setSelectedLocations((prev) =>
+      prev.includes(location)
+        ? prev.filter((loc) => loc !== location)
+        : [...prev, location]
+    );
+  };
+
+  const allPosts = data?.pages.flatMap((page) => page.content) || [];
 
   const MoveToTop = () => {
     // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const allPosts = data?.pages.flatMap((page) => page.content) || [];
 
   return (
     <StyledWrapper>
@@ -73,7 +81,10 @@ export default function MainContainers({
       {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
-          <CategoryComponents handleCategoryChange={handleCategoryChange} />
+          <CategoryComponents
+            handleCategoryChange={handleCategoryChange}
+            handleLocationChange={handleLocationChange}
+          />
         </div>
         <InfiniteScroll
           dataLength={allPosts.length}
@@ -85,11 +96,7 @@ export default function MainContainers({
             </div>
           }
         >
-          <CommuPosts
-            postData={allPosts}
-            selectedCategory={selectedCategory}
-            accessToken={accessToken}
-          />
+          <CommuPosts postData={allPosts} accessToken={accessToken} />
         </InfiniteScroll>
         <button className="TopBtn" onClick={MoveToTop}>
           <img src="/images/png/top1.png" alt="맨위로" />
