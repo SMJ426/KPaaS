@@ -24,12 +24,15 @@ export async function sendpostData(formData, accessToken) {
 
 export async function getPostsFile({ pageParam = 0 }) {
   // const response = await fetch('http://KPaas-apigateway-service-1:8888/post/page', {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`, {
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/page?page=${pageParam}`,
+    {
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
   const data = await response.json();
   if (data === null) {
     const api = [];
@@ -172,7 +175,7 @@ export async function LikeList(nick_name, pageParam = 0) {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'no-store',
       }
     );
     if (!response.ok) {

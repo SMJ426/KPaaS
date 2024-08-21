@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import StyledComponentsRegistry from '../../lib/registry';
 import { NextUIProvider } from '@nextui-org/react';
 import GlobalStyle from '@compoents/styles/GlobalStyle';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -16,10 +17,12 @@ const queryClient = new QueryClient({
 
 function Providers({ children }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <NextUIProvider>{children}</NextUIProvider>
+    <StyledComponentsRegistry>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <NextUIProvider>{children}</NextUIProvider>
     </QueryClientProvider>
+    </StyledComponentsRegistry>
   );
 }
 
