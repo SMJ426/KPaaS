@@ -6,6 +6,7 @@ const nextConfig = {
       't1.kakaocdn.net',
       't1',
       'contest16-objectstorage-imagebucket.kr.object.ncloudstorage.com',
+      'ssl.pstatic.net',
     ],
     remotePatterns: [
       {
