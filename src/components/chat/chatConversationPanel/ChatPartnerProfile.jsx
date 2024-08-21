@@ -17,10 +17,13 @@ function ChatPartnerProfile({ postData }) {
 export default ChatPartnerProfile;
 
 const StyledWrapper = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   gap: 12px;
   padding-left: 15px;
+  background-color: #ffffff;
 
   height: 64px;
   border-bottom: 1px solid #eaebee;
@@ -29,6 +32,8 @@ const StyledWrapper = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
   }
   .chatPartner-nick {
     font-size: 16px;

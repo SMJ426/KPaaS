@@ -67,6 +67,7 @@ export default function OtherProfileform({
         isfollow={isfollow}
         onFollowingClick={() => openModal('following')}
         onFollowerClick={() => openModal('follower')}
+        accessToken={accessToken}
       />
       
       {modalType === 'following' && (

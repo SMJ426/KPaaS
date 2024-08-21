@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 export default function ChattingListRenderer({ listData }) {
   const router = useRouter();
 
-  console.log('router.query', router.query);
   const handleClickChatRoom = () => {
-    router.push(`/chat/${listData?.roomId}`);
+    router.push(`/chat/${decodeURIComponent(listData?.roomId)}`);
   };
+
   return (
     <StyledWrapper onClick={handleClickChatRoom}>
       <img
@@ -20,13 +20,15 @@ export default function ChattingListRenderer({ listData }) {
         <div className="wrapper-name-text">
           {/* 유저 이름과 시간 */}
           <div className="wrapper-name">
-            <p className="chatting-userName">{listData.post.nick_name}</p>
+            <p className="chatting-userName">
+              {listData.post ? listData.post.nick_name : listData.nickName}
+            </p>
           </div>
           {/* 최근 채팅 내역 */}
           <p className="chatting-text">{listData.lastMsg}</p>
         </div>
 
-        {listData.post.image_post && (
+        {listData.post?.image_post && (
           <img
             src={listData.post.image_post}
             alt={listData.post.post_info}
@@ -55,6 +57,8 @@ const StyledWrapper = styled.button`
     height: 40px;
     border-radius: 50%;
     margin-left: 10px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .wrapper-text-img {
@@ -83,6 +87,9 @@ const StyledWrapper = styled.button`
       width: 40px;
       height: 40px;
       border-radius: 4px;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid #dcdee3;
     }
   }
 `;

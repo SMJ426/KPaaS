@@ -12,7 +12,6 @@ export default function SocialLogin() {
   };
 
   const handleNaverLogin = () => {
-    
     const NAVER_REST_API_KEY = 'rIplkSnE1AiVy4P8_7Xh';            
     const NAVER_REDIRECT_URI =            
       'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user/login/oauth2/naver';            

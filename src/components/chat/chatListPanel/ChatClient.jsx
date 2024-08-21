@@ -9,7 +9,8 @@ import ChatConversationPanel from '@compoents/components/chat/chatConversationPa
 
 export default function ChatClient({ userInfo }) {
   const [chatRooms, setChatRooms] = useState([]);
-  const { roomId } = useParams();
+  const params = useParams();
+  const roomId = params.roomId ? decodeURIComponent(params.roomId) : null;
 
   useEffect(() => {
     const Authorization = document.cookie
