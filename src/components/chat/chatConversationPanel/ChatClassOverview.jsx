@@ -22,10 +22,13 @@ function ChatClassOverview({ postData }) {
 export default ChatClassOverview;
 
 const StyledWrapper = styled.div`
+  position: sticky;
+  top: 64px;
   display: flex;
   align-items: center;
   gap: 12px;
   padding-left: 15px;
+  background-color: #ffffff;
 
   height: 64px;
   border-bottom: 1px solid #eaebee;
@@ -34,6 +37,9 @@ const StyledWrapper = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #dcdee3;
   }
   .wrapper-post-info {
     display: flex;

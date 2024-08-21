@@ -20,7 +20,9 @@ export default function ChattingListRenderer({ listData }) {
         <div className="wrapper-name-text">
           {/* 유저 이름과 시간 */}
           <div className="wrapper-name">
-            <p className="chatting-userName">{listData.post? listData.post.nick_name : listData.nickName}</p>
+            <p className="chatting-userName">
+              {listData.post ? listData.post.nick_name : listData.nickName}
+            </p>
           </div>
           {/* 최근 채팅 내역 */}
           <p className="chatting-text">{listData.lastMsg}</p>
@@ -55,6 +57,8 @@ const StyledWrapper = styled.button`
     height: 40px;
     border-radius: 50%;
     margin-left: 10px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .wrapper-text-img {
@@ -83,6 +87,9 @@ const StyledWrapper = styled.button`
       width: 40px;
       height: 40px;
       border-radius: 4px;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid #dcdee3;
     }
   }
 `;

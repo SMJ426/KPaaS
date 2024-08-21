@@ -14,7 +14,9 @@ function ReceivedMessages({ receiveMessages }) {
 
   const formattedTime = `${period} ${formattedHours}:${formattedMinutes}`;
 
-  const profileSrc = senderData.profile_image ? senderData.profile_image : receiveMessages.profile_image;
+  const profileSrc = senderData.profile_image
+    ? senderData.profile_image
+    : receiveMessages.profile_image;
   return (
     <StyledWrapper>
       <img src={profileSrc} alt={senderData.nick_name} />

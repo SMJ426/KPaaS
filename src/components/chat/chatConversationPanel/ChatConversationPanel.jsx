@@ -32,7 +32,6 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     error,
   } = useChatListQuery(roomId, decodedToken);
 
-  console.log('chatList.chats >>', chatList?.chats);
   useEffect(() => {
     if (chatList && chatList.chats.length > 0) {
       setAllMessages(
@@ -60,15 +59,15 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
 
     const cleanedRoomId = roomId.replace(/'/g, '');
 
-    if (!isNaN(cleanedRoomId) && typeof Number(cleanedRoomId) === 'number'){
+    if (!isNaN(cleanedRoomId) && typeof Number(cleanedRoomId) === 'number') {
       const Authorization = document.cookie
         .split('; ')
         .find((row) => row.startsWith('Authorization='))
         ?.split('=')[1];
-  
+
       if (Authorization) {
         const decodedToken = decodeURIComponent(Authorization);
-  
+
         axios
           .get(
             `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
@@ -100,7 +99,6 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
         client.subscribe(`/sub/room${roomId}`, (msg) => {
           try {
             const receivedMessage = JSON.parse(msg.body);
-            console.log('파싱된 메시지:', receivedMessage);
 
             if (receivedMessage.sender.nick_name !== userInfo.nick_name) {
               setAllMessages((prevMessages) => [
@@ -111,7 +109,6 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
           } catch (error) {
             console.error('메시지 파싱 오류:', error);
           }
-          console.log(`/sub/room${roomId} 구독 성공`);
         });
       },
 
@@ -237,12 +234,12 @@ const StyledWrapper = styled.div`
   .wrapper-messages {
     flex: 1;
     margin-bottom: 135px;
+    overflow-y: auto;
 
     .wrapper-messages-list {
-      overflow-y: auto;
       margin-top: 10px;
       width: 100%;
-      height: 680px;
+      height: 100%;
     }
   }
 
