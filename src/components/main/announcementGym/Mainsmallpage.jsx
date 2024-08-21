@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import DetailGymPage from './DetailGymPage.jsx';
 import { LocationList } from '../constant/LocationList.js';
@@ -11,6 +11,8 @@ export default function Mainsmallpage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGym, setSelectedGym] = useState();
   const [openOneMap, setOpenOneMap] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     const fetchGymsData = async () => {
@@ -22,7 +24,6 @@ export default function Mainsmallpage() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log(data);
         setGymsData(data);
       } catch (error) {
         console.error('받던 도중 에러 발생 부분!', error);
@@ -55,9 +56,31 @@ export default function Mainsmallpage() {
     setIsModalOpen(false);
   };
 
+  const nextSlide = () => {
+    if (gymsData && currentIndex < gymsData.data.length - 2) {
+      setCurrentIndex(currentIndex + 2);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(Math.max(currentIndex - 2, 0));
+    }
+  };
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.style.transform = `translateX(-${currentIndex * 50}%)`;
+    }
+  }, [currentIndex]);
+
   return (
     <StyledWrapper>
-      <select className="location-select" value={location} onChange={handleLocationChange}>
+      <select
+        className="location-select"
+        value={location}
+        onChange={handleLocationChange}
+      >
         <option value="">카테고리 선택</option>
         {LocationList.map((cat, index) => (
           <option key={index} value={cat}>
@@ -73,44 +96,51 @@ export default function Mainsmallpage() {
       )}
 
       {gymsData && (
-        <div className="gyms-table-container">
-          <table className="gyms-table">
-            <thead>
-              <tr>
-                <th>시설명</th>
-                <th>구 단위 지역</th>
-                <th>시 단위 지역</th>
-                <th>전화번호</th>
-                <th>홈페이지</th>
-                <th>지도 보기</th>
-              </tr>
-            </thead>
-            <tbody>
+        <CarouselWrapper>
+          <button
+            onClick={prevSlide}
+            className="nav-button prev"
+            disabled={currentIndex === 0}
+          >
+            &lt;
+          </button>
+          <div className="carousel-container">
+            <div className="carousel" ref={carouselRef}>
               {gymsData.data.map((gym) => (
-                <tr key={gym.번호}>
-                  <td>{gym.시설명}</td>
-                  <td>{gym.소재지}</td>
-                  <td>{gym.시_도}</td>
-                  <td>{gym.전화번호}</td>
-                  <td>
+                <div key={gym.번호} className="gym-card">
+                  <h2>{gym.시설명}</h2>
+                  <p>
+                    {gym.소재지}, {gym.시_도}
+                  </p>
+                  <p>{gym.전화번호}</p>
+                  <div className="button-group">
                     <a
                       href={`http://${gym.홈페이지}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="website-button"
                     >
-                      {gym.홈페이지}
+                      홈페이지
                     </a>
-                  </td>
-                  <td>
-                    <button className="map-button" onClick={() => handleGymSelect(gym)}>
-                      지도 보기
+                    <button
+                      className="map-button"
+                      onClick={() => handleGymSelect(gym)}
+                    >
+                      지도
                     </button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </div>
+          <button
+            onClick={nextSlide}
+            className="nav-button next"
+            disabled={currentIndex >= gymsData.data.length - 2}
+          >
+            &gt;
+          </button>
+        </CarouselWrapper>
       )}
 
       {openOneMap && (
@@ -124,20 +154,26 @@ export default function Mainsmallpage() {
 
 const StyledWrapper = styled.div`
   font-family: 'Pretendard', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 
-  .select-container {
-    position: relative;
-    width: 200px; // 선택 상자의 너비 조절
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
   }
 
   .location-select {
-    width: 20%;
-    padding: 10px;
+    width: 100%;
+    max-width: 200px;
+    padding: 8px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 16px;
-    appearance: none; // 기본 화살표 제거
+    font-size: 14px;
+    appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-position-x: 95%;
@@ -145,68 +181,136 @@ const StyledWrapper = styled.div`
     cursor: pointer;
   }
 
-  // 드롭다운 메뉴 스타일링
-  .location-select option {
-    padding: 10px;
+  .gyms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
   }
 
-  // 드롭다운 메뉴의 최대 높이 설정
-  .location-select::-webkit-scrollbar {
-    width: 10px;
-  }
+  .gym-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
 
-  .location-select::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  .location-select::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-  }
-
-  .location-select::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
-  .gyms-table-container {
-    overflow-x: auto;
-  }
-
-  .gyms-table {
-    width: 100%;
-    border-collapse: collapse;
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
+    &:hover {
+      transform: translateY(-3px);
     }
 
-    th {
-      background-color: #f8f8f8;
-      font-weight: bold;
+    h2 {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 8px;
     }
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    p {
+      color: #666;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
     }
+  }
 
-    tr:hover {
-      background-color: #e9e9e9;
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .website-button,
+  .map-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .website-button {
+    background-color: #3498db;
+    color: white;
+
+    &:hover {
+      background-color: #2980b9;
     }
   }
 
   .map-button {
-    padding: 8px 12px;
-    background-color: #4CAF50;
+    background-color: #2ecc71;
     color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 
     &:hover {
-      background-color: #45a049;
+      background-color: #27ae60;
+    }
+  }
+`;
+
+const CarouselWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .carousel {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .gym-card {
+    flex: 0 0 30%; // 카드 너비를 50%로 설정하여 2개씩 표시
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 0px 0px 0px 30px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    h2 {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #666;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+    }
+  }
+
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 5;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.prev {
+      left: 0px;
+    }
+
+    &.next {
+      right: 0px;
     }
   }
 `;
