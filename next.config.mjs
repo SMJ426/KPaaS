@@ -5,6 +5,7 @@ const nextConfig = {
       'k.kakaocdn.net',
       't1.kakaocdn.net',
       't1',
+      'img1.kakaocdn.net',
       'contest16-objectstorage-imagebucket.kr.object.ncloudstorage.com',
       'ssl.pstatic.net',
     ],
