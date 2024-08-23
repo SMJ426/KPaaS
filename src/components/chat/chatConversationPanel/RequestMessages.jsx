@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function RequestMessages({ requestMessages }) {
   console.log('requestMessages >> ', requestMessages);
-  const date = new Date();
+  const date = new Date(requestMessages.time);
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const period = hours >= 12 ? '오후' : '오전';
