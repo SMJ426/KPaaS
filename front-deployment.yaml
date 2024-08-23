@@ -15,5 +15,6 @@ spec:
       containers:
         - name: front-service
           image: contest16-frontend.kr.ncr.ntruss.com/frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000

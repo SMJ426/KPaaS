@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 function RequestMessages({ requestMessages }) {
   console.log('requestMessages >> ', requestMessages);
+  
   const date = new Date(requestMessages.time);
   const hours = date.getHours();
   const minutes = date.getMinutes();
