@@ -72,11 +72,11 @@ export default function MainContainers({
     <StyledWrapper>
       <MainNavigation accessToken={accessToken} />
       <SearchSection accessToken={accessToken} />
-      <img
+      {/* <img
         src="/images/png/PTSD-main-logo.png"
         alt="메인 이미지"
         className="main-img"
-      />
+      /> */}
       <AnnouncementPolicy />
       {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
