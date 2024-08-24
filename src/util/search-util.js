@@ -1,8 +1,17 @@
 // 상품 검색
-export async function fetchProductName({ pageParam = 0, searchTerm }) {
-  //const response = await fetch('http://KPaas-apigateway-service-1:8888/post/search', {
+export async function fetchProductName({
+  pageParam = 0,
+  searchTerm,
+  categories = [],
+  locations = [],
+}) {
+  const queryParams = new URLSearchParams({ page: pageParam });
+  if (categories.length > 0)
+    queryParams.append('category_id', categories.join(','));
+  if (locations.length > 0) queryParams.append('location', locations.join(','));
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/search?${queryParams}`,
     {
       method: 'POST',
       cache: 'no-store',
@@ -24,9 +33,20 @@ export async function fetchProductName({ pageParam = 0, searchTerm }) {
 }
 
 // Login like
-export async function LoginfetchProductName(pageParam, searchTerm, nick_name) {
+export async function LoginfetchProductName(
+  pageParam,
+  searchTerm,
+  nick_name,
+  categories = [],
+  locations = []
+) {
+  const queryParams = new URLSearchParams({ page: pageParam, nick_name });
+  if (categories.length > 0)
+    queryParams.append('category_id', categories.join(','));
+  if (locations.length > 0) queryParams.append('location', locations.join(','));
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/search?page=${pageParam}&nick_name=${nick_name}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/post/search?${queryParams}`,
     {
       method: 'POST',
       cache: 'no-store',

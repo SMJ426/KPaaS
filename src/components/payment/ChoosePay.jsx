@@ -9,9 +9,14 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
   const handlebucketClick = async () => {
-    
     if (!accessToken) {
       router.push('/user/login');
+      return;
+    }
+
+    if (post.like) {
+      handlebucket();
+      return;
     }
 
     try {
@@ -140,7 +145,9 @@ const Modal = styled.div`
       font-size: 16px;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
 
       &:first-of-type {
         background-color: #007bff;

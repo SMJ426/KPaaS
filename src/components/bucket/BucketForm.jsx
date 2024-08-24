@@ -1,7 +1,7 @@
 'use client';
 import * as PortOne from '@portone/browser-sdk/v2';
 import React, { useState, useEffect } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { DeleteLike, LikeList } from '@compoents/util/post-util';
 import { completePay } from '@compoents/util/payment-util';
@@ -13,28 +13,28 @@ import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 import { generateUUID } from '../payment/payUUID';
 
 export default function BucketForm({ initialLikes, nick_name, accessToken }) {
+  const queryClient = useQueryClient();
   const [payments_list, setPays] = useState([]);
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [createdAt, setCreatedAt] = useState('');
   const [selectAll, setSelectAll] = useState(false);
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['userLikes', nick_name],
-    queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
-    getNextPageParam: (lastPage) => {
-      if (lastPage.last || !lastPage.content || lastPage.content.length === 0) {
-        return undefined;
-      }
-      return lastPage.number + 1;
-    },
-    initialData: { pages: [initialLikes], pageParams: [0] },
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['userLikes', nick_name],
+      queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
+      getNextPageParam: (lastPage) => {
+        if (
+          lastPage?.last ||
+          !lastPage.content ||
+          lastPage.content.length === 0
+        ) {
+          return undefined;
+        }
+        return lastPage.number + 1;
+      },
+      initialData: { pages: [initialLikes], pageParams: [0] },
+    });
 
   const allLikes = data?.pages.flatMap((page) => page.content) || [];
 
@@ -88,8 +88,6 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
       setSelectedAmount(selectedAmount - price);
     }
   };
-
-
 
   const handleSetPoint = async () => {
     const currentDate = new Date().toISOString().split('T')[0];

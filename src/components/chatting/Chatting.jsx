@@ -11,7 +11,7 @@ function Chatting() {
 
 export default Chatting;
 
-const StyledWrapper = styled.button`
+const StyledWrapper = styled.div`
   border: none;
   background-color: #ffffff;
   img {
