@@ -9,7 +9,6 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
   const handlebucketClick = async () => {
-    
     if (!accessToken) {
       router.push('/user/login');
     }
@@ -32,6 +31,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   };
 
   const handlebucket = () => {
+    //
     window.location.href = `http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/bucket`;
   };
 
@@ -140,7 +140,9 @@ const Modal = styled.div`
       font-size: 16px;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
 
       &:first-of-type {
         background-color: #007bff;
