@@ -112,16 +112,20 @@ const SearchSection = ({ accessToken }) => {
         {autoCompleteResults.length > 0 && (
           <AutoCompleteDropdown>
             {autoCompleteResults.slice(0, 9).map((item, index) => (
-              <div className='ato'>
-              <li key={index} className="autoCompleteItem">
-              <img src='/images/svg/search-bar.svg' className='search_btn' />
-                <div
-                  className="itemContent"
-                  onClick={() => handleItemSelect(item)}
-                >
-                  {item}
-                </div>
-              </li>
+              <div className="ato" key={`auto-complete-${index}`}>
+                <li className="autoCompleteItem">
+                  <img
+                    src="/images/svg/search-bar.svg"
+                    className="search_btn"
+                    alt="Search"
+                  />
+                  <div
+                    className="itemContent"
+                    onClick={() => handleItemSelect(item)}
+                  >
+                    {item}
+                  </div>
+                </li>
               </div>
             ))}
           </AutoCompleteDropdown>
@@ -210,15 +214,13 @@ const AutoCompleteDropdown = styled.ul`
   border: 1px solid #ccc;
   border-radius: 5px;
   z-index: 10;
-  
 
-  .ato{
-  display: flex;
-    &:hover{
+  .ato {
+    display: flex;
+    &:hover {
       background-color: #f0f0f0;
     }
   }
-  
 
   .autoCompleteItem {
     display: flex;

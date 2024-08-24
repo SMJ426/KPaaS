@@ -22,15 +22,27 @@ export default function SearchContainer({
   role,
   nick_name,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ['posts', !!accessToken],
+      queryKey: ['posts', !!accessToken, selectedCategories, selectedLocations],
       queryFn: ({ pageParam = 0 }) =>
         accessToken
-          ? LoginfetchProductName(pageParam, searchTerm, nick_name)
-          : fetchProductName({ pageParam, searchTerm }),
+          ? LoginfetchProductName(
+              pageParam,
+              searchTerm,
+              nick_name,
+              selectedCategories,
+              selectedLocations
+            )
+          : fetchProductName({
+              pageParam,
+              searchTerm,
+              categories: selectedCategories,
+              locations: selectedLocations,
+            }),
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.last) return undefined;
         return pages.length;
@@ -39,10 +51,19 @@ export default function SearchContainer({
       initialData: { pages: [initialSearchResults], pageParams: [0] },
     });
 
-  const handleCategoryChange = (e) => {
-    const categoryId = parseInt(e.target.id);
-    setSelectedCategory((prevCategory) =>
-      prevCategory === categoryId ? null : categoryId
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+
+  const handleLocationChange = (location) => {
+    setSelectedLocations((prev) =>
+      prev.includes(location)
+        ? prev.filter((loc) => loc !== location)
+        : [...prev, location]
     );
   };
 
@@ -64,13 +85,10 @@ export default function SearchContainer({
       {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
-          <CategoryComponents handleCategoryChange={handleCategoryChange} />
-          {/* 필터 기능 우선 비활성화 */}
-          {/* <MiniCategoryComponents
-            className="cateminibtn"
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          /> */}
+          <CategoryComponents
+            handleCategoryChange={handleCategoryChange}
+            handleLocationChange={handleLocationChange}
+          />
         </div>
         <InfiniteScroll
           dataLength={allResults.length}
@@ -85,11 +103,7 @@ export default function SearchContainer({
             </div>
           }
         >
-          <CommuPosts
-            postData={allResults}
-            selectedCategory={selectedCategory}
-            accessToken={accessToken}
-          />
+          <CommuPosts postData={allResults} accessToken={accessToken} />
         </InfiniteScroll>
         <button className="TopBtn" onClick={MoveToTop}>
           <img src="/images/png/top1.png" alt="맨위로" />

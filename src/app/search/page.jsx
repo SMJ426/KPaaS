@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 export default function Searchmain() {
-  return <h1>hello</h1>;
+  return redirect('/');
 }

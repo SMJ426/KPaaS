@@ -11,6 +11,12 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   const handlebucketClick = async () => {
     if (!accessToken) {
       router.push('/user/login');
+      return;
+    }
+
+    if (post.like) {
+      handlebucket();
+      return;
     }
 
     try {
@@ -31,7 +37,6 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   };
 
   const handlebucket = () => {
-    //
     window.location.href = `http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/bucket`;
   };
 
