@@ -6,7 +6,7 @@ function PolicyRenderer({ policyData }) {
     <StyledWrapper>
       <a href={policyData.url} target="_blank" rel="noopener noreferrer">
         <img 
-          src={`https://img.youtube.com/vi/${policyData.id}/hqdefault.jpg`}
+          src={policyData.thumbnailUrl}
           alt={policyData.title}
           className="img-policy"
         />
