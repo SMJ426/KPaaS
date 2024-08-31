@@ -152,7 +152,7 @@ const StyledWrapper = styled.div`
     margin-left: 20px;
   }
   .likeimg {
-    width: 20px;
+    width: 22px;
     height: 20px;
   }
 
