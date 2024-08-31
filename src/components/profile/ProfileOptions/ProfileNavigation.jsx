@@ -36,7 +36,7 @@ const StyledWrapper = styled.header`
     line-height: normal;
     background-color: #ffffff;
     border: 0;
-    margin-left: 35%;
+    margin-left: 30%;
     margin-top: 70px;
   }
 
@@ -50,7 +50,7 @@ const StyledWrapper = styled.header`
     line-height: normal;
     background-color: #ffffff;
     border: 0;
-    margin-left: 35%;
+    margin-left: 30%;
     margin-top: 70px;
   }
 

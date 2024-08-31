@@ -1,7 +1,8 @@
 import Chatting from '@compoents/components/chatting/Chatting';
 import ChoosePayModal from '@compoents/components/payment/ChoosePay';
 import styled from 'styled-components';
-import { useState, useEffect, useRef } from 'react';
+import PutDetailButton from '../Edit-button';
+import DeletePostButton from '../Delete-button';
 import { useDropdown } from '@compoents/components/payment/payDropdown';
 
 export default function ActionButtons({
@@ -15,6 +16,7 @@ export default function ActionButtons({
 
   return (
     <StyledWrapper>
+
       <button className="btn-like" onClick={handleLikeClick}>
         <img src={likedBtnSrc} alt="좋아요 버튼" />
       </button>

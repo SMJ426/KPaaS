@@ -87,7 +87,7 @@ const SearchSection = ({ accessToken }) => {
             value={searchType}
             className="selects-option"
           >
-            <option value="post">상품</option>
+            <option value="post">PT 게시물</option>
             <option value="member">회원</option>
           </select>
           <div className="wrapper-search-bar">
@@ -161,7 +161,6 @@ const StyledWrapper = styled.div`
     border-radius: 40px 0 0 40px;
     padding: 0 5px 0 23px;
     background-color: #ffffff;
-    width: 80px;
 }
 
 .wrapper-search-bar {
