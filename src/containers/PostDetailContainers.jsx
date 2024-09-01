@@ -62,9 +62,6 @@ export default function PostDetailContainers({
   return (
     <StyledWrapper>
       <div className="container">
-        {canEditOrDelete && (
-          <PostDropdown postId={postId} accessToken={accessToken} />
-        )}
         <PostDetails
           post={post}
           categoryMap={categoryMap}
@@ -77,6 +74,7 @@ export default function PostDetailContainers({
               : '/images/png/icon-heart.png'
           }
           handleLikeClick={() => handleLikeClick(postId)}
+          canEditOrDelete={canEditOrDelete}
         />
         <Recommendations
           postList={postList}
@@ -154,7 +152,7 @@ const StyledWrapper = styled.div`
     margin-left: 20px;
   }
   .likeimg {
-    width: 20px;
+    width: 21px;
     height: 20px;
   }
 

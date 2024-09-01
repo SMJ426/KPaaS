@@ -7,6 +7,7 @@ const nextConfig = {
       't1',
       'contest16-objectstorage-imagebucket.kr.object.ncloudstorage.com',
       'ssl.pstatic.net',
+      'phinf.pstatic.net',
     ],
     remotePatterns: [
       {
@@ -20,14 +21,21 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  webpack: (config) => {
+  webpack: (config, { dev, isServer }) => {
+    // SVG 로더 추가
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+    console.log('Running Webpack config', { dev, isServer });
+
+    if (!isServer) {
+      config.devtool = 'source-map';
+    }
+
     return config;
   },
-  // // 개발환경 설정
+  // 개발환경 설정 (필요시 주석 해제)
   // webpackDevMiddleware: config => {
   //   config.watchOptions = {
   //     poll: 1000,
@@ -36,7 +44,6 @@ const nextConfig = {
   //   return config
   // },
   // output: 'standalone',
-  // //
 };
 
 export default nextConfig;

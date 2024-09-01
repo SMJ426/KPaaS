@@ -11,6 +11,7 @@ import ProfileContent from './ProfileOptions/ProfileContent';
 
 export default function OtherProfileform({
   userInfo,
+  nick_name,
   accessToken,
   followerList,
   followingList,
@@ -95,7 +96,7 @@ export default function OtherProfileform({
       
       <ProfileContent
         currentView={currentView}
-        nick_name={userInfo.nick_name}
+        nick_name={nick_name}
         accessToken={accessToken}
         initialProducts={initialProducts}
       />

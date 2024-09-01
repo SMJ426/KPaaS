@@ -287,7 +287,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           <h1 className="logintext2">이메일</h1>
           <label htmlFor="email">
             <input
-              className="Input"
+              className="Input-email"
               type="email"
               id="email"
               value={email}
@@ -296,6 +296,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
                 handleFocus(e);
               }}
               placeholder="이메일을 입력해주세요..."
+              readOnly
             />
           </label>
           {emailError && (
@@ -451,6 +452,24 @@ const StyledWrapper = styled.header`
     padding: 0%;
     padding-left: 23px;
   }
+    .Input-email{
+      width: 566px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-400, #bec0c6);
+    background: #c4c1c1;
+    margin-left: 59px;
+    margin-top: 12px;
+    color: var(--black, #191a1c);
+    font-family: 'Pretendard Variable';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0%;
+    padding-left: 23px;
+    }
 
   .Input2 {
     width: 566px;
@@ -728,6 +747,24 @@ const StyledWrapper = styled.header`
     }
 
     .Input {
+      width: 290px;
+      height: 30px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-400, #bec0c6);
+      background: #fff;
+      margin-left: 19px;
+      margin-top: 2px;
+      color: var(--black, #191a1c);
+      font-family: 'Pretendard Variable';
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      padding: 0%;
+      padding-left: 13px;
+    }
+    .Input-email {
       width: 290px;
       height: 30px;
       flex-shrink: 0;
