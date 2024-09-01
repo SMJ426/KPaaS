@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Chatting() {
   return (
     <StyledWrapper>
-      <img src="/images/png/icon-message-circle.png" />
+      <img src="/images/png/icon-message-circle.png" alt="채팅 이모티콘" />
     </StyledWrapper>
   );
 }

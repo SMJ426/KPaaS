@@ -213,7 +213,7 @@ export async function fetchFollowingUser(nick_name) {
 export async function getSelling(nick_name, pageParam = 0) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${encodeURIComponent(nick_name)}&page=${pageParam}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/post/mypage?nick_name=${nick_name}&page=${pageParam}`,
       {
         cache: 'no-store',
         headers: {

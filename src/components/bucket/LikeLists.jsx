@@ -189,7 +189,7 @@ const StyledWrapper = styled.header`
           background-color: #ffffff;
           border: none;
           > img {
-            width: 20px;
+            width: 21px;
             height: 20px;
           }
         }

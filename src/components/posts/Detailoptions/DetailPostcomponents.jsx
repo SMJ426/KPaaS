@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useDropdown } from '@compoents/components/payment/payDropdown';
 import ChoosePayModal from '@compoents/components/payment/ChoosePay';
+import PutDetailButton from './Edit-button';
+import DeletePostButton from './Delete-button';
 
 export default function PostDetails({ 
     post, 
@@ -10,7 +12,8 @@ export default function PostDetails({
     accessToken, 
     postId, 
     likedBtnSrc, 
-    handleLikeClick 
+    handleLikeClick,
+    canEditOrDelete
 }) {
   const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
 
@@ -41,9 +44,15 @@ export default function PostDetails({
         </ul>
         <div className="verticalLine"></div>
         <div className="buttons">
+        {canEditOrDelete && (
+            <>
+              <PutDetailButton postId={postId} accessToken={accessToken} />
+              <DeletePostButton postId={postId} accessToken={accessToken} />
+            </>
+          )}
         <div className="dropdown-container" ref={dropdownRef}>
               <button onClick={handleOpenDropdown} className="btn-choose">
-                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기" />
+                <img src="/images/svg/icon-shopping-cart.svg" alt="구매하기"/>
               </button>
               {showDropdown && (
                 <ChoosePayModal
@@ -186,6 +195,7 @@ const StyledWrapper = styled.main`
           font-family: 'Pretendard Variable';
 
           > img {
+            margin-top: 10px;
             width: 20px;
             height: 20px;
             cursor: pointer;

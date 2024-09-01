@@ -30,14 +30,15 @@ export default function DeletePostButton ({ className, postId, accessToken }){
 }
 
 const StyledWrapper = styled.button`
-
-  width: 100%;
+  font-size: 17px;
+  font-weight: bold;
   padding: 8px 12px;
   background-color: transparent;
   border: none;
   text-align: left;
   cursor: pointer;
   color: #ff4d4f;
+  margin-right: 10px;
 
   &:hover {
     background-color: #fff1f0;

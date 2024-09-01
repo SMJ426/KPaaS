@@ -44,7 +44,7 @@ const StyledWrapper = styled.header`
 
     > img {
       width: 200px;
-      height: 65px;
+      height: 77px;
     }
   }
 

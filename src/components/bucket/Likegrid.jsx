@@ -59,7 +59,7 @@ export default function LikegridComponent({ nick_name, accessToken }) {
 const StyledWrapper = styled.header`
   .section {
     margin-top: 100px;
-    margin-left: 150px;
+    margin-left: 5%;
     width: 100%;
     margin-bottom: 5%;
     min-height: 100vh;
@@ -67,29 +67,22 @@ const StyledWrapper = styled.header`
 
   .postsGrid {
     display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 24px;
+
+  @media (max-width: 2000px) {
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 24px;
   }
 
-  @media screen and (max-width: 768px) {
-    .section {
-      margin-top: 0;
-      margin-left: 5%;
-      width: 95%;
-    }
-
-    .postsGrid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  @media (max-width: 1625px) {
+    grid-template-columns: repeat(3, 1fr);
   }
+
   @media (max-width: 1200px) {
-    .postsGrid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 480px) {
-    .postsGrid {
-      grid-template-columns: repeat(1, 1fr);
-    }
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
   }
 `;
