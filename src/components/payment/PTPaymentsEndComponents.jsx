@@ -38,7 +38,7 @@ const ModalButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: bold;
-  align-items: 
+  align-items: center;
 
   &:hover {
     background-color: #2563eb;
