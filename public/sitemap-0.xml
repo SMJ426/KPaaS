@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/profile/userProduct</loc><lastmod>2024-09-01T06:57:33.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user/login/oauth2/kakao</loc><lastmod>2024-09-01T06:57:33.644Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user/login/oauth2/naver</loc><lastmod>2024-09-01T06:57:33.644Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user</loc><lastmod>2024-09-01T06:57:33.644Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/profile/userProduct</loc><lastmod>2024-09-11T07:20:51.469Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user/login/oauth2/naver</loc><lastmod>2024-09-11T07:20:51.470Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user/login/oauth2/kakao</loc><lastmod>2024-09-11T07:20:51.470Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/user</loc><lastmod>2024-09-11T07:20:51.470Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

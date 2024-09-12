@@ -3,14 +3,14 @@ import * as PortOne from '@portone/browser-sdk/v2';
 import { completePay } from '@compoents/util/payment-util';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import CancleModal from './CancleModal';
 import { useState } from 'react';
 import { generateUUID } from './payUUID';
+import { PTPaymentsEndComponents } from './PTPaymentsEndComponents';
 
 export default function Payment({ accessToken, postId, post }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSetPoint = async () => {
     if (!accessToken) {
@@ -33,7 +33,7 @@ export default function Payment({ accessToken, postId, post }) {
       });
 
       if (response.code != null) {
-        setModalMessage(response.message);
+        setIsSuccess(false);
         setIsModalOpen(true);
         return;
       }
@@ -53,16 +53,17 @@ export default function Payment({ accessToken, postId, post }) {
       };
 
       const Endresponse = await completePay(accessToken, validationData);
-      if (Endresponse.charge == true) {
-        alert(Endresponse.message);
-      } else {
-        alert(Endresponse.message);
-      }
+      setIsSuccess(!Endresponse.charge);
+      setIsModalOpen(true);
     } catch (error) {
       console.error('포인트 설정 중 오류가 발생했습니다.', error);
-      setModalMessage('결제 처리 중 오류가 발생했습니다.');
+      setIsSuccess(false);
       setIsModalOpen(true);
     }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -70,13 +71,15 @@ export default function Payment({ accessToken, postId, post }) {
       <StyledWrapper onClick={handleSetPoint}>
         <div>바로 구매하기</div>
       </StyledWrapper>
-      <CancleModal
+      <PTPaymentsEndComponents
         isOpen={isModalOpen}
-        message={modalMessage}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
+        isSuccess={isSuccess}
       />
     </>
   );
 }
 
-const StyledWrapper = styled.button``;
+const StyledWrapper = styled.button`
+  display: flex;
+`;

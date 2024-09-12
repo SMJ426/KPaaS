@@ -160,7 +160,7 @@ export default function TeacherSignupForm() {
         alert('이메일을 변경해주세요.');
       }
     } catch (error) {
-      console.error(error);
+      alert('회원가입 중 오류가 발생하였습니다.');
     }
   };
 

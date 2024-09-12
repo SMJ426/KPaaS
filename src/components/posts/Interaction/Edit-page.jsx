@@ -58,7 +58,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   useEffect(() => {
-    console.log(posts)
+    console.log(posts);
     if (posts) {
       setPostName(posts.post_name);
       setPrice(posts.price);
@@ -74,7 +74,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
       setStartDate(parseDate(posts.start_at));
       setEndDate(parseDate(posts.end_at));
-      
+
       setTotalnumber(posts.total_number);
       setlocation(posts.location);
       setTeacherInfo(posts.post_info);
@@ -126,12 +126,12 @@ export default function EditpostForm({ postId, post, accessToken }) {
     (_, index) => index + 1
   );
 
-  async function handleSubmit(postData) {
+  async function handleSubmit(formData) {
     try {
-      const response = await PutPostData(postId, postData, accessToken);
+      const response = await PutPostData(formData, postId, accessToken);
       if (response.state === 'Jwt Expired') {
         const newAccessToken = await RefreshAccessToken();
-        await PutPostData(postId, postData, newAccessToken);
+        await PutPostData(formData, newAccessToken);
       }
     } catch (error) {
       console.error('게시물 수정에 실패했습니다:', error);
@@ -143,20 +143,30 @@ export default function EditpostForm({ postId, post, accessToken }) {
     event.preventDefault();
 
     try {
-      const postData = {
+      const formData = new FormData();
+      const req = {
         post_name: postName,
         price: parseInt(price),
         post_info: TeacherInfo,
+        category_id: parseInt(categoryId),
         start_at: getFormattedDate(startDate),
         end_at: getFormattedDate(endDate),
-        category_id: parseInt(categoryId),
         total_number: parseInt(totalNumber),
         location: location,
       };
-
-      await handleSubmit(postData);
-      const redirectUrl = 'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
-      window.location.href = redirectUrl;
+      formData.append(
+        'req',
+        new Blob([JSON.stringify(req)], { type: 'application/json' })
+      );
+      formData.append('img', images1);
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+      await handleSubmit(formData);
+      // http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30
+      const redirectUrl =
+        'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
+      // window.location.href = redirectUrl;
     } catch (error) {
       console.error('에러 발생:', error);
       alert(

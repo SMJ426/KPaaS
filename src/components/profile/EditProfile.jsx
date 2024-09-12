@@ -139,7 +139,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         alert('이메일을 변경해주세요.');
       }
     } catch (error) {
-      console.error(error);
+      alert('지원하지 않는 이미지 포맷 크기입니다.');
     }
   };
 

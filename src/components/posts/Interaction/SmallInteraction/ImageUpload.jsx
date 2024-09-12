@@ -17,7 +17,6 @@ export default function ImageUpload({ showImages1, handleImageChange }) {
           onChange={handleImageChange}
         />
       </div>
-      <p className="image-notice">이미지는 강의 등록 시 수정 불가합니다.</p>
     </StyledWrapper>
   );
 }
@@ -49,11 +48,5 @@ const StyledWrapper = styled.div`
   .preview-image {
     max-width: 100%;
     height: auto;
-  }
-
-  .image-notice {
-    font-size: 12px;
-    color: #666;
-    margin-top: 10px;
   }
 `;

@@ -102,18 +102,16 @@ export async function getPostData(postId, accessToken) {
   return data;
 }
 
-export async function PutPostData(postId, postData, accessToken) {
-  // const response = await fetch(`http://KPaas-apigateway-service-1:8888/post/${postid}`, {
+export async function PutPostData(formData, postId, accessToken) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/post/${postId}`,
     {
       cache: 'no-store',
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `${accessToken}`,
       },
-      body: JSON.stringify(postData),
+      body: formData,
     }
   );
   const data = await response.json();

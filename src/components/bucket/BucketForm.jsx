@@ -114,9 +114,9 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
 
     const validation = await completePay(accessToken, validationData);
     if (validation.charge == true) {
-      alert(validation.message);
+      alert('PT 등록에 실패하였습니다.');
     } else {
-      alert(validation.message);
+      alert('PT 등록이 완료되었습니다.');
     }
   };
 
