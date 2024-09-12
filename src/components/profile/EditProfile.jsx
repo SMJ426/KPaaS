@@ -28,9 +28,12 @@ export default function MyEditComponents({ accessToken, userInfo }) {
 
   useEffect(() => {
     if (userInfo) {
+      console.log(userInfo);
       setEmail(userInfo.email);
       setName(userInfo.user_name);
       setNickname(userInfo.nick_name);
+      setShowimage(userInfo.profile_image);
+      setImage(userInfo.profile_image);
       setInfo(userInfo.member_info);
       setRole(userInfo.role);
     }
@@ -452,8 +455,8 @@ const StyledWrapper = styled.header`
     padding: 0%;
     padding-left: 23px;
   }
-    .Input-email{
-      width: 566px;
+  .Input-email {
+    width: 566px;
     height: 50px;
     flex-shrink: 0;
     border-radius: 10px;
@@ -469,7 +472,7 @@ const StyledWrapper = styled.header`
     line-height: normal;
     padding: 0%;
     padding-left: 23px;
-    }
+  }
 
   .Input2 {
     width: 566px;
