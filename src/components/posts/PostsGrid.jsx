@@ -38,7 +38,7 @@ const StyledWrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1235px) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 900px) {
