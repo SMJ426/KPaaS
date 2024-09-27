@@ -20,7 +20,8 @@ export default function SmallProfile({ accessToken }) {
 
   async function logoutHandler() {
     const REST_API_KEY = 'b9759cba8e0cdd5bcdb9d601f5a10ac1';
-    const REDIRECT_URI = 'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
+    const REDIRECT_URI =
+      'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
 
     try {
       await Promise.all([Logout(accessToken), KakaoLogout(), deleteCookies()]);

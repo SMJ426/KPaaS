@@ -26,7 +26,7 @@ export default function ProfileNavigation({
   );
 }
 const StyledWrapper = styled.header`
-    .onlikebtn {
+  .onlikebtn {
     position: absolute;
     color: var(--primary-primary, #000000);
     font-family: 'Pretendard Variable';
@@ -81,5 +81,4 @@ const StyledWrapper = styled.header`
     margin-left: 50%;
     margin-top: 70px;
   }
-
 `;

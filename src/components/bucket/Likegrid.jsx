@@ -8,23 +8,18 @@ import LikeListComponent from './LikeLists';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 
 export default function LikegridComponent({ nick_name, accessToken }) {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['userLikes', nick_name],
-    queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
-    getNextPageParam: (lastPage) => {
-      if (lastPage.last || lastPage.number >= lastPage.totalPages - 1) {
-        return undefined;
-      }
-      return lastPage.number + 1;
-    },
-    enabled: !!accessToken,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['userLikes', nick_name],
+      queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
+      getNextPageParam: (lastPage) => {
+        if (lastPage.last || lastPage.number >= lastPage.totalPages - 1) {
+          return undefined;
+        }
+        return lastPage.number + 1;
+      },
+      enabled: !!accessToken,
+    });
 
   const allLikes = data?.pages.flatMap((page) => page.content) || [];
 
@@ -67,22 +62,22 @@ const StyledWrapper = styled.header`
 
   .postsGrid {
     display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 24px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 24px;
 
-  @media (max-width: 2000px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    @media (max-width: 2000px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
 
-  @media (max-width: 1625px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    @media (max-width: 1625px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 `;

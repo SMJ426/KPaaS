@@ -42,7 +42,9 @@ export default function DetailGymPage({ location, onClose }) {
           {gymswithLocation.data.map((gym) => (
             <div key={gym.번호} className="gym-card">
               <h3>{gym.시설명}</h3>
-              <p>{gym.소재지}, {gym.시_도}</p>
+              <p>
+                {gym.소재지}, {gym.시_도}
+              </p>
               <p>{gym.전화번호}</p>
               <div className="button-group">
                 <a
@@ -53,7 +55,10 @@ export default function DetailGymPage({ location, onClose }) {
                 >
                   웹사이트
                 </a>
-                <button className="map-button" onClick={() => handleMapView(gym)}>
+                <button
+                  className="map-button"
+                  onClick={() => handleMapView(gym)}
+                >
                   지도 보기
                 </button>
               </div>
@@ -127,7 +132,8 @@ const StyledWrapper = styled.div`
     margin-top: 10px;
   }
 
-  .website-button, .map-button {
+  .website-button,
+  .map-button {
     padding: 6px 10px;
     border: none;
     border-radius: 4px;

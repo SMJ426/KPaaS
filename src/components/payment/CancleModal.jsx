@@ -30,7 +30,7 @@ const slideIn = keyframes`
 `;
 
 const StyledWrapper = styled.div`
-    font-family: 'Spoqa Han Sans Neo';
+  font-family: 'Spoqa Han Sans Neo';
   .modal-overlay {
     position: fixed;
     top: 0;

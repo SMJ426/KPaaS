@@ -13,7 +13,8 @@ export default function NotFoundContainer() {
         <h1 className="error-heading">404 ERROR</h1>
         <p className="error-message">페이지를 찾을 수 없습니다.</p>
         <p className="error-description">
-          페이지가 존재하지 않거나, 사용할 수 없는 페이지입니다.<br />
+          페이지가 존재하지 않거나, 사용할 수 없는 페이지입니다.
+          <br />
           입력하신 내용이 정확한지 다시 한 번 확인해주세요.
         </p>
         <div className="error-buttons">
@@ -38,7 +39,6 @@ const StyledWrapper = styled.div`
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    
   }
 
   .error-icon {

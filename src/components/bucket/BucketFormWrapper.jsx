@@ -2,9 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import LoadingIndicator from '../UI/LoadingIndicator';
-import BucketForm from "./BucketForm";
+import BucketForm from './BucketForm';
 
-export default function BucketFormWrapper({ initialLikes, nick_name, accessToken }) {
+export default function BucketFormWrapper({
+  initialLikes,
+  nick_name,
+  accessToken,
+}) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
