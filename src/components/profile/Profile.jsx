@@ -46,36 +46,28 @@ export default function UserProfile({
 
   return (
     <StyledWrapper>
-      <ProfileInfo 
-        userInfo={userInfo} 
+      <ProfileInfo
+        userInfo={userInfo}
         onEditClick={handleEditProfileClick}
         onFollowingClick={() => openModal('following')}
         onFollowerClick={() => openModal('follower')}
       />
-      
+
       {modalType === 'following' && (
-        <FollowModal
-          isOpen={true}
-          onClose={closeModal}
-          list={followingList}
-        />
+        <FollowModal isOpen={true} onClose={closeModal} list={followingList} />
       )}
-      
+
       {modalType === 'follower' && (
-        <FollowModal
-          isOpen={true}
-          onClose={closeModal}
-          list={followerList}
-        />
+        <FollowModal isOpen={true} onClose={closeModal} list={followerList} />
       )}
       <ProfileNavigation
         currentView={currentView}
         setCurrentView={setCurrentView}
         isTeacher={userInfo.role === 'ROLE_TEACHER'}
       />
-      
+
       <div className="verticalLine"></div>
-      
+
       <ProfileContent
         currentView={currentView}
         nick_name={userInfo.nick_name}
@@ -96,5 +88,4 @@ const StyledWrapper = styled.header`
     margin-left: 13%;
     padding: 0%;
   }
-
 `;

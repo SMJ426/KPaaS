@@ -29,16 +29,16 @@ export default async function otherProfilePage({ params }) {
     const initialProducts = await getSelling(params.nick_name, 0);
     return (
       <>
-      <MainNavigation accessToken={Authorization?.value} />
-      <OtherProfileform
-        userInfo={userInfo.memberDto}
-        nick_name={params.nick_name}
-        accessToken={Authorization.value}
-        followerList={followerList}
-        followingList={followingList}
-        initialProducts={initialProducts}
-        isFollowing={userInfo.follow}
-      />
+        <MainNavigation accessToken={Authorization?.value} />
+        <OtherProfileform
+          userInfo={userInfo.memberDto}
+          nick_name={params.nick_name}
+          accessToken={Authorization.value}
+          followerList={followerList}
+          followingList={followingList}
+          initialProducts={initialProducts}
+          isFollowing={userInfo.follow}
+        />
       </>
     );
   } else {

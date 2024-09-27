@@ -11,7 +11,6 @@ import OrderSummary from './bucketoptions/OrderSummary';
 import CartItem from './bucketoptions/CartItem';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 import { generateUUID } from '../payment/payUUID';
-import { PTPaymentsEndComponents } from '../payment/PTPaymentsEndComponents';
 
 export default function BucketForm({ initialLikes, nick_name, accessToken }) {
   const queryClient = useQueryClient();
@@ -19,8 +18,6 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [createdAt, setCreatedAt] = useState('');
   const [selectAll, setSelectAll] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
@@ -96,33 +93,30 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
     const currentDate = new Date().toISOString().split('T')[0];
     setCreatedAt(currentDate);
 
-    try {
-      const response = await PortOne.requestPayment({
-        storeId: 'store-8c143d19-2e6c-41e0-899d-8c3d02118d41',
-        channelKey: 'channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8',
-        paymentId: generateUUID(),
-        orderName: 'point 충전',
-        totalAmount: selectedAmount,
-        currency: 'CURRENCY_KRW',
-        payMethod: 'EASY_PAY',
-      });
-      if (response.code != null) {
-        return alert(response.message);
-      }
-      const validationData = {
-        payment_id: response.paymentId,
-        total_point: selectedAmount,
-        created_at: createdAt,
-        payments_list,
-      };
+    const response = await PortOne.requestPayment({
+      storeId: 'store-8c143d19-2e6c-41e0-899d-8c3d02118d41',
+      channelKey: 'channel-key-0c38a3bf-acf3-4b38-bf89-61fbbbecc8a8',
+      paymentId: generateUUID(),
+      orderName: 'point 충전',
+      totalAmount: selectedAmount,
+      currency: 'CURRENCY_KRW',
+      payMethod: 'EASY_PAY',
+    });
+    if (response.code != null) {
+      return alert(response.message);
+    }
+    const validationData = {
+      payment_id: response.paymentId,
+      total_point: selectedAmount,
+      created_at: createdAt,
+      payments_list,
+    };
 
-      const validation = await completePay(accessToken, validationData);
-      setIsSuccess(!validation.charge);
-      setIsModalOpen(true);
-    } catch (error) {
-      console.error('포인트 설정 중 오류가 발생했습니다.', error);
-      setIsSuccess(false);
-      setIsModalOpen(true);
+    const validation = await completePay(accessToken, validationData);
+    if (validation.charge == true) {
+      alert(validation.message);
+    } else {
+      alert(validation.message);
     }
   };
 
@@ -134,10 +128,6 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
     } catch (error) {
       console.error('좋아하는 상품 삭제 중 오류가 발생했습니다.', error);
     }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   if (status === 'loading') return <LoadingIndicator />;
@@ -170,11 +160,6 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
         ))}
       </InfiniteScroll>
       <OrderSummary selectedAmount={selectedAmount} onOrder={handleSetPoint} />
-      <PTPaymentsEndComponents
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        isSuccess={isSuccess}
-      />
     </StyledWrapper>
   );
 }

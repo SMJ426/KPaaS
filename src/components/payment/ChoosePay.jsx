@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 export default function ChoosePayModal({ accessToken, postId, post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
-
   const handlebucketClick = async () => {
     if (!accessToken) {
       router.push('/user/login');
@@ -43,10 +42,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        isModalVisible &&
-        event.target.closest('.choosePayModalContent') === null
-      ) {
+      if (isModalVisible && event.target.closest('.modalContent') === null) {
         setIsModalVisible(false);
       }
     };
@@ -68,17 +64,10 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
       </div>
       {isModalVisible && (
         <Modal>
-          <div
-            className="choosePayModalContent"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modalContent">
             <p>장바구니에 원하시는 PT가 담겼습니다.</p>
-            <button className="modalBtn" onClick={handlebucket}>
-              장바구니로 이동
-            </button>
-            <button className="modalBtn" onClick={handleCloseModal}>
-              상품 더보기
-            </button>
+            <button onClick={handlebucket}>장바구니로 이동</button>
+            <button onClick={handleCloseModal}>상품 더보기</button>
           </div>
         </Modal>
       )}
@@ -132,7 +121,7 @@ const Modal = styled.div`
   align-items: center;
   z-index: 20;
 
-  .choosePayModalContent {
+  .modalContent {
     background: white;
     padding: 30px;
     border-radius: 10px;
@@ -147,7 +136,7 @@ const Modal = styled.div`
       margin-bottom: 20px;
     }
 
-    .modalBtn {
+    button {
       width: 100%;
       padding: 12px 0;
       margin: 10px 0;

@@ -9,7 +9,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
 
-export default function ProductsComponent({ initialProducts, accessToken, nick_name }) {
+export default function ProductsComponent({
+  initialProducts,
+  accessToken,
+  nick_name,
+}) {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -25,19 +29,23 @@ export default function ProductsComponent({ initialProducts, accessToken, nick_n
           return initialProducts;
         }
         const result = await getSelling(nick_name, pageParam);
-        console.log(result)
+        console.log(result);
         return result;
       },
       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.last || !lastPage.content || lastPage.content.length === 0) {
+        if (
+          lastPage.last ||
+          !lastPage.content ||
+          lastPage.content.length === 0
+        ) {
           return undefined;
         }
         const nextPage = lastPage.number + 1;
         return nextPage;
       },
       refetchOnWindowFocus: false,
-      initialData: initialProducts 
-        ? { pages: [initialProducts], pageParams: [0] } 
+      initialData: initialProducts
+        ? { pages: [initialProducts], pageParams: [0] }
         : undefined,
       enabled: isClient,
     });

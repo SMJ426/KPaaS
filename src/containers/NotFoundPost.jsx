@@ -12,7 +12,8 @@ export default function NotFoundPost() {
         <div className="error-icon">:(</div>
         <p className="error-message">게시물을 찾을 수 없습니다.</p>
         <p className="error-description">
-          검색하신 내용의 게시물이 존재하지 않습니다.<br />
+          검색하신 내용의 게시물이 존재하지 않습니다.
+          <br />
         </p>
         <div className="error-buttons">
           <Link href="/">
@@ -36,7 +37,6 @@ const StyledWrapper = styled.div`
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    
   }
 
   .error-icon {

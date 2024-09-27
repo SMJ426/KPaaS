@@ -16,7 +16,7 @@ export default function ProfileInfo({ userProfile, nickName, postName }) {
 }
 
 const StyledWrapper = styled.section`
-.wrapper-profile-info {
+  .wrapper-profile-info {
     display: flex;
     gap: 12px;
     padding: 12px 12px 0 12px;

@@ -16,7 +16,6 @@ export default function ActionButtons({
 
   return (
     <StyledWrapper>
-
       <button className="btn-like" onClick={handleLikeClick}>
         <img src={likedBtnSrc} alt="좋아요 버튼" />
       </button>

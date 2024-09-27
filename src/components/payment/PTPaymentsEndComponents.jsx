@@ -50,10 +50,8 @@ export const PTPaymentsEndComponents = ({ isOpen, onClose, isSuccess }) => {
 
   return (
     <ModalOverlay onClick={onClose}>
-      <ModalContent onClick={e => e.stopPropagation()}>
-        <ModalTitle>
-          {isSuccess ? 'PT 등록 완료' : 'PT 등록 실패'}
-        </ModalTitle>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        <ModalTitle>{isSuccess ? 'PT 등록 완료' : 'PT 등록 실패'}</ModalTitle>
         <ModalDescription>
           {isSuccess
             ? 'PT 등록이 성공적으로 완료되었습니다.'

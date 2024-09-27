@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function RecommendPrice({price}) {
+export default function RecommendPrice({ price }) {
   return (
     <StyledWrapper>
       <div className="wrapper-price">

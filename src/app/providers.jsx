@@ -21,7 +21,7 @@ function Providers({ children }) {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <NextUIProvider>{children}</NextUIProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
     </StyledComponentsRegistry>
   );
 }

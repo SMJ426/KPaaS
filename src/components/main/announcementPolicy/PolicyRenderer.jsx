@@ -5,7 +5,7 @@ function PolicyRenderer({ policyData }) {
   return (
     <StyledWrapper>
       <a href={policyData.url} target="_blank" rel="noopener noreferrer">
-        <img 
+        <img
           src={policyData.thumbnailUrl}
           alt={policyData.title}
           className="img-policy"

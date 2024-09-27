@@ -15,12 +15,12 @@ export default function OtherProfileInfo({
   const router = useRouter();
 
   const handleChatClick = async () => {
-    if(!accessToken){
+    if (!accessToken) {
       router.push('/user/login');
       return;
     }
 
-  try {
+    try {
       // 채팅방 생성 요청 API
       const response = await axios.post(
         `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
@@ -37,8 +37,8 @@ export default function OtherProfileInfo({
       }
     } catch (error) {
       console.error('채팅방 생성 중 오류가 발생했습니다.', error);
-    }  
-  }
+    }
+  };
 
   return (
     <StyledWrapper>
@@ -69,7 +69,9 @@ export default function OtherProfileInfo({
                   팔로우
                 </button>
               )}
-              <button onClick={handleChatClick} className='chatting-btn'>메세지 보내기</button>
+              <button onClick={handleChatClick} className="chatting-btn">
+                메세지 보내기
+              </button>
             </div>
           </div>
           <div className="follow-info">
@@ -124,13 +126,13 @@ const StyledWrapper = styled.div`
     align-items: center;
     margin-bottom: 15px;
 
-    .follow-button-container{
+    .follow-button-container {
       display: flex;
       gap: 10px;
 
-      .chatting-btn{
-        width:120px;
-        height:36px;
+      .chatting-btn {
+        width: 120px;
+        height: 36px;
         background-color: #f4f5f9;
         border-radius: 8px;
         border: none;
@@ -139,10 +141,9 @@ const StyledWrapper = styled.div`
         font-size: 16px;
         font-weight: 400;
 
-
-    &:hover {
-      text-decoration: underline;
-    }
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }

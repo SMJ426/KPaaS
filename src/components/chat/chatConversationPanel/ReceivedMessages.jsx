@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 function ReceivedMessages({ receiveMessages }) {
-  console.log('receiveMessages >> ', receiveMessages);
   const senderData = receiveMessages.sender;
 
-  const date = new Date(receiveMessages.sendAt);
+  const date = new Date(receiveMessages.time);
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const period = hours >= 12 ? '오후' : '오전';

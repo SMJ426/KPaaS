@@ -4,7 +4,7 @@ import { DeletePost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
 import styled from 'styled-components';
 
-export default function DeletePostButton ({ className, postId, accessToken }){
+export default function DeletePostButton({ className, postId, accessToken }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function deletePostDataHandler() {
