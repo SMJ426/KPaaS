@@ -2,15 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 function RequestMessages({ requestMessages }) {
-  console.log('requestMessages >> ', requestMessages);
-  const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const date = new Date(requestMessages.time);
+
+  const koreaTime = new Date(
+    date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })
+  );
+
+  const hours = koreaTime.getHours();
+  const minutes = koreaTime.getMinutes();
   const period = hours >= 12 ? '오후' : '오전';
   const formattedHours = hours % 12 || 12;
   const formattedMinutes = minutes.toString().padStart(2, '0');
 
   const formattedTime = `${period} ${formattedHours}:${formattedMinutes}`;
+
   return (
     <StyledWrapper>
       <span>{formattedTime}</span>

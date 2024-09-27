@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import { fetchUserProfile } from '@compoents/util/http';
 
 export default function OtherProfileInfo({
   userInfo,
@@ -13,14 +15,33 @@ export default function OtherProfileInfo({
   accessToken,
 }) {
   const router = useRouter();
+  const params = useParams();
+  const [userProfileInfo, setUserProfileInfo] = useState(null);
+  const isProfileUser =
+    decodeURIComponent(params.nick_name) === userProfileInfo?.nick_name;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const data = await fetchUserProfile(accessToken);
+          setUserProfileInfo(data);
+        } catch (error) {
+          console.error('유저 프로필을 가져오는 중 오류 발생:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [accessToken]);
 
   const handleChatClick = async () => {
-    if(!accessToken){
+    if (!accessToken) {
       router.push('/user/login');
       return;
     }
 
-  try {
+    try {
       // 채팅방 생성 요청 API
       const response = await axios.post(
         `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
@@ -37,8 +58,8 @@ export default function OtherProfileInfo({
       }
     } catch (error) {
       console.error('채팅방 생성 중 오류가 발생했습니다.', error);
-    }  
-  }
+    }
+  };
 
   return (
     <StyledWrapper>
@@ -69,7 +90,11 @@ export default function OtherProfileInfo({
                   팔로우
                 </button>
               )}
-              <button onClick={handleChatClick} className='chatting-btn'>메세지 보내기</button>
+              {!isProfileUser && (
+                <button onClick={handleChatClick} className="chatting-btn">
+                  메세지 보내기
+                </button>
+              )}
             </div>
           </div>
           <div className="follow-info">
@@ -124,13 +149,13 @@ const StyledWrapper = styled.div`
     align-items: center;
     margin-bottom: 15px;
 
-    .follow-button-container{
+    .follow-button-container {
       display: flex;
       gap: 10px;
 
-      .chatting-btn{
-        width:120px;
-        height:36px;
+      .chatting-btn {
+        width: 120px;
+        height: 36px;
         background-color: #f4f5f9;
         border-radius: 8px;
         border: none;
@@ -139,10 +164,9 @@ const StyledWrapper = styled.div`
         font-size: 16px;
         font-weight: 400;
 
-
-    &:hover {
-      text-decoration: underline;
-    }
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }

@@ -28,7 +28,7 @@ export default function PostsGrid({ postData, accessToken }) {
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 24px;
+  grid-gap: 18px;
 
   @media (max-width: 2000px) {
     grid-template-columns: repeat(4, 1fr);
@@ -38,7 +38,7 @@ const StyledWrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1235px) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 900px) {
