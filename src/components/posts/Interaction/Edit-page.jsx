@@ -58,7 +58,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   useEffect(() => {
-    console.log(posts)
+    console.log(posts);
     if (posts) {
       setPostName(posts.post_name);
       setPrice(posts.price);
@@ -74,7 +74,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
       setStartDate(parseDate(posts.start_at));
       setEndDate(parseDate(posts.end_at));
-      
+
       setTotalnumber(posts.total_number);
       setlocation(posts.location);
       setTeacherInfo(posts.post_info);
@@ -155,7 +155,8 @@ export default function EditpostForm({ postId, post, accessToken }) {
       };
 
       await handleSubmit(postData);
-      const redirectUrl = 'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
+      const redirectUrl =
+        'http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30';
       window.location.href = redirectUrl;
     } catch (error) {
       console.error('에러 발생:', error);

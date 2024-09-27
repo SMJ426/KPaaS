@@ -140,7 +140,9 @@ const StyledWrapper = styled.div`
     font-size: 16px;
     font-weight: 600;
     border: 0;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
 
     &:hover {
       background-color: #d0d2d9;

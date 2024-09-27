@@ -11,20 +11,20 @@ export default function ProfileContent({
 }) {
   return (
     <StyledWrapper>
-        {currentView === 'likes' && (
-          <LikegridComponent nick_name={nick_name} accessToken={accessToken} />
-        )}
-        {currentView === 'products' && (
-          <ProductsComponent
-            initialProducts={initialProducts}
-            accessToken={accessToken}
-            nick_name={nick_name}
-          />
-        )}
+      {currentView === 'likes' && (
+        <LikegridComponent nick_name={nick_name} accessToken={accessToken} />
+      )}
+      {currentView === 'products' && (
+        <ProductsComponent
+          initialProducts={initialProducts}
+          accessToken={accessToken}
+          nick_name={nick_name}
+        />
+      )}
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.header`
-    margin-top: 200px;
+  margin-top: 200px;
 `;

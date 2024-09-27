@@ -22,7 +22,7 @@ export default function SelectAllCheckbox({
 }
 
 const StyledWrapper = styled.div`
-    .selectAllContainer {
+  .selectAllContainer {
     margin-bottom: 20px;
     display: flex;
     background: #ededed;

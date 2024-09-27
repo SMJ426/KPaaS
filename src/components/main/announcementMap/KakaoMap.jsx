@@ -85,7 +85,6 @@ export default function KakaoMap({ gym }) {
 }
 
 const StyledWrapper = styled.div`
-
   margin: auto;
 
   .map-container {

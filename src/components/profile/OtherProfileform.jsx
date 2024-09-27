@@ -51,7 +51,6 @@ export default function OtherProfileform({
     }
   };
 
-
   const openModal = (type) => {
     setModalType(type);
   };
@@ -63,37 +62,29 @@ export default function OtherProfileform({
   return (
     <StyledWrapper>
       <OtherProfileInfo
-        userInfo={userInfo} 
+        userInfo={userInfo}
         onfollowClick={handleFollow}
         isfollow={isfollow}
         onFollowingClick={() => openModal('following')}
         onFollowerClick={() => openModal('follower')}
         accessToken={accessToken}
       />
-      
+
       {modalType === 'following' && (
-        <FollowModal
-          isOpen={true}
-          onClose={closeModal}
-          list={followingList}
-        />
+        <FollowModal isOpen={true} onClose={closeModal} list={followingList} />
       )}
-      
+
       {modalType === 'follower' && (
-        <FollowModal
-          isOpen={true}
-          onClose={closeModal}
-          list={followerList}
-        />
+        <FollowModal isOpen={true} onClose={closeModal} list={followerList} />
       )}
       <ProfileNavigation
         currentView={currentView}
         setCurrentView={setCurrentView}
         isTeacher={userInfo.role === 'ROLE_TEACHER'}
       />
-      
+
       <div className="verticalLine"></div>
-      
+
       <ProfileContent
         currentView={currentView}
         nick_name={nick_name}
@@ -114,5 +105,4 @@ const StyledWrapper = styled.header`
     margin-left: 13%;
     padding: 0%;
   }
-
 `;

@@ -23,8 +23,7 @@ export default function ImageUpload({ showImages1, handleImageChange }) {
 }
 
 const StyledWrapper = styled.div`
-
-    .profile-img-container {
+  .profile-img-container {
     position: relative;
     width: 120px;
     height: 120px;
@@ -36,7 +35,7 @@ const StyledWrapper = styled.div`
     }
   }
 
-   .image-section {
+  .image-section {
     flex: 1;
   }
 

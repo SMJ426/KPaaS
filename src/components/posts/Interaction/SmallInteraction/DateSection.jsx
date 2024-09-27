@@ -100,9 +100,9 @@ export default function DateSection({
 }
 
 const StyledWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   .form-group {
     display: flex;
