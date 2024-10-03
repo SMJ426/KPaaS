@@ -58,7 +58,7 @@ const StyledWrapper = styled.header`
   justify-content: space-between;
   position: sticky;
   top: 0;
-  /* TODO : 추후 모달 z-index 조절 필요 */
+
   z-index: 10;
 
   background-color: #ffffff;
