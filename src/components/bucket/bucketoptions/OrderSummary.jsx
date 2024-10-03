@@ -13,10 +13,7 @@ export default function OrderSummary({ selectedAmount, onOrder }) {
           <span>{selectedAmount.toLocaleString()}원</span>
         </div>
         <button className="orderButton" onClick={onOrder}>
-          <img
-            src="/images/png/카카오페이_CI_combination.png"
-            alt="카카오 페이 이미지"
-          />
+          <img src="/images/png/kakopay_CI.png" alt="카카오 페이 이미지" />
           주문하기
         </button>
       </div>
