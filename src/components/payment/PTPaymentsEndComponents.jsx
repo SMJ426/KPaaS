@@ -11,6 +11,8 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 100;
+  white-space: pre-line;
+  margin-bottom: 1.5rem;
 `;
 
 const ModalContent = styled.div`
@@ -52,11 +54,11 @@ export const PTPaymentsEndComponents = ({ isOpen, onClose, isSuccess }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <ModalTitle>{isSuccess ? 'PT 등록 완료' : 'PT 등록 실패'}</ModalTitle>
+        <ModalTitle>{isSuccess ? '결제 완료' : '결제 실패'}</ModalTitle>
         <ModalDescription>
           {isSuccess
-            ? 'PT 등록이 성공적으로 완료되었습니다.'
-            : 'PT 등록 중 문제가 발생했습니다. 다시 시도해 주세요.'}
+            ? '결제가 성공적으로 완료되었습니다.'
+            : '결제 진행 중 문제가 발생했습니다.\n다시 시도해 주세요.'}
         </ModalDescription>
         <ModalButton onClick={onClose}>확인</ModalButton>
       </ModalContent>

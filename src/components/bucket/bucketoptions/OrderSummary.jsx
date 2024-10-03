@@ -13,6 +13,10 @@ export default function OrderSummary({ selectedAmount, onOrder }) {
           <span>{selectedAmount.toLocaleString()}원</span>
         </div>
         <button className="orderButton" onClick={onOrder}>
+          <img
+            src="/images/png/카카오페이_CI_combination.png"
+            alt="카카오 페이 이미지"
+          />
           주문하기
         </button>
       </div>
@@ -43,15 +47,24 @@ const StyledWrapper = styled.div`
   }
 
   .orderButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 100%;
     padding: 15px;
-    background: #21bf48;
-    color: white;
+    background: #ffeb00;
     border: none;
     border-radius: 8px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
+    color: #000000;
+
+    > img {
+      width: 50px;
+      margin-right: 10px;
+    }
   }
 `;
