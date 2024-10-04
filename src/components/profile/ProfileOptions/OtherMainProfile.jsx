@@ -44,7 +44,7 @@ export default function OtherProfileInfo({
     try {
       // 채팅방 생성 요청 API
       const response = await axios.post(
-        `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
+        `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
         {},
         {
           headers: {

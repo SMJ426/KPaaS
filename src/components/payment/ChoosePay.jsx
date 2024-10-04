@@ -38,7 +38,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
   };
 
   const handlebucket = () => {
-    window.location.href = `http://default-front-84485-25569413-20a094b6a545.kr.lb.naverncp.com:30/bucket`;
+    window.location.href = `http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30/bucket`;
   };
 
   useEffect(() => {
