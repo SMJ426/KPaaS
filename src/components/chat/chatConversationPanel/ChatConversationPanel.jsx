@@ -70,7 +70,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
 
         axios
           .get(
-            `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
+            `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/post/detail/${roomId}`,
             {
               headers: {
                 Authorization: decodedToken,
@@ -91,7 +91,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     if (!roomId) return;
 
     const socket = new SockJS(
-      'http://default-chat-service-7c2a3-25892552-1d82f05544d5.kr.lb.naverncp.com:50/ws'
+      'http://default-chat-service-cc3a4-26867297-49b78d469f83.kr.lb.naverncp.com:50/ws'
     );
     const client = new Client({
       webSocketFactory: () => socket,

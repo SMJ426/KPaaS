@@ -7,7 +7,7 @@ import PostItem from '@compoents/components/posts/post-item';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 
 const BASE_URL =
-  'http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761';
+  'http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761';
 
 const fetchPosts = async ({ pageParam = 0 }) => {
   const response = await fetch(`${BASE_URL}/post/search?page=${pageParam}`, {

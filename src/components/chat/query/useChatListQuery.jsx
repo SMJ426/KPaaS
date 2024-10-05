@@ -4,7 +4,7 @@ import axios from 'axios';
 const fetchChatList = async ({ queryKey }) => {
   const [_, roomId, token] = queryKey; // queryKey에서 roomId와 token을 구조 분해 할당합니다.
   const response = await axios.get(
-    `http://default-api-gateway-05ed6-25524816-d29a0f7fe317.kr.lb.naverncp.com:8761/chatroom/enter/${roomId}`,
+    `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/enter/${roomId}`,
     {
       headers: {
         Authorization: `${token}`,
