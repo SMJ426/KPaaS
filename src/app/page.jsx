@@ -4,6 +4,7 @@ import MainContainers from '@compoents/containers/MainContainers';
 import { cookies } from 'next/headers';
 import { getPostsFile, LogingetPostsFile } from '@compoents/util/post-util';
 import { fetchUserProfile } from '@compoents/util/http';
+import MobileCheckModal from '@compoents/components/UI/MobileCheckModal';
 
 async function getAuthorizationToken() {
   const cookieStore = cookies();
@@ -39,11 +40,14 @@ export default async function Home() {
   const initialPostData = await fetchPostData(authorizationValue);
   const userData = await fetchUserData(authorizationValue);
   return (
-    <MainContainers
-      initialPostData={initialPostData}
-      accessToken={authorizationValue}
-      nick_name={userData.nick_name}
-      role={userData.role}
-    />
+    <>
+      <MainContainers
+        initialPostData={initialPostData}
+        accessToken={authorizationValue}
+        nick_name={userData.nick_name}
+        role={userData.role}
+      />
+      <MobileCheckModal />
+    </>
   );
 }
