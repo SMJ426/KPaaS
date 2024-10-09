@@ -33,7 +33,7 @@ function MobileCheckModal() {
 
           <div className="wrapper-contents">
             <h2>모바일 접근이 제한됩니다</h2>
-            <p>PC 환경에서 접속해시길 바랍니다</p>
+            <p>PC 환경에서 접속하시길 바랍니다</p>
             <p className="notice">※ 모바일 버전은 업데이트 예정입니다 ※</p>
           </div>
         </section>
