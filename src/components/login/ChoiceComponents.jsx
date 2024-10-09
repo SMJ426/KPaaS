@@ -12,7 +12,11 @@ export default function ChoiceModal({ show, onClose }) {
     <>
       <Overlay onClick={onClose} />
       <StyledWrapper>
-        <Title>PTFD 로그인</Title> {/* 제목 추가 */}
+        <img
+          className="main-logo"
+          src="images/png/PTFD-main-logo.png"
+          alt="피티에프디"
+        />
         <ButtonWrapper>
           <button className="wrapper-Member-Btn">
             <FaUserAlt className="icon" />
@@ -52,16 +56,16 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f0f4ff, #d8d8d8);
+  background: linear-gradient(135deg, #f0f4ff, #c0c0c0);
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-`;
 
-const Title = styled.h1`
-  font-size: 36px;
-  margin-bottom: 40px;
-  color: #333;
+  .main-logo {
+    width: 230px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -70,8 +74,8 @@ const ButtonWrapper = styled.div`
   gap: 20px;
 
   button {
-    width: 220px;
-    height: 60px;
+    width: 250px;
+    height: 70px;
     background-color: #0070f3;
     color: white;
     border: none;
@@ -107,7 +111,7 @@ const ButtonWrapper = styled.div`
   }
 
   .wrapper-Member-Btn {
-    background-color: #307dff;
+    background-color: #296ad9;
   }
 
   .wrapper-Teacher-Btn {
@@ -119,7 +123,7 @@ const ButtonWrapper = styled.div`
   }
 
   .wrapper-Member-Btn:hover {
-    background-color: #307dff;
+    background-color: #296ad9;
   }
 
   .wrapper-Teacher-Btn:hover {
