@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 function ReceivedMessages({ receiveMessages }) {
-  console.log('receiveMessages >> ', receiveMessages);
   const senderData = receiveMessages.sender;
 
   const date = new Date(receiveMessages.time);
