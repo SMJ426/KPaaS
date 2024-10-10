@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function RequestMessages({ requestMessages }) {
-  const date = new Date(requestMessages.time);
+  const date = new Date(requestMessages.time || Date.now()); // TODO : undefined 일때가 있어서 이렇게 처리했지만 추후 더 좋은 방법으로 개선해야할듯
 
   const koreaTime = new Date(
     date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })

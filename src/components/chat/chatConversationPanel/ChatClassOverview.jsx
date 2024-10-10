@@ -1,8 +1,14 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
 function ChatClassOverview({ postData }) {
   const formattedPrice = `${postData?.price.toLocaleString()}원`;
+  const router = useRouter();
+
+  const handleClickUserPost = () => {
+    router.push(`/${postData?.post_id}`);
+  };
 
   return (
     <StyledWrapper>
@@ -10,8 +16,9 @@ function ChatClassOverview({ postData }) {
         src={postData?.image_post}
         alt="상품 이미지"
         className="post-image"
+        onClick={handleClickUserPost}
       />
-      <div className="wrapper-post-info">
+      <div className="wrapper-post-info" onClick={handleClickUserPost}>
         <span className="info-post">{postData?.post_info}</span>
         <span className="price-post">{formattedPrice}</span>
       </div>
@@ -40,10 +47,14 @@ const StyledWrapper = styled.div`
     object-fit: cover;
     object-position: center;
     border: 1px solid #dcdee3;
+
+    cursor: pointer;
   }
   .wrapper-post-info {
     display: flex;
     flex-direction: column;
+
+    cursor: pointer;
 
     .info-post {
       display: -webkit-box;

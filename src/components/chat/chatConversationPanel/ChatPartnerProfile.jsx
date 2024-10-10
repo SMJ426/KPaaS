@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/navigation';
 
 function ChatPartnerProfile({ postData }) {
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    router.push(`/profile/${postData?.nick_name}`);
+  };
+
   return (
     <StyledWrapper>
       <img
         src={postData?.user_profile}
         alt={postData?.nick_name}
         className="profile-image"
+        onClick={handleProfileClick}
       />
       <span className="chatPartner-nick">{postData?.nick_name}</span>
     </StyledWrapper>
@@ -34,6 +42,8 @@ const StyledWrapper = styled.div`
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
+
+    cursor: pointer;
   }
   .chatPartner-nick {
     font-size: 16px;

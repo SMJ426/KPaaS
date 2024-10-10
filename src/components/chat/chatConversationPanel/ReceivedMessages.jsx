@@ -1,11 +1,10 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
 function ReceivedMessages({ receiveMessages }) {
-  console.log('receiveMessages >> ', receiveMessages);
   const senderData = receiveMessages.sender;
-
-  const date = new Date(receiveMessages.time);
+  const date = new Date(receiveMessages.time || Date.now()); // TODO : undefined 일때가 있어서 이렇게 처리했지만 추후 더 좋은 방법으로 개선해야할듯
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const period = hours >= 12 ? '오후' : '오전';
@@ -17,9 +16,20 @@ function ReceivedMessages({ receiveMessages }) {
   const profileSrc = senderData.profile_image
     ? senderData.profile_image
     : receiveMessages.profile_image;
+
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    router.push(`/profile/${senderData}`);
+  };
+
   return (
     <StyledWrapper>
-      <img src={profileSrc} alt={senderData.nick_name} />
+      <img
+        src={profileSrc}
+        alt={senderData.nick_name}
+        onClick={handleProfileClick}
+      />
       <div className="wrapper-content">
         <p>{receiveMessages.content}</p>
         <span>{formattedTime}</span>
@@ -41,6 +51,8 @@ const StyledWrapper = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+
+    cursor: pointer;
   }
   .wrapper-content {
     display: flex;

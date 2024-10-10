@@ -8,6 +8,7 @@ import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
 import ChatPartnerProfile from './ChatPartnerProfile';
 import ChatClassOverview from './ChatClassOverview';
+import NoChattingPartner from './NoChattingPartner';
 import { useChatListQuery } from '../query/useChatListQuery';
 import axios from 'axios';
 
@@ -171,17 +172,20 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   };
 
   if (isLoading || error) return null;
+  if (!roomId) {
+    return <NoChattingPartner />;
+  }
 
   return (
     <StyledWrapper>
       <div className="wrapper-messages">
         {postData && (
-          <>
+          <div className="wrapeer-chat-info">
             {/* 채팅 상대방 프로필 부분 */}
             <ChatPartnerProfile postData={postData} />
             {/* 간략한 수업 정보 부분 */}
             <ChatClassOverview postData={postData} />
-          </>
+          </div>
         )}
 
         {/* 실제 채팅 부분 */}
@@ -200,6 +204,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
           <div ref={messagesEndRef} />
         </div>
       </div>
+
       <div className="wrapper-input">
         <textarea
           type="text"
@@ -230,16 +235,22 @@ const StyledWrapper = styled.div`
   width: 800px;
 
   border: 1px solid #eaebee;
+  border-left: none;
 
   .wrapper-messages {
-    flex: 1;
     margin-bottom: 135px;
+    margin-top: 128px;
     overflow-y: auto;
+
+    .wrapeer-chat-info {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
 
     .wrapper-messages-list {
       margin-top: 10px;
       width: 100%;
-      height: 100%;
     }
   }
 
