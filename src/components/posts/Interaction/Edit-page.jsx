@@ -181,13 +181,12 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
       await handleSubmit(formData);
 
-      // 리다이렉트 URL (주석 처리되어 있음)
-      // const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
-      // window.location.href = redirectUrl;
+      const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; // 리다이렉트할 URL로 변경
+      window.location.href = redirectUrl; 
 
     } catch (error) {
       console.error('에러 발생:', error);
-      alert('죄송합니다. 요청을 처리하는 동안 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      alert('요청을 처리하는 동안 오류가 발생했습니다. 다시 시도해주세요.');
     }
   }
 
