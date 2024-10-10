@@ -3,8 +3,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import ChattingListRenderer from './ChattingListRenderer';
+import { useRouter } from 'next/navigation';
 
 export default function ChatListPanel({ userInfo, chatRooms }) {
+  const router = useRouter();
+
+  const handleClickMyProfile = () => {
+    router.push('/profile');
+  };
+
   return (
     <StyledWrapper>
       {/* 현재 로그인 한 유저 프로필 정보 부분 */}
@@ -13,6 +20,7 @@ export default function ChatListPanel({ userInfo, chatRooms }) {
           src={userInfo.profile_image}
           alt={userInfo.nick_name}
           className="user-img"
+          onClick={handleClickMyProfile}
         />
       </div>
       <div className="wrapper-chatting-rooms">
@@ -54,6 +62,8 @@ const StyledWrapper = styled.div`
       border-radius: 50%;
       object-fit: cover;
       object-position: center;
+
+      cursor: pointer;
     }
   }
 

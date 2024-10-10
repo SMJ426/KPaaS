@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -16,9 +17,19 @@ function ReceivedMessages({ receiveMessages }) {
     ? senderData.profile_image
     : receiveMessages.profile_image;
 
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    router.push(`/profile/${senderData}`);
+  };
+
   return (
     <StyledWrapper>
-      <img src={profileSrc} alt={senderData.nick_name} />
+      <img
+        src={profileSrc}
+        alt={senderData.nick_name}
+        onClick={handleProfileClick}
+      />
       <div className="wrapper-content">
         <p>{receiveMessages.content}</p>
         <span>{formattedTime}</span>
@@ -40,6 +51,8 @@ const StyledWrapper = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+
+    cursor: pointer;
   }
   .wrapper-content {
     display: flex;

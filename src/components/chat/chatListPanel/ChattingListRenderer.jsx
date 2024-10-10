@@ -3,21 +3,31 @@ import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 
 export default function ChattingListRenderer({ listData }) {
+  console.log('listData.post >> ', listData);
   const router = useRouter();
 
   const handleClickChatRoom = () => {
     router.push(`/chat/${decodeURIComponent(listData?.roomId)}`);
   };
 
+  const hadleClickUserProfile = () => {
+    router.push(`/profile/${listData?.nickName}`);
+  };
+
+  const handleClickUserPost = () => {
+    router.push(`/${listData.roomId}`);
+  };
+
   return (
-    <StyledWrapper onClick={handleClickChatRoom}>
+    <StyledWrapper>
       <img
         src={listData.userProfile}
         alt={listData.nickName}
         className="profile-image"
+        onClick={hadleClickUserProfile}
       />
       <div className="wrapper-text-img">
-        <div className="wrapper-name-text">
+        <div className="wrapper-name-text" onClick={handleClickChatRoom}>
           {/* 유저 이름과 시간 */}
           <div className="wrapper-name">
             <p className="chatting-userName">
@@ -33,6 +43,7 @@ export default function ChattingListRenderer({ listData }) {
             src={listData.post.image_post}
             alt={listData.post.post_info}
             className="post-img"
+            onClick={handleClickUserPost}
           />
         )}
       </div>
@@ -59,6 +70,8 @@ const StyledWrapper = styled.button`
     margin-left: 10px;
     object-fit: cover;
     object-position: center;
+
+    cursor: pointer;
   }
 
   .wrapper-text-img {
@@ -90,6 +103,8 @@ const StyledWrapper = styled.button`
       object-fit: cover;
       object-position: center;
       border: 1px solid #dcdee3;
+
+      cursor: pointer;
     }
   }
 `;
