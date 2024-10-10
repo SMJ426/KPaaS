@@ -236,7 +236,6 @@ const StyledWrapper = styled.div`
     margin-bottom: 135px;
     margin-top: 128px;
     overflow-y: auto;
-    background-color: skyblue;
 
     .wrapeer-chat-info {
       position: absolute;
