@@ -98,13 +98,6 @@ export default function Mainsmallpage() {
 
       {gymsData && (
         <CarouselWrapper>
-          <button
-            onClick={prevSlide}
-            className="nav-button prev"
-            disabled={currentIndex === 0}
-          >
-            &lt;
-          </button>
           <div className="carousel-container">
             <div className="carousel" ref={carouselRef}>
               {gymsData.data.map((gym) => (
@@ -134,13 +127,6 @@ export default function Mainsmallpage() {
               ))}
             </div>
           </div>
-          <button
-            onClick={nextSlide}
-            className="nav-button next"
-            disabled={currentIndex >= gymsData.data.length - 2}
-          >
-            &gt;
-          </button>
           <div className="pagination">
             {gymsData.data.map((_, index) => (
               <span
@@ -181,6 +167,7 @@ const StyledWrapper = styled.div`
     padding: 8px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
+    margin-left: 20px;
     border-radius: 4px;
     font-size: 14px;
     appearance: none;
@@ -277,47 +264,14 @@ const CarouselWrapper = styled.div`
     }
   }
 
-  .nav-button {
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.2);
-    color: rgba(255, 255, 255, 0.7);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 5;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.5);
-      color: rgba(255, 255, 255, 1);
-    }
-
-    &.prev {
-      left: 0px;
-    }
-
-    &.next {
-      right: 0px;
-    }
-  }
-
   .pagination {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 
     .dot {
-      width: 7px;
-      height: 7px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background-color: #d3d3d3;
       margin: 0 3px;

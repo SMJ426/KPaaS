@@ -45,10 +45,6 @@ function AnnouncementPolicy() {
             <p className="title">신규정책</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
-          <div className="controls">
-            <button onClick={handlePrev}>{'<'}</button>
-            <button onClick={handleNext}>{'>'}</button>
-          </div>
           <div className="pagination">
             {AnnouncementTestDataSet.map((_, index) => (
               <span
@@ -111,41 +107,15 @@ const StyledWrapper = styled.div`
         border: none;
       }
     }
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      height: 12px;
-      margin-right: 10px;
-      z-index: 5;
-      transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
 
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-
-    .controls button {
-      color: #a8a8a8;
-      width: 30px;
-      height: 30px;
-      border: none;
-      cursor: pointer;
-      border-radius: 10px;
-      &:hover {
-        background-color: #8d8d8d;
-      }
-    }
     .pagination {
       display: flex;
       justify-content: center;
       margin-bottom: 13px;
 
       .dot {
-        width: 7px;
-        height: 7px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
         background-color: #d3d3d3;
         margin: 0 3px;
