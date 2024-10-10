@@ -9,7 +9,7 @@ export default function SendPostButton({ nick_name }) {
       </p>
       <Link href="/newpost">
         <button className="btn-newpost">
-          <div className="Add">강사등록</div>
+          <div className="Add">강의 등록</div>
         </button>
       </Link>
     </StyledWrapper>
