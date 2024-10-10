@@ -9,7 +9,7 @@ export default function NaverLogin() {
       const code = new URL(window.location.href).searchParams.get('code');
       if (code) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/oauth2/naver?code=${code}&role=ROLE_MEMBER`,
+          `${process.env.NEXT_PUBLIC_API_URL}/oauth2/naver?code=${code}&role=ROLE_TEACHER`,
           {
             headers: {
               'Content-Type': 'application/json;charset=utf-8',

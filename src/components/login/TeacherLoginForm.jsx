@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { Loginfetchs } from '@compoents/util/http';
-import SocialLogin from './SocialLogin';
+import TeacherSocialLogin from './TeacherSocialLogin';
 
-export default function LoginForm() {
+export default function TeacherLoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [requestError, setRequestError] = useState(false);
-  const [userType, setUserType] = useState('member'); // 'member' 또는 'teacher'
+  const [userType, setUserType] = useState('teacher'); // 'member' 또는 'teacher'
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -24,8 +24,8 @@ export default function LoginForm() {
     return;
   };
 
-  const handleSignup = () => {
-    router.push('/user/signup'); // 회원가입 페이지로 이동
+  const handleTeacherSignup = () => {
+    router.push('/user/teachersignup'); // 회원가입 페이지로 이동
   };
 
   function handleFocus(e) {
@@ -48,7 +48,7 @@ export default function LoginForm() {
   return (
     <CenteredWrapper>
       <StyledWrapper $isError={isError}>
-        <h1 className="title">회원 로그인</h1>
+        <h1 className="title">강사 로그인</h1>
         <form className="form-container" onSubmit={handleSubmit}>
           <p className="login-text">이메일</p>
           <label htmlFor="email">
@@ -88,11 +88,11 @@ export default function LoginForm() {
               로그인
             </button>
             <button
-              className="signup-button user"
+              className="signup-button teacher"
               type="button"
-              onClick={handleSignup}
+              onClick={handleTeacherSignup}
             >
-              사용자 회원가입
+              강사 회원가입
             </button>
           </div>
 
@@ -103,7 +103,7 @@ export default function LoginForm() {
                 <span>간편 로그인</span>
                 <hr />
               </div>
-              <SocialLogin />
+              <TeacherSocialLogin />
             </>
           </div>
         </form>

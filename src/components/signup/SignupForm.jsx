@@ -20,6 +20,8 @@ export default function SignupForm() {
   const [info, setInfo] = useState('');
   const [isDuplicate, setIsDuplicate] = useState(null);
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isNicknameVerified, setIsNicknameVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [showimage, setShowimage] = useState('/images/defaultIMG.png');
   const [passwordError, setPasswordError] = useState('');
@@ -66,11 +68,14 @@ export default function SignupForm() {
       const data = await checkNickname(nick_name);
       if (data === true) {
         setIsDuplicate(true);
+        setIsNicknameVerified(true);
       } else {
         setIsDuplicate(false);
+        setIsNicknameVerified(false);
       }
     } catch (error) {
       console.error(error);
+      setIsNicknameVerified(false);
     }
   }
 
@@ -85,13 +90,25 @@ export default function SignupForm() {
         setIsEmailDuplicate(false);
         setemailError('');
       }
+      setIsEmailVerified(true);
     } catch (error) {
       console.error(error);
+      setIsEmailVerified(false);
     }
   }
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    if (!isEmailVerified) {
+      alert('이메일 중복 확인을 완료해주세요.');
+      return;
+    }
+
+    if (!isNicknameVerified) {
+      alert('닉네임 중복 확인을 완료해주세요.');
+      return;
+    }
 
     if (name === '') {
       setNameError('이름을 입력해주세요.');

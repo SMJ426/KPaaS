@@ -1,9 +1,13 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
-
+import ChoiceModal from '../login/ChoiceComponents';
 export default function MainNavigation({ accessToken }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => setShowModal(!showModal);
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
@@ -41,13 +45,14 @@ export default function MainNavigation({ accessToken }) {
 
       {!accessToken && (
         <div className="btn-login">
-          <Link href="/user/login" passHref>
-            <button className="btn-login">로그인</button>
-          </Link>
+          <button className="btn-login" onClick={toggleModal}>
+            로그인
+          </button>
         </div>
       )}
 
       {accessToken && <SmallProfile accessToken={accessToken} />}
+      <ChoiceModal show={showModal} onClose={toggleModal} />
     </StyledWrapper>
   );
 }

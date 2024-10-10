@@ -131,7 +131,7 @@ const StyledWrapper = styled.div`
       background: none;
       border: none;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 8;
       height: 50px;
       border-radius: 9px;
       margin-left: 50px;
