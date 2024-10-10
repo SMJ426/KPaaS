@@ -15,9 +15,10 @@ export default function EditpostForm({ postId, post, accessToken }) {
   const posts = post.post;
   const [postName, setPostName] = useState('');
   const [price, setPrice] = useState(null);
-  const [images1, setImages1] = useState('');
+  const [images1, setImages1] = useState(null);
   const [showImages1, setShowImages1] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [isNewImage, setIsNewImage] = useState(false);
 
   const [totalNumber, setTotalnumber] = useState('');
   const [TeacherInfo, setTeacherInfo] = useState('');
@@ -34,6 +35,9 @@ export default function EditpostForm({ postId, post, accessToken }) {
     day: '1',
   });
 
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showImageAlertModal, setShowImageAlertModal] = useState(false);
+
   const selectList = [
     { value: '3001', name: '가정방문' },
     { value: '3002', name: '수영장' },
@@ -41,20 +45,9 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   const selectlocationList = [
-    '서울 강서',
-    '서울 강동',
-    '서울 강북',
-    '서울 강남',
-    '부산',
-    '대구',
-    '인천',
-    '광주',
-    '대전',
-    '울산',
-    '경기도',
-    '강원도',
-    '충청도',
-    '전라도',
+    '서울 강서', '서울 강동', '서울 강북', '서울 강남',
+    '부산', '대구', '인천', '광주', '대전', '울산',
+    '경기도', '강원도', '충청도', '전라도',
   ];
 
   useEffect(() => {
@@ -62,9 +55,10 @@ export default function EditpostForm({ postId, post, accessToken }) {
     if (posts) {
       setPostName(posts.post_name);
       setPrice(posts.price);
-      setImages1(posts.image_post);
+      setImages1(posts.image_post); // 기존 이미지 URL 저장
       setShowImages1(posts.image_post);
       setCategoryId(posts.category_id);
+      setIsNewImage(false);
 
       // 날짜 문자열을 파싱하여 날짜 객체 설정
       const parseDate = (dateStr) => {
@@ -83,9 +77,13 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    setImages1(selectedImage);
-    const imageUrls = URL.createObjectURL(selectedImage);
-    setShowImages1(imageUrls);
+    if (selectedImage) {
+      setImages1(selectedImage);
+      const imageUrl = URL.createObjectURL(selectedImage);
+      setShowImages1(imageUrl);
+      setIsNewImage(true);
+      setShowImageAlertModal(false);
+    }
   };
 
   const handleCategorySelect = (e) => {
@@ -142,6 +140,16 @@ export default function EditpostForm({ postId, post, accessToken }) {
   async function sendPostHandler(event) {
     event.preventDefault();
 
+    if (!postName || !price || !categoryId || !totalNumber || !location || !TeacherInfo) {
+      setShowAlertModal(true);
+      return;
+    }
+
+    if (images1 && !isNewImage) {
+      setShowImageAlertModal(true);
+      return;
+    }
+
     try {
       const formData = new FormData();
       const req = {
@@ -154,24 +162,32 @@ export default function EditpostForm({ postId, post, accessToken }) {
         total_number: parseInt(totalNumber),
         location: location,
       };
+
+      if (isNewImage) {
+        formData.append('img', images1);
+      } else {
+        req.image_post = images1; 
+      }
+
       formData.append(
         'req',
         new Blob([JSON.stringify(req)], { type: 'application/json' })
       );
-      formData.append('img', images1);
+
+      // FormData 내용 로깅 (디버깅 용도)
       for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]);
       }
+
       await handleSubmit(formData);
-      // http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30
-      const redirectUrl =
-        'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
+
+      // 리다이렉트 URL (주석 처리되어 있음)
+      // const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
       // window.location.href = redirectUrl;
+
     } catch (error) {
       console.error('에러 발생:', error);
-      alert(
-        '죄송합니다. 요청을 처리하는 동안 오류가 발생했습니다. 나중에 다시 시도해주세요.'
-      );
+      alert('죄송합니다. 요청을 처리하는 동안 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     }
   }
 
@@ -225,6 +241,25 @@ export default function EditpostForm({ postId, post, accessToken }) {
           </button>
         </div>
       </form>
+
+      {showAlertModal && (
+        <AlertModal>
+          <div className="modal-content">
+            <p>빈 값을 확인해 주세요.</p>
+            <button onClick={() => setShowAlertModal(false)}>닫기</button>
+          </div>
+        </AlertModal>
+      )}
+
+      {showImageAlertModal && (
+        <AlertModal>
+          <div className="modal-content">
+            <p>이미지를 변경해 주세요.</p>
+            <button onClick={() => setShowImageAlertModal(false)}>닫기</button>
+          </div>
+        </AlertModal>
+      )}
+
     </StyledWrapper>
   );
 }
@@ -281,5 +316,42 @@ const StyledWrapper = styled.div`
   .submit-button {
     background-color: #4caf50;
     color: white;
+  }
+`;
+
+const AlertModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: white; 
+    padding: 40px; 
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  }
+
+  button {
+    background-color: red; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    margin-top: 20px; 
+    letter-spacing: 2px; 
+  }
+
+  button:hover {
+    background-color: darkred; 
   }
 `;

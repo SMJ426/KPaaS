@@ -276,25 +276,25 @@ const Modal = styled.div`
 
   .modal-content {
     background: white;
-    padding: 40px; /* 모달 크기 증가 */
+    padding: 40px; 
     border-radius: 8px;
     text-align: center;
-    min-width: 300px; /* 최소 너비 */
+    min-width: 300px; 
   }
 
   button {
-    background-color: red; /* 버튼 배경색 */
-    color: white; /* 버튼 글자색 */
-    padding: 10px 20px; /* 버튼 패딩 */
+    background-color: red; 
+    color: white; 
+    padding: 10px 20px; 
     border: none;
-    border-radius: 50px; /* 동그란 모양 */
+    border-radius: 50px; 
     cursor: pointer;
-    margin-top: 20px; /* 버튼 위쪽 간격 */
-    letter-spacing: 2px; /* 글자 간격 */
+    margin-top: 20px; 
+    letter-spacing: 2px; 
   }
 
   button:hover {
-    background-color: darkred; /* 호버 시 배경색 변화 */
+    background-color: darkred; 
   }
 `
 
