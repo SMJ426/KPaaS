@@ -176,12 +176,12 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
     <StyledWrapper>
       <div className="wrapper-messages">
         {postData && (
-          <>
+          <div className="wrapeer-chat-info">
             {/* 채팅 상대방 프로필 부분 */}
             <ChatPartnerProfile postData={postData} />
             {/* 간략한 수업 정보 부분 */}
             <ChatClassOverview postData={postData} />
-          </>
+          </div>
         )}
 
         {/* 실제 채팅 부분 */}
@@ -200,6 +200,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
           <div ref={messagesEndRef} />
         </div>
       </div>
+
       <div className="wrapper-input">
         <textarea
           type="text"
@@ -232,14 +233,20 @@ const StyledWrapper = styled.div`
   border: 1px solid #eaebee;
 
   .wrapper-messages {
-    flex: 1;
     margin-bottom: 135px;
+    margin-top: 128px;
     overflow-y: auto;
+    background-color: skyblue;
+
+    .wrapeer-chat-info {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
 
     .wrapper-messages-list {
       margin-top: 10px;
       width: 100%;
-      height: 100%;
     }
   }
 
