@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 
 export default function ChattingListRenderer({ listData }) {
-  console.log('listData.post >> ', listData);
   const router = useRouter();
 
   const handleClickChatRoom = () => {
