@@ -43,6 +43,7 @@ const StyledWrapper = styled.div`
   height: 100%;
   background-color: #ffffff;
   border-top: 1px solid #eaebee;
+  border-right: 1px solid #eaebee;
 
   .wrapper-profile-img {
     display: flex;

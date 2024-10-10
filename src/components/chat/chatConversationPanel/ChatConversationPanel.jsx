@@ -8,6 +8,7 @@ import RequestMessages from './RequestMessages';
 import ReceivedMessages from './ReceivedMessages';
 import ChatPartnerProfile from './ChatPartnerProfile';
 import ChatClassOverview from './ChatClassOverview';
+import NoChattingPartner from './NoChattingPartner';
 import { useChatListQuery } from '../query/useChatListQuery';
 import axios from 'axios';
 
@@ -171,6 +172,9 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
   };
 
   if (isLoading || error) return null;
+  if (!roomId) {
+    return <NoChattingPartner />;
+  }
 
   return (
     <StyledWrapper>
@@ -231,6 +235,7 @@ const StyledWrapper = styled.div`
   width: 800px;
 
   border: 1px solid #eaebee;
+  border-left: none;
 
   .wrapper-messages {
     margin-bottom: 135px;
