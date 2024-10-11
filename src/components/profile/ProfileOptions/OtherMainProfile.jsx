@@ -53,8 +53,16 @@ export default function OtherProfileInfo({
         }
       );
 
+      console.log("채팅방 응답: " + JSON.stringify(response));
+
       if (response.status === 200) {
-        router.push(`/chat/${userInfo.nick_name}`);
+        const responseData = response.data; 
+        if (responseData.startsWith("채팅방있음")) {
+          const roomName = responseData.split("채팅방있음 ")[1];
+          router.push(`/chat/${roomName}`);
+        } else {
+          router.push(`/chat/${userInfo.nick_name}`); 
+        }
       }
     } catch (error) {
       console.error('채팅방 생성 중 오류가 발생했습니다.', error);
