@@ -52,9 +52,7 @@ export default function OtherProfileInfo({
           },
         }
       );
-
-      console.log("채팅방 응답: " + JSON.stringify(response));
-
+      
       if (response.status === 200) {
         const responseData = response.data; 
         if (responseData.startsWith("채팅방있음")) {
