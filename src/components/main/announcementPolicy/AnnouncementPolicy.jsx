@@ -40,7 +40,7 @@ function AnnouncementPolicy() {
 
       <div className="wrapper-policy">
         <div className="wrapper-btns">
-          <p className="title">신규정책</p>
+          <p className="title">체육 복지 프로그램,제도 안내</p>
           <div className="controls">
             <button onClick={handlePrev}>{'<'}</button>
             <button onClick={handleNext}>{'>'}</button>
