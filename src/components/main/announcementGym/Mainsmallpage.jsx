@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import DetailGymPage from './DetailGymPage.jsx';
@@ -81,7 +82,7 @@ export default function Mainsmallpage() {
         value={location}
         onChange={handleLocationChange}
       >
-        <option value="">카테고리 선택</option>
+        <option value="">지역 선택</option>
         {LocationList.map((cat, index) => (
           <option key={index} value={cat}>
             {cat}
@@ -97,13 +98,6 @@ export default function Mainsmallpage() {
 
       {gymsData && (
         <CarouselWrapper>
-          <button
-            onClick={prevSlide}
-            className="nav-button prev"
-            disabled={currentIndex === 0}
-          >
-            &lt;
-          </button>
           <div className="carousel-container">
             <div className="carousel" ref={carouselRef}>
               {gymsData.data.map((gym) => (
@@ -133,13 +127,15 @@ export default function Mainsmallpage() {
               ))}
             </div>
           </div>
-          <button
-            onClick={nextSlide}
-            className="nav-button next"
-            disabled={currentIndex >= gymsData.data.length - 2}
-          >
-            &gt;
-          </button>
+          <div className="pagination">
+            {gymsData.data.map((_, index) => (
+              <span
+                key={index}
+                className={`dot ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => setCurrentIndex(index)}
+              ></span>
+            ))}
+          </div>
         </CarouselWrapper>
       )}
 
@@ -171,6 +167,7 @@ const StyledWrapper = styled.div`
     padding: 8px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
+    margin-left: 20px;
     border-radius: 4px;
     font-size: 14px;
     appearance: none;
@@ -187,34 +184,10 @@ const StyledWrapper = styled.div`
     gap: 15px;
   }
 
-  .gym-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
-
-    h2 {
-      color: #333;
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    p {
-      color: #666;
-      font-size: 0.8rem;
-      margin-bottom: 5px;
-    }
-  }
-
   .button-group {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 35px;
   }
 
   .website-button,
@@ -264,16 +237,18 @@ const CarouselWrapper = styled.div`
   }
 
   .gym-card {
-    flex: 0 0 30%; // 카드 너비를 50%로 설정하여 2개씩 표시
-    background-color: #fff;
+    flex: 0 0 45%;
+    height: 170px;
+    background-color: #fafafa;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin: 0px 0px 0px 30px;
+    padding: 20px;
+    margin: 0px 20px 3px 20px;
     transition: transform 0.2s ease;
 
     &:hover {
       transform: translateY(-3px);
+      background-color: #eef1f5;
     }
 
     h2 {
@@ -289,28 +264,25 @@ const CarouselWrapper = styled.div`
     }
   }
 
-  .nav-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 5;
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: #d3d3d3;
+      margin: 0 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    &.prev {
-      left: 0px;
-    }
-
-    &.next {
-      right: 0px;
+    .dot.active {
+      background-color: #000;
+      width: 20px;
+      border-radius: 10px;
     }
   }
 `;
