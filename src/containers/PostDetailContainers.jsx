@@ -89,7 +89,8 @@ export default function PostDetailContainers({
 
 const StyledWrapper = styled.div`
   .container {
-    margin-top: 60px;
+    /* margin-top: 60px; */
+    margin: 60px 5% 0 5%;
   }
 
   .mainContent {
