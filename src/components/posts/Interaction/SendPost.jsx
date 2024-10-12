@@ -39,7 +39,7 @@ export default function PostForm({ accessToken }) {
     totalNumber: '',
     TeacherInfo: '',
     location: '',
-    images1: '', 
+    images1: '',
   });
 
   const selectList = [
@@ -142,7 +142,7 @@ export default function PostForm({ accessToken }) {
       newErrors.location = '지역을 지정해주세요.';
       valid = false;
     }
-    if (images1 === '/images/png/icon-add-image.png') { 
+    if (images1 === '/images/png/icon-add-image.png') {
       newErrors.images1 = '프로필 이미지를 선택해주세요.';
       valid = false;
     }
@@ -150,7 +150,7 @@ export default function PostForm({ accessToken }) {
     setErrors(newErrors);
 
     if (!valid) {
-      setShowAlertModal(true); 
+      setShowAlertModal(true);
     }
 
     return valid;
@@ -276,27 +276,27 @@ const Modal = styled.div`
 
   .modal-content {
     background: white;
-    padding: 40px; 
+    padding: 40px;
     border-radius: 8px;
     text-align: center;
-    min-width: 300px; 
+    min-width: 300px;
   }
 
   button {
-    background-color: red; 
-    color: white; 
-    padding: 10px 20px; 
+    background-color: #f25264;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 50px; 
+    border-radius: 50px;
     cursor: pointer;
-    margin-top: 20px; 
-    letter-spacing: 2px; 
+    margin-top: 20px;
+    letter-spacing: 2px;
   }
 
   button:hover {
-    background-color: darkred; 
+    background-color: #f2526587;
   }
-`
+`;
 
 const StyledWrapper = styled.div`
   max-width: 1200px;
