@@ -45,9 +45,20 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   const selectlocationList = [
-    '서울 강서', '서울 강동', '서울 강북', '서울 강남',
-    '부산', '대구', '인천', '광주', '대전', '울산',
-    '경기도', '강원도', '충청도', '전라도',
+    '서울 강서',
+    '서울 강동',
+    '서울 강북',
+    '서울 강남',
+    '부산',
+    '대구',
+    '인천',
+    '광주',
+    '대전',
+    '울산',
+    '경기도',
+    '강원도',
+    '충청도',
+    '전라도',
   ];
 
   useEffect(() => {
@@ -140,7 +151,14 @@ export default function EditpostForm({ postId, post, accessToken }) {
   async function sendPostHandler(event) {
     event.preventDefault();
 
-    if (!postName || !price || !categoryId || !totalNumber || !location || !TeacherInfo) {
+    if (
+      !postName ||
+      !price ||
+      !categoryId ||
+      !totalNumber ||
+      !location ||
+      !TeacherInfo
+    ) {
       setShowAlertModal(true);
       return;
     }
@@ -166,7 +184,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
       if (isNewImage) {
         formData.append('img', images1);
       } else {
-        req.image_post = images1; 
+        req.image_post = images1;
       }
 
       formData.append(
@@ -181,9 +199,9 @@ export default function EditpostForm({ postId, post, accessToken }) {
 
       await handleSubmit(formData);
 
-      const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; // 리다이렉트할 URL로 변경
-      window.location.href = redirectUrl; 
-
+      const redirectUrl =
+        'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; // 리다이렉트할 URL로 변경
+      window.location.href = redirectUrl;
     } catch (error) {
       console.error('에러 발생:', error);
       alert('요청을 처리하는 동안 오류가 발생했습니다. 다시 시도해주세요.');
@@ -258,7 +276,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
           </div>
         </AlertModal>
       )}
-
     </StyledWrapper>
   );
 }
@@ -331,26 +348,26 @@ const AlertModal = styled.div`
   z-index: 1000;
 
   .modal-content {
-    background: white; 
-    padding: 40px; 
+    background: white;
+    padding: 40px;
     border-radius: 8px;
     text-align: center;
-    min-width: 300px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    min-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
   button {
-    background-color: red; 
-    color: white; 
-    padding: 10px 20px; 
+    background-color: #f25264;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 50px; 
+    border-radius: 50px;
     cursor: pointer;
-    margin-top: 20px; 
-    letter-spacing: 2px; 
+    margin-top: 20px;
+    letter-spacing: 2px;
   }
 
   button:hover {
-    background-color: darkred; 
+    background-color: #f2526587;
   }
 `;
