@@ -26,6 +26,8 @@ export default function ProfileNavigation({
   );
 }
 const StyledWrapper = styled.header`
+  margin: 0 5%;
+
   .onlikebtn {
     position: absolute;
     color: var(--primary-primary, #000000);

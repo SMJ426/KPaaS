@@ -64,7 +64,6 @@ export default function MainContainers({
   const allPosts = data?.pages.flatMap((page) => page.content) || [];
 
   const MoveToTop = () => {
-    // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -72,35 +71,33 @@ export default function MainContainers({
     <StyledWrapper>
       <MainNavigation accessToken={accessToken} />
       <SearchSection accessToken={accessToken} />
-      {/* <img
-        src="/images/png/PTSD-main-logo.png"
-        alt="메인 이미지"
-        className="main-img"
-      /> */}
-      <AnnouncementPolicy />
-      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
-      <div className="wrapper-body-card">
-        <div className="wrapper-cate">
-          <CategoryComponents
-            handleCategoryChange={handleCategoryChange}
-            handleLocationChange={handleLocationChange}
-          />
+
+      <div className="wrapper-down-section">
+        <AnnouncementPolicy />
+        {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
+        <div className="wrapper-body-card">
+          <div className="wrapper-cate">
+            <CategoryComponents
+              handleCategoryChange={handleCategoryChange}
+              handleLocationChange={handleLocationChange}
+            />
+          </div>
+          <InfiniteScroll
+            dataLength={allPosts.length}
+            next={fetchNextPage}
+            hasMore={hasNextPage}
+            loader={
+              <div className="Loading">
+                <LoadingIndicator />
+              </div>
+            }
+          >
+            <CommuPosts postData={allPosts} accessToken={accessToken} />
+          </InfiniteScroll>
+          <button className="TopBtn" onClick={MoveToTop}>
+            <img src="/images/png/top1.png" alt="맨위로" />
+          </button>
         </div>
-        <InfiniteScroll
-          dataLength={allPosts.length}
-          next={fetchNextPage}
-          hasMore={hasNextPage}
-          loader={
-            <div className="Loading">
-              <LoadingIndicator />
-            </div>
-          }
-        >
-          <CommuPosts postData={allPosts} accessToken={accessToken} />
-        </InfiniteScroll>
-        <button className="TopBtn" onClick={MoveToTop}>
-          <img src="/images/png/top1.png" alt="맨위로" />
-        </button>
       </div>
     </StyledWrapper>
   );
@@ -109,6 +106,10 @@ export default function MainContainers({
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  .wrapper-down-section {
+    padding: 0 5%;
+  }
 
   .main-img {
     width: 100%;
@@ -131,7 +132,7 @@ const StyledWrapper = styled.div`
       background: none;
       border: none;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 8;
       height: 50px;
       border-radius: 9px;
       margin-left: 50px;

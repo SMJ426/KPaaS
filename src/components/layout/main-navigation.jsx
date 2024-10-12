@@ -1,9 +1,14 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
+import ChoiceModal from '../login/ChoiceComponents';
 
 export default function MainNavigation({ accessToken }) {
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
@@ -41,13 +46,14 @@ export default function MainNavigation({ accessToken }) {
 
       {!accessToken && (
         <div className="btn-login">
-          <Link href="/user/login" passHref>
-            <button className="btn-login">로그인</button>
-          </Link>
+          <button className="btn-login" onClick={toggleModal}>
+            로그인
+          </button>
         </div>
       )}
 
       {accessToken && <SmallProfile accessToken={accessToken} />}
+      <ChoiceModal show={showModal} onClose={toggleModal} />
     </StyledWrapper>
   );
 }
@@ -55,18 +61,24 @@ export default function MainNavigation({ accessToken }) {
 const StyledWrapper = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   position: sticky;
   top: 0;
 
   z-index: 10;
 
   background-color: #ffffff;
+  width: 100vw;
   height: 80px;
+
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 15px 0px;
+  border-bottom: 1px solid rgb(238, 238, 238);
 
   .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
+
     cursor: pointer;
 
     > img {
@@ -80,6 +92,10 @@ const StyledWrapper = styled.header`
     gap: 50px;
     font-family: 'Pretendard';
     font-weight: bold;
+
+    p {
+      min-width: 56px;
+    }
   }
 
   .btn-login {

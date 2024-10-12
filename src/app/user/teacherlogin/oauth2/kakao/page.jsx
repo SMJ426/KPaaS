@@ -3,13 +3,13 @@ import React, { useEffect } from 'react';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 import styles from './page.module.css';
 
-export default function NaverLogin() {
+export default function KakaoLogin() {
   useEffect(() => {
-    const naverLogin = async () => {
+    const kakaoLogin = async () => {
       const code = new URL(window.location.href).searchParams.get('code');
       if (code) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/oauth2/naver?code=${code}&role=ROLE_MEMBER`,
+          `${process.env.NEXT_PUBLIC_API_URL}/oauth2/kakao?code=${code}&role=ROLE_TEACHER`,
           {
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
@@ -31,7 +31,7 @@ export default function NaverLogin() {
         return;
       }
     };
-    naverLogin();
+    kakaoLogin();
   }, []);
 
   return (
