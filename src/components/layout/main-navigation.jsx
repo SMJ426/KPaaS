@@ -33,25 +33,13 @@ export default function MainNavigation({ accessToken }) {
 
       {/* 상단 바 중간 네비 게이터 */}
       <div className="wrapper-navigate-menu">
-        <Link href="#">
-          <p className="navigate">About</p>
-        </Link>
-
-        <Link href="#">
-          <p>Character</p>
-        </Link>
-
-        <Link href="#">
-          <p>Curriculum</p>
+        <Link href="/about">
+          <p className="navigate">PTFD란?</p>
         </Link>
 
         <div className="navigate-chat" onClick={handleChatClick}>
           <p>채팅하기</p>
         </div>
-
-        <Link href="#">
-          <p>Store</p>
-        </Link>
       </div>
 
       {!accessToken && (
