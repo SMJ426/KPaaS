@@ -68,11 +68,6 @@ export default function SmallProfile({ accessToken }) {
     setIsOpen(!isOpen);
   };
 
-  const handleContentClick = (e) => {
-    e.stopPropagation();
-  };
-
-
   return (
     <Popover showArrow={true} placement="bottom">
       <PopoverTrigger  onClick={handleToggle}>
