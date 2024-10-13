@@ -70,11 +70,11 @@ export default function TeacherSignupForm() {
     e.preventDefault();
     try {
       const data = await checkNickname(nick_name);
-      if (data === true) {
-        setIsDuplicate(true);
+      if (data === false) {
+        setIsDuplicate(false);
         setIsNicknameVerified(true);
       } else {
-        setIsDuplicate(false);
+        setIsDuplicate(true);
         setIsNicknameVerified(false);
       }
     } catch (error) {
@@ -163,10 +163,6 @@ export default function TeacherSignupForm() {
       new Blob([JSON.stringify(req)], { type: 'application/json' })
     );
     formData.append('img', image);
-
-    for (var pair of formData.values()) {
-      console.log(pair);
-    }
 
     try {
       const responseData = await signup(formData);
