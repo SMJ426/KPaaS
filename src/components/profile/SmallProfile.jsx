@@ -49,7 +49,6 @@ export default function SmallProfile({ accessToken }) {
           const NewaccessToken = await RefreshAccessToken();
           const Newdata = await fetchUserProfile(NewaccessToken);
           setuserInfo(Newdata);
-          console.log(Newdata);
         } else {
           setuserInfo(data);
         }

@@ -4,11 +4,21 @@ import { useState } from 'react';
 import SmallProfile from '../profile/SmallProfile';
 import styled from 'styled-components';
 import ChoiceModal from '../login/ChoiceComponents';
+import { useRouter } from 'next/navigation';
 
 export default function MainNavigation({ accessToken }) {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
+  const router = useRouter();
 
+  const handleChatClick = (e) => {
+    if (!accessToken || accessToken.trim() === '') {
+      e.preventDefault();
+      setShowModal(true);
+    } else {
+      router.push('/chat');
+    }
+  };
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
@@ -35,9 +45,9 @@ export default function MainNavigation({ accessToken }) {
           <p>Curriculum</p>
         </Link>
 
-        <Link href="/chat">
+        <div className="navigate-chat" onClick={handleChatClick}>
           <p>채팅하기</p>
-        </Link>
+        </div>
 
         <Link href="#">
           <p>Store</p>
@@ -93,6 +103,9 @@ const StyledWrapper = styled.header`
     font-family: 'Pretendard';
     font-weight: bold;
 
+    .navigate-chat {
+      cursor: pointer;
+    }
     p {
       min-width: 56px;
     }

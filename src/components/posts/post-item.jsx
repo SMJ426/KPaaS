@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
+import ChoiceModal from '../login/ChoiceComponents';
 import ChoosePayModal from '../payment/ChoosePay';
 import Chatting from '../chatting/Chatting';
 import axios from 'axios';
@@ -15,6 +16,7 @@ export default function PostItem({ postData, posts, accessToken }) {
   const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
   const [isMounted, setIsMounted] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const linkPath = `/${postData.post_id}`;
   const linkProfile = `/profile/${postData.nick_name}`;
   const formattedPrice = postData.price.toLocaleString('ko-KR');
@@ -22,61 +24,81 @@ export default function PostItem({ postData, posts, accessToken }) {
     ? '/images/png/icon-heart-fill.png'
     : '/images/png/icon-heart.png';
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     setIsMounted(true);
     setLiked(postData.like);
   }, [postData.like]);
 
-  const handleLikeClick = async () => {
-    if (!accessToken) {
-      router.push('/user/login');
+  const handleProfileClick = async () => {
+    if (!accessToken || accessToken.trim() === '') {
+      setShowModal(true);
+    } else {
+      router.push(linkProfile);
     }
-    try {
-      if (liked) {
-        // 이미 좋아요를 눌렀을 경우
-        const response = await DeleteLike(accessToken, postData.post_id);
-        if (response.state == 'Jwt Expired') {
-          const NewaccessToken = await RefreshAccessToken();
-          await DeleteLike(NewaccessToken, postData.post_id);
+  };
+
+  const handlePostClick = async () => {
+    if (!accessToken || accessToken.trim() === '') {
+      setShowModal(true);
+    } else {
+      router.push(linkPath);
+    }
+  };
+
+  const handleLikeClick = async () => {
+    if (!accessToken || accessToken.trim() === '') {
+      setShowModal(true);
+    } else {
+      try {
+        if (liked) {
+          // 이미 좋아요를 눌렀을 경우
+          const response = await DeleteLike(accessToken, postData.post_id);
+          if (response.state == 'Jwt Expired') {
+            const NewaccessToken = await RefreshAccessToken();
+            await DeleteLike(NewaccessToken, postData.post_id);
+          }
+          setLiked(false);
+        } else {
+          // 아직 좋아요를 누르지 않은 경우
+          const response = await Likepost(accessToken, postData.post_id);
+          if (response.state == 'Jwt Expired') {
+            const NewaccessToken = await RefreshAccessToken();
+            await Likepost(NewaccessToken, postData.post_id);
+          }
+          setLiked(true);
         }
-        setLiked(false);
-      } else {
-        // 아직 좋아요를 누르지 않은 경우
-        const response = await Likepost(accessToken, postData.post_id);
-        if (response.state == 'Jwt Expired') {
-          const NewaccessToken = await RefreshAccessToken();
-          await Likepost(NewaccessToken, postData.post_id);
-        }
-        setLiked(true);
+      } catch (error) {
+        console.error('좋아요 처리 중 오류가 발생했습니다.', error);
       }
-    } catch (error) {
-      console.error('좋아요 처리 중 오류가 발생했습니다.', error);
     }
   };
 
   const handleChatClick = async () => {
-    if (!accessToken) {
-      router.push('/user/login');
-      return;
-    }
+    if (!accessToken || accessToken.trim() === '') {
+      setShowModal(true);
+    } else {
+      try {
+        // 채팅방 생성 요청 API
+        const response = await axios.post(
+          `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/make/post/${postData.post_id}`,
+          {},
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          }
+        );
 
-    try {
-      // 채팅방 생성 요청 API
-      const response = await axios.post(
-        `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/make/post/${postData.post_id}`,
-        {},
-        {
-          headers: {
-            Authorization: accessToken,
-          },
+        if (response.status === 200) {
+          router.push(`/chat/${postData.post_id}`);
         }
-      );
-
-      if (response.status === 200) {
-        router.push(`/chat/${postData.post_id}`);
+      } catch (error) {
+        console.error('채팅방 생성 중 오류가 발생했습니다.', error);
       }
-    } catch (error) {
-      console.error('채팅방 생성 중 오류가 발생했습니다.', error);
     }
   };
 
@@ -86,7 +108,7 @@ export default function PostItem({ postData, posts, accessToken }) {
 
   return (
     <StyledWrapper>
-      <Link href={linkProfile} className="wrapper-profile-info">
+      <button onClick={handleProfileClick} className="wrapper-profile-info">
         <img
           src={postData.user_profile}
           alt="프로필 이미지"
@@ -96,17 +118,17 @@ export default function PostItem({ postData, posts, accessToken }) {
           <p className="nickname">{postData.nick_name}</p>
           <p className="postname">{postData.post_name}</p>
         </div>
-      </Link>
+      </button>
 
       <div className="wrapper-bottom">
-        <Link href={linkPath} className="wrapper-img-info">
+        <button onClick={handlePostClick} className="wrapper-img-info">
           <img
             src={postData.image_post}
             alt="상품 이미지"
             className="img-post"
           />
           <span className="post_info">{postData.post_info}</span>
-        </Link>
+        </button>
 
         <div className="wrapper-btns">
           <div className="wrapper-price">
@@ -144,6 +166,7 @@ export default function PostItem({ postData, posts, accessToken }) {
           )}
         </div>
       </div>
+      {showModal && <ChoiceModal show={showModal} onClose={closeModal} />}
     </StyledWrapper>
   );
 }
@@ -166,6 +189,8 @@ const StyledWrapper = styled.div`
     gap: 12px;
     padding: 12px 12px 0 12px;
     height: 64px;
+    border: 0;
+    background: 0;
 
     .img-profile {
       width: 40px;
@@ -200,6 +225,8 @@ const StyledWrapper = styled.div`
       display: flex;
       flex-direction: column;
       gap: 12px;
+      border: 0;
+      background: 0;
       .img-post {
         width: 100%;
         height: 196px;

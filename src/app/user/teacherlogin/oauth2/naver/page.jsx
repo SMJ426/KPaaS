@@ -20,7 +20,6 @@ export default function NaverLogin() {
           throw new Error('로그인 실패');
         }
         const data = await response.json();
-        console.log(data);
 
         const { accessToken, refreshToken } = data;
         document.cookie = `Authorization=Bearer ${accessToken}; path=/`;

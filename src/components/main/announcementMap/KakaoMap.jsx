@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 export default function KakaoMap({ gym }) {
-  console.log('Gym', gym.시설명);
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
   const infowindowRef = useRef(null);

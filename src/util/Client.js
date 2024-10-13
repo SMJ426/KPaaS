@@ -50,9 +50,7 @@ export async function KakaoLogout() {
       },
     }
   );
-  console.log(response);
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
@@ -137,7 +135,6 @@ export async function fetchUserEmail(nick_name) {
       }
     );
     const data = await response.json();
-    console.log(data);
     return data.email;
   } catch (error) {
     console.error(

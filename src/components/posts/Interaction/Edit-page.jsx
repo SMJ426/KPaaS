@@ -62,7 +62,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
   ];
 
   useEffect(() => {
-    console.log(posts);
     if (posts) {
       setPostName(posts.post_name);
       setPrice(posts.price);
