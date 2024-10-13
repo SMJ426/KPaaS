@@ -45,9 +45,9 @@ export default function MainNavigation({ accessToken }) {
           <p>Curriculum</p>
         </Link>
 
-        <a href="#" onClick={handleChatClick}>
+        <div className="navigate-chat" onClick={handleChatClick}>
           <p>채팅하기</p>
-        </a>
+        </div>
 
         <Link href="#">
           <p>Store</p>
@@ -103,6 +103,9 @@ const StyledWrapper = styled.header`
     font-family: 'Pretendard';
     font-weight: bold;
 
+    .navigate-chat {
+      cursor: pointer;
+    }
     p {
       min-width: 56px;
     }
