@@ -33,9 +33,9 @@ const StyledWrapper = styled.div`
   padding: 20px;
 
   .img-policy {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
+    width: 320px;
+    height: 180px;
+    object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -61,9 +61,14 @@ const StyledWrapper = styled.div`
     }
   }
 
-  @media screen and (max-width: 1600px) {
+    @media screen and (max-width: 1600px) {
     .wrapper-desc {
-      display: none;
+      display: block; 
+    }
+
+    .img-policy {
+      width: 100%;
+      height: auto; 
     }
   }
 `;
