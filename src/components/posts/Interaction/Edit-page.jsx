@@ -203,7 +203,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
         'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; // 리다이렉트할 URL로 변경
       window.location.href = redirectUrl;
     } catch (error) {
-      console.error('에러 발생:', error);
       alert('요청을 처리하는 동안 오류가 발생했습니다. 다시 시도해주세요.');
     }
   }
