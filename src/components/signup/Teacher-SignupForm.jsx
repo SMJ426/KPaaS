@@ -59,7 +59,6 @@ export default function TeacherSignupForm() {
     setImage(selectedImage);
     const imageUrls = URL.createObjectURL(selectedImage);
     setShowimage(imageUrls);
-    console.log(selectedImage);
   };
 
   const togglePasswordVisibility = () => {

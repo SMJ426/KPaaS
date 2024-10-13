@@ -29,7 +29,6 @@ export default function ProductsComponent({
           return initialProducts;
         }
         const result = await getSelling(nick_name, pageParam);
-        console.log(result);
         return result;
       },
       getNextPageParam: (lastPage, allPages) => {

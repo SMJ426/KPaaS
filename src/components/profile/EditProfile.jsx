@@ -28,7 +28,6 @@ export default function MyEditComponents({ accessToken, userInfo }) {
 
   useEffect(() => {
     if (userInfo) {
-      console.log(userInfo);
       setEmail(userInfo.email);
       setName(userInfo.user_name);
       setNickname(userInfo.nick_name);
@@ -51,7 +50,6 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     setImage(imageUrl);
     const imageUrls = URL.createObjectURL(selectedImage);
     setShowimage(imageUrls);
-    console.log(imageUrl);
   };
 
   const togglePasswordVisibility = () => {
@@ -128,13 +126,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     );
     formData.append('img', image);
 
-    for (var pair of formData.values()) {
-      console.log(pair);
-    }
-
     try {
       const responseData = await EditProfile(formData, accessToken);
-      console.log(responseData);
       if (responseData.state === 'success') {
         window.location.href = '/profile';
       } else if (responseData.state === '중복된 이메일') {

@@ -93,7 +93,6 @@ export default function SearchContainer({
         <InfiniteScroll
           dataLength={allResults.length}
           next={() => {
-            console.log('Fetching next page');
             return fetchNextPage();
           }}
           hasMore={hasNextPage}

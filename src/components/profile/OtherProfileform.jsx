@@ -41,7 +41,6 @@ export default function OtherProfileform({
     if (isfollow === false) {
       try {
         const response = await followUser(accessToken, userInfo.email);
-        console.log('팔로우 요청이 성공했습니다.');
         setfollowing(true);
       } catch (error) {
         console.error('팔로우 요청 중 오류가 발생했습니다.', error);

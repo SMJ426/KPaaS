@@ -13,6 +13,3 @@ export const generateUUID = () => {
   });
 };
 
-// 사용 예:
-// const uuid = generateUUID();
-// console.log(uuid);
