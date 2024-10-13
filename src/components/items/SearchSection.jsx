@@ -3,12 +3,14 @@ import React, { useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
+import ChoiceModal from '../login/ChoiceComponents';
 
 const SearchSection = ({ accessToken }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchType, setSearchType] = useState('post');
   const [autoCompleteResults, setAutoCompleteResults] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const searchElement = useRef();
 
   const AutoSearch = useCallback(
@@ -55,10 +57,14 @@ const SearchSection = ({ accessToken }) => {
     event.preventDefault();
     const searchTerm = searchElement.current.value;
     setSearchTerm(searchTerm);
-    if (searchType === 'post') {
+    if (searchType === 'member') {
+      if (!accessToken || accessToken.trim() === '') {
+        setShowModal(true);
+      } else {
+        router.push(`/profile/${searchTerm}`);
+      }
+    } else if (searchType === 'post') {
       router.push(`/search/${searchTerm}`);
-    } else if (searchType === 'member') {
-      router.push(`/profile/${searchTerm}`);
     }
   };
 
@@ -66,15 +72,23 @@ const SearchSection = ({ accessToken }) => {
     setSearchTerm(item);
     searchElement.current.value = item;
     setAutoCompleteResults([]);
-    if (searchType === 'post') {
+    if (searchType === 'member') {
+      if (!accessToken || accessToken.trim() === '') {
+        setShowModal(true);
+      } else {
+        router.push(`/profile/${item}`);
+      }
+    } else if (searchType === 'post') {
       router.push(`/search/${item}`);
-    } else if (searchType === 'member') {
-      router.push(`/profile/${item}`);
     }
   };
 
   const handleSearchTypeChange = (event) => {
     setSearchType(event.target.value);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -131,6 +145,7 @@ const SearchSection = ({ accessToken }) => {
           </AutoCompleteDropdown>
         )}
       </form>
+      {showModal && <ChoiceModal show={showModal} onClose={closeModal} />}
     </StyledWrapper>
   );
 };

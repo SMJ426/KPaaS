@@ -3,38 +3,44 @@ import styled from 'styled-components';
 import Payment from './payment';
 import { Likepost } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
+import ChoiceModal from '../login/ChoiceComponents';
 import { useRouter } from 'next/navigation';
 
 export default function ChoosePayModal({ accessToken, postId, post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showChoiceModal, setShowChoiceModal] = useState(false);
   const router = useRouter();
 
   const handlebucketClick = async () => {
-    if (!accessToken) {
-      router.push('/user/login');
+    if (!accessToken || accessToken.trim() === '') {
+      setShowChoiceModal(true);
       return;
-    }
-
-    if (post.like) {
-      handlebucket();
-      return;
-    }
-
-    try {
-      let response = await Likepost(accessToken, postId);
-
-      if (response.state === 'Jwt Expired') {
-        const newAccessToken = await RefreshAccessToken();
-        response = await Likepost(newAccessToken, postId);
+    } else {
+      if (post.like) {
+        handlebucket();
+        return;
       }
-      setIsModalVisible(true);
-    } catch (error) {
-      console.error('장바구니에 담는 중 오류가 발생했습니다.', error);
+
+      try {
+        let response = await Likepost(accessToken, postId);
+
+        if (response.state === 'Jwt Expired') {
+          const newAccessToken = await RefreshAccessToken();
+          response = await Likepost(newAccessToken, postId);
+        }
+        setIsModalVisible(true);
+      } catch (error) {
+        console.error('장바구니에 담는 중 오류가 발생했습니다.', error);
+      }
     }
   };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
+  };
+
+  const handleCloseChoiceModal = () => {
+    setShowChoiceModal(false);
   };
 
   const handlebucket = () => {
@@ -81,6 +87,9 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
             </button>
           </div>
         </Modal>
+      )}
+      {showChoiceModal && (
+        <ChoiceModal show={showChoiceModal} onClose={handleCloseChoiceModal} />
       )}
     </StyledDropdown>
   );
