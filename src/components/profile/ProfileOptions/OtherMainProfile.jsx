@@ -41,25 +41,31 @@ export default function OtherProfileInfo({
     if (!accessToken || accessToken.trim() === '') {
       setShowChoiceModal(true);
       return;
-    } else {
-      try {
-        // 채팅방 생성 요청 API
-        const response = await axios.post(
-          `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
-          {},
-          {
-            headers: {
-              Authorization: accessToken,
-            },
-          }
-        );
+    }
 
-        if (response.status === 200) {
-          router.push(`/chat/${userInfo.nick_name}`);
+    try {
+      // 채팅방 생성 요청 API
+      const response = await axios.post(
+        `http://default-api-gateway-serv-577d1-26867287-5499a5423fed.kr.lb.naverncp.com:8761/chatroom/make/${userInfo.nick_name}`,
+        {},
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         }
-      } catch (error) {
-        console.error('채팅방 생성 중 오류가 발생했습니다.', error);
+      );
+      
+      if (response.status === 200) {
+        const responseData = response.data; 
+        if (responseData.startsWith("채팅방있음")) {
+          const roomName = responseData.split("채팅방있음 ")[1];
+          router.push(`/chat/${roomName}`);
+        } else {
+          router.push(`/chat/${userInfo.nick_name}`); 
+        }
       }
+    } catch (error) {
+      alert('채팅방 생성 중 오류가 발생했습니다.');
     }
   };
 
