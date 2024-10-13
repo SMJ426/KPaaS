@@ -20,6 +20,7 @@ export default function PostForm({ accessToken }) {
   const [totalNumber, setTotalnumber] = useState('');
   const [TeacherInfo, setTeacherInfo] = useState('');
   const [location, setlocation] = useState('서울 강서');
+  const [showAlertModal, setShowAlertModal] = useState(false);
 
   const [startDate, setStartDate] = useState({
     year: '2024',
@@ -38,6 +39,7 @@ export default function PostForm({ accessToken }) {
     totalNumber: '',
     TeacherInfo: '',
     location: '',
+    images1: '',
   });
 
   const selectList = [
@@ -117,6 +119,7 @@ export default function PostForm({ accessToken }) {
       totalNumber: '',
       TeacherInfo: '',
       location: '',
+      images1: '',
     };
 
     if (!postName) {
@@ -139,9 +142,22 @@ export default function PostForm({ accessToken }) {
       newErrors.location = '지역을 지정해주세요.';
       valid = false;
     }
+    if (images1 === '/images/png/icon-add-image.png') {
+      newErrors.images1 = '프로필 이미지를 선택해주세요.';
+      valid = false;
+    }
 
     setErrors(newErrors);
+
+    if (!valid) {
+      setShowAlertModal(true);
+    }
+
     return valid;
+  };
+
+  const closeModal = () => {
+    setShowAlertModal(false);
   };
 
   async function sendPostHandler(event) {
@@ -222,7 +238,6 @@ export default function PostForm({ accessToken }) {
           setTeacherInfo={setTeacherInfo}
           error={errors.TeacherInfo}
         />
-
         <div className="button-container">
           <Link href="/">
             <button type="button" className="cancel-button">
@@ -234,9 +249,54 @@ export default function PostForm({ accessToken }) {
           </button>
         </div>
       </form>
+
+      {showAlertModal && (
+        <Modal>
+          <div className="modal-content">
+            <p>빈 값을 확인해주세요</p>
+            <button onClick={closeModal}>확인</button>
+          </div>
+        </Modal>
+      )}
     </StyledWrapper>
   );
 }
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+  }
+
+  button {
+    background-color: #f25264;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 2px;
+  }
+
+  button:hover {
+    background-color: #f2526587;
+  }
+`;
 
 const StyledWrapper = styled.div`
   max-width: 1200px;
