@@ -114,7 +114,7 @@ export default function PostItem({ postData, posts, accessToken }) {
           alt="프로필 이미지"
           className="img-profile"
         />
-        <div className="wrapper-name">
+        <div className="wrapper-nickname-postname">
           <p className="nickname">{postData.nick_name}</p>
           <p className="postname">{postData.post_name}</p>
         </div>
@@ -198,10 +198,11 @@ const StyledWrapper = styled.div`
       border-radius: 50%;
     }
 
-    .wrapper-name {
+    .wrapper-nickname-postname {
       display: flex;
       flex-direction: column;
-      justify-items: center;
+      text-align: start;
+      gap: 3px;
 
       .nickname {
         font-size: 15px;
