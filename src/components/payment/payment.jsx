@@ -76,12 +76,12 @@ export default function Payment({ accessToken, postId, post }) {
     <>
       <StyledWrapper onClick={handleSetPoint}>
         <div>바로 구매하기</div>
+        <PTPaymentsEndComponents
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          isSuccess={isSuccess}
+        />
       </StyledWrapper>
-      <PTPaymentsEndComponents
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        isSuccess={isSuccess}
-      />
       <ChoiceModal show={showChoiceModal} onClose={handleCloseChoiceModal} />
     </>
   );
