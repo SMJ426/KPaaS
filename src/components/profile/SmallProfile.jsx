@@ -17,6 +17,7 @@ export default function SmallProfile({ accessToken }) {
   const defaultImage = '/images/kakaoImg.jpg';
   const [userInfo, setuserInfo] = useState('');
   const linkbucket = `/bucket/${userInfo.nick_name}`;
+  const [isOpen, setIsOpen] = useState(false);
 
   async function logoutHandler() {
     const REST_API_KEY = 'b9759cba8e0cdd5bcdb9d601f5a10ac1';
@@ -62,9 +63,13 @@ export default function SmallProfile({ accessToken }) {
     fetchUserProfileData();
   }, []);
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <Popover showArrow={true} placement="bottom">
-      <PopoverTrigger>
+      <PopoverTrigger  onClick={handleToggle}>
         <Image
           src={userInfo.profile_image || defaultImage} // UserInfo.image ||
           alt="이미지"
