@@ -12,7 +12,6 @@ const ModalOverlay = styled.div`
   justify-content: center;
   z-index: 100;
   white-space: pre-line;
-  margin-bottom: 1.5rem;
 `;
 
 const ModalContent = styled.div`
@@ -21,6 +20,7 @@ const ModalContent = styled.div`
   border-radius: 0.5rem;
   max-width: 400px;
   width: 100%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 `;
 
 const ModalTitle = styled.h2`
@@ -51,6 +51,12 @@ const ModalButton = styled.button`
 export const PTPaymentsEndComponents = ({ isOpen, onClose, isSuccess }) => {
   if (!isOpen) return null;
 
+  const handleClose = () => {
+    onClose();
+    window.location.href =
+      'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
+  };
+
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -60,7 +66,7 @@ export const PTPaymentsEndComponents = ({ isOpen, onClose, isSuccess }) => {
             ? '결제가 성공적으로 완료되었습니다.'
             : '결제 진행 중 문제가 발생했습니다.\n다시 시도해 주세요.'}
         </ModalDescription>
-        <ModalButton onClick={onClose}>확인</ModalButton>
+        <ModalButton onClick={handleClose}>확인</ModalButton>
       </ModalContent>
     </ModalOverlay>
   );

@@ -112,7 +112,7 @@ const StyledDropdown = styled.div`
     flex-direction: column;
     padding: 8px;
 
-    button {
+    > button {
       padding: 8px 12px;
       background: none;
       border: none;

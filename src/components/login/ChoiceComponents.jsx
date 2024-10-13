@@ -1,14 +1,19 @@
 'use client';
-import Link from 'next/link';
+
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function ChoiceModal({ show, onClose }) {
   if (!show) return null;
 
+  const router = useRouter();
   const [hoverTarget, setHoverTarget] = useState(null);
-  const linkMemberLogin = `/user/login`;
-  const linkTeacherLogin = `/user/teacherlogin`;
+
+  const handleClickURL = (target) => {
+    const clickURL = target === 'user' ? '/user/login' : '/user/teacherlogin';
+    router.push(clickURL);
+  };
 
   const handleMouseEnter = (target) => {
     setHoverTarget(target);
@@ -39,18 +44,20 @@ export default function ChoiceModal({ show, onClose }) {
               className="btn-user"
               onMouseEnter={() => handleMouseEnter('user')}
               onMouseLeave={handleMouseLeave}
+              onClick={() => handleClickURL('user')}
             >
               <img src="/svgs/user-login.svg" alt="회원 로그인" />
-              <Link href={linkMemberLogin}>회원 로그인</Link>
+              <p>회원 로그인</p>
             </button>
 
             <button
               className="btn-teacher"
               onMouseEnter={() => handleMouseEnter('teacher')}
               onMouseLeave={handleMouseLeave}
+              onClick={() => handleClickURL('teacher')}
             >
               <img src="/svgs/teacher-login.svg" alt="강사 로그인" />
-              <Link href={linkTeacherLogin}>강사 로그인</Link>
+              <p>강사 로그인</p>
             </button>
           </div>
 
@@ -218,8 +225,11 @@ const Tooltip = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: 'Pretendard';
 
-  width: fit-content;
+  width: 300px;
+  max-height: 60px;
+
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 10px;
