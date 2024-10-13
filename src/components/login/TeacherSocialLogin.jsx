@@ -7,7 +7,7 @@ export default function TeacherSocialLogin() {
   const handleKakaoLogin = () => {
     const REST_API_KEY = 'b9759cba8e0cdd5bcdb9d601f5a10ac1';
     const REDIRECT_URI =
-      'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30/user/login/oauth2/kakao';
+      'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30/user/teacherlogin/oauth2/kakao';
     window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&scope=talk_message,profile_nickname,profile_image,account_email`;
   };
 
