@@ -192,11 +192,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
         new Blob([JSON.stringify(req)], { type: 'application/json' })
       );
 
-      // FormData 내용 로깅 (디버깅 용도)
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
-
       await handleSubmit(formData);
 
       const redirectUrl =
