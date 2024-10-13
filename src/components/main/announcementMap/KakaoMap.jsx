@@ -77,6 +77,7 @@ export default function KakaoMap({ gym }) {
     <StyledWrapper>
       <div id="map" ref={mapContainer} className="map-container"></div>
       <button onClick={handleButtonClick} className="find-route-btn">
+        <img src="/images/png/kakaomap_basic.png" alt="카카오맵 이미지" className='icon'/>
         길 찾기
       </button>
     </StyledWrapper>
@@ -95,21 +96,31 @@ const StyledWrapper = styled.div`
   }
 
   .find-route-btn {
-    display: block;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    align-self: center; 
     width: 100%;
     margin-top: 15px;
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #3b5bdb;
-    color: #ffffff;
+    background-color: #ffcc00;
+    color: #000000;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #364fc7;
+      background-color: #e6b800; 
+    }
+
+    .icon {
+    width: 20px; 
+    height: auto; 
+    margin-right: 10px; 
+    align-self: center; 
     }
   }
 `;
