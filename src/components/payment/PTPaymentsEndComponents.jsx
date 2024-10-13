@@ -6,7 +6,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,9 +18,9 @@ const ModalContent = styled.div`
   background-color: white;
   padding: 2rem;
   border-radius: 0.5rem;
-  max-width: 400px; 
-  width: 100%; 
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 `;
 
 const ModalTitle = styled.h2`
@@ -34,17 +34,17 @@ const ModalDescription = styled.p`
 `;
 
 const ModalButton = styled.button`
-  background-color: #3b82f6 !important;
-  color: white !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 0.25rem !important;
-  border: none !important;
-  cursor: pointer !important;
-  font-weight: bold !important;
-  align-items: center !important;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  align-items: center;
 
   &:hover {
-    background-color: #2563eb !important;
+    background-color: #2563eb;
   }
 `;
 
@@ -53,7 +53,8 @@ export const PTPaymentsEndComponents = ({ isOpen, onClose, isSuccess }) => {
 
   const handleClose = () => {
     onClose();
-    window.location.href = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; 
+    window.location.href =
+      'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
   };
 
   return (
