@@ -94,10 +94,11 @@ export default function MainContainers({
           >
             <CommuPosts postData={allPosts} accessToken={accessToken} />
           </InfiniteScroll>
-          <button className="TopBtn" onClick={MoveToTop}>
-            <img src="/images/png/top1.png" alt="맨위로" />
-          </button>
         </div>
+
+        <button className="TopBtn" onClick={MoveToTop}>
+          <img src="/images/png/top1.png" alt="맨위로" />
+        </button>
       </div>
     </StyledWrapper>
   );
@@ -125,26 +126,29 @@ const StyledWrapper = styled.div`
     .Loading {
       margin-left: 50%;
     }
-    .TopBtn {
-      display: flex;
-      position: sticky;
-      top: 90%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 8;
-      height: 50px;
-      border-radius: 9px;
-      margin-left: 50px;
-
-      img {
-        width: 50px;
-        height: 50px;
-      }
-    }
   }
 
   .cateminibtn {
     display: none;
+  }
+
+  .TopBtn {
+    position: sticky;
+    bottom: 10%;
+    right: 0;
+
+    background: none;
+    border: none;
+    z-index: 8;
+    height: 50px;
+    border-radius: 9px;
+    margin-right: 50px;
+
+    cursor: pointer;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
   }
 `;
