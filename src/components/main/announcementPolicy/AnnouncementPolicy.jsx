@@ -61,7 +61,6 @@ function AnnouncementPolicy() {
 }
 
 export default AnnouncementPolicy;
-
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -72,9 +71,8 @@ const StyledWrapper = styled.div`
     font-size: 24px;
     border-bottom: 2px solid #e7e6e6;
     padding-bottom: 10px;
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-bottom: 0px;
+    margin: 20px auto 0;
+    text-align: center;
     font-weight: 500;
   }
 
@@ -82,33 +80,36 @@ const StyledWrapper = styled.div`
     display: flex;
     width: 100%;
     border: 0;
+    width: 100%;
   }
 
   .wrapper-announcement {
-    width: 70%;
-    padding-right: 40px;
+    flex: 7;
+    padding-right: 20px;
     background-color: #f5f7fa;
     border-radius: 12px;
     margin-right: 10px;
   }
 
   .wrapper-policy {
-    width: 30%;
-
+    flex: 3;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: space-between;
-    background-color: #eef1f5;
+    align-items: stretch; 
+    background-color: #f8f9fb;
     border-radius: 12px;
-
+    margin: 0;
+    
     .wrapper-btns {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 100%;
+      padding: 0 20px;
 
-      > p {
-        border: none;
-        margin-left: 0;
+      .title {
+        width: 100%; 
+        border-bottom: 2px solid #e7e6e6;
+        margin: 20px 0; 
+        padding: 0 0 10px 0; 
       }
     }
 
@@ -135,7 +136,7 @@ const StyledWrapper = styled.div`
     }
   }
 
-  @media (max-width: 1250px) {
+   @media (max-width: 1250px) {
     .title {
       font-size: 20px;
     }

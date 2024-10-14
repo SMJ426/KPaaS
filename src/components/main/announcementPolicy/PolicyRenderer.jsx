@@ -26,14 +26,15 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
+  background-color: #f8f9fb;
   width: 100%;
   height: 100%;
   border-radius: 12px;
   padding: 20px;
+  box-sizing: border-box;
 
   .img-policy {
-    width: 320px;
+    width: 100%;
     height: 180px;
     object-fit: cover;
     border-radius: 8px;
@@ -48,6 +49,10 @@ const StyledWrapper = styled.div`
   .wrapper-desc {
     margin-top: 15px;
     text-align: center;
+    width: 100%;
+    max-width: 320px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 
     .policy_title {
       font-size: 18px;
