@@ -12,8 +12,8 @@ function PolicyRenderer({ policyData }) {
         />
       </a>
       <div className="wrapper-desc">
-        <p className="title">{policyData.title}</p>
-        <p className="desc">{policyData.desc}</p>
+        <p className="policy_title">{policyData.title}</p>
+        <p className="policy_desc">{policyData.desc}</p>
       </div>
     </StyledWrapper>
   );
@@ -49,26 +49,26 @@ const StyledWrapper = styled.div`
     margin-top: 15px;
     text-align: center;
 
-    .title {
+    .policy_title {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 5px;
     }
 
-    .desc {
+    .policy_desc {
       font-size: 14px;
       color: #666;
     }
   }
 
-    @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1600px) {
     .wrapper-desc {
-      display: block; 
+      display: block;
     }
 
     .img-policy {
       width: 100%;
-      height: auto; 
+      height: auto;
     }
   }
 `;
