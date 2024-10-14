@@ -83,7 +83,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
               장바구니로 이동
             </button>
             <button className="modalBtn" onClick={handleCloseModal}>
-              상품 더보기
+              PT 더보기
             </button>
           </div>
         </Modal>
