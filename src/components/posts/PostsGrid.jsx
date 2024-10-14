@@ -27,18 +27,34 @@ export default function PostsGrid({ postData, accessToken }) {
 
 const StyledWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 18px;
 
-  @media (max-width: 2000px) {
+  @media (max-width: 3000px) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @media (max-width: 2700px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  @media (max-width: 2400px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (max-width: 2100px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (max-width: 1800px) {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  @media (max-width: 1625px) {
+  @media (max-width: 1500px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 1235px) {
+  @media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 900px) {
