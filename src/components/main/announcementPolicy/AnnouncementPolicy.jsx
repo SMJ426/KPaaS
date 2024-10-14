@@ -108,7 +108,7 @@ const StyledWrapper = styled.div`
 
   .wrapper-policy {
     width: 30%;
-    padding-left: 20px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,9 +117,12 @@ const StyledWrapper = styled.div`
 
     .wrapper-btns {
       display: flex;
+      justify-content: center;
+      align-items: center;
 
       > p {
         border: none;
+        margin-left: 0;
       }
     }
 
@@ -169,6 +172,18 @@ const StyledWrapper = styled.div`
         width: 23px;
         border-radius: 10px;
       }
+    }
+  }
+
+  @media (max-width: 1250px) {
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 1072px) {
+    .title {
+      font-size: 17px;
     }
   }
 `;
