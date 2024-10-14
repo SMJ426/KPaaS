@@ -30,7 +30,7 @@ const StyledWrapper = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
 
   .img-policy {
     width: 320px;
@@ -50,25 +50,17 @@ const StyledWrapper = styled.div`
     text-align: center;
 
     .title {
-      font-size: 18px;
+      font-size: 100%;
       font-weight: bold;
       margin-bottom: 5px;
     }
 
     .desc {
-      font-size: 14px;
+      font-size: 96%;
       color: #666;
-    }
-  }
-
-    @media screen and (max-width: 1600px) {
-    .wrapper-desc {
-      display: block; 
-    }
-
-    .img-policy {
-      width: 100%;
-      height: auto; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis;
     }
   }
 `;

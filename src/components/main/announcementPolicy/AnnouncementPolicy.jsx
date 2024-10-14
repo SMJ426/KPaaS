@@ -36,13 +36,13 @@ function AnnouncementPolicy() {
     <StyledWrapper>
       <div className="wrapper-main">
         <div className="wrapper-announcement">
-          <p className="title">내 주변 체육시설 찾기</p>
+          <p className="titles">내 주변 체육시설 찾기</p>
           <Mainsmallpage />
         </div>
 
         <div className="wrapper-policy">
           <div className="wrapper-btns">
-            <p className="title">체육 복지 프로그램, 제도 안내</p>
+            <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
           <div className="pagination">
@@ -68,12 +68,19 @@ const StyledWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
 
-  .title {
-    font-size: 24px;
+  .titles-es {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  .titles {
+    font-size: 20px;
     border-bottom: 2px solid #e7e6e6;
     padding-bottom: 10px;
     margin-top: 20px;
-    margin-left: 30px;
+    margin-left: 35px;
     margin-bottom: 0px;
     font-weight: 500;
   }
@@ -96,7 +103,7 @@ const StyledWrapper = styled.div`
     padding-left: 20px;
     display: flex;
     flex-direction: column;
-    align-items: space-between;
+    align-items: center;
     background-color: #eef1f5;
     border-radius: 12px;
 
@@ -114,10 +121,10 @@ const StyledWrapper = styled.div`
       margin-bottom: 13px;
 
       .dot {
-        width: 9px;
-        height: 9px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background-color: #d3d3d3;
+        background-color: #c6c6c6;
         margin: 0 3px;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -125,7 +132,7 @@ const StyledWrapper = styled.div`
 
       .dot.active {
         background-color: #000;
-        width: 20px;
+        width: 23px;
         border-radius: 10px;
       }
     }
