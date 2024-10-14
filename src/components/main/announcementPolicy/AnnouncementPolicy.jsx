@@ -94,6 +94,7 @@ const StyledWrapper = styled.div`
 
   .wrapper-main {
     display: flex;
+    width: 100%;
     border: 0;
   }
 
