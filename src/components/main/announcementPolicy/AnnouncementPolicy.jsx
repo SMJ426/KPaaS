@@ -37,11 +37,13 @@ function AnnouncementPolicy() {
       <div className="wrapper-main">
         <div className="wrapper-announcement">
           <p className="titles">내 주변 체육시설 찾기</p>
+          <p className="titles">내 주변 체육시설 찾기</p>
           <Mainsmallpage />
         </div>
 
         <div className="wrapper-policy">
           <div className="wrapper-btns">
+            <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
             <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
