@@ -16,6 +16,13 @@ export default function NaverLogin() {
             },
           }
         );
+
+        if (response.status === 500) {
+          alert('이미 같은 회원 정보로 가입한 SNS 계정이 있습니다.');
+          window.location.href = '/'; 
+          return;
+        }
+
         if (!response.ok) {
           throw new Error('로그인 실패');
         }
