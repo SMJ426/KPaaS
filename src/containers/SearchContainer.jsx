@@ -82,7 +82,13 @@ export default function SearchContainer({
         className="main-img"
       /> */}
       <AnnouncementPolicy />
-      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
+      <div className="action-section">
+          {role === 'ROLE_TEACHER' ? (
+            <SendPostButton nick_name={nick_name} />
+          ) : (
+            <div className="pt-list-title">현재 예약 가능한 장애인 전용 PT 목록</div>
+          )}
+        </div>
       <div className="wrapper-body-card">
         <div className="wrapper-cate">
           <CategoryComponents
@@ -121,6 +127,15 @@ const StyledWrapper = styled.div`
     height: 500px;
     object-fit: cover;
   }
+
+  .action-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;  
+    margin: 20px 0;
+  }
+    
 
   .wrapper-body-card {
     display: flex;

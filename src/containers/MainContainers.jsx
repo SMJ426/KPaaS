@@ -74,7 +74,11 @@ export default function MainContainers({
 
       <div className="wrapper-down-section">
         <AnnouncementPolicy />
-        {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
+        {role === 'ROLE_TEACHER' ? (
+          <SendPostButton nick_name={nick_name} />
+        ) : (
+          <div className="pt-list-title">예약 가능한 장애인 전용 PT 목록</div>
+        )}
         <div className="wrapper-body-card">
           <div className="wrapper-cate">
             <CategoryComponents
@@ -110,6 +114,10 @@ const StyledWrapper = styled.div`
 
   .wrapper-down-section {
     padding: 0 5%;
+    display: flex; /* Added flex display */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Stack children vertically */
   }
 
   .main-img {
@@ -121,7 +129,7 @@ const StyledWrapper = styled.div`
   .wrapper-body-card {
     display: flex;
     height: 100%;
-    margin-top: 50px;
+    margin-top: 30px;
 
     .Loading {
       margin-left: 50%;
@@ -151,4 +159,16 @@ const StyledWrapper = styled.div`
       height: 50px;
     }
   }
+.pt-list-title {
+  width: 100%; /* 전체 너비 사용 */
+  font-size: 24px; /* 폰트 크기 증가 */
+  font-weight: bold; /* 굵은 폰트 */
+  color: #333; 
+  padding: 10px 15px; 
+  margin: 40px 0 20px 430px; 
+  text-align: left;
+  background: none; 
+  border: none; 
+  transition: color 0.3s ease;
+}
 `;
