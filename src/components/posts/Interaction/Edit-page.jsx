@@ -19,24 +19,15 @@ export default function EditpostForm({ postId, post, accessToken }) {
   const [showImages1, setShowImages1] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [isNewImage, setIsNewImage] = useState(false);
-
   const [totalNumber, setTotalnumber] = useState('');
   const [TeacherInfo, setTeacherInfo] = useState('');
   const [location, setlocation] = useState('');
+  
+  const [startDate, setStartDate] = useState({ year: '2024', month: '1', day: '1' });
+  const [endDate, setEndDate] = useState({ year: '2024', month: '1', day: '1' });
 
-  const [startDate, setStartDate] = useState({
-    year: '2024',
-    month: '1',
-    day: '1',
-  });
-  const [endDate, setEndDate] = useState({
-    year: '2024',
-    month: '1',
-    day: '1',
-  });
-
+  const [alertMessage, setAlertMessage] = useState('');
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const [showImageAlertModal, setShowImageAlertModal] = useState(false);
 
   const selectList = [
     { value: '3001', name: '가정방문' },
@@ -65,12 +56,11 @@ export default function EditpostForm({ postId, post, accessToken }) {
     if (posts) {
       setPostName(posts.post_name);
       setPrice(posts.price);
-      setImages1(posts.image_post); // 기존 이미지 URL 저장
+      setImages1(posts.image_post);
       setShowImages1(posts.image_post);
       setCategoryId(posts.category_id);
       setIsNewImage(false);
 
-      // 날짜 문자열을 파싱하여 날짜 객체 설정
       const parseDate = (dateStr) => {
         const [year, month, day] = dateStr.split('-').map(Number);
         return { year, month, day };
@@ -88,34 +78,31 @@ export default function EditpostForm({ postId, post, accessToken }) {
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
-      setImages1(selectedImage);
-      const imageUrl = URL.createObjectURL(selectedImage);
-      setShowImages1(imageUrl);
-      setIsNewImage(true);
-      setShowImageAlertModal(false);
+      const img = new Image();
+      img.src = URL.createObjectURL(selectedImage);
+      img.onload = () => {
+        if (img.width > 3000 || img.height > 3000) {
+          setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
+          setShowAlertModal(true);
+        } else {
+          setImages1(selectedImage);
+          const imageUrl = URL.createObjectURL(selectedImage);
+          setShowImages1(imageUrl);
+          setIsNewImage(true);
+        }
+      };
     }
   };
 
-  const handleCategorySelect = (e) => {
-    setCategoryId(e.target.value);
-  };
-
-  const handleLocationSelect = (e) => {
-    setlocation(e.target.value);
-  };
+  const handleCategorySelect = (e) => setCategoryId(e.target.value);
+  const handleLocationSelect = (e) => setlocation(e.target.value);
 
   const handleDateChange = (e, dateType, field) => {
     const value = e.target.value;
     if (dateType === 'start') {
-      setStartDate((prevState) => ({
-        ...prevState,
-        [field]: value,
-      }));
+      setStartDate((prevState) => ({ ...prevState, [field]: value }));
     } else if (dateType === 'end') {
-      setEndDate((prevState) => ({
-        ...prevState,
-        [field]: value,
-      }));
+      setEndDate((prevState) => ({ ...prevState, [field]: value }));
     }
   };
 
@@ -124,15 +111,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
     const formattedDay = date.day < 10 ? `0${date.day}` : date.day;
     return `${date.year}-${formattedMonth}-${formattedDay}`;
   };
-
-  const startDaysInMonth = Array.from(
-    { length: new Date(startDate.year, startDate.month, 0).getDate() },
-    (_, index) => index + 1
-  );
-  const endDaysInMonth = Array.from(
-    { length: new Date(endDate.year, endDate.month, 0).getDate() },
-    (_, index) => index + 1
-  );
 
   async function handleSubmit(formData) {
     try {
@@ -150,20 +128,15 @@ export default function EditpostForm({ postId, post, accessToken }) {
   async function sendPostHandler(event) {
     event.preventDefault();
 
-    if (
-      !postName ||
-      !price ||
-      !categoryId ||
-      !totalNumber ||
-      !location ||
-      !TeacherInfo
-    ) {
+    if (!postName || !price || !categoryId || !totalNumber || !location || !TeacherInfo) {
+      setAlertMessage('빈 값을 확인해 주세요.');
       setShowAlertModal(true);
       return;
     }
 
     if (images1 && !isNewImage) {
-      setShowImageAlertModal(true);
+      setAlertMessage('이미지를 변경해 주세요.');
+      setShowAlertModal(true);
       return;
     }
 
@@ -186,15 +159,11 @@ export default function EditpostForm({ postId, post, accessToken }) {
         req.image_post = images1;
       }
 
-      formData.append(
-        'req',
-        new Blob([JSON.stringify(req)], { type: 'application/json' })
-      );
+      formData.append('req', new Blob([JSON.stringify(req)], { type: 'application/json' }));
 
       await handleSubmit(formData);
 
-      const redirectUrl =
-        'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30'; // 리다이렉트할 URL로 변경
+      const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
       window.location.href = redirectUrl;
     } catch (error) {
       alert('요청을 처리하는 동안 오류가 발생했습니다. 다시 시도해주세요.');
@@ -206,10 +175,7 @@ export default function EditpostForm({ postId, post, accessToken }) {
       <h1 className="title">PT 수정</h1>
       <form onSubmit={sendPostHandler} className="form-container">
         <div className="main-content">
-          <ImageUpload
-            showImages1={showImages1}
-            handleImageChange={handleImageChange}
-          />
+          <ImageUpload showImages1={showImages1} handleImageChange={handleImageChange} />
           <div className="form-section">
             <FormSection
               postName={postName}
@@ -229,43 +195,27 @@ export default function EditpostForm({ postId, post, accessToken }) {
               startDate={startDate}
               endDate={endDate}
               handleDateChange={handleDateChange}
-              startDaysInMonth={startDaysInMonth}
-              endDaysInMonth={endDaysInMonth}
+              startDaysInMonth={Array.from({ length: new Date(startDate.year, startDate.month, 0).getDate() }, (_, index) => index + 1)}
+              endDaysInMonth={Array.from({ length: new Date(endDate.year, endDate.month, 0).getDate() }, (_, index) => index + 1)}
             />
           </div>
         </div>
 
-        <EditorSection
-          TeacherInfo={TeacherInfo}
-          setTeacherInfo={setTeacherInfo}
-        />
+        <EditorSection TeacherInfo={TeacherInfo} setTeacherInfo={setTeacherInfo} />
 
         <div className="button-container">
           <Link href="/">
-            <button type="button" className="cancel-button">
-              취소
-            </button>
+            <button type="button" className="cancel-button">취소</button>
           </Link>
-          <button type="submit" className="submit-button">
-            수정하기
-          </button>
+          <button type="submit" className="submit-button">수정하기</button>
         </div>
       </form>
 
       {showAlertModal && (
         <AlertModal>
           <div className="modal-content">
-            <p>빈 값을 확인해 주세요.</p>
+            <p>{alertMessage}</p>
             <button onClick={() => setShowAlertModal(false)}>닫기</button>
-          </div>
-        </AlertModal>
-      )}
-
-      {showImageAlertModal && (
-        <AlertModal>
-          <div className="modal-content">
-            <p>이미지를 변경해 주세요.</p>
-            <button onClick={() => setShowImageAlertModal(false)}>닫기</button>
           </div>
         </AlertModal>
       )}

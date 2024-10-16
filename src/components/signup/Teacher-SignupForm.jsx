@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styled from 'styled-components';
 
 import { signup, checkNickname, checkEmail } from '@compoents/util/Client';
@@ -31,6 +31,8 @@ export default function TeacherSignupForm() {
   const [emailError, setemailError] = useState('');
   const [nicknameError, setnicknameError] = useState('');
   const [requestError, setRequestError] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const smile = '/svgs/ellipse-87.svg';
   const showpsw = '/svgs/View.svg';
   const dfImg = '/images/kakaoImg.jpg';
@@ -56,9 +58,19 @@ export default function TeacherSignupForm() {
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    setImage(selectedImage);
-    const imageUrls = URL.createObjectURL(selectedImage);
-    setShowimage(imageUrls);
+    const img = new Image();
+    img.src = URL.createObjectURL(selectedImage);
+    
+    img.onload = () => {
+      if (img.width > 3000 || img.height > 3000) {
+        setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
+        setShowAlertModal(true);
+      } else {
+        setImage(selectedImage);
+        const imageUrls = URL.createObjectURL(selectedImage);
+        setShowimage(imageUrls);
+      }
+    };
   };
 
   const togglePasswordVisibility = () => {
@@ -251,9 +263,55 @@ export default function TeacherSignupForm() {
           회원가입
         </button>
       </form>
+
+
+      {showAlertModal && (
+        <Modal>
+          <div className="modal-content">
+            <p>{alertMessage}</p>
+            <button onClick={() => setShowAlertModal(false)}>확인</button>
+          </div>
+        </Modal>
+      )}
     </StyledWrapper>
   );
 }
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+  }
+
+  button {
+    background-color: #f25264;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 2px;
+  }
+
+  button:hover {
+    background-color: #f2526587;
+  }
+`;
 
 const StyledWrapper = styled.header`
   display: flex;
