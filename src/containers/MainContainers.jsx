@@ -141,7 +141,7 @@ const StyledWrapper = styled.div`
   }
 
   .TopBtn {
-    position: sticky;
+    position: fixed;
     bottom: 10%;
     right: 0;
 
@@ -160,15 +160,18 @@ const StyledWrapper = styled.div`
     }
   }
 .pt-list-title {
-  width: 100%; /* 전체 너비 사용 */
-  font-size: 24px; /* 폰트 크기 증가 */
-  font-weight: bold; /* 굵은 폰트 */
+  width: 100%; 
+  font-size: 24px; 
+  font-weight: bold; 
   color: #333; 
-  padding: 10px 15px; 
-  margin: 40px 0 20px 430px; 
-  text-align: left;
+  margin: 30px 0 0; 
+  text-align: center; 
   background: none; 
-  border: none; 
-  transition: color 0.3s ease;
+  border: 2px solid #e7e7e7; 
+  border-radius: 8px; 
+  transition: color 0.3s ease, border-color 0.3s ease; 
+  font-family: 'Roboto', sans-serif; 
+  letter-spacing: 0.5px; 
+  padding: 10px; 
 }
 `;
