@@ -60,19 +60,19 @@ export default function TeacherSignupForm() {
     const selectedImage = e.target.files[0];
     const img = new Image();
     img.src = URL.createObjectURL(selectedImage);
-    
     img.onload = () => {
       if (img.width > 3000 || img.height > 3000) {
         setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
         setShowAlertModal(true);
+        e.target.value = ''; 
       } else {
         setImage(selectedImage);
         const imageUrls = URL.createObjectURL(selectedImage);
         setShowimage(imageUrls);
+        setShowAlertModal(false); 
       }
     };
   };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

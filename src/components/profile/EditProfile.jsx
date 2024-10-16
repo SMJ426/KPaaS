@@ -48,15 +48,16 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     const selectedImage = e.target.files[0];
     const img = new Image();
     img.src = URL.createObjectURL(selectedImage);
-    
     img.onload = () => {
       if (img.width > 3000 || img.height > 3000) {
         setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
         setShowAlertModal(true);
+        e.target.value = ''; 
       } else {
         setImage(selectedImage);
         const imageUrls = URL.createObjectURL(selectedImage);
         setShowimage(imageUrls);
+        setShowAlertModal(false); 
       }
     };
   };
@@ -135,7 +136,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         alert('이메일을 변경해주세요.');
       }
     } catch (error) {
-      alert('지원하지 않는 이미지 포맷 크기입니다.');
+      alert('다른 이미지로 변경해주세요');
     }
   };
 
