@@ -45,14 +45,21 @@ function AnnouncementPolicy() {
             <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
-          <div className="pagination">
-            {AnnouncementTestDataSet.map((_, index) => (
-              <span
-                key={index}
-                className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(index)}
-              ></span>
-            ))}
+          <div className="wrapper-btnns">
+            <button className="slide-btn left-btn" onClick={handlePrev}>
+              ◀︎
+            </button>
+            <div className="pagination">
+              {AnnouncementTestDataSet.map((_, index) => (
+                <span
+                  key={index}
+                  className={`dot ${index === currentIndex ? 'active' : ''}`}
+                ></span>
+              ))}
+            </div>
+            <button className="slide-btn right-btn" onClick={handleNext}>
+              ▶
+            </button>
           </div>
         </div>
       </div>
@@ -113,6 +120,32 @@ const StyledWrapper = styled.div`
       > p {
         border: none;
       }
+    }
+
+    .wrapper-btnns {
+      display: flex;
+    }
+
+    .slide-btn {
+      width: 18px;
+      height: 20px;
+      font-size: 20px;
+      margin-top: 5px;
+      transform: translateY(-50%);
+      background-color: #eef1f5;
+      border: none;
+      cursor: pointer;
+      color: black;
+      z-index: 30;
+      user-select: none;
+    }
+
+    .left-btn {
+      margin-right: 2px;
+    }
+
+    .right-btn {
+      margin-left: 2px;
     }
 
     .pagination {

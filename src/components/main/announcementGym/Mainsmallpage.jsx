@@ -58,20 +58,20 @@ export default function Mainsmallpage() {
   };
 
   const nextSlide = () => {
-    if (gymsData && currentIndex < gymsData.data.length - 2) {
-      setCurrentIndex(currentIndex + 2);
+    if (gymsData && currentIndex < gymsData.data.length - 1) {
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(Math.max(currentIndex - 2, 0));
+      setCurrentIndex(Math.max(currentIndex - 1, 0));
     }
   };
 
   useEffect(() => {
     if (carouselRef.current) {
-      carouselRef.current.style.transform = `translateX(-${currentIndex * 50}%)`;
+      carouselRef.current.style.transform = `translateX(-${currentIndex * 48.7}%)`;
     }
   }, [currentIndex]);
 
@@ -89,13 +89,11 @@ export default function Mainsmallpage() {
           </option>
         ))}
       </select>
-
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <DetailGymPage location={location} onClose={closeModal} />
         </Modal>
       )}
-
       {gymsData && (
         <CarouselWrapper>
           <div className="carousel-container">
@@ -126,16 +124,29 @@ export default function Mainsmallpage() {
                 </div>
               ))}
             </div>
+            <button
+              className={`slide-btn left-btn ${currentIndex === 0 ? 'disabled' : ''}`}
+              onClick={prevSlide}
+              disabled={currentIndex === 0}
+            >
+              ◀︎{/* &lt; */}
+            </button>
           </div>
           <div className="pagination">
             {gymsData.data.map((_, index) => (
               <span
                 key={index}
                 className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(index)}
               ></span>
             ))}
           </div>
+          <button
+            className={`slide-btn right-btn ${currentIndex === gymsData.data.length - 1 ? 'disabled' : ''}`}
+            onClick={nextSlide}
+            disabled={currentIndex === gymsData.data.length - 1}
+          >
+            ▶{/* &gt; */}
+          </button>
         </CarouselWrapper>
       )}
 
@@ -234,17 +245,18 @@ const CarouselWrapper = styled.div`
   .carousel {
     display: flex;
     transition: transform 0.3s ease;
+    margin-left: 20px;
   }
 
   .gym-card {
-    flex: 0 0 45%;
+    flex: 0 0 42%;
     height: 170px;
     background-color: #fafafa;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 0px 20px 3px 20px;
-    transition: transform 0.2s ease;
+    margin: 0px 20px 3px 4%;
+    transition: transform 0.3s ease;
 
     &:hover {
       transform: translateY(-3px);
@@ -263,11 +275,74 @@ const CarouselWrapper = styled.div`
       margin-bottom: 5px;
     }
   }
+  // dot 옆 화살표
+  .slide-btn {
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    font-size: 20px;
+    top: 95.5%;
+    transform: translateY(-50%);
+    background-color: #f5f7fa;
+    border: none;
+    cursor: pointer;
+    color: black;
+    z-index: 30;
+    user-select: none;
+    left: 43%;
+  }
+
+  .left-btn {
+  }
+
+  .right-btn {
+    left: 55%;
+  }
+
+  // // 카드 양 옆 화살표
+  // .slide-btn {
+  //   position: absolute;
+  //   width: 25px;
+  //   height: 40px;
+  //   font-size: 30px;
+  //   top: 35%;
+  //   transform: translateY(-60%);
+  //   background-color: #ffffff80;
+  //   border: none;
+  //   cursor: pointer;
+  //   color: black;
+  //   z-index: 30;
+  //   user-select: none;
+  //   &:hover {
+  //     background-color: #00000047;
+  //   }
+  // }
+
+  // .left-btn {
+  //   left: 15px;
+  //   &.disabled {
+  //     color: #cccccc;
+  //     cursor: not-allowed;
+  //     background-color: #f0f0f0;
+  //     pointer-events: none;
+  //   }
+  // }
+
+  // .right-btn {
+  //   right: 10px;
+  //   &.disabled {
+  //     color: #cccccc;
+  //     cursor: not-allowed;
+  //     background-color: #f0f0f0;
+  //     pointer-events: none;
+  //   }
+  // }
 
   .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 45px;
+    margin-bottom: 5px;
 
     .dot {
       width: 9px;
