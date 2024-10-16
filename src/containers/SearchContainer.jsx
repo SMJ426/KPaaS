@@ -25,31 +25,29 @@ export default function SearchContainer({
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useInfiniteQuery({
-      queryKey: ['posts', !!accessToken, selectedCategories, selectedLocations],
-      queryFn: ({ pageParam = 0 }) =>
-        accessToken
-          ? LoginfetchProductName(
-              pageParam,
-              searchTerm,
-              nick_name,
-              selectedCategories,
-              selectedLocations
-            )
-          : fetchProductName({
-              pageParam,
-              searchTerm,
-              categories: selectedCategories,
-              locations: selectedLocations,
-            }),
-      getNextPageParam: (lastPage, pages) => {
-        if (lastPage.last) return undefined;
-        return pages.length;
-      },
-      refetchOnWindowFocus: false,
-      initialData: { pages: [initialSearchResults], pageParams: [0] },
-    });
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ['posts', !!accessToken, selectedCategories, selectedLocations],
+    queryFn: ({ pageParam = 0 }) =>
+      accessToken
+        ? LoginfetchProductName(
+            pageParam,
+            searchTerm,
+            nick_name,
+            selectedCategories,
+            selectedLocations
+          )
+        : fetchProductName({
+            pageParam,
+            searchTerm,
+            categories: selectedCategories,
+            locations: selectedLocations,
+          }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.last ? undefined : pages.length;
+    },
+    refetchOnWindowFocus: false,
+    initialData: { pages: [initialSearchResults], pageParams: [0] },
+  });
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategories((prev) =>
@@ -76,34 +74,35 @@ export default function SearchContainer({
   return (
     <StyledWrapper>
       <SearchSection />
-      {/* <img
-        src="/images/png/PTSD-main-logo.png"
-        alt="메인 이미지"
-        className="main-img"
-      /> */}
-      <AnnouncementPolicy />
-      {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
-      <div className="wrapper-body-card">
-        <div className="wrapper-cate">
-          <CategoryComponents
-            handleCategoryChange={handleCategoryChange}
-            handleLocationChange={handleLocationChange}
-          />
+      <div className="wrapper-down-section">
+        <AnnouncementPolicy />
+        <div className="action-section">
+          {role === 'ROLE_TEACHER' ? (
+            <SendPostButton nick_name={nick_name} />
+          ) : (
+            <div className="pt-list-title">예약 가능한 장애인 전용 PT 목록</div>
+          )}
         </div>
-        <InfiniteScroll
-          dataLength={allResults.length}
-          next={() => {
-            return fetchNextPage();
-          }}
-          hasMore={hasNextPage}
-          loader={
-            <div className="Loading">
-              <LoadingIndicator />
-            </div>
-          }
-        >
-          <CommuPosts postData={allResults} accessToken={accessToken} />
-        </InfiniteScroll>
+        <div className="wrapper-body-card">
+          <div className="wrapper-cate">
+            <CategoryComponents
+              handleCategoryChange={handleCategoryChange}
+              handleLocationChange={handleLocationChange}
+            />
+          </div>
+          <InfiniteScroll
+            dataLength={allResults.length}
+            next={fetchNextPage}
+            hasMore={hasNextPage}
+            loader={
+              <div className="Loading">
+                <LoadingIndicator />
+              </div>
+            }
+          >
+            <CommuPosts postData={allResults} accessToken={accessToken} />
+          </InfiniteScroll>
+        </div>
         <button className="TopBtn" onClick={MoveToTop}>
           <img src="/images/png/top1.png" alt="맨위로" />
         </button>
@@ -116,41 +115,63 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  .main-img {
+  .wrapper-down-section {
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .action-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin: 20px 0;
     width: 100%;
-    height: 500px;
-    object-fit: cover;
+  }
+
+  .pt-list-title {
+    width: 100%;
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #333; 
+     margin: 20px 0 0; 
+    text-align: center; 
+    background: none; 
+    border: 2px solid #e7e7e7; 
+    border-radius: 8px; 
+    transition: color 0.3s ease, border-color 0.3s ease; 
+    font-family: 'Roboto', sans-serif; 
+    letter-spacing: 0.5px; 
+    padding: 10px; 
   }
 
   .wrapper-body-card {
-    display: flex;
-    height: 100%;
-    margin-top: 50px;
-
+    display: flex; 
+     height: 100%;
+    margin-top: 30px;
     .Loading {
       margin-left: 50%;
     }
-    .TopBtn {
-      display: flex;
-      position: sticky;
-      top: 90%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1000;
+  }
+
+  .TopBtn {
+    position: fixed;
+    bottom: 10%;
+    right: 0;
+    background: none;
+    border: none;
+    z-index: 8;
+    height: 50px;
+    border-radius: 9px;
+    margin-right: 50px;
+    cursor: pointer;
+
+    img {
+      width: 50px;
       height: 50px;
-      border-radius: 9px;
-      margin-left: 50px;
-
-      img {
-        width: 50px;
-        height: 50px;
-      }
     }
-  }
-  }
-
-  .cateminibtn {
-    display: none;
   }
 `;

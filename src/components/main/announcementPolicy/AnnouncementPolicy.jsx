@@ -98,7 +98,7 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: space-between;
-    background-color: #eef1f5;
+    background-color: #f5f7fa;
     border-radius: 12px;
 
     .wrapper-btns {
