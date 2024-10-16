@@ -77,10 +77,17 @@ export default function SignupForm() {
   async function handleCheckDuplicate(e) {
     e.preventDefault();
     try {
+      if (nick_name === '' || /^\s*$/.test(nick_name)) {
+        setIsDuplicate(true); 
+        setnicknameError('빈 값은 올 수 없습니다.'); 
+        setIsNicknameVerified(false); 
+        return;
+      }
       const data = await checkNickname(nick_name);
       if (data === false) {
         setIsDuplicate(false);
         setIsNicknameVerified(true);
+        setnicknameError('');
       } else {
         setIsDuplicate(true);
         setIsNicknameVerified(false);
@@ -94,6 +101,11 @@ export default function SignupForm() {
   async function handleCheckDuplicateEmail(e) {
     e.preventDefault();
     try {
+      if (email === '' || /^\s*$/.test(email)) {
+        setIsEmailDuplicate(true); // 중복 처리
+        setemailError('빈 값은 올 수 없습니다.'); // 에러 메시지 설정
+        return;
+      }
       const data = await checkEmail(email);
       if (data === true) {
         setIsEmailDuplicate(true);

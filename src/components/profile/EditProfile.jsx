@@ -68,6 +68,13 @@ export default function MyEditComponents({ accessToken, userInfo }) {
 
   async function handleCheckDuplicate(e) {
     e.preventDefault();
+    if (nick_name === '' || /^\s*$/.test(nick_name)) {
+      setIsDuplicate(true); 
+      setnicknameError('빈 닉네임은 올 수 없습니다.'); 
+      return;
+    } else {
+      setnicknameError('');
+    }
     try {
       const data = await checkNickname(nick_name);
       setIsDuplicate(data);
@@ -215,9 +222,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
             )}
           </div>
           {nicknameError && (
-            <div className="anyLogins">
-              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
-              <p className="errorMsg">{nicknameError}</p>
+            <div className="anyLogins" style={{ marginLeft: '40px' }}>
+              <p className="nickFalse">{nicknameError}</p>
             </div>
           )}
           <h1 className="logintext2">소개 메시지 수정</h1>
