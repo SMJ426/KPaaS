@@ -27,15 +27,14 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #f5f7fa;
-  width: 320px;
+  width: 100%;
   height: 100%;
   border-radius: 12px;
   padding: 15px;
 
   .img-policy {
-    width: 320px;
-    height: auto
-    object-fit: 180px;
+    width: 100%;
+    object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -64,17 +63,15 @@ const StyledWrapper = styled.div`
     }
   }
 
-
   @media screen and (max-width: 1600px) {
     .wrapper-desc {
       display: block;
     }
 
     .img-policy {
-      width: 320px;
-      height: 180px;
-      white-space: nowrap; 
-      overflow: hidden; 
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
       text-overflow: ellipsis;
     }
   }

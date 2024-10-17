@@ -107,7 +107,8 @@ const StyledWrapper = styled.div`
   }
 
   .wrapper-policy {
-    width: 30%; 
+    width: 30%;
+    min-width: 200px;
 
     display: flex;
     flex-direction: column;
@@ -118,7 +119,7 @@ const StyledWrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-       width: 100%;
+      width: 100%;
 
       > p {
         border-bottom: 2px solid #e7e6e6;
