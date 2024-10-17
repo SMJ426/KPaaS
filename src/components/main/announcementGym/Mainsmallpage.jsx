@@ -129,7 +129,7 @@ export default function Mainsmallpage() {
               onClick={prevSlide}
               disabled={currentIndex === 0}
             >
-              ◀︎{/* &lt; */}
+              &lt;
             </button>
           </div>
           <div className="pagination">
@@ -145,7 +145,7 @@ export default function Mainsmallpage() {
             onClick={nextSlide}
             disabled={currentIndex === gymsData.data.length - 1}
           >
-            ▶{/* &gt; */}
+            &gt;
           </button>
         </CarouselWrapper>
       )}
@@ -164,6 +164,11 @@ const StyledWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+
+  &:hover .slide-btn {
+    visibility: visible;
+  }
 
   h1 {
     text-align: center;
@@ -275,68 +280,46 @@ const CarouselWrapper = styled.div`
       margin-bottom: 5px;
     }
   }
-  // dot 옆 화살표
+  
   .slide-btn {
+    visibility: hidden;
     position: absolute;
-    width: 18px;
-    height: 20px;
-    font-size: 20px;
-    top: 95.5%;
+    font-size: 17px;
+    top: 35%;
     transform: translateY(-50%);
-    background-color: #f5f7fa;
+    background-color: #ccc;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
-    color: black;
+    color: white;
     z-index: 30;
     user-select: none;
-    left: 43%;
+    height: 25px;
+    width: 23px;
+    &:hover {
+      background-color: #b1b1b1;
+    }
   }
 
   .left-btn {
+    left: 15px;
+    &.disabled {
+      color: #cccccc;
+      cursor: not-allowed;
+      background-color: #f0f0f0;
+      pointer-events: none;
+    }
   }
 
   .right-btn {
-    left: 55%;
+    right: 10px;
+    &.disabled {
+      color: #cccccc;
+      cursor: not-allowed;
+      background-color: #f0f0f0;
+      pointer-events: none;
+    }
   }
-
-  // // 카드 양 옆 화살표
-  // .slide-btn {
-  //   position: absolute;
-  //   width: 25px;
-  //   height: 40px;
-  //   font-size: 30px;
-  //   top: 35%;
-  //   transform: translateY(-60%);
-  //   background-color: #ffffff80;
-  //   border: none;
-  //   cursor: pointer;
-  //   color: black;
-  //   z-index: 30;
-  //   user-select: none;
-  //   &:hover {
-  //     background-color: #00000047;
-  //   }
-  // }
-
-  // .left-btn {
-  //   left: 15px;
-  //   &.disabled {
-  //     color: #cccccc;
-  //     cursor: not-allowed;
-  //     background-color: #f0f0f0;
-  //     pointer-events: none;
-  //   }
-  // }
-
-  // .right-btn {
-  //   right: 10px;
-  //   &.disabled {
-  //     color: #cccccc;
-  //     cursor: not-allowed;
-  //     background-color: #f0f0f0;
-  //     pointer-events: none;
-  //   }
-  // }
 
   .pagination {
     display: flex;
