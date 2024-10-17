@@ -139,7 +139,7 @@ const StyledWrapper = styled.div`
 
       .slide-btn {
         width: 20px;
-        height: 20px;
+        height: 25px;
         font-size: 20px;
 
         background-color: #f5f7fa;
