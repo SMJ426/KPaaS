@@ -107,19 +107,18 @@ const StyledWrapper = styled.div`
   }
 
   .wrapper-policy {
-    width: 30%;
+    width: 30%; 
 
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f5f7fa;
     border-radius: 12px;
-
     > .wrapper-btns {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+       width: 100%;
 
       > p {
         border-bottom: 2px solid #e7e6e6;
@@ -138,9 +137,7 @@ const StyledWrapper = styled.div`
       margin-bottom: 15px;
 
       .slide-btn {
-        width: 20px;
-        height: 25px;
-        font-size: 20px;
+        font-size: 18px;
 
         background-color: #f5f7fa;
         border: none;
