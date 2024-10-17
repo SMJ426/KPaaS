@@ -32,12 +32,18 @@ const StyledWrapper = styled.div`
   border-radius: 12px;
   padding: 15px;
 
+  >a{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .img-policy {
-    width: 100%;
+    width: 70%;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; 
 
     &:hover {
       transform: scale(1.05);
@@ -69,7 +75,7 @@ const StyledWrapper = styled.div`
     }
 
     .img-policy {
-      width: 100%;
+      width: 70%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
