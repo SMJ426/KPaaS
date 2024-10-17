@@ -140,7 +140,6 @@ const StyledWrapper = styled.div`
       border: none;
       cursor: pointer;
       color: black;
-      z-index: 30;
       user-select: none;
     }
 

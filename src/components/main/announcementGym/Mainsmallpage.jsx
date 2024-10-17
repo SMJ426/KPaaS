@@ -71,7 +71,7 @@ export default function Mainsmallpage() {
 
   useEffect(() => {
     if (carouselRef.current) {
-      carouselRef.current.style.transform = `translateX(-${currentIndex * 48.7}%)`;
+      carouselRef.current.style.transform = `translateX(-${currentIndex * 50}%)`;
     }
   }, [currentIndex]);
 
@@ -255,7 +255,7 @@ const CarouselWrapper = styled.div`
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 0px 20px 3px 4%;
+    margin: 0px 4.3% 3px 3.5%;
     transition: transform 0.3s ease;
 
     &:hover {
@@ -286,7 +286,6 @@ const CarouselWrapper = styled.div`
     border: none;
     cursor: pointer;
     color: white;
-    z-index: 30;
     user-select: none;
     height: 25px;
     width: 23px;
@@ -306,7 +305,7 @@ const CarouselWrapper = styled.div`
   }
 
   .right-btn {
-    right: 10px;
+    right: 5px;
     &.disabled {
       color: #cccccc;
       cursor: not-allowed;
