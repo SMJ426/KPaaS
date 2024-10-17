@@ -164,11 +164,6 @@ const StyledWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  position: relative;
-
-  &:hover .slide-btn {
-    visibility: visible;
-  }
 
   h1 {
     text-align: center;
@@ -282,7 +277,6 @@ const CarouselWrapper = styled.div`
   }
   
   .slide-btn {
-    visibility: hidden;
     position: absolute;
     font-size: 17px;
     top: 35%;
