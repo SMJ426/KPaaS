@@ -115,7 +115,7 @@ const StyledWrapper = styled.div`
     background-color: #f5f7fa;
     border-radius: 12px;
 
-    .wrapper-btns {
+    > .wrapper-btns {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -129,7 +129,7 @@ const StyledWrapper = styled.div`
       }
     }
 
-    .wrapper-btnns {
+    > .wrapper-btnns {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -150,11 +150,11 @@ const StyledWrapper = styled.div`
       cursor: pointer;
     }
 
-    .left-btn {
+    > .left-btn {
       margin-right: 2px;
     }
 
-    .right-btn {
+    > .right-btn {
       margin-left: 2px;
     }
 
@@ -163,7 +163,7 @@ const StyledWrapper = styled.div`
       justify-content: center;
       align-items: center;
 
-      .dot {
+      > .dot {
         width: 10px;
         height: 10px;
         border-radius: 50%;
@@ -173,7 +173,7 @@ const StyledWrapper = styled.div`
         transition: background-color 0.3s ease;
       }
 
-      .dot.active {
+      > .dot.active {
         background-color: #000;
         width: 23px;
         border-radius: 10px;
