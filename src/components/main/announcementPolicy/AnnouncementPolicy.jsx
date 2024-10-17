@@ -37,13 +37,11 @@ function AnnouncementPolicy() {
       <div className="wrapper-main">
         <div className="wrapper-announcement">
           <p className="titles">내 주변 체육시설 찾기</p>
-          <p className="titles">내 주변 체육시설 찾기</p>
           <Mainsmallpage />
         </div>
 
         <div className="wrapper-policy">
           <div className="wrapper-btns">
-            <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
             <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
@@ -136,7 +134,7 @@ const StyledWrapper = styled.div`
       width: 18px;
       height: 20px;
       font-size: 20px;
-      margin-top: 5px;
+      margin-top: 15px;
       transform: translateY(-50%);
       background-color: #eef1f5;
       border: none;
@@ -158,6 +156,7 @@ const StyledWrapper = styled.div`
       display: flex;
       justify-content: center;
       margin-bottom: 13px;
+      margin-top: 10px;
 
       .dot {
         width: 10px;
