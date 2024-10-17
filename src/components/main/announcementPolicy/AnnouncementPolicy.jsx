@@ -115,36 +115,38 @@ const StyledWrapper = styled.div`
     background-color: #f5f7fa;
     border-radius: 12px;
 
-   .wrapper-btns {
+    .wrapper-btns {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;  
+      width: 100%;
 
       > p {
-        border-bottom: 2px solid #e7e6e6;  
-        margin: 20px 35px 0px;  
-        width: calc(100% - 70px); 
-         text-align: center;
+        border-bottom: 2px solid #e7e6e6;
+        margin: 20px 35px 0px;
+        width: calc(100% - 70px);
+        text-align: center;
       }
     }
 
     .wrapper-btnns {
+      /* background-color: skyblue; */
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 2px;
     }
 
     .slide-btn {
       width: 20px;
       height: 25px;
       font-size: 20px;
-      margin-top: 15px;
-      transform: translateY(-50%);
+
       background-color: #f5f7fa;
       border: none;
-      cursor: pointer;
       color: black;
       user-select: none;
+      cursor: pointer;
     }
 
     .left-btn {
@@ -158,8 +160,9 @@ const StyledWrapper = styled.div`
     .pagination {
       display: flex;
       justify-content: center;
+      align-items: center;
       margin-bottom: 13px;
-      margin-top: 10px;
+      margin-top: 12px;
 
       .dot {
         width: 10px;
