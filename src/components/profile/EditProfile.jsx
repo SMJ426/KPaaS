@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 import { EditProfile } from '@compoents/util/http';
@@ -23,6 +22,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   const [emailError, setemailError] = useState('');
   const [nicknameError, setnicknameError] = useState('');
   const [requestError, setRequestError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const smile = '/svgs/ellipse-87.svg';
   const showpsw = '/svgs/View.svg';
 
@@ -39,17 +40,26 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   }, [userInfo]);
 
   const validatePassword = (password) => {
-    const logic =
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    const logic = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
     return logic.test(password);
   };
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    const imageUrl = selectedImage;
-    setImage(imageUrl);
-    const imageUrls = URL.createObjectURL(selectedImage);
-    setShowimage(imageUrls);
+    const img = new Image();
+    img.src = URL.createObjectURL(selectedImage);
+    img.onload = () => {
+      if (img.width > 3000 || img.height > 3000) {
+        setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
+        setShowAlertModal(true);
+        e.target.value = ''; 
+      } else {
+        setImage(selectedImage);
+        const imageUrls = URL.createObjectURL(selectedImage);
+        setShowimage(imageUrls);
+        setShowAlertModal(false); 
+      }
+    };
   };
 
   const togglePasswordVisibility = () => {
@@ -58,13 +68,18 @@ export default function MyEditComponents({ accessToken, userInfo }) {
 
   async function handleCheckDuplicate(e) {
     e.preventDefault();
+    if (nick_name === '' || /^\s*$/.test(nick_name)) {
+      setIsDuplicate(true); 
+      setnicknameError('빈 닉네임은 올 수 없습니다.'); 
+      return;
+    } else {
+      setnicknameError('');
+    }
     try {
       const data = await checkNickname(nick_name);
+      setIsDuplicate(data);
       if (data === true) {
-        setIsDuplicate(true);
         alert('닉네임을 변경해 주시길 바랍니다.');
-      } else {
-        setIsDuplicate(false);
       }
     } catch (error) {
       console.error(error);
@@ -74,23 +89,21 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   const handleEditup = async (e) => {
     e.preventDefault();
 
-    if (name === '') {
+    if (!name) {
       setNameError('이름을 입력해주세요.');
       return;
     } else {
       setNameError('');
     }
 
-    if (email === '') {
+    if (!email) {
       setemailError('이메일을 양식에 맞추어 입력해주세요.');
       return;
-    } else if (emailError === 500) {
-      setemailError('이미 가입된 이메일입니다.');
     } else {
       setemailError('');
     }
 
-    if (nick_name === '') {
+    if (!nick_name) {
       setnicknameError('닉네임을 입력해주세요.');
       return;
     } else {
@@ -98,9 +111,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     }
 
     if (!validatePassword(password)) {
-      setPasswordError(
-        '비밀번호는 숫자, 영어, 특수문자를 포함하여 8자리 이상이어야 합니다.'
-      );
+      setPasswordError('비밀번호는 숫자, 영어, 특수문자를 포함하여 8자리 이상이어야 합니다.');
       return;
     } else {
       setPasswordError('');
@@ -113,17 +124,14 @@ export default function MyEditComponents({ accessToken, userInfo }) {
 
     const formData = new FormData();
     let req = {
-      email: email,
-      password: password,
+      email,
+      password,
       user_name: name,
-      nick_name: nick_name,
-      role: role,
+      nick_name,
+      role,
       member_info: info,
     };
-    formData.append(
-      'req',
-      new Blob([JSON.stringify(req)], { type: 'application/json' })
-    );
+    formData.append('req', new Blob([JSON.stringify(req)], { type: 'application/json' }));
     formData.append('img', image);
 
     try {
@@ -135,27 +143,13 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         alert('이메일을 변경해주세요.');
       }
     } catch (error) {
-      alert('지원하지 않는 이미지 포맷 크기입니다.');
+      alert('다른 이미지로 변경해주세요');
     }
   };
 
   function handleFocus(e) {
     const field = e.target.id;
-    if (field === 'email') {
-      document.getElementById('email').style.borderColor = '#496AF3';
-    } else if (field === 'password') {
-      document.getElementById('password').style.borderColor = '#496AF3';
-    } else if (field === 'name') {
-      document.getElementById('name').style.borderColor = '#496AF3';
-    } else if (requestError === 400) {
-      if (field === 'email') {
-        document.getElementById('email').style.borderColor = '#FF0000';
-      } else if (field === 'password') {
-        document.getElementById('password').style.borderColor = '#FF0000';
-      } else if (field === 'name') {
-        document.getElementById('name').style.borderColor = '#496AF3';
-      }
-    }
+    document.getElementById(field).style.borderColor = '#496AF3';
   }
 
   return (
@@ -164,7 +158,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         <form className="formContainer" onSubmit={handleEditup}>
           <div className="outProfile">
             <label htmlFor="input-file">
-              <Image
+              <img
                 src={showimage}
                 alt="프로필 이미지"
                 width="132"
@@ -178,16 +172,14 @@ export default function MyEditComponents({ accessToken, userInfo }) {
               id="input-file"
               accept="image/*"
               style={{ display: 'none' }}
-              onChange={(e) => {
-                handleImageChange(e);
-              }}
+              onChange={handleImageChange}
             />
           </div>
           <div className="EditImg">프로필 이미지를 변경해주세요.</div>
           <h1 className="logintext">이름</h1>
           <input
             className="Input3"
-            type="string"
+            type="text"
             id="name"
             value={name}
             onChange={(e) => {
@@ -198,13 +190,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           />
           {nameError && (
             <div className="anyLogins">
-              <Image
-                src={smile}
-                width={30}
-                height={30}
-                alt="스마일"
-                className="smile"
-              />
+              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
               <p className="errorMsg">{nameError}</p>
             </div>
           )}
@@ -213,7 +199,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           <div className="anyLogins">
             <input
               className="Input3"
-              type="string"
+              type="text"
               value={nick_name}
               onChange={(e) => setNickname(e.target.value)}
               placeholder="닉네임"
@@ -223,53 +209,28 @@ export default function MyEditComponents({ accessToken, userInfo }) {
             </button>
             {isDuplicate === true && (
               <div>
-                <Image
-                  className="vector"
-                  alt="벡터"
-                  src={'/svgs/Ellipse-168.svg'}
-                  width={14}
-                  height={14}
-                />
-                <Image
-                  className="vector2"
-                  alt="벡터2"
-                  src={'/svgs/Vector340.svg'}
-                  width={12}
-                  height={10}
-                />
+                <img className="vector" alt="벡터" src={'/svgs/Ellipse-168.svg'} width={14} height={14} />
+                <img className="vector2" alt="벡터2" src={'/svgs/Vector340.svg'} width={12} height={10} />
                 <p className="nickFalse"> 사용 불가능한 닉네임입니다.</p>
               </div>
             )}
             {isDuplicate === false && (
               <div className="nickTrue">
-                <Image
-                  src={'/svgs/Ellipse-169.svg'}
-                  alt="스마일2"
-                  width={14}
-                  height={14}
-                  className="Vector3"
-                />
+                <img src={'/svgs/Ellipse-169.svg'} alt="스마일2" width={14} height={14} className="Vector3" />
                 사용 가능한 닉네임입니다.
               </div>
             )}
           </div>
           {nicknameError && (
-            <div className="anyLogins">
-              <Image
-                src={smile}
-                width={132}
-                height={132}
-                alt="스마일"
-                className="smile"
-              />
-              <p className="errorMsg">{nicknameError}</p>
+            <div className="anyLogins" style={{ marginLeft: '40px' }}>
+              <p className="nickFalse">{nicknameError}</p>
             </div>
           )}
           <h1 className="logintext2">소개 메시지 수정</h1>
           <div className="anyLogins">
             <input
               className="Input"
-              type="string"
+              type="text"
               id="info"
               value={info}
               onChange={(e) => {
@@ -297,13 +258,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           </label>
           {emailError && (
             <div className="anyLogins">
-              <Image
-                src={smile}
-                width={30}
-                height={30}
-                alt="스마일"
-                className="smile"
-              />
+              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
               <p className="errorMsg">{emailError}</p>
             </div>
           )}
@@ -321,7 +276,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
               placeholder="비밀번호"
             />
             <button onClick={togglePasswordVisibility} className="showPswbtn">
-              <Image src={showpsw} width={18} height={12} alt="비밀번호 표시" />
+              <img src={showpsw} width={18} height={12} alt="비밀번호 표시" />
             </button>
           </div>
           <h1 className="logintext2">비밀번호 확인</h1>
@@ -337,18 +292,12 @@ export default function MyEditComponents({ accessToken, userInfo }) {
               placeholder="비밀번호 확인"
             />
             <button onClick={togglePasswordVisibility} className="showPswbtn">
-              <Image src={showpsw} width={18} height={12} alt="비밀번호 표시" />
+              <img src={showpsw} width={18} height={12} alt="비밀번호 표시" />
             </button>
           </div>
           {passwordError && (
             <div className="anyLogins">
-              <Image
-                src={smile}
-                width={30}
-                height={30}
-                alt="스마일"
-                className="smile"
-              />
+              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
               <p className="errorMsg">{passwordError}</p>
             </div>
           )}
@@ -358,9 +307,54 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         </form>
         <section className="flexSection2"></section>
       </div>
+
+      {showAlertModal && (
+        <Modal>
+          <div className="modal-content">
+            <p>{alertMessage}</p>
+            <button onClick={() => setShowAlertModal(false)}>확인</button>
+          </div>
+        </Modal>
+      )}
     </StyledWrapper>
   );
 }
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+  }
+
+  button {
+    background-color: #f25264;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 2px;
+  }
+
+  button:hover {
+    background-color: #f2526587;
+  }
+`;
 
 const StyledWrapper = styled.header`
   .parent {
