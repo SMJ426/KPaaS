@@ -136,47 +136,47 @@ const StyledWrapper = styled.div`
       gap: 2px;
 
       margin-bottom: 15px;
-    }
 
-    .slide-btn {
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
+      .slide-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
 
-      background-color: #f5f7fa;
-      border: none;
-      color: black;
-      user-select: none;
-      cursor: pointer;
-    }
-
-    > .left-btn {
-      margin-right: 2px;
-    }
-
-    > .right-btn {
-      margin-left: 2px;
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      > .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #c6c6c6;
-        margin: 0 3px;
+        background-color: #f5f7fa;
+        border: none;
+        color: black;
+        user-select: none;
         cursor: pointer;
-        transition: background-color 0.3s ease;
       }
 
-      > .dot.active {
-        background-color: #000;
-        width: 23px;
-        border-radius: 10px;
+      > .left-btn {
+        margin-right: 2px;
+      }
+
+      > .right-btn {
+        margin-left: 2px;
+      }
+
+      > .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #c6c6c6;
+          margin: 0 3px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        > .dot.active {
+          background-color: #000;
+          width: 23px;
+          border-radius: 10px;
+        }
       }
     }
   }
