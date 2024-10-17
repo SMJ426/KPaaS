@@ -130,16 +130,17 @@ const StyledWrapper = styled.div`
     }
 
     .wrapper-btnns {
-      /* background-color: skyblue; */
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 2px;
+
+      margin-bottom: 15px;
     }
 
     .slide-btn {
       width: 20px;
-      height: 25px;
+      height: 20px;
       font-size: 20px;
 
       background-color: #f5f7fa;
@@ -161,8 +162,6 @@ const StyledWrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 13px;
-      margin-top: 12px;
 
       .dot {
         width: 10px;
