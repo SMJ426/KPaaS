@@ -137,7 +137,7 @@ const StyledWrapper = styled.div`
     font-size: 24px; 
     font-weight: bold; 
     color: #333; 
-     margin: 20px 0 0; 
+     margin: 50px 0 0; 
     text-align: center; 
     background: none; 
     border: 2px solid #e7e7e7; 

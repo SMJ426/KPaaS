@@ -42,7 +42,7 @@ function AnnouncementPolicy() {
 
         <div className="wrapper-policy">
           <div className="wrapper-btns">
-            <p className="titles-es">체육 복지 프로그램, 제도 안내</p>
+            <p className="titles">체육 복지 프로그램, 제도 안내</p>
           </div>
           <PolicyRenderer policyData={AnnouncementTestDataSet[currentIndex]} />
           <div className="wrapper-btnns">
@@ -112,31 +112,35 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #eef1f5;
+    background-color: #f5f7fa;
     border-radius: 12px;
 
-    .wrapper-btns {
+   .wrapper-btns {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;  
 
       > p {
-        border: none;
-        margin-left: 0;
+        border-bottom: 2px solid #e7e6e6;  
+        margin: 20px 35px 0px;  
+        width: calc(100% - 70px); 
+         text-align: center;
       }
     }
 
     .wrapper-btnns {
       display: flex;
+      align-items: center;
     }
 
     .slide-btn {
-      width: 18px;
-      height: 20px;
+      width: 20px;
+      height: 25px;
       font-size: 20px;
       margin-top: 15px;
       transform: translateY(-50%);
-      background-color: #eef1f5;
+      background-color: #f5f7fa;
       border: none;
       cursor: pointer;
       color: black;
