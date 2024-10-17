@@ -26,16 +26,16 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
-  width: 100%;
+  background-color: #f5f7fa;
+  width: 320px;
   height: 100%;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
 
   .img-policy {
     width: 320px;
-    height: 180px;
-    object-fit: cover;
+    height: auto
+    object-fit: 180px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -48,18 +48,22 @@ const StyledWrapper = styled.div`
   .wrapper-desc {
     margin-top: 15px;
     text-align: center;
+    max-width: 320px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 
     .policy_title {
-      font-size: 18px;
+      font-size: 100%;
       font-weight: bold;
       margin-bottom: 5px;
     }
 
     .policy_desc {
-      font-size: 14px;
+      font-size: 96%;
       color: #666;
     }
   }
+
 
   @media screen and (max-width: 1600px) {
     .wrapper-desc {
@@ -67,8 +71,11 @@ const StyledWrapper = styled.div`
     }
 
     .img-policy {
-      width: 100%;
-      height: auto;
+      width: 320px;
+      height: 180px;
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis;
     }
   }
 `;

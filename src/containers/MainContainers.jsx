@@ -74,7 +74,11 @@ export default function MainContainers({
 
       <div className="wrapper-down-section">
         <AnnouncementPolicy />
-        {role === 'ROLE_TEACHER' && <SendPostButton nick_name={nick_name} />}
+        {role === 'ROLE_TEACHER' ? (
+          <SendPostButton nick_name={nick_name} />
+        ) : (
+          <div className="pt-list-title">예약 가능한 장애인 전용 PT 목록</div>
+        )}
         <div className="wrapper-body-card">
           <div className="wrapper-cate">
             <CategoryComponents
@@ -110,6 +114,10 @@ const StyledWrapper = styled.div`
 
   .wrapper-down-section {
     padding: 0 5%;
+    display: flex; /* Added flex display */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Stack children vertically */
   }
 
   .main-img {
@@ -121,7 +129,7 @@ const StyledWrapper = styled.div`
   .wrapper-body-card {
     display: flex;
     height: 100%;
-    margin-top: 50px;
+    margin-top: 30px;
 
     .Loading {
       margin-left: 50%;
@@ -133,7 +141,7 @@ const StyledWrapper = styled.div`
   }
 
   .TopBtn {
-    position: sticky;
+    position: fixed;
     bottom: 10%;
     right: 0;
 
@@ -151,4 +159,19 @@ const StyledWrapper = styled.div`
       height: 50px;
     }
   }
+.pt-list-title {
+  width: 100%; 
+  font-size: 24px; 
+  font-weight: bold; 
+  color: #333; 
+  margin: 50px 0 0; 
+  text-align: center; 
+  background: none; 
+  border: 2px solid #e7e7e7; 
+  border-radius: 8px; 
+  transition: color 0.3s ease, border-color 0.3s ease; 
+  font-family: 'Roboto', sans-serif; 
+  letter-spacing: 0.5px; 
+  padding: 10px; 
+}
 `;

@@ -10,14 +10,14 @@ export const AnnouncementTestDataSet = [
     id: 'svoucher',
     url: 'https://svoucher.kspo.or.kr/main.do',
     title: '스포츠강좌이용권 신청 사이트',
-    desc: '이미지를 클릭하면 이용권 신청 사이트로 이동합니다',
+    desc: '이미지를 클릭하면 사이트로 이동합니다',
     thumbnailUrl: '/images/policy/스포츠이용권사이트.jpg',
   },
   {
     id: '135-7154',
     url: 'http://www.bokgwon.go.kr/fund/details.do?id=135-7154 ',
     title: '장애인 체육활성화 지원금 신청 사이트',
-    desc: '이미지를 클릭하면 지원금 신청 사이트로 이동합니다',
+    desc: '이미지를 클릭하면 사이트로 이동합니다',
     thumbnailUrl: '/images/policy/복권위원회.jpg',
   },
   {

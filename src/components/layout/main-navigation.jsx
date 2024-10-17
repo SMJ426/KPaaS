@@ -19,6 +19,16 @@ export default function MainNavigation({ accessToken }) {
       router.push('/chat');
     }
   };
+
+  const handleAboutClick = (e) => {
+    if (!accessToken || accessToken.trim() === '') {
+      e.preventDefault();
+      setShowModal(true);
+    } else {
+      router.push('/about');
+    }
+  };
+
   return (
     <StyledWrapper>
       <Link href="/" legacyBehavior passHref>
@@ -31,38 +41,26 @@ export default function MainNavigation({ accessToken }) {
         </a>
       </Link>
 
-      {/* 상단 바 중간 네비 게이터 */}
       <div className="wrapper-navigate-menu">
-        <Link href="#">
-          <p className="navigate">About</p>
-        </Link>
-
-        <Link href="#">
-          <p>Character</p>
-        </Link>
-
-        <Link href="#">
-          <p>Curriculum</p>
-        </Link>
+        <div className="navigate-about" onClick={handleAboutClick}>
+          <p>맞춤형 트레이닝, PTFD에서 시작하세요</p>
+        </div>
 
         <div className="navigate-chat" onClick={handleChatClick}>
           <p>채팅하기</p>
         </div>
 
-        <Link href="#">
-          <p>Store</p>
-        </Link>
+        {!accessToken ? (
+          <div className="wrapper-login">
+            <button className="btn-login" onClick={toggleModal}>
+              로그인
+            </button>
+          </div>
+        ) : (
+          <SmallProfile accessToken={accessToken} />
+        )}
       </div>
 
-      {!accessToken && (
-        <div className="btn-login">
-          <button className="btn-login" onClick={toggleModal}>
-            로그인
-          </button>
-        </div>
-      )}
-
-      {accessToken && <SmallProfile accessToken={accessToken} />}
       <ChoiceModal show={showModal} onClose={toggleModal} />
     </StyledWrapper>
   );
@@ -99,31 +97,74 @@ const StyledWrapper = styled.header`
 
   .wrapper-navigate-menu {
     display: flex;
-    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
     font-family: 'Pretendard';
-    font-weight: bold;
+    color: black;
+    font-size: 16px;
+
+    .navigate-about {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      min-width: 280px;
+      height: 42px;
+      border-radius: 20px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #efefef;
+        opacity: 0.8;
+      }
+    }
 
     .navigate-chat {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      min-width: 100px;
+      height: 42px;
+      border-radius: 20px;
+
       cursor: pointer;
-    }
-    p {
-      min-width: 56px;
+
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #efefef;
+        opacity: 0.8;
+      }
     }
   }
 
   .btn-login {
-    width: 70px;
-    height: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 100px;
+    height: 42px;
     border-radius: 20px;
-    font-size: 16px;
-    border: 0;
+    font-size: 15px;
+
+    border: solid 1px black;
 
     cursor: pointer;
 
-    background-color: #eeeeee;
-    color: #2e6ff2;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    background-color: #ffffff;
+
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #efefef;
+      opacity: 0.8;
+    }
   }
 `;
