@@ -194,7 +194,7 @@ export default function PostForm({ accessToken }) {
         'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
       window.location.href = redirectUrl;
     } catch (error) {
-      console.error('에러 발생:', error);
+      //console.error('에러 발생:', error);
     }
   }
 

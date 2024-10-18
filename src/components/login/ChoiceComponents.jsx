@@ -5,10 +5,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function ChoiceModal({ show, onClose }) {
-  if (!show) return null;
-
   const router = useRouter();
   const [hoverTarget, setHoverTarget] = useState(null);
+
+  if (!show) return null;
 
   const handleClickURL = (target) => {
     const clickURL = target === 'user' ? '/user/login' : '/user/teacherlogin';

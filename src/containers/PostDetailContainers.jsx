@@ -41,7 +41,7 @@ export default function PostDetailContainers({
         setLikedPosts((prev) => ({ ...prev, [clickedPostId]: true }));
       }
     } catch (error) {
-      console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
+      //console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
     }
   };
 

@@ -41,7 +41,7 @@ const SearchSection = ({ accessToken }) => {
         const data = await response.json();
         setAutoCompleteResults(data);
       } catch (error) {
-        console.error('자동검색 에러', error);
+        //console.error('자동검색 에러', error);
       }
     }, 500),
     [searchType]

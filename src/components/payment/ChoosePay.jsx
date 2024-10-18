@@ -30,7 +30,7 @@ export default function ChoosePayModal({ accessToken, postId, post }) {
         }
         setIsModalVisible(true);
       } catch (error) {
-        console.error('장바구니에 담는 중 오류가 발생했습니다.', error);
+        //console.error('장바구니에 담는 중 오류가 발생했습니다.', error);
       }
     }
   };

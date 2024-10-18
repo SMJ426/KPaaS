@@ -43,7 +43,7 @@ export default function TeacherSignupForm() {
           setImage(blob);
         })
         .catch((error) => {
-          console.error(error);
+          //console.error(error);
         });
     }
   }, [image, dfImg]);
@@ -77,7 +77,7 @@ export default function TeacherSignupForm() {
         setIsNicknameVerified(false);
       }
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsNicknameVerified(false);
     }
   }
@@ -93,7 +93,7 @@ export default function TeacherSignupForm() {
       }
       setIsEmailVerified(true);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsEmailVerified(false);
     }
   }
