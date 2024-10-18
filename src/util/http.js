@@ -153,9 +153,6 @@ export async function followUser(accessToken, email) {
       },
       body: JSON.stringify({ email }),
     });
-    if (response.ok) {
-      console.log('팔로우 성공!');
-    }
   } catch (error) {
     console.error('팔로우 요청을 보내는 중 오류가 발생했습니다.', error);
     throw error;
