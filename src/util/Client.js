@@ -21,7 +21,7 @@ export async function Loginfetch(email, password) {
       throw new Error('로그인 실패: 아이디 혹은 비밀번호를 다시 확인해주세요.');
     }
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw new Error('로그인 요청에 실패했습니다.');
   }
 }
@@ -68,7 +68,7 @@ export async function signup(formData) {
   if (response.ok) {
     return responseData;
   } else {
-    console.error(response.status);
+    //console.error(response.status);
     throw new Error('API 요청에 실패했습니다.');
   }
 }
@@ -118,10 +118,10 @@ export async function fetchUserProfile(accessToken) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(
-      '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }
@@ -137,10 +137,10 @@ export async function fetchUserEmail(nick_name) {
     const data = await response.json();
     return data.email;
   } catch (error) {
-    console.error(
-      '사용자 이메일 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '사용자 이메일 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }

@@ -18,7 +18,7 @@ export default function TeacherLoginForm() {
       await Loginfetchs(email, password);
       router.push('/');
     } catch (error) {
-      console.error(error.message);
+      //console.error(error.message);
       setRequestError(403);
     }
     return;

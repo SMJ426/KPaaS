@@ -28,7 +28,7 @@ export async function Loginfetchs(email, password) {
       throw new Error('로그인 실패: 아이디 혹은 비밀번호를 다시 확인해주세요.');
     }
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw new Error('로그인 요청에 실패했습니다.');
   }
 }
@@ -61,7 +61,7 @@ export async function RefreshAccessToken() {
     });
     return newAccessToken;
   } catch (error) {
-    console.error('Error refreshing access token:', error);
+    //console.error('Error refreshing access token:', error);
     throw error;
   }
 }
@@ -83,7 +83,7 @@ export async function EditProfile(formData, accessToken) {
     const responseData = await response.json();
     return responseData;
   } else {
-    console.error(response.status);
+    //console.error(response.status);
     throw new Error('API 요청에 실패했습니다.');
   }
 }
@@ -105,10 +105,10 @@ export async function fetchUserProfile(accesstoken) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(
-      '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }
@@ -131,10 +131,10 @@ export async function fetchOtherUserProfile(nick_name, accessToken) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(
-      '상대방 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '상대방 프로필 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }
@@ -154,7 +154,7 @@ export async function followUser(accessToken, email) {
       body: JSON.stringify({ email }),
     });
   } catch (error) {
-    console.error('팔로우 요청을 보내는 중 오류가 발생했습니다.', error);
+    //console.error('팔로우 요청을 보내는 중 오류가 발생했습니다.', error);
     throw error;
   }
 }
@@ -175,10 +175,10 @@ export async function fetchFollowUser(nick_name) {
     const data = await response.json();
     return data.followers;
   } catch (error) {
-    console.error(
-      '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }
@@ -198,10 +198,10 @@ export async function fetchFollowingUser(nick_name) {
     const data = await response.json();
     return data.followings;
   } catch (error) {
-    console.error(
-      '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-      error
-    );
+    // console.error(
+    //   '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
+    //   error
+    // );
     throw error;
   }
 }
@@ -227,7 +227,7 @@ export async function getSelling(nick_name, pageParam = 0) {
 
     return data;
   } catch (error) {
-    console.error('사용자 판매 물품 error', error);
+    //console.error('사용자 판매 물품 error', error);
     throw error;
   }
 }

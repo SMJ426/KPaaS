@@ -27,7 +27,7 @@ export default function Mainsmallpage() {
         const data = await response.json();
         setGymsData(data);
       } catch (error) {
-        console.error('받던 도중 에러 발생 부분!', error);
+        //console.error('받던 도중 에러 발생 부분!', error);
       }
     };
 

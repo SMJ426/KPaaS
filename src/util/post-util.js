@@ -161,7 +161,7 @@ export async function Likepost(accessToken, post_id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
+    //console.error('좋아요 요청을 보내는 중 오류가 발생했습니다.', error);
     throw error;
   }
 }
@@ -184,7 +184,7 @@ export async function LikeList(nick_name, pageParam = 0) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('요청을 보내는 중 오류가 발생했습니다.', error);
+    //console.error('요청을 보내는 중 오류가 발생했습니다.', error);
     throw error;
   }
 }
@@ -206,7 +206,7 @@ export async function DeleteLike(accessToken, postid) {
       return data;
     }
   } catch (error) {
-    console.error('요청을 보내는 중 오류가 발생했습니다.', error);
+    //console.error('요청을 보내는 중 오류가 발생했습니다.', error);
     throw error;
   }
 }

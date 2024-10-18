@@ -39,7 +39,7 @@ export default function SignupForm() {
           setImage(blob);
         })
         .catch((error) => {
-          console.error(error);
+          //console.error(error);
         });
     }
   }, [image, dfImg]);
@@ -73,7 +73,7 @@ export default function SignupForm() {
         setIsNicknameVerified(false);
       }
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsNicknameVerified(false);
     }
   }
@@ -91,7 +91,7 @@ export default function SignupForm() {
       }
       setIsEmailVerified(true);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsEmailVerified(false);
     }
   }
