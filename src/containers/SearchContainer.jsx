@@ -80,7 +80,9 @@ export default function SearchContainer({
           {role === 'ROLE_TEACHER' ? (
             <SendPostButton nick_name={nick_name} />
           ) : (
-            <div className="pt-list-title">예약 가능한 장애인 전용 PT 목록</div>
+            <div className="pt-list-title">
+              🔽 예약 가능한 장애인 전용 PT 목록 🔽
+            </div>
           )}
         </div>
         <div className="wrapper-body-card">
@@ -134,23 +136,25 @@ const StyledWrapper = styled.div`
 
   .pt-list-title {
     width: 100%;
-    font-size: 24px; 
-    font-weight: bold; 
-    color: #333; 
-     margin: 50px 0 0; 
-    text-align: center; 
-    background: none; 
-    border: 2px solid #e7e7e7; 
-    border-radius: 8px; 
-    transition: color 0.3s ease, border-color 0.3s ease; 
-    font-family: 'Roboto', sans-serif; 
-    letter-spacing: 0.5px; 
-    padding: 10px; 
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 70px 0 0;
+    text-align: center;
+    background: none;
+    border: 2px solid #e7e7e7;
+    border-radius: 8px;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
+    padding: 10px;
   }
 
   .wrapper-body-card {
-    display: flex; 
-     height: 100%;
+    display: flex;
+    height: 100%;
     margin-top: 30px;
     .Loading {
       margin-left: 50%;
