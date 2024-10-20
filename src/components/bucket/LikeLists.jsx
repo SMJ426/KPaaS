@@ -7,8 +7,10 @@ import { RefreshAccessToken } from '@compoents/util/http';
 import Chatting from '../chatting/Chatting';
 import { useDropdown } from '../payment/payDropdown';
 import ChoosePayModal from '../payment/ChoosePay';
+import { useRouter } from 'next/navigation';
 
 export default function LikeListComponent({ like, accessToken }) {
+  const router = useRouter();
   const [liked, setLiked] = useState(true);
 
   const { showDropdown, handleOpenDropdown, dropdownRef } = useDropdown();
@@ -40,6 +42,10 @@ export default function LikeListComponent({ like, accessToken }) {
     }
   };
 
+  const handlePostClick = () => {
+    router.push(`/${like.post_id}`);
+  };
+
   return (
     <StyledWrapper>
       <Link className="wrapper-profile-info" href={linkProfile}>
@@ -54,7 +60,7 @@ export default function LikeListComponent({ like, accessToken }) {
         </div>
       </Link>
       <div className="wrapper-bottom">
-        <div className="wrapper-img-info">
+        <div className="wrapper-img-info" onClick={handlePostClick}>
           <img src={like.image_post} alt="상품 사진" className="img-post" />
           <span className="post_info">{like.post_info}</span>
         </div>
@@ -96,6 +102,8 @@ const StyledWrapper = styled.header`
   width: 288px;
   height: 380px;
   box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
+
   button {
     cursor: pointer;
   }
@@ -157,6 +165,8 @@ const StyledWrapper = styled.header`
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+      cursor: pointer;
     }
 
     .wrapper-btns {

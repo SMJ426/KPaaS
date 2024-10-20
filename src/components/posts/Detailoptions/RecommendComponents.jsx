@@ -42,33 +42,25 @@ const StyledWrapper = styled.section`
 
   .recommendationGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 24px;
 
-  button {
-    cursor: pointer;
-  }
+    @media (max-width: 1750px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
 
-  @media screen and (max-width: 2000px) {
-    .recommendationGrid {
+    @media (max-width: 1450px) {
       grid-template-columns: repeat(4, 1fr);
     }
-  }
 
-  @media screen and (max-width: 1625px) {
-    .recommendationGrid {
+    @media (max-width: 1150px) {
       grid-template-columns: repeat(3, 1fr);
     }
-  }
 
-  @media screen and (max-width: 1200px) {
-    .recommendationGrid {
+    @media (max-width: 850px) {
       grid-template-columns: repeat(2, 1fr);
     }
-  }
-  @media screen and (max-width: 900px) {
-    .recommendationGrid {
+    @media (max-width: 550px) {
       grid-template-columns: repeat(1, 1fr);
     }
   }

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Likepost, DeleteLike } from '@compoents/util/post-util';
 import { RefreshAccessToken } from '@compoents/util/http';
-import PostDropdown from '@compoents/components/posts/Detailoptions/PostDropdown';
 import Recommendations from '@compoents/components/posts/Detailoptions/RecommendComponents';
 import PostDetails from '@compoents/components/posts/Detailoptions/DetailPostcomponents';
 
@@ -54,11 +53,6 @@ export default function PostDetailContainers({
   const formattedPrice = post.price.toLocaleString('ko-KR');
   const canEditOrDelete = nick_name === post.nick_name || role === 'ADMIN';
 
-  const linkProfile = `/profile/${post.nickName}`;
-  const likedBtnSrc = likedPosts[postId]
-    ? '/images/png/icon-heart-fill.png'
-    : '/images/png/icon-heart.png';
-
   return (
     <StyledWrapper>
       <div className="container">
@@ -89,7 +83,6 @@ export default function PostDetailContainers({
 
 const StyledWrapper = styled.div`
   .container {
-    /* margin-top: 60px; */
     margin: 60px 5% 0 5%;
   }
 

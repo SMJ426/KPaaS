@@ -40,6 +40,7 @@ const StyledWrapper = styled.header`
     border: 0;
     margin-left: 30%;
     margin-top: 70px;
+    cursor: pointer;
   }
 
   .offlikebtn {
@@ -54,6 +55,7 @@ const StyledWrapper = styled.header`
     border: 0;
     margin-left: 30%;
     margin-top: 70px;
+    cursor: pointer;
   }
 
   .onPostbtn {
@@ -68,6 +70,7 @@ const StyledWrapper = styled.header`
     border: 0;
     margin-left: 50%;
     margin-top: 70px;
+    cursor: pointer;
   }
 
   .offPostbtn {
@@ -82,5 +85,6 @@ const StyledWrapper = styled.header`
     border: 0;
     margin-left: 50%;
     margin-top: 70px;
+    cursor: pointer;
   }
 `;

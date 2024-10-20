@@ -1,10 +1,10 @@
-import PostsGrid from './PostsGrid';
+import PostDetailGrid from './PostDetailGrid';
 import styled from 'styled-components';
 
 export default function CommuPosts({ postData, accessToken }) {
   return (
     <StyledWrapper>
-      <PostsGrid postData={postData} accessToken={accessToken} />
+      <PostDetailGrid postData={postData} accessToken={accessToken} />
     </StyledWrapper>
   );
 }

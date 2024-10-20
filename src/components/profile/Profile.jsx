@@ -82,10 +82,8 @@ const StyledWrapper = styled.header`
   .verticalLine {
     position: absolute;
     border-top: 1px solid #e2e5ef;
-    width: 60%;
+    width: 100%;
     height: 1px;
     margin-top: 120px;
-    margin-left: 13%;
-    padding: 0%;
   }
 `;

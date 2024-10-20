@@ -23,21 +23,23 @@ export default function PostDetails({
         <Image
           src={post.image_post}
           alt="상품 이미지"
-          width={600}
-          height={600}
+          width={400}
+          height={400}
           className="postImg"
         />
       </div>
+
       <div className="productDetails">
-        <h1 className="nickNames">{post.nick_name}</h1>
+        <h2 className="nickNames">{post.nick_name}</h2>
         <h1 className="productName">{post.post_name}</h1>
         <p className="productPrice">{formattedPrice}원</p>
         <ul className="productInfo">
-          <li>지역 : {post.location}</li>
-          <li>강의 장소 : {categoryMap[post.category_id]}</li>
-          <li>모집 회원수 : {post.total_number}</li>
-          <li>
-            강의 기간 : {post.start_at} ~ {post.end_at}
+          <li>- 지역: {post.location}</li>
+          <li>- 강의 장소: {categoryMap[post.category_id]}</li>
+          <li>- 모집 회원수: {post.total_number}</li>
+          <li className="lecturePeriod">
+            - 강의 기간: <strong>{post.start_at}</strong> ~{' '}
+            <strong>{post.end_at}</strong>
           </li>
           <li>{post.post_info}</li>
         </ul>
@@ -72,55 +74,68 @@ export default function PostDetails({
 
 const StyledWrapper = styled.main`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
-
-  .productImage {
-  }
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  font-family: 'Pretendard';
 
   .productDetails {
-    width: 45%;
-    margin-left: 50px;
+    max-width: 700px;
+    max-height: 700px;
+    overflow-y: auto;
+  }
+
+  .nickNames {
+    font-size: 20px;
+    color: #4a4a4a;
   }
 
   .productName {
-    font-size: 29px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 15px;
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333333;
   }
 
   .productPrice {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: bold;
+    color: #e60023;
     margin-bottom: 20px;
   }
 
   .productInfo {
     list-style-type: none;
     padding: 0;
+    font-size: 16px;
+    color: #737a8d;
+    line-height: 1.8;
   }
 
   .productInfo li {
     margin-bottom: 10px;
-    color: #737a8d;
+  }
+
+  .lecturePeriod {
+    font-size: 16px;
+    color: #4a4a4a;
+  }
+
+  .lecturePeriod strong {
+    color: #333;
+    font-weight: bold;
+  }
+
+  .verticalLine {
+    border-top: 1px solid #e2e5ef;
+    width: 100%;
+    margin-top: 30px;
   }
 
   .buttons {
     display: flex;
+    justify-content: flex-end;
     margin-top: 30px;
-    justify-content: end;
-  }
-
-  .buyButton {
-    padding: 10px 25px;
-    background-color: #496af3;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
   }
 
   .btnlike {
@@ -128,60 +143,12 @@ const StyledWrapper = styled.main`
     border: none;
     margin-left: 20px;
   }
+
   .likeimg {
     width: 20px;
     height: 20px;
   }
 
-  .nickNames {
-    color: var(--gray-800, #737a8d);
-    font-family: 'Pretendard Variable';
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  .prdName {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-    color: var(--black, #191a1c);
-    text-overflow: ellipsis;
-    font-family: 'Pretendard Variable';
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: center;
-    margin-top: 35px;
-  }
-
-  .verticalLine {
-    border-top: 1px solid #e2e5ef;
-    background: #f4f5f9;
-    width: 100%;
-    height: 1px;
-    margin-top: 50px;
-    padding: 0px 10px;
-  }
-
-  .price {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-    color: var(--primary-primary, #496af3);
-    text-overflow: ellipsis;
-    font-family: 'Pretendard Variable';
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-align: center;
-    margin-top: 30px;
-  }
   .dropdown-container {
     position: relative;
     .btn-choose {
@@ -190,13 +157,12 @@ const StyledWrapper = styled.main`
       align-items: center;
 
       background-color: #ffffff;
+
       border: none;
-      font-family: 'Pretendard Variable';
 
       > img {
-        margin-top: 10px;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         cursor: pointer;
       }
     }

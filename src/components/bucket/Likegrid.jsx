@@ -6,25 +6,35 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { LikeList } from '@compoents/util/post-util';
 import LikeListComponent from './LikeLists';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
+import NoLikePT from './NoLikePT';
 
 export default function LikegridComponent({ nick_name, accessToken }) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useInfiniteQuery({
-      queryKey: ['userLikes', nick_name],
-      queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
-      getNextPageParam: (lastPage) => {
-        if (lastPage.last || lastPage.number >= lastPage.totalPages - 1) {
-          return undefined;
-        }
-        return lastPage.number + 1;
-      },
-      enabled: !!accessToken,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    isLoading,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: ['userLikes', nick_name],
+    queryFn: ({ pageParam = 0 }) => LikeList(nick_name, pageParam),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.last || lastPage.number >= lastPage.totalPages - 1) {
+        return undefined;
+      }
+      return lastPage.number + 1;
+    },
+    enabled: !!accessToken,
+  });
 
   const allLikes = data?.pages.flatMap((page) => page.content) || [];
+  const noLikePT = allLikes.length === 0;
 
-  if (status === 'loading') return <LoadingIndicator />;
-  if (status === 'error') return <p>에러가 발생했습니다.</p>;
+  if (isLoading) return <LoadingIndicator />;
+  if (isError) return <p>에러가 발생했습니다.</p>;
+  if (noLikePT) return <NoLikePT />;
 
   return (
     <StyledWrapper>
@@ -54,29 +64,31 @@ export default function LikegridComponent({ nick_name, accessToken }) {
 const StyledWrapper = styled.header`
   .section {
     margin-top: 100px;
-    margin-left: 5%;
+    margin-left: 20px;
     width: 100%;
-    margin-bottom: 5%;
-    min-height: 100vh;
   }
 
   .postsGrid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-gap: 24px;
 
-    @media (max-width: 2000px) {
+    @media (max-width: 1750px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (max-width: 1450px) {
       grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (max-width: 1625px) {
+    @media (max-width: 1150px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 850px) {
       grid-template-columns: repeat(2, 1fr);
     }
-    @media (max-width: 900px) {
+    @media (max-width: 550px) {
       grid-template-columns: repeat(1, 1fr);
     }
   }
