@@ -21,12 +21,7 @@ export default function MainNavigation({ accessToken }) {
   };
 
   const handleAboutClick = (e) => {
-    if (!accessToken || accessToken.trim() === '') {
-      e.preventDefault();
-      setShowModal(true);
-    } else {
-      router.push('/about');
-    }
+    router.push('/about');
   };
 
   return (
