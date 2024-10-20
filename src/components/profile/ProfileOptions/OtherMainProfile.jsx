@@ -29,7 +29,7 @@ export default function OtherProfileInfo({
           const data = await fetchUserProfile(accessToken);
           setUserProfileInfo(data);
         } catch (error) {
-          // console.error('유저 프로필을 가져오는 중 오류 발생:', error);
+          //
         }
       }
     };

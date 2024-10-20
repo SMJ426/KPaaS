@@ -36,7 +36,7 @@ export default function LikeListComponent({ like, accessToken }) {
         setLiked(true);
       }
     } catch (error) {
-      // console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+      //
     }
   };
 

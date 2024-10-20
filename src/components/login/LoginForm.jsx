@@ -18,7 +18,6 @@ export default function LoginForm() {
       await Loginfetchs(email, password);
       router.push('/');
     } catch (error) {
-      //console.error(error.message);
       setRequestError(403);
     }
     return;

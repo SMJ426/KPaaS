@@ -28,7 +28,7 @@ export default function OtherProfileform({
         try {
           const newAccessToken = await RefreshAccessToken();
         } catch (error) {
-          //console.error('accessToken 재발급 실패', error);
+          //
         }
       };
       refreshAccessToken();
@@ -43,7 +43,7 @@ export default function OtherProfileform({
         const response = await followUser(accessToken, userInfo.email);
         setfollowing(true);
       } catch (error) {
-        //console.error('팔로우 요청 중 오류가 발생했습니다.', error);
+        //
       }
     } else {
       alert('이미 팔로우 하셨습니다.');

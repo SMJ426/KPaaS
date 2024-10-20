@@ -142,7 +142,6 @@ export default function EditpostForm({ postId, post, accessToken }) {
         await PutPostData(formData, newAccessToken);
       }
     } catch (error) {
-      //console.error('게시물 수정에 실패했습니다:', error);
       alert('게시물 수정에 실패했습니다.');
     }
   }

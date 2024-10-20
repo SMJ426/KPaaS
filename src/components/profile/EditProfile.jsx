@@ -67,7 +67,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         setIsDuplicate(false);
       }
     } catch (error) {
-      //console.error(error);
+      //
     }
   }
 

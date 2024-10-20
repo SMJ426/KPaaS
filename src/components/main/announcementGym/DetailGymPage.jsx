@@ -21,7 +21,7 @@ export default function DetailGymPage({ location, onClose }) {
         const data = await response.json();
         setGymswithLocation(data);
       } catch (error) {
-        //console.error('상세부 가져오기 실패', error);
+        //
       }
     };
 

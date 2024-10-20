@@ -72,7 +72,7 @@ export default function PostItem({ postData, posts, accessToken }) {
           setLiked(true);
         }
       } catch (error) {
-        //console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+        //
       }
     }
   };
@@ -97,7 +97,7 @@ export default function PostItem({ postData, posts, accessToken }) {
           router.push(`/chat/${postData.post_id}`);
         }
       } catch (error) {
-        //console.error('채팅방 생성 중 오류가 발생했습니다.', error);
+        // 
       }
     }
   };

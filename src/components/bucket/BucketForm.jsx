@@ -120,7 +120,6 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
       setIsSuccess(!validation.charge);
       setIsModalOpen(true);
     } catch (error) {
-      // console.error('포인트 설정 중 오류가 발생했습니다.', error);
       setIsSuccess(false);
       setIsModalOpen(true);
     }
@@ -132,7 +131,7 @@ export default function BucketForm({ initialLikes, nick_name, accessToken }) {
       // 삭제 후 쿼리를 무효화하여 데이터를 다시 불러옵니다.
       queryClient.invalidateQueries(['userLikes', nick_name]);
     } catch (error) {
-      // console.error('좋아하는 상품 삭제 중 오류가 발생했습니다.', error);
+      //
     }
   };
 

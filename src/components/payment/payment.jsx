@@ -57,7 +57,6 @@ export default function Payment({ accessToken, postId, post }) {
         setIsSuccess(!Endresponse.charge);
         setIsModalOpen(true);
       } catch (error) {
-        //console.error('포인트 설정 중 오류가 발생했습니다.', error);
         setIsSuccess(false);
         setIsModalOpen(true);
       }
