@@ -3,7 +3,7 @@ import PostItem from './post-item';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 import NoPostItem from './NoPostItem';
 
-export default function PostsGrid({ postData, accessToken }) {
+export default function PostDetailGrid({ postData, accessToken }) {
   if (!postData) {
     return <LoadingIndicator />;
   }
@@ -27,38 +27,29 @@ export default function PostsGrid({ postData, accessToken }) {
 }
 
 const StyledWrapper = styled.div`
+  width: 100%;
+  overflow-x: hidden;
+
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-gap: 18px;
+  grid-gap: 24px;
 
-  @media (max-width: 3000px) {
-    grid-template-columns: repeat(8, 1fr);
-  }
-
-  @media (max-width: 2700px) {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  @media (max-width: 2400px) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  @media (max-width: 2100px) {
+  @media (max-width: 1650px) {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  @media (max-width: 1800px) {
+  @media (max-width: 1300px) {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1000px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 850px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 900px) {
+  @media (max-width: 550px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
