@@ -77,7 +77,9 @@ export default function MainContainers({
         {role === 'ROLE_TEACHER' ? (
           <SendPostButton nick_name={nick_name} />
         ) : (
-          <div className="pt-list-title">예약 가능한 장애인 전용 PT 목록</div>
+          <div className="pt-list-title">
+            🔽 예약 가능한 장애인 전용 PT 목록 🔽
+          </div>
         )}
         <div className="wrapper-body-card">
           <div className="wrapper-cate">
@@ -114,10 +116,10 @@ const StyledWrapper = styled.div`
 
   .wrapper-down-section {
     padding: 0 5%;
-    display: flex; /* Added flex display */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    flex-direction: column; /* Stack children vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   .main-img {
@@ -159,19 +161,21 @@ const StyledWrapper = styled.div`
       height: 50px;
     }
   }
-.pt-list-title {
-  width: 100%; 
-  font-size: 24px; 
-  font-weight: bold; 
-  color: #333; 
-  margin: 50px 0 0; 
-  text-align: center; 
-  background: none; 
-  border: 2px solid #e7e7e7; 
-  border-radius: 8px; 
-  transition: color 0.3s ease, border-color 0.3s ease; 
-  font-family: 'Roboto', sans-serif; 
-  letter-spacing: 0.5px; 
-  padding: 10px; 
-}
+  .pt-list-title {
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 70px 0 0;
+    text-align: center;
+    background: none;
+    border: 2px solid #e7e7e7;
+    border-radius: 8px;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
+    padding: 10px;
+  }
 `;
