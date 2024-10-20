@@ -1,7 +1,6 @@
 'use server';
 import MainNavigation from '@compoents/components/layout/main-navigation';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export default async function What_Is_PTFD({ children }) {
   const cookieStore = cookies();
