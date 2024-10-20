@@ -29,7 +29,7 @@ export default function OtherProfileInfo({
           const data = await fetchUserProfile(accessToken);
           setUserProfileInfo(data);
         } catch (error) {
-          console.error('유저 프로필을 가져오는 중 오류 발생:', error);
+          //
         }
       }
     };
@@ -54,14 +54,14 @@ export default function OtherProfileInfo({
           },
         }
       );
-      
+
       if (response.status === 200) {
-        const responseData = response.data; 
-        if (responseData.startsWith("채팅방있음")) {
-          const roomName = responseData.split("채팅방있음 ")[1];
+        const responseData = response.data;
+        if (responseData.startsWith('채팅방있음')) {
+          const roomName = responseData.split('채팅방있음 ')[1];
           router.push(`/chat/${roomName}`);
         } else {
-          router.push(`/chat/${userInfo.nick_name}`); 
+          router.push(`/chat/${userInfo.nick_name}`);
         }
       }
     } catch (error) {

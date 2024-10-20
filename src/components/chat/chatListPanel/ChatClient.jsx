@@ -34,7 +34,7 @@ export default function ChatClient({ userInfo }) {
           setChatRooms(response.data);
         })
         .catch((error) => {
-          console.error('Error fetching chat rooms:', error);
+          //
         });
     }
   }, []);

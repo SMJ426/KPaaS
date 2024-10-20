@@ -28,7 +28,6 @@ export default function SmallProfile({ accessToken }) {
       await Promise.all([Logout(accessToken), KakaoLogout(), deleteCookies()]);
       window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${REDIRECT_URI}`;
     } catch (error) {
-      console.error('Logout error:', error);
       alert('로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   }
@@ -54,10 +53,7 @@ export default function SmallProfile({ accessToken }) {
           setuserInfo(data);
         }
       } catch (error) {
-        console.error(
-          '사용자 프로필 정보를 가져오는 중 오류가 발생했습니다.',
-          error
-        );
+        // 
       }
     }
     fetchUserProfileData();

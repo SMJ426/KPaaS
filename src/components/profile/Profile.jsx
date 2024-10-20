@@ -25,7 +25,7 @@ export default function UserProfile({
         try {
           const newAccessToken = await RefreshAccessToken();
         } catch (error) {
-          console.error('accessToken 재발급 실패', error);
+          //
         }
       };
       refreshAccessToken();

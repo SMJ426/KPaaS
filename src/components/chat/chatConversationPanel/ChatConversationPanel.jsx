@@ -82,7 +82,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
             setPostData(response.data.post);
           })
           .catch((error) => {
-            console.error('Error fetching post', error);
+            //
           });
       }
     }
@@ -108,14 +108,13 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
               ]);
             }
           } catch (error) {
-            console.error('메시지 파싱 오류:', error);
+          //
           }
         });
       },
 
       onStompError: (frame) => {
-        console.error('Broker reported error: ' + frame.headers['message']);
-        console.error('Additional details: ' + frame.body);
+     //   
       },
     });
 
@@ -149,9 +148,7 @@ export default function ChatConversationPanel({ userInfo, roomId }) {
       ]);
 
       setMessage('');
-    } else {
-      console.error('STOMP가 연결 안됐음');
-    }
+    } 
   };
 
   const handleKeyPress = (e) => {

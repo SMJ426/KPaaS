@@ -83,7 +83,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         alert('닉네임을 변경해 주시길 바랍니다.');
       }
     } catch (error) {
-      console.error(error);
+      //
     }
   }
 

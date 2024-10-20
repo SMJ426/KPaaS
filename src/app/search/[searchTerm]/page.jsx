@@ -20,7 +20,6 @@ async function fetchPostData(accessToken, searchTerm) {
       );
     }
   } catch (error) {
-    console.error('Error fetching post data:', error);
     return null;
   }
 }
@@ -53,7 +52,6 @@ export default async function SearchPage({ params }) {
       />
     );
   } catch (error) {
-    console.error('Error in SearchPage:', error);
-    return <div>An error occurred. Please try again later.</div>;
+    // 
   }
 }

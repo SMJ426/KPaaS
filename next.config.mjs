@@ -28,7 +28,6 @@ const nextConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
-    console.log('Running Webpack config', { dev, isServer });
 
     if (!isServer) {
       config.devtool = 'source-map';
