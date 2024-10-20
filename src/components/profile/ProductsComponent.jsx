@@ -1,8 +1,8 @@
 'use client';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CommuPosts from '../posts/CommuPost';
 import styled from 'styled-components';
+import DetailPost from '../posts/DetailPost';
 import LoadingIndicator from '@compoents/components/UI/LoadingIndicator';
 import { getSelling } from '@compoents/util/http';
 import { useEffect, useState } from 'react';
@@ -68,7 +68,7 @@ export default function ProductsComponent({
             </div>
           }
         >
-          <CommuPosts postData={allProducts} accessToken={accessToken} />
+          <DetailPost postData={allProducts} accessToken={accessToken} />
         </InfiniteScroll>
       </section>
     </StyledWrapper>

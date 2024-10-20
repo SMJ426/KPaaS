@@ -34,19 +34,19 @@ const StyledWrapper = styled.div`
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 24px;
 
-  @media (max-width: 1650px) {
+  @media (max-width: 2000px) {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1630px) {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1340px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 850px) {
+  @media (max-width: 1010px) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 550px) {

@@ -45,22 +45,22 @@ const StyledWrapper = styled.section`
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 24px;
 
-    @media (max-width: 1750px) {
+    @media (max-width: 1980px) {
       grid-template-columns: repeat(5, 1fr);
     }
 
-    @media (max-width: 1450px) {
+    @media (max-width: 1650px) {
       grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (max-width: 1150px) {
+    @media (max-width: 1300px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 992px) {
       grid-template-columns: repeat(2, 1fr);
     }
-    @media (max-width: 550px) {
+    @media (max-width: 630px) {
       grid-template-columns: repeat(1, 1fr);
     }
   }
