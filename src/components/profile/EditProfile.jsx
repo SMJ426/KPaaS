@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { EditProfile } from '@compoents/util/http';
 import { checkNickname } from '@compoents/util/Client';
+import { useRouter } from 'next/navigation';
 
 export default function MyEditComponents({ accessToken, userInfo }) {
   const [email, setEmail] = useState('');
@@ -21,7 +22,6 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   const [nameError, setNameError] = useState('');
   const [emailError, setemailError] = useState('');
   const [nicknameError, setnicknameError] = useState('');
-  const [requestError, setRequestError] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlertModal, setShowAlertModal] = useState(false);
   const smile = '/svgs/ellipse-87.svg';
@@ -40,7 +40,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   }, [userInfo]);
 
   const validatePassword = (password) => {
-    const logic = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    const logic =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
     return logic.test(password);
   };
 
@@ -52,12 +53,12 @@ export default function MyEditComponents({ accessToken, userInfo }) {
       if (img.width > 3000 || img.height > 3000) {
         setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
         setShowAlertModal(true);
-        e.target.value = ''; 
+        e.target.value = '';
       } else {
         setImage(selectedImage);
         const imageUrls = URL.createObjectURL(selectedImage);
         setShowimage(imageUrls);
-        setShowAlertModal(false); 
+        setShowAlertModal(false);
       }
     };
   };
@@ -69,8 +70,8 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   async function handleCheckDuplicate(e) {
     e.preventDefault();
     if (nick_name === '' || /^\s*$/.test(nick_name)) {
-      setIsDuplicate(true); 
-      setnicknameError('빈 닉네임은 올 수 없습니다.'); 
+      setIsDuplicate(true);
+      setnicknameError('빈 닉네임은 올 수 없습니다.');
       return;
     } else {
       setnicknameError('');
@@ -111,7 +112,9 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     }
 
     if (!validatePassword(password)) {
-      setPasswordError('비밀번호는 숫자, 영어, 특수문자를 포함하여 8자리 이상이어야 합니다.');
+      setPasswordError(
+        '비밀번호는 숫자, 영어, 특수문자를 포함하여 8자리 이상이어야 합니다.'
+      );
       return;
     } else {
       setPasswordError('');
@@ -131,7 +134,10 @@ export default function MyEditComponents({ accessToken, userInfo }) {
       role,
       member_info: info,
     };
-    formData.append('req', new Blob([JSON.stringify(req)], { type: 'application/json' }));
+    formData.append(
+      'req',
+      new Blob([JSON.stringify(req)], { type: 'application/json' })
+    );
     formData.append('img', image);
 
     try {
@@ -151,6 +157,12 @@ export default function MyEditComponents({ accessToken, userInfo }) {
     const field = e.target.id;
     document.getElementById(field).style.borderColor = '#496AF3';
   }
+
+  const router = useRouter();
+
+  const handleCancelBtn = () => {
+    router.back();
+  };
 
   return (
     <StyledWrapper>
@@ -190,7 +202,13 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           />
           {nameError && (
             <div className="anyLogins">
-              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
+              <img
+                src={smile}
+                width={30}
+                height={30}
+                alt="스마일"
+                className="smile"
+              />
               <p className="errorMsg">{nameError}</p>
             </div>
           )}
@@ -209,14 +227,32 @@ export default function MyEditComponents({ accessToken, userInfo }) {
             </button>
             {isDuplicate === true && (
               <div>
-                <img className="vector" alt="벡터" src={'/svgs/Ellipse-168.svg'} width={14} height={14} />
-                <img className="vector2" alt="벡터2" src={'/svgs/Vector340.svg'} width={12} height={10} />
+                <img
+                  className="vector"
+                  alt="벡터"
+                  src={'/svgs/Ellipse-168.svg'}
+                  width={14}
+                  height={14}
+                />
+                <img
+                  className="vector2"
+                  alt="벡터2"
+                  src={'/svgs/Vector340.svg'}
+                  width={12}
+                  height={10}
+                />
                 <p className="nickFalse"> 사용 불가능한 닉네임입니다.</p>
               </div>
             )}
             {isDuplicate === false && (
               <div className="nickTrue">
-                <img src={'/svgs/Ellipse-169.svg'} alt="스마일2" width={14} height={14} className="Vector3" />
+                <img
+                  src={'/svgs/Ellipse-169.svg'}
+                  alt="스마일2"
+                  width={14}
+                  height={14}
+                  className="Vector3"
+                />
                 사용 가능한 닉네임입니다.
               </div>
             )}
@@ -258,7 +294,13 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           </label>
           {emailError && (
             <div className="anyLogins">
-              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
+              <img
+                src={smile}
+                width={30}
+                height={30}
+                alt="스마일"
+                className="smile"
+              />
               <p className="errorMsg">{emailError}</p>
             </div>
           )}
@@ -297,13 +339,25 @@ export default function MyEditComponents({ accessToken, userInfo }) {
           </div>
           {passwordError && (
             <div className="anyLogins">
-              <img src={smile} width={30} height={30} alt="스마일" className="smile" />
+              <img
+                src={smile}
+                width={30}
+                height={30}
+                alt="스마일"
+                className="smile"
+              />
               <p className="errorMsg">{passwordError}</p>
             </div>
           )}
-          <button className="Button1" type="submit">
-            프로필 수정
-          </button>
+
+          <div className="wrapper-fix-cancel">
+            <button className="btn-cancel" onClick={handleCancelBtn}>
+              취소
+            </button>
+            <button className="Button1" type="submit">
+              프로필 수정
+            </button>
+          </div>
         </form>
         <section className="flexSection2"></section>
       </div>
@@ -439,8 +493,7 @@ const StyledWrapper = styled.header`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 0%;
-    padding-left: 23px;
+    padding: 0 23px;
   }
   .Input-email {
     width: 566px;
@@ -502,24 +555,6 @@ const StyledWrapper = styled.header`
     padding-left: 23px;
   }
 
-  .Button1 {
-    width: 595px;
-    height: 50px;
-    margin-top: 52px;
-    margin-left: 59px;
-    border-radius: 10px 0px 0px 0px;
-    border-radius: 10px;
-    border: #496af3;
-    background: var(--primary-primary, #496af3);
-    color: #fff;
-    font-family: 'Pretendard Variable';
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    padding: 0%;
-  }
-
   .Button2 {
     width: 566px;
     height: 50px;
@@ -554,6 +589,8 @@ const StyledWrapper = styled.header`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+
+    cursor: pointer;
   }
 
   .nickFalse {
@@ -662,163 +699,38 @@ const StyledWrapper = styled.header`
 
   .showPswbtn {
     position: absolute;
+    right: 0;
+
+    margin-top: 30px;
+    margin-right: 90px;
     border: #fff;
     background-color: #fff;
-    margin-top: 32px;
-    margin-left: 604px;
   }
 
-  @media screen and (max-width: 786px) {
-    .parent {
-      position: relative;
-      height: 100vh; /* 화면 전체 높이 */
-    }
+  .wrapper-fix-cancel {
+    display: flex;
+    gap: 6px;
+    width: 566px;
+    height: 50px;
 
-    .formContainer {
-      position: absolute;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 344px;
-      height: 833px;
+    margin-top: 52px;
+    margin-left: 59px;
+
+    .btn-cancel {
+      width: 80px;
       border-radius: 10px;
-      background: #ffffff;
-    }
+      border: none;
 
-    .write1 {
-      color: #fff;
       font-family: 'Pretendard Variable';
-      font-size: 30px;
-      font-style: normal;
+      font-size: 16px;
       font-weight: 600;
-      line-height: normal;
-      text-align: center;
-      /* width: 156px; */
-      height: 72px;
-    }
 
-    .logintext {
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      width: 78px;
-      height: 21px;
-      margin-top: 18px;
-      margin-left: 19px;
-      padding: 0%;
-    }
-
-    .logintext2 {
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      width: 150px;
-      height: 21px;
-      margin-top: 21px;
-      margin-left: 19px;
-      padding: 0%;
-    }
-
-    .logintext3 {
-      color: var(--gray-400, #bec0c6);
-      font-family: 'Pretendard Variable';
-      font-size: 13px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      margin-top: 14px;
-      margin-left: 19px;
-    }
-
-    .Input {
-      width: 290px;
-      height: 30px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-left: 19px;
-      margin-top: 2px;
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 11px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      padding: 0%;
-      padding-left: 13px;
-    }
-    .Input-email {
-      width: 290px;
-      height: 30px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-left: 19px;
-      margin-top: 2px;
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 11px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      padding: 0%;
-      padding-left: 13px;
-    }
-
-    .Input2 {
-      width: 290px;
-      height: 30px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-left: 19px;
-      margin-top: 2px;
-      padding-left: 13px;
-    }
-
-    .Input::placeholder {
-      color: var(--gray-400, #bec0c6);
-      font-family: 'Pretendard Variable';
-      font-size: 11px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      padding-left: 0px;
-    }
-
-    .Input3 {
-      width: 105px;
-      height: 30px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-left: 19px;
-      margin-top: 2px;
-      color: var(--black, #191a1c);
-      font-family: 'Pretendard Variable';
-      font-size: 11px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      padding: 0%;
-      padding-left: 13px;
+      cursor: pointer;
     }
 
     .Button1 {
-      width: 312px;
-      height: 40px;
-      margin-top: 52px;
-      margin-left: 17px;
+      width: 480px;
+
       border-radius: 10px 0px 0px 0px;
       border-radius: 10px;
       border: #496af3;
@@ -826,170 +738,9 @@ const StyledWrapper = styled.header`
       color: #fff;
       font-family: 'Pretendard Variable';
       font-size: 16px;
-      font-style: normal;
       font-weight: 600;
-      line-height: normal;
-      padding: 0%;
-    }
 
-    .Button2 {
-      width: 566px;
-      height: 50px;
-      margin-top: 18px;
-      margin-left: 59px;
-      border-radius: 10px 0px 0px 0px;
-      border: 1.5px 0px 0px 0px;
-      border-radius: 10px;
-      border: 1.5px solid var(--primary-primary, #496af3);
-      background: #fff;
-      color: var(--primary-primary, #496af3);
-      font-family: 'Pretendard Variable';
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      padding: 0%;
-    }
-
-    .nickBtn {
-      width: 60px;
-      height: 25px;
-      flex-shrink: 0;
-      margin-left: 8px;
-      margin-top: 5px;
-      border-radius: 10px;
-      border: 0;
-      background: var(--gray-300, #e2e5ef);
-      color: var(--gray-800, #737a8d);
-      font-family: 'Pretendard Variable';
-      font-size: 10px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    }
-
-    .nickFalse {
-      stroke-width: 2px;
-      stroke: var(--secondary, #e13333);
-      color: var(--secondary, #e13333);
-      font-family: 'Pretendard Variable';
-      font-size: 8px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-left: 18px;
-      margin-top: 11px;
-    }
-    .vector {
-      position: absolute;
-      margin-top: 10px;
-      margin-left: 4px;
-      width: 10px;
-    }
-
-    .vector2 {
-      position: absolute;
-      margin-top: 12px;
-      margin-left: 5px;
-      width: 8px;
-    }
-
-    .Vector3 {
-      width: 8px;
-      height: 8px;
-      margin-top: 8px;
-      margin-right: 3px;
-    }
-
-    .nickTrue {
-      color: var(--primary-primary, #496af3);
-      font-family: 'Pretendard Variable';
-      font-size: 8px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-left: 6px;
-      margin-top: 5px;
-    }
-
-    .outProfile {
-      position: relative;
-      overflow: hidden;
-      width: 82px;
-      height: 82px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      border: 1.5px solid var(--gray-400, #bec0c6);
-      background: #fff;
-      margin-left: 40%;
-      margin-top: 18px;
-    }
-
-    .selectImg {
-      position: absolute;
-      box-shadow: 10px 10px 50px 0px #0000001a;
-      object-fit: cover;
-      width: 82px;
-      height: 82px;
-    }
-
-    .Imgtext {
-      color: var(--gray-400, #bec0c6);
-      font-family: 'Pretendard Variable';
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      margin-left: 36px;
-      padding: 0%;
-    }
-
-    .EditImg {
-      color: red;
-      margin-top: 30px;
-      margin-left: 30%;
-      font-size: 11px;
-    }
-
-    .pageContainer {
-      position: relative;
-      /* width: 1440px;  */
-      height: 894px;
-    }
-
-    .flexSection2 {
-      /* width: 1440px; */
-      height: 1000px;
-      background: #ffffff;
-    }
-
-    .errorMsg {
-      color: #e13333;
-      font-family: 'Pretendard Variable';
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      margin-left: 9px;
-      margin-top: 13px;
-    }
-
-    .smile {
-      margin-left: 38px;
-      margin-top: 12px;
-      width: 20px;
-      height: 20px;
-    }
-    .anyLogins {
-      display: flex;
-    }
-
-    .showPswbtn {
-      position: absolute;
-      border: #fff;
-      background-color: #fff;
-      margin-top: 12px;
-      margin-left: 284px;
+      cursor: pointer;
     }
   }
 `;
