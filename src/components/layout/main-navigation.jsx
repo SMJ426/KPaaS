@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 
 export default function MainNavigation({ accessToken }) {
   const [showModal, setShowModal] = useState(false);
+
   const toggleModal = () => setShowModal(!showModal);
   const router = useRouter();
 
@@ -37,8 +38,14 @@ export default function MainNavigation({ accessToken }) {
       </Link>
 
       <div className="wrapper-navigate-menu">
-        <div className="navigate-about" onClick={handleAboutClick}>
-          <p>맞춤형 트레이닝, PTFD에서 시작하세요</p>
+        <div className="wrapper-explanation-about">
+          <div className="explanation-about">
+            <p>PTFD가 처음이세요?</p>
+            <p>여기를 확인해보세요!</p>
+          </div>
+          <div className="navigate-about" onClick={handleAboutClick}>
+            <p>맞춤형 트레이닝, PTFD에서 시작하세요</p>
+          </div>
         </div>
 
         <div className="navigate-chat" onClick={handleChatClick}>
@@ -100,22 +107,57 @@ const StyledWrapper = styled.header`
     color: black;
     font-size: 16px;
 
-    .navigate-about {
+    .wrapper-explanation-about {
       display: flex;
-      justify-content: center;
       align-items: center;
+      gap: 10px;
 
-      min-width: 280px;
-      height: 42px;
-      border-radius: 20px;
+      .explanation-about {
+        position: relative;
+        min-width: 120px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-      cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+      }
 
-      transition: background-color 0.3s ease;
+      .explanation-about::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid rgba(0, 0, 0, 0.8);
+      }
 
-      &:hover {
-        background-color: #efefef;
-        opacity: 0.8;
+      .navigate-about {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        min-width: 280px;
+        height: 42px;
+        border-radius: 20px;
+
+        cursor: pointer;
+
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #efefef;
+          opacity: 0.8;
+        }
       }
     }
 

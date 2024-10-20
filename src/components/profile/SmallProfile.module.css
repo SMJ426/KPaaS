@@ -5,6 +5,7 @@
 .profileImage {
   border-radius: 50%;
   cursor: pointer;
+  border: 2px solid #efefef;
 }
 
 .modalBackground {
