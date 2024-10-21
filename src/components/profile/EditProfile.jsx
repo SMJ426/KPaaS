@@ -156,8 +156,9 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   };
 
   function handleFocus(e) {
-    const field = e.target.id;
-    document.getElementById(field).style.borderColor = '#496AF3';
+    if (e.target) {
+      e.target.style.borderColor = '#496AF3';
+    }
   }
 
   const router = useRouter();
@@ -189,7 +190,9 @@ export default function MyEditComponents({ accessToken, userInfo }) {
               onChange={handleImageChange}
             />
           </div>
-          {showImageMessage && <div className="EditImg">프로필 이미지를 변경해주세요.</div>}
+          {showImageMessage && (
+            <div className="EditImg">프로필 이미지를 변경해주세요.</div>
+          )}
           <h1 className="logintext">이름</h1>
           <input
             className="Input3"
