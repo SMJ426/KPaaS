@@ -24,6 +24,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
   const [nicknameError, setnicknameError] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showImageMessage, setShowImageMessage] = useState(true);
   const smile = '/svgs/ellipse-87.svg';
   const showpsw = '/svgs/View.svg';
 
@@ -59,6 +60,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
         const imageUrls = URL.createObjectURL(selectedImage);
         setShowimage(imageUrls);
         setShowAlertModal(false);
+        setShowImageMessage(false);
       }
     };
   };
@@ -187,7 +189,7 @@ export default function MyEditComponents({ accessToken, userInfo }) {
               onChange={handleImageChange}
             />
           </div>
-          <div className="EditImg">프로필 이미지를 변경해주세요.</div>
+          {showImageMessage && <div className="EditImg">프로필 이미지를 변경해주세요.</div>}
           <h1 className="logintext">이름</h1>
           <input
             className="Input3"
