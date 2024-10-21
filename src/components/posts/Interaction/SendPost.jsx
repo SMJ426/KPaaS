@@ -74,12 +74,12 @@ export default function PostForm({ accessToken }) {
       if (img.width > 3000 || img.height > 3000) {
         setAlertMessage('지원하지 않는 이미지 크기입니다. (최대 3000x3000px)');
         setShowAlertModal(true);
-        e.target.value = ''; 
+        e.target.value = '';
       } else {
-        setImage(selectedImage);
+        setImages1(selectedImage);
         const imageUrls = URL.createObjectURL(selectedImage);
-        setShowimage(imageUrls);
-        setShowAlertModal(false); 
+        setShowImages1(imageUrls);
+        setShowAlertModal(false);
       }
     };
   };
@@ -191,7 +191,10 @@ export default function PostForm({ accessToken }) {
         total_number: parseInt(totalNumber),
         location: location,
       };
-      formData.append('req', new Blob([JSON.stringify(req)], { type: 'application/json' }));
+      formData.append(
+        'req',
+        new Blob([JSON.stringify(req)], { type: 'application/json' })
+      );
       formData.append('img', images1);
 
       const response = await sendpostData(formData, accessToken);
@@ -199,7 +202,8 @@ export default function PostForm({ accessToken }) {
         const newAccessToken = await RefreshAccessToken();
         await sendpostData(formData, newAccessToken);
       }
-      const redirectUrl = 'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
+      const redirectUrl =
+        'http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30';
       window.location.href = redirectUrl;
     } catch (error) {
       //
@@ -211,7 +215,10 @@ export default function PostForm({ accessToken }) {
       <h1 className="title">PT 등록</h1>
       <form onSubmit={sendPostHandler} className="form-container">
         <div className="main-content">
-          <ImageUpload showImages1={showImages1} handleImageChange={handleImageChange} />
+          <ImageUpload
+            showImages1={showImages1}
+            handleImageChange={handleImageChange}
+          />
           <div className="form-section">
             <FormSection
               postName={postName}
@@ -245,9 +252,13 @@ export default function PostForm({ accessToken }) {
         />
         <div className="button-container">
           <Link href="/">
-            <button type="button" className="cancel-button">취소</button>
+            <button type="button" className="cancel-button">
+              취소
+            </button>
           </Link>
-          <button type="submit" className="submit-button">등록하기</button>
+          <button type="submit" className="submit-button">
+            등록하기
+          </button>
         </div>
       </form>
 

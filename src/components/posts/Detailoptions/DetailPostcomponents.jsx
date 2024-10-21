@@ -82,7 +82,6 @@ const StyledWrapper = styled.main`
   .productDetails {
     max-width: 700px;
     max-height: 700px;
-    overflow-y: auto;
   }
 
   .nickNames {
