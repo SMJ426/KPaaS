@@ -30,77 +30,36 @@ PTFD는 전문 강사가 게시한 PR 강좌를 검색, 예약, 결제할 수 �
 > ### [🚀 배포 URL](http://default-front-07385-26867304-b1e33c76cd35.kr.lb.naverncp.com:30/)
 
 ```
-테스트 계정
+테스트 계정 (강사 버전)
+ID: wellfit20@test.com
+PW: wellfit12!@
+```
+
+```
+테스트 계정 (유저 버전)
 ID: wellfit20@test.com
 PW: wellfit12!@
 ```
 
 
+
+
 ## 2.🤼 팀원 소개
 
-|FE 신민재|BE 임지혁|BE 정지현|FE 김민우|
+|FE 신민재|BE 임지혁|BE 정지현|BE 김민우|
 |:---:|:---:|:---:|:---:|
-|<img alt="민재 프로필" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/13c263a9-3679-44f4-b622-3046bb0ea328" width="200" height="200">|<img width="200" height="200" alt="성우프로필" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/9a04546a-5cfd-4c27-87a1-43749d874ac5">|<img width="200" height="200" alt="예슬프로필" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/76619ee5-3410-4d35-b785-338809470448">|<img width="200" height="200" alt="수현 프로필" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/2a0e507c-54f6-48c7-a20b-d7f09445eac7">|
-|[🔗GitHub](https://github.com/SMJ426)|[🔗GitHub](https://github.com/swJaNG12)|[🔗GitHub](https://github.com/yeslcho)|[🔗GitHub](https://github.com/Lee99-dev)|
-| - GitHub 관리 <br> - 전체적인 플젝 계획 수립 <br> - 회의록 작성  <br> - 리드미 작성 <br> - 배포 <br> - 재롱 떠는 막내(?) | - 전반적인 Api 통신  <br> - 전반적인 계정 생성 및 test 담당 <br> - 팀내 각종 질문 및 상담 전문  <br> - 팀내 장교수(?)| - 전반적인 유효성 검사 담당 <br> - UI 디테일 수정 <br> - 리드미 작성 <br> - 오류 및 예외사항 찾기 마스터 <br> - 분위기 메이커 담당(?) |- 페이지별 마크업 오류 검사 <br> - 아이디어 호수 <br> - 오프라인 만남 총무(?) 담당|
-| <img alt="프론트엔드" src="https://img.shields.io/badge/Frontend-brightgreen"><br /><img alt="팀 리더" src="https://img.shields.io/badge/Team%20Leader-yellow"> | <img alt="프론트엔드" src="https://img.shields.io/badge/Frontend-brightgreen"><br /><img alt="테크닉 리더" src="https://img.shields.io/badge/Technique%20Leader-blue"> | <img alt="프론트엔드" src="https://img.shields.io/badge/Frontend-brightgreen"><br /><img alt="디벨롭 리더" src="https://img.shields.io/badge/Development%20Leader-8A2BE2"> | <img alt="프론트엔드" src="https://img.shields.io/badge/Frontend-brightgreen"><br /><img alt="커뮤니케이션 리더" src="https://img.shields.io/badge/Communication%20Leader-orange"> |
+|<img alt="민재 프로필" src="https://github.com/user-attachments/assets/ae08e409-020d-4d3d-9d6d-91b1f5babfbd" width="200" height="200">|<img width="200" height="200" alt="지혁프로필" src="https://github.com/user-attachments/assets/47a337ad-5d27-4e8d-a7bf-53ce6e6f7879">|<img width="200" height="200" alt="지현프로필" src="https://github.com/user-attachments/assets/a2f66640-dc98-4aea-827f-bcc6ad973cf3">|<img width="200" height="200" alt="민우 프로필" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/2a0e507c-54f6-48c7-a20b-d7f09445eac7">|
+|[🔗GitHub](https://github.com/SMJ426)|[🔗GitHub](https://github.com/jihyuk0414)|[🔗GitHub](https://github.com/stophyeon)|[🔗GitHub](https://github.com/KimMinWoooo)|
+| - 프론트 담당 <br> - 깃헙 & ncp 버전관리 <br> - FE 파이프라인 구축 <br> - 프로젝트 노션 정리 <br>  | - 백엔드 담당  <br> -  <br> -   <br> - | - 백엔드 담당 <br> - FE BE 파이프라인 구축 <br> - <br> -  <br> -  |- 백엔드 담당 <br> -  <br> - |
+| <img alt="프론트엔드" src="https://img.shields.io/badge/Frontend-brightgreen"><br /><img alt="프론트엔드 리더" src="https://img.shields.io/badge/Frontend%20Leader-blue"><br /><img alt="커뮤니케이션 리더" src="https://img.shields.io/badge/Communication%20Leader-orange">| <img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /><img alt="팀 리더" src="https://img.shields.io/badge/Team%20Leader-yellow"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /><img alt="테크닉 리더" src="https://img.shields.io/badge/Technique%20Leader-blue"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /> |
   <br>
-
-  
-### 😁 팀 목표
- - 열심히 운동하면서 작업하기
- - 건강하게 개발하기
- - 모든 구성원들이 운동을 좋아하기 때문에 저희가 만든 서비스를 실제로 사용하자
-
-
-<br>
-
-
-
-<details>
-  <summary>  🔥우리의 추억(?)🔥</summary>
-  <div markdown="1">
-
-  <br>
-
-  
-  <img width="254" alt="스크린샷 2023-11-08 오후 5 09 56" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/cfd4d059-cce1-462f-ab4a-f433317c1a48"> <br>
-😬 이렇게 어색하게 만난게 엊그제 같은데.. <br>
-
-<br>
-
-
-<img width="261" alt="image" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/42eebbbc-4819-4c88-9d56-9fb005903697"> <br>
-😩 설상가상으로 다 다른 성향을 가진 우리.. 잘 할 수 있을까? <br>
-
-
-<br>
-
-
-<img width="359" alt="image" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/aee9082a-bb87-4ca6-bdb1-6725d278bbcc">
-<img width="360" alt="영수증" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/2de563e0-e3e7-404a-b2da-eb2b56961f49"> <br>
-🤤 하지만 식성이 같은 저흰 바로 첫 오프라인 만남을 가졌고! (음식 사진 안찍고 영수증 찍는 우리)<br>
-
-
-<br>
-
-
-<img width="693" alt="image" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/06cb719a-ea28-4568-8ad5-8d796ec74f4f"> <br>
-🤒 실연이 다가와도 격려와 응원하는 마음과 함께 프로젝트를 진행했습니다!
-<br>
-
-
-<br> 저희가 함께 작업한 결과물을 함께 보시죠!
-
-</div>
-</details>
 
 
 <br>
 
 
 ## 3.📆 개발 기간
----
+
 ### 2023년 10월 16일 ~ 2023 11월 8일 
 
 <img alt="개발 기간 그래프" src="https://github.com/FRONTENDSCHOOL7/final-20-Well-Fit/assets/122437649/4428df3f-9c0e-47bc-93ba-64460c39cdbf">
@@ -117,15 +76,13 @@ PW: wellfit12!@
 
 
 ## 4.⚙️ 개발 환경 및 기술 스택
----
 
 
 <details>
 <summary>협업 관련 링크</summary>
 <div markdown="1">
 
-- [🔗노션링크](https://www.notion.so/20-63d462131a87436ab106cf24cff6c93c?pvs=4) <br>
-- [🔗Figma링크](https://www.figma.com/files/project/111509269/Team-project?fuid=1257889962084175927)
+- [🔗노션링크](https://www.notion.so/2024-K-PaaS-107d0c54f6584e0986f06522423c37e1?pvs=4)
 
 </div>
 </details>
@@ -143,7 +100,7 @@ PW: wellfit12!@
 
 <table>
 <tr>
- <td align="center">Front-End</td>
+ <td align="center">Frontend</td>
  <td>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
   <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>&nbsp
@@ -153,6 +110,14 @@ PW: wellfit12!@
   <img src="https://img.shields.io/badge/Axios-white?style=for-the-badge&logo=Axios&logoColor=black"/>&nbsp 
  </td>
 </tr>
+  
+  <tr>
+    <td align="center">Backend</td>
+    <td>
+      <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    </td>
+  </tr>
+  
 <tr>
  <td align="center">협업</td>
  <td>
