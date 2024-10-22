@@ -73,6 +73,9 @@ export default function DetailGymPage({ location, onClose }) {
           <div className="map-modal">
             <h3>{selectedGym.시설명}</h3>
             <KakaoMap gym={selectedGym} />
+            <button className="back-btn" onClick={() => onClose(false)}>
+              돌아가기
+            </button>
           </div>
         </Modal>
       )}
@@ -174,11 +177,32 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 30px;
 
     h3 {
-      margin-bottom: 15px;
       font-size: 20px;
       color: #333;
+    }
+  }
+
+  .back-btn {
+    display: block;
+    width: 600px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #e9ecef;
+      color: #212529;
     }
   }
 `;

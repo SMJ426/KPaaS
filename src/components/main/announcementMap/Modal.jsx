@@ -29,13 +29,17 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 12px;
   position: relative;
+
   width: 90vw;
   max-width: 800px;
   height: 90vh;
   max-height: 800px;
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CloseButton = styled.button`
