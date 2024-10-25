@@ -57,6 +57,7 @@ const SearchSection = ({ accessToken }) => {
     event.preventDefault();
     const searchTerm = searchElement.current.value;
     setSearchTerm(searchTerm);
+    const encodedTerm = encodeURIComponent(searchTerm).replace(/%25/g, '%25');
     if (searchType === 'member') {
       if (!accessToken || accessToken.trim() === '') {
         setShowModal(true);
@@ -64,7 +65,7 @@ const SearchSection = ({ accessToken }) => {
         router.push(`/profile/${searchTerm}`);
       }
     } else if (searchType === 'post') {
-      router.push(`/search/${searchTerm}`);
+      router.push(`/search/${encodedTerm}`);
     }
   };
 
@@ -72,6 +73,7 @@ const SearchSection = ({ accessToken }) => {
     setSearchTerm(item);
     searchElement.current.value = item;
     setAutoCompleteResults([]);
+    const encodedItem = encodeURIComponent(item).replace(/%25/g, '%25');
     if (searchType === 'member') {
       if (!accessToken || accessToken.trim() === '') {
         setShowModal(true);
@@ -79,7 +81,7 @@ const SearchSection = ({ accessToken }) => {
         router.push(`/profile/${item}`);
       }
     } else if (searchType === 'post') {
-      router.push(`/search/${item}`);
+      router.push(`/search/${encodedItem}`);
     }
   };
 
