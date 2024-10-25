@@ -57,7 +57,7 @@ const SearchSection = ({ accessToken }) => {
     event.preventDefault();
     const searchTerm = searchElement.current.value;
     setSearchTerm(searchTerm);
-    const encodedTerm = encodeURIComponent(searchTerm).replace(/%25/g, '%2525');
+    const encodedTerm = encodeURIComponent(searchTerm).replace(/%25/g, '%25');
     if (searchType === 'member') {
       if (!accessToken || accessToken.trim() === '') {
         setShowModal(true);
