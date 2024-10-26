@@ -68,7 +68,7 @@ const StyledWrapper = styled.div`
 
   .profileImg {
     border-radius: 50%;
-    cursor: pointer;
+    object-fit: cover;
   }
 
   .info-container {

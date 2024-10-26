@@ -146,7 +146,8 @@ const StyledWrapper = styled.div`
 
   .profileImg {
     border-radius: 50%;
-    cursor: pointer;
+    object-fit: cover;
+    /* cursor: pointer; */
   }
 
   .info-container {
