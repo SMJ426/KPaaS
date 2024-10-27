@@ -113,35 +113,40 @@ PW: asas1212!
     <img src="https://img.shields.io/badge/Spring_webflux-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/>&nbsp 
     <img src="https://img.shields.io/badge/stomp-000000?style=for-the-badge&logoColor=white"/>&nbsp 
     <img src="https://img.shields.io/badge/SMTP-000000?style=for-the-badge&logoColor=white"/>&nbsp 
-    
   </td>
 </tr>
 
 <tr>
   <td align="center">Cloud</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/docker-257bd6?style=for-the-badge&logo=docker&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Ncloud Kubernetes Service-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
   </td>
 </tr>
 
 <tr>
   <td align="center">DataBase</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"/>&nbsp 
   </td>
 </tr>
 
 <tr>
   <td align="center">Storage</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/NCP Object Storage-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
   </td>
 </tr>
 
 <tr>
   <td align="center">API</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/kakao map api-FFCD00?style=for-the-badge&logo=kakao&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/공공 데이터 포털 API(대한장애인체육회_장애인전용체육시설 API)-000000?style=for-the-badge&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/PortOne API(PG사)-000000?style=for-the-badge&logoColor=white"/>&nbsp 
   </td>
 </tr>
 
