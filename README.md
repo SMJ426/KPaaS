@@ -211,6 +211,43 @@ PW: asas1212!
 |---|---|
 |<img width="600" height="320" src="https://github.com/user-attachments/assets/3fa650db-79ce-4756-92e9-e90989891b51">|<img width="600" height="320" src="https://github.com/user-attachments/assets/1000dc62-2943-4798-9041-603176e9e6ac">|
 
+<br />
+
+|회원가입 페이지|PT 강좌 목록 패이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+
+<br />
+
+|PT 강좌 검색|PT 강좌 상세 페이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/c75ece74-85f9-49f2-bdaa-aebaad644a2c">|<img width="600" height="320" src="https://github.com/user-attachments/assets/175b0ff9-17f9-42e9-be4a-d722f0722a2f">|
+
+<br />
+
+|PT 강좌 등록 페이지|개인 프로필 페이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/d368d416-319e-401f-9442-ea3243b36612">|<img width="600" height="320" src="https://github.com/user-attachments/assets/f4d9fca8-cc6f-4a7a-912f-3e2227c26161">|
+
+<br />
+
+|장바구니 페이지|결제 페이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+
+<br />
+
+|채팅 페이지 (1:1, 단체채팅)|강사 및 회원 검색 페이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+
+<br />
+
+|회원가입 페이지|PT 강좌 목록 패이지|
+|---|---|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+
+<br />
 
 
 
