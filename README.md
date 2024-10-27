@@ -233,24 +233,13 @@ PW: asas1212!
 
 |장바구니 페이지|결제 페이지|
 |---|---|
-|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/0d4ec23c-c8e8-4fb0-9f2b-52a62573ac4c">|<img width="600" height="320" src="https://github.com/user-attachments/assets/0e993a90-9997-4698-942b-96d58524276c">|
 
 <br />
 
 |채팅 페이지 (1:1, 단체채팅)|강사 및 회원 검색 페이지|
 |---|---|
-|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
+|<img width="600" height="320" src="https://github.com/user-attachments/assets/36d55e1a-aaba-408f-b2bc-db832bc2a635">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b174ad5c-0ec5-45e8-bcdd-139da1bfd251">|
 
 <br />
 
-|회원가입 페이지|PT 강좌 목록 패이지|
-|---|---|
-|<img width="600" height="320" src="https://github.com/user-attachments/assets/f38427f8-7fbe-4891-9591-36330a4a193e">|<img width="600" height="320" src="https://github.com/user-attachments/assets/b6fd3ad0-671b-4602-857f-6064188a9d18">|
-
-<br />
-
-
-
-
-
-<br>
