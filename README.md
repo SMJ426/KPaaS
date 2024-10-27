@@ -151,21 +151,24 @@ PW: asas1212!
 </tr>
 
 <tr>
-  <td align="center">monitoring</td>
+  <td align="center">Monitoring</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=Grafana&logoColor=white"/>&nbsp 
   </td>
 </tr>
 
 <tr>
   <td align="center">CI/CD</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/NCP Source Build-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/NCP Object Container Registry-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/NCP Object Source Deploy-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/NCP Object Source Pipe Line-03C75A?style=for-the-badge&logo=naver&logoColor=white"/>&nbsp 
   </td>
 </tr>
   
 <tr>
- <td align="center">cooperation</td>
+ <td align="center">Cooperation</td>
  <td>
     <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>&nbsp
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>&nbsp 
@@ -179,13 +182,6 @@ PW: asas1212!
  <td>
     <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white"/>&nbsp
     <img src="https://img.shields.io/badge/Intellij%20Idea-000?logo=intellij-idea&style=for-the-badge"/>
-
-</tr>
-
-<tr>
- <td align="center">convention</td>
- <td>
-    <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"/>&nbsp
 </tr>
 
 </table>
