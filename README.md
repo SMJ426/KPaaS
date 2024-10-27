@@ -67,12 +67,10 @@ PW: asas1212!
 |<img alt="민재 프로필" src="https://github.com/user-attachments/assets/ae08e409-020d-4d3d-9d6d-91b1f5babfbd" width="200" height="200">|<img width="200" height="200" alt="지혁프로필" src="https://github.com/user-attachments/assets/47a337ad-5d27-4e8d-a7bf-53ce6e6f7879">|<img width="200" height="200" alt="지현프로필" src="https://github.com/user-attachments/assets/a2f66640-dc98-4aea-827f-bcc6ad973cf3">|<img width="200" height="200" alt="민우 프로필" src="https://github.com/user-attachments/assets/254d7b40-2513-4dd4-becd-81f4b8da8104">|
 |[🔗GitHub](https://github.com/SMJ426)|[🔗GitHub](https://github.com/jihyuk0414)|[🔗GitHub](https://github.com/stophyeon)|[🔗GitHub](https://github.com/KimMinWoooo)|
 | - 프론트 담당 <br> - GitHub & NCP 형상관리 <br> - FE 파이프라인 구축 <br> - 프로젝트 노션 정리 <br>  | - 백엔드 담당  <br> -  <br> -   <br> - | - 백엔드 담당 <br> - FE BE 파이프라인 구축 <br> - <br> -  <br> -  |- 백엔드 담당 <br> -  <br> - |
-| <img alt="프론트엔드 리더" src="https://img.shields.io/badge/Frontend%20Leader-blue"><br /><img alt="커뮤니케이션 리더" src="https://img.shields.io/badge/Communication%20Leader-orange">| <img alt="팀 리더" src="https://img.shields.io/badge/Team%20Leader-yellow"><br /><img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend%20Leader-brightgreen"><br /><img alt="테크닉 리더" src="https://img.shields.io/badge/Technique%20Leader-blue"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /> |
-  <br>
+| <img alt="프론트엔드 리더" src="https://img.shields.io/badge/Frontend%20Leader-blue"><br /><img alt="커뮤니케이션 리더" src="https://img.shields.io/badge/Communication%20Leader-orange">| <img alt="팀 리더" src="https://img.shields.io/badge/Team%20Leader-yellow"><br /><img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend%20Leader-brightgreen"><br /><img alt="테크닉 리더" src="https://img.shields.io/badge/Technique%20Leader-blue"><br /> |<img alt="백엔드" src="https://img.shields.io/badge/Backend-brightgreen"><br />|
 
-                                                                                                                                   |
 
-<br>
+
 
 
 ## 3.⚙️ 개발 환경 및 기술 스택
@@ -98,15 +96,24 @@ PW: asas1212!
   <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>&nbsp
   <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>&nbsp
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>&nbsp
-  <img src="https://img.shields.io/badge/styled--Components-db7093?style=for-the-badge&logo=styled-Components&logoColor=black"/>&nbsp 
   <img src="https://img.shields.io/badge/Axios-white?style=for-the-badge&logo=Axios&logoColor=black"/>&nbsp 
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>&nbsp 
+  <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>&nbsp 
  </td>
 </tr>
   
 <tr>
   <td align="center">Backend</td>
   <td>
-    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring_data_jpa-6DB33F?style=for-the-badge&logo=SpringSecurity&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring_cloud-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring_cloud_Gateway-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/Spring_webflux-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/stomp-000000?style=for-the-badge&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/SMTP-000000?style=for-the-badge&logoColor=white"/>&nbsp 
+    
   </td>
 </tr>
 
