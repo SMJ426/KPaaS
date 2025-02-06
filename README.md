@@ -45,19 +45,6 @@ PTFD는 전문 강사가 게시한 PT 강좌를 **검색**, **예약**, **결제
 
 * 현재 테스트용 결제 채널을 사용하여 게시물 결제를 진행하므로 모바일 카카오페이로 끝까지 결제하셔도 **실제 과금**이 이루어지지 않습니다.
 
-```
-장애인 회원 ROLE 계정 (gmail도 동일)
-ID: kpaasmember@gmail.com
-PW: asas1212!
-```
-
-```
-전문 강사 ROLE 계정 (gmail도 동일)
-ID: kpaasteacher@gmail.com
-PW: asas1212!
-```
-
-
 
 
 ## 2.🤼 팀원 소개
